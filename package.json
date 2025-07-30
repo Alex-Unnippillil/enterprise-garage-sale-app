@@ -1,0 +1,24 @@
+{
+  "name": "enterprise-garage-sale",
+  "version": "1.0.0",
+  "description": "A modern, full-stack real estate application built with Next.js, Node.js, and AWS services. This enterprise-grade rental apartment application provides a complete solution for property managers and tenants.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@aws-amplify/backend": "^1.16.1",
+    "@aws-amplify/backend-cli": "^1.8.0",
+    "aws-cdk-lib": "^2.204.0",
+    "constructs": "^10.4.2",
+    "esbuild": "^0.25.8",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "aws-amplify": "^6.15.4"
+  }
+}

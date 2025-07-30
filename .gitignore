@@ -161,3 +161,8 @@ server/dist/
 client/.env
 server/.env
 client/.next/
+
+# amplify
+.amplify
+amplify_outputs*
+amplifyconfiguration*

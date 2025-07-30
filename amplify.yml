@@ -1,19 +1,19 @@
 version: 1
-frontend:
-  phases:
-    preBuild:
-      commands:
-        - npm ci
-    build:
-      commands:
-        - cd client
-        - npm ci
-        - npm run build
-  artifacts:
-    baseDirectory: client/out
-    files:
-      - '**/*'
-  cache:
-    paths:
-      - client/node_modules/**/*
-      - node_modules/**/* 
+applications:
+  - appRoot: client
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - npm ci
+        build:
+          commands:
+            - npm ci
+            - npm run build
+      artifacts:
+        baseDirectory: out
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/* 

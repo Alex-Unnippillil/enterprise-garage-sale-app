@@ -1,7 +1,9 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
@@ -16,184 +18,251 @@ import {
   Line,
   PieChart,
   Pie,
-  Cell
+  Cell,
+  AreaChart,
+  Area
 } from "recharts";
 import { 
-  Building2, 
-  Users, 
+  TrendingUp, 
+  TrendingDown, 
   DollarSign, 
-  TrendingUp,
+  Users, 
+  Building, 
   Calendar,
-  MapPin,
-  Star
+  AlertCircle,
+  CheckCircle,
+  Clock,
+  FileText,
+  MessageCircle,
+  Wrench
 } from "lucide-react";
-import Header from "@/components/Header";
-import Loading from "@/components/Loading";
-import { useGetAuthUserQuery, useGetManagerPropertiesQuery } from "@/state/api";
 
-const Analytics = () => {
-  const { data: authUser } = useGetAuthUserQuery();
-  const { data: properties, isLoading } = useGetManagerPropertiesQuery(
-    authUser?.cognitoInfo?.userId || "",
-    {
-      skip: !authUser?.cognitoInfo?.userId,
+interface AnalyticsData {
+  revenue: {
+    total: number;
+    change: number;
+    monthly: Array<{ month: string; amount: number }>;
+  };
+  properties: {
+    total: number;
+    occupied: number;
+    vacant: number;
+    occupancyRate: number;
+  };
+  applications: {
+    total: number;
+    pending: number;
+    approved: number;
+    rejected: number;
+    monthly: Array<{ month: string; count: number }>;
+  };
+  maintenance: {
+    total: number;
+    pending: number;
+    inProgress: number;
+    completed: number;
+    monthly: Array<{ month: string; count: number }>;
+  };
+  tenants: {
+    total: number;
+    active: number;
+    newThisMonth: number;
+    retentionRate: number;
+  };
+  messages: {
+    total: number;
+    unread: number;
+    responseRate: number;
+    avgResponseTime: number;
+  };
+}
+
+const AnalyticsPage: React.FC = () => {
+  const [timeRange, setTimeRange] = useState("30");
+  const [analyticsData, setAnalyticsData] = useState<AnalyticsData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchAnalyticsData();
+  }, [timeRange]);
+
+  const fetchAnalyticsData = async () => {
+    try {
+      setLoading(true);
+      const response = await fetch(`/api/analytics?timeRange=${timeRange}`);
+      const data = await response.json();
+      setAnalyticsData(data);
+    } catch (error) {
+      console.error("Failed to fetch analytics data:", error);
+    } finally {
+      setLoading(false);
     }
-  );
-
-  if (isLoading) return <Loading />;
-
-  // Mock data for analytics - in a real app, this would come from the API
-  const analyticsData = {
-    totalProperties: properties?.length || 0,
-    totalApplications: 24,
-    totalRevenue: 45600,
-    occupancyRate: 87,
-    averageRating: 4.2,
-    monthlyRevenue: [
-      { month: "Jan", revenue: 12000 },
-      { month: "Feb", revenue: 13500 },
-      { month: "Mar", revenue: 14200 },
-      { month: "Apr", revenue: 13800 },
-      { month: "May", revenue: 15600 },
-      { month: "Jun", revenue: 16200 },
-    ],
-    propertyTypes: [
-      { name: "Apartment", value: 8, color: "#8884d8" },
-      { name: "Townhouse", value: 3, color: "#82ca9d" },
-      { name: "Villa", value: 2, color: "#ffc658" },
-      { name: "Cottage", value: 1, color: "#ff7300" },
-    ],
-    applicationStatus: [
-      { status: "Pending", count: 8, color: "#fbbf24" },
-      { status: "Approved", count: 12, color: "#10b981" },
-      { status: "Denied", count: 4, color: "#ef4444" },
-    ],
   };
 
-  const StatCard = ({ 
-    title, 
-    value, 
-    icon: Icon, 
-    trend, 
-    trendValue 
-  }: {
-    title: string;
-    value: string | number;
-    icon: React.ElementType;
-    trend?: "up" | "down";
-    trendValue?: string;
-  }) => (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">{title}</CardTitle>
-        <Icon className="h-4 w-4 text-muted-foreground" />
-      </CardHeader>
-      <CardContent>
-        <div className="text-2xl font-bold">{value}</div>
-        {trend && trendValue && (
-          <p className={`text-xs flex items-center gap-1 ${
-            trend === "up" ? "text-green-600" : "text-red-600"
-          }`}>
-            <TrendingUp className="h-3 w-3" />
-            {trendValue}
-          </p>
-        )}
-      </CardContent>
-    </Card>
-  );
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
+
+  if (!analyticsData) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <p className="text-gray-500">Failed to load analytics data</p>
+      </div>
+    );
+  }
+
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
   return (
-    <div className="dashboard-container">
-      <Header
-        title="Analytics Dashboard"
-        subtitle="Track your property performance and business metrics"
-      />
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-3xl font-bold">Analytics Dashboard</h1>
+          <p className="text-gray-600">Monitor your property management performance</p>
+        </div>
+        <div className="flex items-center space-x-4">
+          <Select value={timeRange} onValueChange={setTimeRange}>
+            <SelectTrigger className="w-32">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="7">Last 7 days</SelectItem>
+              <SelectItem value="30">Last 30 days</SelectItem>
+              <SelectItem value="90">Last 90 days</SelectItem>
+              <SelectItem value="365">Last year</SelectItem>
+            </SelectContent>
+          </Select>
+          <Button onClick={fetchAnalyticsData} variant="outline">
+            Refresh
+          </Button>
+        </div>
+      </div>
 
       {/* Key Metrics */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <StatCard
-          title="Total Properties"
-          value={analyticsData.totalProperties}
-          icon={Building2}
-          trend="up"
-          trendValue="+2 this month"
-        />
-        <StatCard
-          title="Total Applications"
-          value={analyticsData.totalApplications}
-          icon={Users}
-          trend="up"
-          trendValue="+5 this week"
-        />
-        <StatCard
-          title="Monthly Revenue"
-          value={`$${analyticsData.totalRevenue.toLocaleString()}`}
-          icon={DollarSign}
-          trend="up"
-          trendValue="+12% vs last month"
-        />
-        <StatCard
-          title="Occupancy Rate"
-          value={`${analyticsData.occupancyRate}%`}
-          icon={Calendar}
-          trend="up"
-          trendValue="+3% vs last month"
-        />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
+            <DollarSign className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              ${analyticsData.revenue.total.toLocaleString()}
+            </div>
+            <div className={`flex items-center text-xs ${
+              analyticsData.revenue.change >= 0 ? 'text-green-600' : 'text-red-600'
+            }`}>
+              {analyticsData.revenue.change >= 0 ? (
+                <TrendingUp className="h-3 w-3 mr-1" />
+              ) : (
+                <TrendingDown className="h-3 w-3 mr-1" />
+              )}
+              {Math.abs(analyticsData.revenue.change)}% from last period
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Occupancy Rate</CardTitle>
+            <Building className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {analyticsData.properties.occupancyRate}%
+            </div>
+            <div className="text-xs text-muted-foreground">
+              {analyticsData.properties.occupied} of {analyticsData.properties.total} properties
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Active Tenants</CardTitle>
+            <Users className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {analyticsData.tenants.active}
+            </div>
+            <div className="text-xs text-muted-foreground">
+              {analyticsData.tenants.newThisMonth} new this month
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Response Rate</CardTitle>
+            <MessageCircle className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">
+              {analyticsData.messages.responseRate}%
+            </div>
+            <div className="text-xs text-muted-foreground">
+              Avg {analyticsData.messages.avgResponseTime}h response time
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       {/* Charts */}
       <Tabs defaultValue="revenue" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="revenue">Revenue Trends</TabsTrigger>
-          <TabsTrigger value="properties">Property Distribution</TabsTrigger>
-          <TabsTrigger value="applications">Application Status</TabsTrigger>
+          <TabsTrigger value="revenue">Revenue</TabsTrigger>
+          <TabsTrigger value="applications">Applications</TabsTrigger>
+          <TabsTrigger value="maintenance">Maintenance</TabsTrigger>
+          <TabsTrigger value="properties">Properties</TabsTrigger>
         </TabsList>
 
         <TabsContent value="revenue" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Monthly Revenue Trends</CardTitle>
+              <CardTitle>Revenue Trend</CardTitle>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
-                <LineChart data={analyticsData.monthlyRevenue}>
+                <AreaChart data={analyticsData.revenue.monthly}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis dataKey="month" />
                   <YAxis />
-                  <Tooltip formatter={(value) => [`$${value}`, "Revenue"]} />
-                  <Line 
-                    type="monotone" 
-                    dataKey="revenue" 
-                    stroke="#8884d8" 
-                    strokeWidth={2}
-                  />
-                </LineChart>
+                  <Tooltip formatter={(value) => [`$${value}`, 'Revenue']} />
+                  <Area type="monotone" dataKey="amount" stroke="#8884d8" fill="#8884d8" />
+                </AreaChart>
               </ResponsiveContainer>
             </CardContent>
           </Card>
         </TabsContent>
 
-        <TabsContent value="properties" className="space-y-4">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <TabsContent value="applications" className="space-y-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle>Property Types Distribution</CardTitle>
+                <CardTitle>Application Status</CardTitle>
               </CardHeader>
               <CardContent>
                 <ResponsiveContainer width="100%" height={300}>
                   <PieChart>
                     <Pie
-                      data={analyticsData.propertyTypes}
+                      data={[
+                        { name: 'Pending', value: analyticsData.applications.pending },
+                        { name: 'Approved', value: analyticsData.applications.approved },
+                        { name: 'Rejected', value: analyticsData.applications.rejected }
+                      ]}
                       cx="50%"
                       cy="50%"
-                      labelLine={false}
-                      label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
                       outerRadius={80}
                       fill="#8884d8"
                       dataKey="value"
                     >
-                      {analyticsData.propertyTypes.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.color} />
+                      {COLORS.map((color, index) => (
+                        <Cell key={`cell-${index}`} fill={color} />
                       ))}
                     </Pie>
                     <Tooltip />
@@ -204,66 +273,130 @@ const Analytics = () => {
 
             <Card>
               <CardHeader>
-                <CardTitle>Property Performance</CardTitle>
+                <CardTitle>Applications Over Time</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <Star className="h-4 w-4 text-yellow-500" />
-                    <span>Average Rating</span>
-                  </div>
-                  <Badge variant="secondary">{analyticsData.averageRating}/5.0</Badge>
-                </div>
-                
-                <div className="space-y-2">
-                  {properties?.map((property) => (
-                    <div key={property.id} className="flex items-center justify-between p-2 border rounded">
-                      <div className="flex items-center gap-2">
-                        <MapPin className="h-4 w-4 text-muted-foreground" />
-                        <span className="text-sm">{property.name}</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <Badge variant="outline">${property.pricePerMonth}/mo</Badge>
-                        <Badge variant="secondary">{property.averageRating || 0}/5</Badge>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={300}>
+                  <BarChart data={analyticsData.applications.monthly}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="month" />
+                    <YAxis />
+                    <Tooltip />
+                    <Bar dataKey="count" fill="#8884d8" />
+                  </BarChart>
+                </ResponsiveContainer>
               </CardContent>
             </Card>
           </div>
         </TabsContent>
 
-        <TabsContent value="applications" className="space-y-4">
+        <TabsContent value="maintenance" className="space-y-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Maintenance Requests</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Clock className="h-4 w-4 text-yellow-500" />
+                      <span>Pending</span>
+                    </div>
+                    <Badge variant="secondary">{analyticsData.maintenance.pending}</Badge>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <Wrench className="h-4 w-4 text-blue-500" />
+                      <span>In Progress</span>
+                    </div>
+                    <Badge variant="secondary">{analyticsData.maintenance.inProgress}</Badge>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-2">
+                      <CheckCircle className="h-4 w-4 text-green-500" />
+                      <span>Completed</span>
+                    </div>
+                    <Badge variant="secondary">{analyticsData.maintenance.completed}</Badge>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card>
+              <CardHeader>
+                <CardTitle>Maintenance Trend</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ResponsiveContainer width="100%" height={300}>
+                  <LineChart data={analyticsData.maintenance.monthly}>
+                    <CartesianGrid strokeDasharray="3 3" />
+                    <XAxis dataKey="month" />
+                    <YAxis />
+                    <Tooltip />
+                    <Line type="monotone" dataKey="count" stroke="#8884d8" />
+                  </LineChart>
+                </ResponsiveContainer>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        <TabsContent value="properties" className="space-y-4">
           <Card>
             <CardHeader>
-              <CardTitle>Application Status Overview</CardTitle>
+              <CardTitle>Property Performance</CardTitle>
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
-                <BarChart data={analyticsData.applicationStatus}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="status" />
-                  <YAxis />
-                  <Tooltip />
-                  <Bar dataKey="count" fill="#8884d8" />
-                </BarChart>
-              </ResponsiveContainer>
-              
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-                {analyticsData.applicationStatus.map((status) => (
-                  <div key={status.status} className="flex items-center justify-between p-3 border rounded">
-                    <span className="text-sm font-medium">{status.status}</span>
-                    <Badge variant="secondary">{status.count}</Badge>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-green-600">
+                    {analyticsData.properties.occupied}
                   </div>
-                ))}
+                  <div className="text-sm text-muted-foreground">Occupied</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-red-600">
+                    {analyticsData.properties.vacant}
+                  </div>
+                  <div className="text-sm text-muted-foreground">Vacant</div>
+                </div>
+                <div className="text-center">
+                  <div className="text-2xl font-bold text-blue-600">
+                    {analyticsData.properties.total}
+                  </div>
+                  <div className="text-sm text-muted-foreground">Total</div>
+                </div>
               </div>
             </CardContent>
           </Card>
         </TabsContent>
       </Tabs>
+
+      {/* Quick Actions */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Quick Actions</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <Button variant="outline" className="h-20 flex flex-col items-center justify-center">
+              <FileText className="h-6 w-6 mb-2" />
+              <span>View Applications</span>
+            </Button>
+            <Button variant="outline" className="h-20 flex flex-col items-center justify-center">
+              <Wrench className="h-6 w-6 mb-2" />
+              <span>Maintenance Requests</span>
+            </Button>
+            <Button variant="outline" className="h-20 flex flex-col items-center justify-center">
+              <MessageCircle className="h-6 w-6 mb-2" />
+              <span>Messages</span>
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
 
-export default Analytics; 
+export default AnalyticsPage; 

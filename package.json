@@ -4,9 +4,17 @@
   "description": "A modern, full-stack real estate application built with Next.js, Node.js, and AWS services. This enterprise-grade rental apartment application provides a complete solution for property managers and tenants.",
   "main": "index.js",
   "scripts": {
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:client": "cd client && npm run dev",
+    "dev:server": "cd server && npm run dev",
+    "build": "npm run build:server && npm run build:client",
+    "build:client": "cd client && npm run build",
+    "build:server": "cd server && npm run build",
+    "start": "cd server && npm start",
+    "install:all": "npm install && cd client && npm install && cd ../server && npm install",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": ["real-estate", "rental", "property-management", "nextjs", "nodejs", "aws"],
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -16,7 +24,8 @@
     "constructs": "^10.4.2",
     "esbuild": "^0.25.8",
     "tsx": "^4.20.3",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "concurrently": "^9.2.0"
   },
   "dependencies": {
     "aws-amplify": "^6.15.4"

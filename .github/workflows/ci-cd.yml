@@ -1,0 +1,268 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  NODE_VERSION: '18'
+  AWS_REGION: us-east-1
+
+jobs:
+  # Lint and Test Frontend
+  frontend-test:
+    name: Frontend Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        cache-dependency-path: client/package-lock.json
+        
+    - name: Install frontend dependencies
+      working-directory: ./client
+      run: npm ci
+      
+    - name: Run frontend linting
+      working-directory: ./client
+      run: npm run lint
+      
+    - name: Run frontend tests
+      working-directory: ./client
+      run: npm run test:ci
+      
+    - name: Build frontend
+      working-directory: ./client
+      run: npm run build
+      env:
+        NEXT_PUBLIC_API_BASE_URL: ${{ secrets.NEXT_PUBLIC_API_BASE_URL }}
+        NEXT_PUBLIC_AWS_COGNITO_USER_POOL_ID: ${{ secrets.NEXT_PUBLIC_AWS_COGNITO_USER_POOL_ID }}
+        NEXT_PUBLIC_AWS_COGNITO_USER_POOL_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_AWS_COGNITO_USER_POOL_CLIENT_ID }}
+        NEXT_PUBLIC_AWS_REGION: ${{ env.AWS_REGION }}
+        NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
+        NEXT_PUBLIC_MAPBOX_TOKEN: ${{ secrets.NEXT_PUBLIC_MAPBOX_TOKEN }}
+
+  # Lint and Test Backend
+  backend-test:
+    name: Backend Tests
+    runs-on: ubuntu-latest
+    
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+          
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+        cache-dependency-path: server/package-lock.json
+        
+    - name: Install backend dependencies
+      working-directory: ./server
+      run: npm ci
+      
+    - name: Setup database
+      working-directory: ./server
+      run: |
+        npx prisma generate
+        npx prisma migrate deploy
+        npx prisma db seed
+      env:
+        DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/test_db"
+        
+    - name: Run backend linting
+      working-directory: ./server
+      run: npm run lint
+      
+    - name: Run backend tests
+      working-directory: ./server
+      run: npm run test:ci
+      env:
+        DATABASE_URL: "postgresql://postgres:postgres@localhost:5432/test_db"
+        NODE_ENV: test
+        
+    - name: Build backend
+      working-directory: ./server
+      run: npm run build
+
+  # Security Scan
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    needs: [frontend-test, backend-test]
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+        
+    - name: Upload Trivy scan results to GitHub Security tab
+      uses: github/codeql-action/upload-sarif@v2
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'
+
+  # Deploy to Staging
+  deploy-staging:
+    name: Deploy to Staging
+    runs-on: ubuntu-latest
+    needs: [frontend-test, backend-test, security-scan]
+    if: github.ref == 'refs/heads/develop'
+    environment: staging
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+        
+    - name: Deploy infrastructure
+      working-directory: ./infrastructure/terraform
+      run: |
+        terraform init
+        terraform plan -var="environment=staging" -out=tfplan
+        terraform apply tfplan
+      env:
+        TF_VAR_database_password: ${{ secrets.DATABASE_PASSWORD }}
+        TF_VAR_domain_name: ${{ secrets.STAGING_DOMAIN }}
+        
+    - name: Deploy backend to EC2
+      working-directory: ./server
+      run: |
+        npm run build
+        npm run deploy:staging
+      env:
+        DATABASE_URL: ${{ secrets.STAGING_DATABASE_URL }}
+        AWS_REGION: ${{ env.AWS_REGION }}
+        EC2_INSTANCE_ID: ${{ secrets.STAGING_EC2_INSTANCE_ID }}
+        
+    - name: Deploy frontend to Amplify
+      working-directory: ./client
+      run: |
+        npm run build
+        npm run deploy:staging
+      env:
+        NEXT_PUBLIC_API_BASE_URL: ${{ secrets.STAGING_API_URL }}
+        NEXT_PUBLIC_AWS_COGNITO_USER_POOL_ID: ${{ secrets.NEXT_PUBLIC_AWS_COGNITO_USER_POOL_ID }}
+        NEXT_PUBLIC_AWS_COGNITO_USER_POOL_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_AWS_COGNITO_USER_POOL_CLIENT_ID }}
+        NEXT_PUBLIC_AWS_REGION: ${{ env.AWS_REGION }}
+        NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
+        NEXT_PUBLIC_MAPBOX_TOKEN: ${{ secrets.NEXT_PUBLIC_MAPBOX_TOKEN }}
+
+  # Deploy to Production
+  deploy-production:
+    name: Deploy to Production
+    runs-on: ubuntu-latest
+    needs: [frontend-test, backend-test, security-scan]
+    if: github.ref == 'refs/heads/main'
+    environment: production
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+        
+    - name: Deploy infrastructure
+      working-directory: ./infrastructure/terraform
+      run: |
+        terraform init
+        terraform plan -var="environment=production" -out=tfplan
+        terraform apply tfplan
+      env:
+        TF_VAR_database_password: ${{ secrets.DATABASE_PASSWORD }}
+        TF_VAR_domain_name: ${{ secrets.PRODUCTION_DOMAIN }}
+        
+    - name: Deploy backend to EC2
+      working-directory: ./server
+      run: |
+        npm run build
+        npm run deploy:production
+      env:
+        DATABASE_URL: ${{ secrets.PRODUCTION_DATABASE_URL }}
+        AWS_REGION: ${{ env.AWS_REGION }}
+        EC2_INSTANCE_ID: ${{ secrets.PRODUCTION_EC2_INSTANCE_ID }}
+        
+    - name: Deploy frontend to Amplify
+      working-directory: ./client
+      run: |
+        npm run build
+        npm run deploy:production
+      env:
+        NEXT_PUBLIC_API_BASE_URL: ${{ secrets.PRODUCTION_API_URL }}
+        NEXT_PUBLIC_AWS_COGNITO_USER_POOL_ID: ${{ secrets.NEXT_PUBLIC_AWS_COGNITO_USER_POOL_ID }}
+        NEXT_PUBLIC_AWS_COGNITO_USER_POOL_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_AWS_COGNITO_USER_POOL_CLIENT_ID }}
+        NEXT_PUBLIC_AWS_REGION: ${{ env.AWS_REGION }}
+        NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
+        NEXT_PUBLIC_MAPBOX_TOKEN: ${{ secrets.NEXT_PUBLIC_MAPBOX_TOKEN }}
+        
+    - name: Run smoke tests
+      run: |
+        npm run test:smoke
+      env:
+        STAGING_URL: ${{ secrets.STAGING_URL }}
+        PRODUCTION_URL: ${{ secrets.PRODUCTION_URL }}
+
+  # Notify Deployment
+  notify:
+    name: Notify Deployment
+    runs-on: ubuntu-latest
+    needs: [deploy-staging, deploy-production]
+    if: always()
+    
+    steps:
+    - name: Notify Slack
+      uses: 8398a7/action-slack@v3
+      with:
+        status: ${{ job.status }}
+        channel: '#deployments'
+        webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+      if: always()
+      
+    - name: Create deployment summary
+      run: |
+        echo "## Deployment Summary" >> $GITHUB_STEP_SUMMARY
+        echo "- Environment: ${{ needs.deploy-staging.result || needs.deploy-production.result }}" >> $GITHUB_STEP_SUMMARY
+        echo "- Status: ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+        echo "- Commit: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+        echo "- Author: ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY 

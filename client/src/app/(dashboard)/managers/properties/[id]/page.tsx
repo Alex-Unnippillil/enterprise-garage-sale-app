@@ -2,6 +2,7 @@
 
 import Header from "@/components/Header";
 import Loading from "@/components/Loading";
+import DocumentManager from "@/components/DocumentManager";
 import {
   Table,
   TableBody,
@@ -152,6 +153,18 @@ const PropertyTenants = () => {
               </TableBody>
             </Table>
           </div>
+        </div>
+
+        {/* Property Documents Section */}
+        <div className="mt-8">
+          <DocumentManager
+            propertyId={propertyId}
+            title="Property Documents"
+            description="Manage lease agreements, maintenance records, and other property-related documents"
+            showUploadButton={true}
+            showSearch={true}
+            maxHeight="500px"
+          />
         </div>
       </div>
     </div>

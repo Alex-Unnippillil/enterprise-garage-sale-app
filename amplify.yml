@@ -6,14 +6,32 @@ applications:
         preBuild:
           commands:
             - npm ci
+            - echo "Setting up environment variables"
         build:
           commands:
+            - echo "Building the application"
+            - npm run build
+      artifacts:
+        baseDirectory: .next
+        files:
+          - '**/*'
+        discard-paths: no
+      cache:
+        paths:
+          - node_modules/**/*
+          - .next/cache/**/*
+      test:
+        commands:
+          - npm run lint
+    backend:
+      phases:
+        build:
+          commands:
+            - echo "Building backend"
+            - cd ../server
             - npm ci
             - npm run build
       artifacts:
-        baseDirectory: out
+        baseDirectory: ../server/dist
         files:
-          - '**/*'
-      cache:
-        paths:
-          - node_modules/**/* 
+          - '**/*' 

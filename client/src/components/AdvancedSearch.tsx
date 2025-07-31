@@ -25,7 +25,7 @@ import {
   UtensilsCrossed
 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilters, toggleFiltersFullOpen } from "@/state";
+import { setFilters, toggleFiltersFullOpen, FiltersState } from "../state";
 import { AmenityEnum, HighlightEnum, PropertyTypeEnum } from "@/lib/constants";
 
 interface AdvancedSearchProps {
@@ -69,10 +69,11 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = ({ onSearch, className }) 
       baths: "any",
       propertyType: "any",
       amenities: [],
-      priceRange: [null, null],
-      squareFeet: [null, null],
+      highlights: [],
+      priceRange: [null, null] as [null, null],
+      squareFeet: [null, null] as [null, null],
       availableFrom: "any",
-      coordinates: [-118.25, 34.05],
+      coordinates: [-118.25, 34.05] as [number, number],
     };
     setLocalFilters(resetFilters);
     dispatch(setFilters(resetFilters));
@@ -212,8 +213,8 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = ({ onSearch, className }) 
                     </span>
                   </div>
                   <Slider
-                    value={localFilters.priceRange.map(v => v || 0)}
-                    onValueChange={(value) => handleFilterChange("priceRange", value)}
+                    value={localFilters.priceRange.map((v: number | null) => v || 0)}
+                    onValueChange={(value: number[]) => handleFilterChange("priceRange", value)}
                     max={10000}
                     min={0}
                     step={100}
@@ -270,8 +271,8 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = ({ onSearch, className }) 
                     </span>
                   </div>
                   <Slider
-                    value={localFilters.squareFeet.map(v => v || 0)}
-                    onValueChange={(value) => handleFilterChange("squareFeet", value)}
+                    value={localFilters.squareFeet.map((v: number | null) => v || 0)}
+                    onValueChange={(value: number[]) => handleFilterChange("squareFeet", value)}
                     max={5000}
                     min={0}
                     step={100}

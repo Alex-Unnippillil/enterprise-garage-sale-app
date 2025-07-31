@@ -12,10 +12,35 @@ declare global {
       user?: {
         id: string;
         role: string;
+        cognitoId: string;
       };
     }
   }
 }
+
+export const authenticateToken = (req: Request, res: Response, next: NextFunction): void => {
+  const token = req.headers.authorization?.split(" ")[1];
+
+  if (!token) {
+    res.status(401).json({ message: "Unauthorized" });
+    return;
+  }
+
+  try {
+    const decoded = jwt.decode(token) as DecodedToken;
+    req.user = {
+      id: decoded.sub,
+      role: decoded["custom:role"] || "",
+      cognitoId: decoded.sub,
+    };
+  } catch (err) {
+    console.error("Failed to decode token:", err);
+    res.status(400).json({ message: "Invalid token" });
+    return;
+  }
+
+  next();
+};
 
 export const authMiddleware = (allowedRoles: string[]) => {
   return (req: Request, res: Response, next: NextFunction): void => {
@@ -32,6 +57,7 @@ export const authMiddleware = (allowedRoles: string[]) => {
       req.user = {
         id: decoded.sub,
         role: userRole,
+        cognitoId: decoded.sub,
       };
 
       const hasAccess = allowedRoles.includes(userRole.toLowerCase());

@@ -63,6 +63,73 @@ enum PaymentStatus {
   Paid
   PartiallyPaid
   Overdue
+  Failed
+  Refunded
+}
+
+enum PaymentMethod {
+  CreditCard
+  DebitCard
+  BankTransfer
+  PayPal
+  Stripe
+  Cash
+}
+
+enum MaintenanceStatus {
+  Pending
+  InProgress
+  Completed
+  Cancelled
+}
+
+enum MaintenancePriority {
+  Low
+  Medium
+  High
+  Emergency
+}
+
+enum NotificationType {
+  Payment
+  Maintenance
+  Application
+  Message
+  System
+}
+
+enum MessageStatus {
+  Sent
+  Delivered
+  Read
+}
+
+enum DocumentType {
+  Lease
+  Application
+  Maintenance
+  Payment
+  Notice
+}
+
+enum ViewingStatus {
+  Pending
+  Confirmed
+  Cancelled
+  Completed
+}
+
+enum FollowUpType {
+  Phone
+  Email
+  InPerson
+  Video
+}
+
+enum FollowUpStatus {
+  Scheduled
+  Completed
+  Cancelled
 }
 
 model Property {
@@ -86,6 +153,9 @@ model Property {
   numberOfReviews   Int?         @default(0)
   locationId        Int
   managerCognitoId  String
+  isAvailable       Boolean      @default(true)
+  virtualTourUrl    String?
+  floorPlanUrl      String?
 
   location     Location      @relation(fields: [locationId], references: [id])
   manager      Manager       @relation(fields: [managerCognitoId], references: [cognitoId])
@@ -93,6 +163,12 @@ model Property {
   applications Application[]
   favoritedBy  Tenant[]      @relation("TenantFavorites")
   tenants      Tenant[]      @relation("TenantProperties")
+  maintenanceRequests MaintenanceRequest[]
+  scheduledMaintenance ScheduledMaintenance[]
+  reviews      Review[]
+  documents    Document[]
+  viewings     Viewing[]
+  virtualTours VirtualTour[]
 }
 
 model Manager {
@@ -101,8 +177,17 @@ model Manager {
   name        String
   email       String
   phoneNumber String
+  companyName String?
+  licenseNumber String?
+  isVerified  Boolean @default(false)
 
   managedProperties Property[]
+  sentMessages     Message[] @relation("ManagerSentMessages")
+  receivedMessages Message[] @relation("ManagerReceivedMessages")
+  notifications    Notification[]
+  viewings         Viewing[]
+  followUps        FollowUp[]
+  maintenanceRequests MaintenanceRequest[]
 }
 
 model Tenant {
@@ -111,11 +196,21 @@ model Tenant {
   name        String
   email       String
   phoneNumber String
+  dateOfBirth DateTime?
+  emergencyContact String?
+  isVerified  Boolean @default(false)
 
   properties   Property[]    @relation("TenantProperties")
   favorites    Property[]    @relation("TenantFavorites")
   applications Application[]
   leases       Lease[]
+  sentMessages     Message[] @relation("TenantSentMessages")
+  receivedMessages Message[] @relation("TenantReceivedMessages")
+  maintenanceRequests MaintenanceRequest[]
+  notifications    Notification[]
+  reviews      Review[]
+  viewings     Viewing[]
+  savedSearches SavedSearch[]
 }
 
 model Location {
@@ -126,6 +221,9 @@ model Location {
   country     String
   postalCode  String
   coordinates Unsupported("geography(Point, 4326)")
+  neighborhood String?
+  schoolDistrict String?
+  crimeRate   Float?
 
   properties Property[]
 }
@@ -141,6 +239,10 @@ model Application {
   phoneNumber     String
   message         String?
   leaseId         Int?              @unique
+  income          Float?
+  creditScore     Int?
+  employmentStatus String?
+  references      String?
 
   property Property @relation(fields: [propertyId], references: [id])
   tenant   Tenant   @relation(fields: [tenantCognitoId], references: [cognitoId])
@@ -155,6 +257,9 @@ model Lease {
   deposit         Float
   propertyId      Int
   tenantCognitoId String
+  isActive        Boolean  @default(true)
+  renewalDate     DateTime?
+  terminationDate DateTime?
 
   property    Property     @relation(fields: [propertyId], references: [id])
   tenant      Tenant       @relation(fields: [tenantCognitoId], references: [cognitoId])
@@ -167,9 +272,216 @@ model Payment {
   amountDue     Float
   amountPaid    Float
   dueDate       DateTime
-  paymentDate   DateTime
+  paymentDate   DateTime?
   paymentStatus PaymentStatus
+  paymentMethod PaymentMethod?
+  stripePaymentId String?
   leaseId       Int
+  lateFee       Float @default(0)
+  description   String?
 
   lease Lease @relation(fields: [leaseId], references: [id])
+}
+
+model MaintenanceRequest {
+  id          Int               @id @default(autoincrement())
+  title       String
+  description String
+  status      MaintenanceStatus @default(Pending)
+  priority    MaintenancePriority @default(Medium)
+  propertyId  Int
+  tenantCognitoId String?
+  managerCognitoId String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  scheduledDate DateTime?
+  completedDate DateTime?
+  photos      String[]
+  estimatedCost Float?
+
+  property Property @relation(fields: [propertyId], references: [id])
+  tenant   Tenant?  @relation(fields: [tenantCognitoId], references: [cognitoId])
+  manager  Manager? @relation(fields: [managerCognitoId], references: [cognitoId])
+}
+
+model Message {
+  id          Int          @id @default(autoincrement())
+  content     String
+  senderId    String
+  senderType  String // "tenant" or "manager"
+  receiverId  String
+  receiverType String // "tenant" or "manager"
+  status      MessageStatus @default(Sent)
+  createdAt   DateTime @default(now())
+  readAt      DateTime?
+  isSystem    Boolean @default(false)
+
+  senderTenant   Tenant?   @relation("TenantSentMessages", fields: [senderId], references: [cognitoId], map: "Message_senderTenant_fkey")
+  receiverTenant Tenant?   @relation("TenantReceivedMessages", fields: [receiverId], references: [cognitoId], map: "Message_receiverTenant_fkey")
+  senderManager   Manager?   @relation("ManagerSentMessages", fields: [senderId], references: [cognitoId], map: "Message_senderManager_fkey")
+  receiverManager Manager?   @relation("ManagerReceivedMessages", fields: [receiverId], references: [cognitoId], map: "Message_receiverManager_fkey")
+}
+
+model Notification {
+  id          Int             @id @default(autoincrement())
+  title       String
+  message     String
+  type        NotificationType
+  userId      String
+  userType    String // "tenant" or "manager"
+  isRead      Boolean @default(false)
+  createdAt   DateTime @default(now())
+  readAt      DateTime?
+  actionUrl   String?
+  metadata    String? // JSON string for additional data
+
+  tenant   Tenant?  @relation(fields: [userId], references: [cognitoId], map: "Notification_tenant_fkey")
+  manager  Manager? @relation(fields: [userId], references: [cognitoId], map: "Notification_manager_fkey")
+}
+
+model Review {
+  id          Int      @id @default(autoincrement())
+  rating      Int
+  comment     String?
+  propertyId  Int
+  tenantCognitoId String
+  createdAt   DateTime @default(now())
+  isVerified  Boolean @default(false)
+
+  property Property @relation(fields: [propertyId], references: [id])
+  tenant   Tenant   @relation(fields: [tenantCognitoId], references: [cognitoId])
+}
+
+model Document {
+  id          Int          @id @default(autoincrement())
+  name        String
+  description String?
+  type        String       // PDF, Image, Document, Spreadsheet, Other
+  category    String       // Lease Agreement, Maintenance, Property Photos, Financial, Legal, Other
+  filePath    String
+  fileName    String
+  fileSize    Int
+  propertyId  Int?
+  isPublic    Boolean      @default(false)
+  uploadedById String
+  uploadedAt  DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  property      Property? @relation(fields: [propertyId], references: [id])
+  uploadedByUser User?    @relation(fields: [uploadedById], references: [cognitoId])
+}
+
+model Viewing {
+  id                Int           @id @default(autoincrement())
+  propertyId        Int
+  tenantCognitoId   String
+  managerCognitoId  String
+  preferredDate     DateTime
+  preferredTime     String
+  confirmedDate     DateTime?
+  confirmedTime     String?
+  status            ViewingStatus @default(Pending)
+  notes             String?
+  managerNotes      String?
+  contactPreference String?
+  cancellationReason String?
+  cancelledAt       DateTime?
+  confirmedAt       DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  property Property @relation(fields: [propertyId], references: [id])
+  tenant   Tenant   @relation(fields: [tenantCognitoId], references: [cognitoId])
+  manager  Manager  @relation(fields: [managerCognitoId], references: [cognitoId])
+  followUps FollowUp[]
+}
+
+model VirtualTour {
+  id          Int      @id @default(autoincrement())
+  propertyId  Int
+  tourUrl     String
+  description String?
+  isActive    Boolean  @default(true)
+  createdBy   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  property Property @relation(fields: [propertyId], references: [id])
+}
+
+model FollowUp {
+  id           Int           @id @default(autoincrement())
+  viewingId    Int
+  followUpDate DateTime
+  followUpTime String
+  notes        String?
+  type         FollowUpType
+  status       FollowUpStatus @default(Scheduled)
+  scheduledBy  String
+  completedAt  DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  viewing Viewing @relation(fields: [viewingId], references: [id])
+  manager Manager @relation(fields: [scheduledBy], references: [cognitoId])
+}
+
+model User {
+  id          Int      @id @default(autoincrement())
+  cognitoId   String   @unique
+  name        String
+  email       String
+  role        String   // "tenant" or "manager"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  uploadedDocuments Document[]
+}
+
+model SavedSearch {
+  id          Int      @id @default(autoincrement())
+  name        String
+  filters     String   // JSON string of search filters
+  tenantCognitoId String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  tenant Tenant @relation(fields: [tenantCognitoId], references: [cognitoId])
+}
+
+model ScheduledMaintenance {
+  id            Int      @id @default(autoincrement())
+  title         String
+  description   String?
+  propertyId    Int
+  frequency     String   // "monthly", "quarterly", "yearly", "custom"
+  interval      Int      // number of days/months/years
+  lastPerformed DateTime?
+  nextDue       DateTime
+  estimatedCost Float    @default(0)
+  priority      String   // "Low", "Medium", "High", "Critical"
+  category      String
+  isActive      Boolean  @default(true)
+  assignedTo    String?
+  notes         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  property Property @relation(fields: [propertyId], references: [id])
+  tasks    ScheduledMaintenanceTask[]
+}
+
+model ScheduledMaintenanceTask {
+  id                    Int      @id @default(autoincrement())
+  scheduledMaintenanceId Int
+  dueDate               DateTime
+  completedDate         DateTime?
+  status                String   // "pending", "completed", "overdue"
+  notes                 String?
+  cost                  Float?
+  performedBy           String?
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
+
+  scheduledMaintenance ScheduledMaintenance @relation(fields: [scheduledMaintenanceId], references: [id])
 }

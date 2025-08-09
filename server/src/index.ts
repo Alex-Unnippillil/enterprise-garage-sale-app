@@ -4,7 +4,6 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-import { authMiddleware } from "./middleware/authMiddleware";
 /* ROUTE IMPORT */
 import tenantRoutes from "./routes/tenantRoutes";
 import managerRoutes from "./routes/managerRoutes";
@@ -31,8 +30,8 @@ app.get("/", (req, res) => {
 app.use("/applications", applicationRoutes);
 app.use("/properties", propertyRoutes);
 app.use("/leases", leaseRoutes);
-app.use("/tenants", authMiddleware(["tenant"]), tenantRoutes);
-app.use("/managers", authMiddleware(["manager"]), managerRoutes);
+app.use("/tenants", tenantRoutes);
+app.use("/managers", managerRoutes);
 
 /* SERVER */
 const port = Number(process.env.PORT) || 3002;

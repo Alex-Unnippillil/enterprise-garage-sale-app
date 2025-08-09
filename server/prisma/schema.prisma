@@ -173,3 +173,12 @@ model Payment {
 
   lease Lease @relation(fields: [leaseId], references: [id])
 }
+
+model Listing {
+  id          Int      @id @default(autoincrement())
+  title       String
+  description String
+  price       Float
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}

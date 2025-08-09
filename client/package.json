@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test:e2e": "playwright test -c tests/e2e/playwright.config.ts",
+    "test:e2e:ui": "playwright test -c tests/e2e/playwright.config.ts --ui"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^6.9.1",
@@ -70,6 +72,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.54.2",
     "@types/cors": "^2.8.19",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/lodash": "^4.17.20",

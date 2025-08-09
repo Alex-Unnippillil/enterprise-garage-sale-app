@@ -2,6 +2,15 @@
 
 This guide will walk you through deploying the Rentiful real estate application on AWS services.
 
+## ⚙️ CI/CD Pipeline
+
+This repository includes a GitHub Actions workflow (`.github/workflows/ci.yml`) that installs dependencies, lints, tests, and builds both the `client` and `server` projects. When these steps succeed, Docker images are built and pushed to the GitHub Container Registry:
+
+- `ghcr.io/<owner>/<repo>/client:latest`
+- `ghcr.io/<owner>/<repo>/server:latest`
+
+Before running the workflow, copy `client/.env.example` and `server/.env.example` to `.env` files with the proper values. The published images can then be deployed to services such as AWS ECS or Vercel.
+
 ## 📋 Prerequisites
 
 - AWS Account with appropriate permissions

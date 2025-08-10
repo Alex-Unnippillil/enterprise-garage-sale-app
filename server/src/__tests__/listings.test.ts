@@ -8,7 +8,9 @@ const app = express();
 app.use(express.json());
 app.use("/listings", listingsRouter);
 
-describe("Listings API", () => {
+const describeOrSkip = process.env.DATABASE_URL ? describe : describe.skip;
+
+describeOrSkip("Listings API", () => {
   beforeEach(async () => {
     await prisma.listing.deleteMany();
   });

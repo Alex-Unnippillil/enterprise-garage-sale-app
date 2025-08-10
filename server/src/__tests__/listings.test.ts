@@ -47,4 +47,31 @@ describe("Listings API", () => {
     const res = await request(app).delete(`/listings/${listing.id}`);
     expect(res.status).toBe(204);
   });
+
+  it("filters, sorts, and paginates listings", async () => {
+    await prisma.listing.createMany({
+      data: [
+        { title: "Cheap Bike", description: "A", price: 50 },
+        { title: "Expensive Bike", description: "B", price: 150 },
+        { title: "Car", description: "C", price: 2000 },
+      ],
+    });
+
+    const res = await request(app)
+      .get("/listings")
+      .query({
+        q: "bike",
+        minPrice: 50,
+        maxPrice: 200,
+        sortBy: "price",
+        order: "desc",
+        page: 1,
+        limit: 1,
+      });
+
+    expect(res.status).toBe(200);
+    expect(res.body).toHaveLength(1);
+    expect(res.body[0].title).toBe("Expensive Bike");
+    expect(res.headers["x-total-count"]).toBe("2");
+  });
 });

@@ -20,5 +20,6 @@ test.describe('Listing creation flow', () => {
     await page.getByLabel('Description').fill('Great place');
     await page.getByLabel('Price per Month').fill('1500');
     await expect(page.getByLabel('Property Name')).toHaveValue('Test Property');
+    await expect(page.getByLabel('Price per Month')).toHaveValue('1500');
   });
 });

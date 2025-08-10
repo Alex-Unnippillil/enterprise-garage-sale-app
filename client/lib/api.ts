@@ -1,4 +1,5 @@
 import axios from "axios";
+import { mapPropertyToListing } from "./utils";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3002",
@@ -6,7 +7,7 @@ const api = axios.create({
 
 export const fetchListings = async (search?: string) => {
   const response = await api.get("/properties", { params: { q: search } });
-  return response.data;
+  return response.data.map(mapPropertyToListing);
 };
 
 export const createListing = async (data: any) => {

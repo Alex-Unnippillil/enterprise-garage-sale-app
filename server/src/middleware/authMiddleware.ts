@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt, { JwtPayload, JwtHeader, SigningKeyCallback, VerifyErrors } from "jsonwebtoken";
+import jwksClient from "jwks-rsa";
 
 interface DecodedToken extends JwtPayload {
   sub: string;
@@ -17,8 +18,29 @@ declare global {
   }
 }
 
+const client = jwksClient({
+  jwksUri: `${process.env.COGNITO_ISSUER}/.well-known/jwks.json`,
+  cache: true,
+  rateLimit: true,
+});
+
+const getKey = (header: JwtHeader, callback: SigningKeyCallback): void => {
+  client.getSigningKey(header.kid!, (err, key) => {
+    if (err) {
+      callback(err, undefined);
+      return;
+    }
+    if (!key) {
+      callback(new Error("Signing key not found"), undefined);
+      return;
+    }
+    const signingKey = key.getPublicKey();
+    callback(null, signingKey);
+  });
+};
+
 export const authMiddleware = (allowedRoles: string[]) => {
-  return (req: Request, res: Response, next: NextFunction): void => {
+  return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const token = req.headers.authorization?.split(" ")[1];
 
     if (!token) {
@@ -27,24 +49,39 @@ export const authMiddleware = (allowedRoles: string[]) => {
     }
 
     try {
-      const decoded = jwt.decode(token) as DecodedToken;
-      const userRole = decoded["custom:role"] || "";
+      const decoded = await new Promise<DecodedToken>((resolve, reject) => {
+        jwt.verify(
+          token,
+          getKey,
+          {
+            algorithms: ["RS256"],
+            audience: process.env.COGNITO_AUDIENCE,
+            issuer: process.env.COGNITO_ISSUER,
+          },
+          (err: VerifyErrors | null, decodedToken: unknown) => {
+            if (err || !decodedToken || typeof decodedToken === "string") {
+              return reject(err);
+            }
+            resolve(decodedToken as DecodedToken);
+          }
+        );
+      });
+
+      const userRole = decoded["custom:role"]?.toLowerCase() || "";
+      if (!allowedRoles.includes(userRole)) {
+        res.status(403).json({ message: "Access Denied" });
+        return;
+      }
+
       req.user = {
         id: decoded.sub,
         role: userRole,
       };
 
-      const hasAccess = allowedRoles.includes(userRole.toLowerCase());
-      if (!hasAccess) {
-        res.status(403).json({ message: "Access Denied" });
-        return;
-      }
+      next();
     } catch (err) {
-      console.error("Failed to decode token:", err);
-      res.status(400).json({ message: "Invalid token" });
-      return;
+      console.error("Failed to verify token:", err);
+      res.status(401).json({ message: "Invalid or expired token" });
     }
-
-    next();
   };
 };

@@ -1,11 +1,12 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
 export const listApplications = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const { userId, userType } = req.query;
@@ -76,16 +77,15 @@ export const listApplications = async (
     );
 
     res.json(formattedApplications);
-  } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error retrieving applications: ${error.message}` });
+  } catch (error) {
+    next(error);
   }
 };
 
 export const createApplication = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const {
@@ -158,16 +158,15 @@ export const createApplication = async (
     });
 
     res.status(201).json(newApplication);
-  } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error creating application: ${error.message}` });
+  } catch (error) {
+    next(error);
   }
 };
 
 export const updateApplicationStatus = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const { id } = req.params;
@@ -240,9 +239,7 @@ export const updateApplicationStatus = async (
     });
 
     res.json(updatedApplication);
-  } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error updating application status: ${error.message}` });
+  } catch (error) {
+    next(error);
   }
 };

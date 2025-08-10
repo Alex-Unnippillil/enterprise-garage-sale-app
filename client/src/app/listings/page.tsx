@@ -3,14 +3,14 @@
 import { useCallback, useEffect, useState } from "react";
 import ListingCard, { Listing } from "@/components/ListingCard";
 import ListingForm from "@/components/forms/ListingForm";
-import { fetchListings } from "@/lib/api";
+import { fetchProperties } from "@/lib/api";
 
 const ListingsPage = () => {
   const [listings, setListings] = useState<Listing[]>([]);
   const [query, setQuery] = useState("");
 
   const loadListings = useCallback(async () => {
-    const data = await fetchListings(query);
+    const data = await fetchProperties(query);
     setListings(data);
   }, [query]);
 

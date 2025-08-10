@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { CustomFormField } from "../FormField";
-import { createListing } from "@/lib/api";
+import { createProperty } from "@/lib/api";
 
 const listingSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -20,7 +20,7 @@ const ListingForm = ({ onSuccess }: { onSuccess?: () => void }) => {
   });
 
   const onSubmit = async (data: ListingFormData) => {
-    await createListing(data);
+    await createProperty(data);
     form.reset();
     onSuccess?.();
   };

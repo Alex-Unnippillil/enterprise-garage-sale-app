@@ -5,6 +5,12 @@ on:
     branches: [main]
   pull_request:
 
+env:
+  SERVER_IMAGE_LATEST: ghcr.io/${{ github.repository_owner }}/server:latest
+  CLIENT_IMAGE_LATEST: ghcr.io/${{ github.repository_owner }}/client:latest
+  SERVER_IMAGE_SHA: ghcr.io/${{ github.repository_owner }}/server:${{ github.sha }}
+  CLIENT_IMAGE_SHA: ghcr.io/${{ github.repository_owner }}/client:${{ github.sha }}
+
 jobs:
   e2e:
     runs-on: ubuntu-latest

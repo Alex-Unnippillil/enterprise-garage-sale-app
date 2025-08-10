@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { CustomFormField } from "../FormField";
-import { createListing } from "@/lib/api";
+import { useCreateListingMutation } from "@/state/api";
 
 const listingSchema = z.object({
   title: z.string().min(1, "Title is required"),
@@ -19,10 +19,16 @@ const ListingForm = ({ onSuccess }: { onSuccess?: () => void }) => {
     resolver: zodResolver(listingSchema),
   });
 
+  const [createListing] = useCreateListingMutation();
+
   const onSubmit = async (data: ListingFormData) => {
-    await createListing(data);
-    form.reset();
-    onSuccess?.();
+    try {
+      await createListing(data).unwrap();
+      form.reset();
+      onSuccess?.();
+    } catch (error) {
+      console.error("Failed to create listing", error);
+    }
   };
 
   return (

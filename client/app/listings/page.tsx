@@ -4,15 +4,17 @@ import { useCallback, useEffect, useState } from "react";
 import ListingCard, { Listing } from "@/components/ListingCard";
 import ListingForm from "@/components/forms/ListingForm";
 import { fetchListings } from "@/lib/api";
+import { useDebounce } from "@/hooks/use-debounce";
 
 const ListingsPage = () => {
   const [listings, setListings] = useState<Listing[]>([]);
   const [query, setQuery] = useState("");
+  const debouncedQuery = useDebounce(query, 300);
 
   const loadListings = useCallback(async () => {
-    const data = await fetchListings(query);
+    const data = await fetchListings(debouncedQuery);
     setListings(data);
-  }, [query]);
+  }, [debouncedQuery]);
 
   useEffect(() => {
     loadListings();

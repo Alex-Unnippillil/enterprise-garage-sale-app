@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, ApplicationStatus } from "@prisma/client";
+import { matchedData } from "express-validator";
 
 const prisma = new PrismaClient();
 
@@ -8,17 +9,20 @@ export const listApplications = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { userId, userType } = req.query;
+    const { userId, userType } = matchedData(req) as {
+      userId?: string;
+      userType?: string;
+    };
 
     let whereClause = {};
 
     if (userId && userType) {
       if (userType === "tenant") {
-        whereClause = { tenantCognitoId: String(userId) };
+        whereClause = { tenantCognitoId: userId };
       } else if (userType === "manager") {
         whereClause = {
           property: {
-            managerCognitoId: String(userId),
+            managerCognitoId: userId,
           },
         };
       }
@@ -97,7 +101,16 @@ export const createApplication = async (
       email,
       phoneNumber,
       message,
-    } = req.body;
+    } = matchedData(req) as {
+      applicationDate: string;
+      status: ApplicationStatus;
+      propertyId: number;
+      tenantCognitoId: string;
+      name: string;
+      email: string;
+      phoneNumber: string;
+      message?: string;
+    };
 
     const property = await prisma.property.findUnique({
       where: { id: propertyId },
@@ -170,12 +183,14 @@ export const updateApplicationStatus = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { id } = req.params;
-    const { status } = req.body;
+    const { id, status } = matchedData(req) as {
+      id: number;
+      status: ApplicationStatus;
+    };
     console.log("status:", status);
 
     const application = await prisma.application.findUnique({
-      where: { id: Number(id) },
+      where: { id },
       include: {
         property: true,
         tenant: true,
@@ -213,7 +228,7 @@ export const updateApplicationStatus = async (
 
       // Update the application with the new lease ID
       await prisma.application.update({
-        where: { id: Number(id) },
+        where: { id },
         data: { status, leaseId: newLease.id },
         include: {
           property: true,
@@ -224,14 +239,14 @@ export const updateApplicationStatus = async (
     } else {
       // Update the application status (for both "Denied" and other statuses)
       await prisma.application.update({
-        where: { id: Number(id) },
+        where: { id },
         data: { status },
       });
     }
 
     // Respond with the updated application details
     const updatedApplication = await prisma.application.findUnique({
-      where: { id: Number(id) },
+      where: { id },
       include: {
         property: true,
         tenant: true,

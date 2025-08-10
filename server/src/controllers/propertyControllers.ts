@@ -5,6 +5,7 @@ import { S3Client } from "@aws-sdk/client-s3";
 import { Location } from "@prisma/client";
 import { Upload } from "@aws-sdk/lib-storage";
 import axios from "axios";
+import { matchedData } from "express-validator";
 
 const prisma = new PrismaClient();
 
@@ -30,80 +31,89 @@ export const getProperties = async (
       availableFrom,
       latitude,
       longitude,
-    } = req.query;
+    } = matchedData(req) as {
+      favoriteIds?: string;
+      priceMin?: number;
+      priceMax?: number;
+      beds?: number;
+      baths?: number;
+      propertyType?: string;
+      squareFeetMin?: number;
+      squareFeetMax?: number;
+      amenities?: string;
+      availableFrom?: string;
+      latitude?: number;
+      longitude?: number;
+    };
 
     let whereConditions: Prisma.Sql[] = [];
 
     if (favoriteIds) {
-      const favoriteIdsArray = (favoriteIds as string).split(",").map(Number);
+      const favoriteIdsArray = favoriteIds.split(",").map(Number);
       whereConditions.push(
         Prisma.sql`p.id IN (${Prisma.join(favoriteIdsArray)})`
       );
     }
 
-    if (priceMin) {
+    if (priceMin !== undefined) {
       whereConditions.push(
-        Prisma.sql`p."pricePerMonth" >= ${Number(priceMin)}`
+        Prisma.sql`p."pricePerMonth" >= ${priceMin}`
       );
     }
 
-    if (priceMax) {
+    if (priceMax !== undefined) {
       whereConditions.push(
-        Prisma.sql`p."pricePerMonth" <= ${Number(priceMax)}`
+        Prisma.sql`p."pricePerMonth" <= ${priceMax}`
       );
     }
 
-    if (beds && beds !== "any") {
-      whereConditions.push(Prisma.sql`p.beds >= ${Number(beds)}`);
+    if (beds !== undefined) {
+      whereConditions.push(Prisma.sql`p.beds >= ${beds}`);
     }
 
-    if (baths && baths !== "any") {
-      whereConditions.push(Prisma.sql`p.baths >= ${Number(baths)}`);
+    if (baths !== undefined) {
+      whereConditions.push(Prisma.sql`p.baths >= ${baths}`);
     }
 
-    if (squareFeetMin) {
+    if (squareFeetMin !== undefined) {
       whereConditions.push(
-        Prisma.sql`p."squareFeet" >= ${Number(squareFeetMin)}`
+        Prisma.sql`p."squareFeet" >= ${squareFeetMin}`
       );
     }
 
-    if (squareFeetMax) {
+    if (squareFeetMax !== undefined) {
       whereConditions.push(
-        Prisma.sql`p."squareFeet" <= ${Number(squareFeetMax)}`
+        Prisma.sql`p."squareFeet" <= ${squareFeetMax}`
       );
     }
 
-    if (propertyType && propertyType !== "any") {
+    if (propertyType) {
       whereConditions.push(
         Prisma.sql`p."propertyType" = ${propertyType}::"PropertyType"`
       );
     }
 
-    if (amenities && amenities !== "any") {
-      const amenitiesArray = (amenities as string).split(",");
+    if (amenities) {
+      const amenitiesArray = amenities.split(",");
       whereConditions.push(Prisma.sql`p.amenities @> ${amenitiesArray}`);
     }
 
-    if (availableFrom && availableFrom !== "any") {
-      const availableFromDate =
-        typeof availableFrom === "string" ? availableFrom : null;
-      if (availableFromDate) {
-        const date = new Date(availableFromDate);
-        if (!isNaN(date.getTime())) {
-          whereConditions.push(
-            Prisma.sql`EXISTS (
-              SELECT 1 FROM "Lease" l 
-              WHERE l."propertyId" = p.id 
-              AND l."startDate" <= ${date.toISOString()}
-            )`
-          );
-        }
+    if (availableFrom) {
+      const date = new Date(availableFrom);
+      if (!isNaN(date.getTime())) {
+        whereConditions.push(
+          Prisma.sql`EXISTS (
+            SELECT 1 FROM "Lease" l
+            WHERE l."propertyId" = p.id
+            AND l."startDate" <= ${date.toISOString()}
+          )`
+        );
       }
     }
 
-    if (latitude && longitude) {
-      const lat = parseFloat(latitude as string);
-      const lng = parseFloat(longitude as string);
+    if (latitude !== undefined && longitude !== undefined) {
+      const lat = latitude;
+      const lng = longitude;
       const radiusInKilometers = 1000;
       const degrees = radiusInKilometers / 111; // Converts kilometers to degrees
 
@@ -155,9 +165,9 @@ export const getProperty = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { id } = req.params;
+    const { id } = matchedData(req) as { id: number };
     const property = await prisma.property.findUnique({
-      where: { id: Number(id) },
+      where: { id },
       include: {
         location: true,
       },
@@ -203,8 +213,35 @@ export const createProperty = async (
       country,
       postalCode,
       managerCognitoId,
-      ...propertyData
-    } = req.body;
+      pricePerMonth,
+      securityDeposit,
+      applicationFee,
+      beds,
+      baths,
+      squareFeet,
+    } = matchedData(req) as {
+      address: string;
+      city: string;
+      state: string;
+      country: string;
+      postalCode: string;
+      managerCognitoId: string;
+      pricePerMonth: number;
+      securityDeposit: number;
+      applicationFee: number;
+      beds: number;
+      baths: number;
+      squareFeet: number;
+    };
+    const propertyData = {
+      ...req.body,
+      pricePerMonth,
+      securityDeposit,
+      applicationFee,
+      beds,
+      baths,
+      squareFeet,
+    };
 
     const photoUrls = await Promise.all(
       files.map(async (file) => {
@@ -271,12 +308,12 @@ export const createProperty = async (
             : [],
         isPetsAllowed: propertyData.isPetsAllowed === "true",
         isParkingIncluded: propertyData.isParkingIncluded === "true",
-        pricePerMonth: parseFloat(propertyData.pricePerMonth),
-        securityDeposit: parseFloat(propertyData.securityDeposit),
-        applicationFee: parseFloat(propertyData.applicationFee),
-        beds: parseInt(propertyData.beds),
-        baths: parseFloat(propertyData.baths),
-        squareFeet: parseInt(propertyData.squareFeet),
+        pricePerMonth: propertyData.pricePerMonth,
+        securityDeposit: propertyData.securityDeposit,
+        applicationFee: propertyData.applicationFee,
+        beds: propertyData.beds,
+        baths: propertyData.baths,
+        squareFeet: propertyData.squareFeet,
       },
       include: {
         location: true,

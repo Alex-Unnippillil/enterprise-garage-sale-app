@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
+import { matchedData } from "express-validator";
 
 const prisma = new PrismaClient();
 
@@ -24,9 +25,9 @@ export const getLeasePayments = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { id } = req.params;
+    const { id } = matchedData(req) as { id: number };
     const payments = await prisma.payment.findMany({
-      where: { leaseId: Number(id) },
+      where: { leaseId: id },
     });
     res.json(payments);
   } catch (error: any) {

@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import { wktToGeoJSON } from "@terraformer/wkt";
+import { matchedData } from "express-validator";
 
 const prisma = new PrismaClient();
 
 export const getTenant = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { cognitoId } = req.params;
+    const { cognitoId } = matchedData(req) as { cognitoId: string };
     const tenant = await prisma.tenant.findUnique({
       where: { cognitoId },
       include: {
@@ -31,7 +32,12 @@ export const createTenant = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { cognitoId, name, email, phoneNumber } = req.body;
+    const { cognitoId, name, email, phoneNumber } = matchedData(req) as {
+      cognitoId: string;
+      name: string;
+      email: string;
+      phoneNumber: string;
+    };
 
     const tenant = await prisma.tenant.create({
       data: {
@@ -55,8 +61,12 @@ export const updateTenant = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { cognitoId } = req.params;
-    const { name, email, phoneNumber } = req.body;
+    const { cognitoId, name, email, phoneNumber } = matchedData(req) as {
+      cognitoId: string;
+      name: string;
+      email: string;
+      phoneNumber: string;
+    };
 
     const updateTenant = await prisma.tenant.update({
       where: { cognitoId },
@@ -80,7 +90,7 @@ export const getCurrentResidences = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { cognitoId } = req.params;
+    const { cognitoId } = matchedData(req) as { cognitoId: string };
     const properties = await prisma.property.findMany({
       where: { tenants: { some: { cognitoId } } },
       include: {
@@ -123,7 +133,10 @@ export const addFavoriteProperty = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { cognitoId, propertyId } = req.params;
+    const { cognitoId, propertyId } = matchedData(req) as {
+      cognitoId: string;
+      propertyId: number;
+    };
     const tenant = await prisma.tenant.findUnique({
       where: { cognitoId },
       include: { favorites: true },
@@ -134,15 +147,14 @@ export const addFavoriteProperty = async (
       return;
     }
 
-    const propertyIdNumber = Number(propertyId);
     const existingFavorites = tenant.favorites || [];
 
-    if (!existingFavorites.some((fav) => fav.id === propertyIdNumber)) {
+    if (!existingFavorites.some((fav) => fav.id === propertyId)) {
       const updatedTenant = await prisma.tenant.update({
         where: { cognitoId },
         data: {
           favorites: {
-            connect: { id: propertyIdNumber },
+            connect: { id: propertyId },
           },
         },
         include: { favorites: true },
@@ -163,14 +175,16 @@ export const removeFavoriteProperty = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { cognitoId, propertyId } = req.params;
-    const propertyIdNumber = Number(propertyId);
+    const { cognitoId, propertyId } = matchedData(req) as {
+      cognitoId: string;
+      propertyId: number;
+    };
 
     const updatedTenant = await prisma.tenant.update({
       where: { cognitoId },
       data: {
         favorites: {
-          disconnect: { id: propertyIdNumber },
+          disconnect: { id: propertyId },
         },
       },
       include: { favorites: true },

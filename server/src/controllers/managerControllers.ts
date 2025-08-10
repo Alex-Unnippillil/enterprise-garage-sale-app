@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import { wktToGeoJSON } from "@terraformer/wkt";
+import { matchedData } from "express-validator";
 
 const prisma = new PrismaClient();
 
@@ -9,7 +10,7 @@ export const getManager = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { cognitoId } = req.params;
+    const { cognitoId } = matchedData(req) as { cognitoId: string };
     const manager = await prisma.manager.findUnique({
       where: { cognitoId },
     });
@@ -31,7 +32,12 @@ export const createManager = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { cognitoId, name, email, phoneNumber } = req.body;
+    const { cognitoId, name, email, phoneNumber } = matchedData(req) as {
+      cognitoId: string;
+      name: string;
+      email: string;
+      phoneNumber: string;
+    };
 
     const manager = await prisma.manager.create({
       data: {
@@ -55,8 +61,12 @@ export const updateManager = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { cognitoId } = req.params;
-    const { name, email, phoneNumber } = req.body;
+    const { cognitoId, name, email, phoneNumber } = matchedData(req) as {
+      cognitoId: string;
+      name: string;
+      email: string;
+      phoneNumber: string;
+    };
 
     const updateManager = await prisma.manager.update({
       where: { cognitoId },
@@ -80,7 +90,7 @@ export const getManagerProperties = async (
   res: Response
 ): Promise<void> => {
   try {
-    const { cognitoId } = req.params;
+    const { cognitoId } = matchedData(req) as { cognitoId: string };
     const properties = await prisma.property.findMany({
       where: { managerCognitoId: cognitoId },
       include: {

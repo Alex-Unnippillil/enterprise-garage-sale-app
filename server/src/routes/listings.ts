@@ -1,4 +1,5 @@
 import express from "express";
+import { body, param } from "express-validator";
 import {
   getListings,
   getListing,
@@ -6,13 +7,41 @@ import {
   updateListing,
   deleteListing,
 } from "../controllers/listings";
+import { validate } from "../middleware/validationMiddleware";
 
 const router = express.Router();
 
 router.get("/", getListings);
-router.get("/:id", getListing);
-router.post("/", createListing);
-router.put("/:id", updateListing);
-router.delete("/:id", deleteListing);
+router.get(
+  "/:id",
+  [param("id").isInt().toInt(), validate],
+  getListing
+);
+router.post(
+  "/",
+  [
+    body("title").isString().notEmpty(),
+    body("description").isString().notEmpty(),
+    body("price").isFloat({ gt: 0 }).toFloat(),
+    validate,
+  ],
+  createListing
+);
+router.put(
+  "/:id",
+  [
+    param("id").isInt().toInt(),
+    body("title").isString().notEmpty(),
+    body("description").isString().notEmpty(),
+    body("price").isFloat({ gt: 0 }).toFloat(),
+    validate,
+  ],
+  updateListing
+);
+router.delete(
+  "/:id",
+  [param("id").isInt().toInt(), validate],
+  deleteListing
+);
 
 export default router;

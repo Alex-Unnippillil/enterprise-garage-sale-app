@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
+import { matchedData } from "express-validator";
 
 const prisma = new PrismaClient();
 
@@ -16,9 +17,9 @@ export const getListings = async (req: Request, res: Response): Promise<void> =>
 
 export const getListing = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id } = req.params;
+    const { id } = matchedData(req) as { id: number };
     const listing = await prisma.listing.findUnique({
-      where: { id: Number(id) },
+      where: { id },
     });
     if (listing) {
       res.json(listing);
@@ -34,12 +35,16 @@ export const getListing = async (req: Request, res: Response): Promise<void> => 
 
 export const createListing = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { title, description, price } = req.body;
+    const { title, description, price } = matchedData(req) as {
+      title: string;
+      description: string;
+      price: number;
+    };
     const listing = await prisma.listing.create({
       data: {
         title,
         description,
-        price: Number(price),
+        price,
       },
     });
     res.status(201).json(listing);
@@ -52,14 +57,18 @@ export const createListing = async (req: Request, res: Response): Promise<void> 
 
 export const updateListing = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id } = req.params;
-    const { title, description, price } = req.body;
+    const { id, title, description, price } = matchedData(req) as {
+      id: number;
+      title: string;
+      description: string;
+      price: number;
+    };
     const listing = await prisma.listing.update({
-      where: { id: Number(id) },
+      where: { id },
       data: {
         title,
         description,
-        price: Number(price),
+        price,
       },
     });
     res.json(listing);
@@ -72,8 +81,8 @@ export const updateListing = async (req: Request, res: Response): Promise<void> 
 
 export const deleteListing = async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id } = req.params;
-    await prisma.listing.delete({ where: { id: Number(id) } });
+    const { id } = matchedData(req) as { id: number };
+    await prisma.listing.delete({ where: { id } });
     res.status(204).send();
   } catch (error: any) {
     res

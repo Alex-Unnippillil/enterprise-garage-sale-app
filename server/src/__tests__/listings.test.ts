@@ -1,9 +1,8 @@
 import request from "supertest";
 import express from "express";
 import listingsRouter from "../routes/listings";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../prisma";
 
-const prisma = new PrismaClient();
 const app = express();
 app.use(express.json());
 app.use("/listings", listingsRouter);

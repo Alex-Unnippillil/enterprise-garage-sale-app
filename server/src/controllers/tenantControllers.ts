@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import { wktToGeoJSON } from "@terraformer/wkt";
+import { createTenantSchema, updateTenantSchema } from "../validation/tenant";
 
 const prisma = new PrismaClient();
 
@@ -30,8 +31,13 @@ export const createTenant = async (
   req: Request,
   res: Response
 ): Promise<void> => {
+  const parsed = createTenantSchema.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({ errors: parsed.error.flatten() });
+    return;
+  }
   try {
-    const { cognitoId, name, email, phoneNumber } = req.body;
+    const { cognitoId, name, email, phoneNumber } = parsed.data;
 
     const tenant = await prisma.tenant.create({
       data: {
@@ -54,9 +60,14 @@ export const updateTenant = async (
   req: Request,
   res: Response
 ): Promise<void> => {
+  const parsed = updateTenantSchema.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({ errors: parsed.error.flatten() });
+    return;
+  }
   try {
     const { cognitoId } = req.params;
-    const { name, email, phoneNumber } = req.body;
+    const { name, email, phoneNumber } = parsed.data;
 
     const updateTenant = await prisma.tenant.update({
       where: { cognitoId },

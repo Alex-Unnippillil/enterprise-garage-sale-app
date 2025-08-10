@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
+import { listingSchema } from "../validation/listing";
 
 const prisma = new PrismaClient();
 
@@ -33,13 +34,18 @@ export const getListing = async (req: Request, res: Response): Promise<void> => 
 };
 
 export const createListing = async (req: Request, res: Response): Promise<void> => {
+  const parsed = listingSchema.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({ errors: parsed.error.flatten() });
+    return;
+  }
   try {
-    const { title, description, price } = req.body;
+    const { title, description, price } = parsed.data;
     const listing = await prisma.listing.create({
       data: {
         title,
         description,
-        price: Number(price),
+        price,
       },
     });
     res.status(201).json(listing);
@@ -51,15 +57,20 @@ export const createListing = async (req: Request, res: Response): Promise<void> 
 };
 
 export const updateListing = async (req: Request, res: Response): Promise<void> => {
+  const parsed = listingSchema.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({ errors: parsed.error.flatten() });
+    return;
+  }
   try {
     const { id } = req.params;
-    const { title, description, price } = req.body;
+    const { title, description, price } = parsed.data;
     const listing = await prisma.listing.update({
       where: { id: Number(id) },
       data: {
         title,
         description,
-        price: Number(price),
+        price,
       },
     });
     res.json(listing);

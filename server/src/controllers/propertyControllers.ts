@@ -5,6 +5,7 @@ import { S3Client } from "@aws-sdk/client-s3";
 import { Location } from "@prisma/client";
 import { Upload } from "@aws-sdk/lib-storage";
 import axios from "axios";
+import { propertySchema } from "../validation/property";
 
 const prisma = new PrismaClient();
 
@@ -194,6 +195,11 @@ export const createProperty = async (
   req: Request,
   res: Response
 ): Promise<void> => {
+  const parsed = propertySchema.safeParse(req.body);
+  if (!parsed.success) {
+    res.status(400).json({ errors: parsed.error.flatten() });
+    return;
+  }
   try {
     const files = req.files as Express.Multer.File[];
     const {
@@ -204,7 +210,7 @@ export const createProperty = async (
       postalCode,
       managerCognitoId,
       ...propertyData
-    } = req.body;
+    } = parsed.data;
 
     const photoUrls = await Promise.all(
       files.map(async (file) => {
@@ -220,7 +226,7 @@ export const createProperty = async (
           params: uploadParams,
         }).done();
 
-        return uploadResult.Location;
+        return uploadResult.Location as string;
       })
     );
 
@@ -263,21 +269,21 @@ export const createProperty = async (
         managerCognitoId,
         amenities:
           typeof propertyData.amenities === "string"
-            ? propertyData.amenities.split(",")
+            ? (propertyData.amenities.split(",") as any)
             : [],
         highlights:
           typeof propertyData.highlights === "string"
-            ? propertyData.highlights.split(",")
+            ? (propertyData.highlights.split(",") as any)
             : [],
-        isPetsAllowed: propertyData.isPetsAllowed === "true",
-        isParkingIncluded: propertyData.isParkingIncluded === "true",
-        pricePerMonth: parseFloat(propertyData.pricePerMonth),
-        securityDeposit: parseFloat(propertyData.securityDeposit),
-        applicationFee: parseFloat(propertyData.applicationFee),
-        beds: parseInt(propertyData.beds),
-        baths: parseFloat(propertyData.baths),
-        squareFeet: parseInt(propertyData.squareFeet),
-      },
+        isPetsAllowed: propertyData.isPetsAllowed,
+        isParkingIncluded: propertyData.isParkingIncluded,
+        pricePerMonth: propertyData.pricePerMonth,
+        securityDeposit: propertyData.securityDeposit,
+        applicationFee: propertyData.applicationFee,
+        beds: propertyData.beds,
+        baths: propertyData.baths,
+        squareFeet: propertyData.squareFeet,
+      } as any,
       include: {
         location: true,
         manager: true,

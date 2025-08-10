@@ -12,6 +12,7 @@ import propertyRoutes from "./routes/propertyRoutes";
 import leaseRoutes from "./routes/leaseRoutes";
 import applicationRoutes from "./routes/applicationRoutes";
 import listingsRoutes from "./routes/listings";
+import prisma from "./db/prisma";
 
 /* CONFIGURATIONS */
 dotenv.config();
@@ -38,6 +39,16 @@ app.use("/managers", authMiddleware(["manager"]), managerRoutes);
 
 /* SERVER */
 const port = Number(process.env.PORT) || 3002;
-app.listen(port, "0.0.0.0", () => {
+const server = app.listen(port, "0.0.0.0", () => {
   console.log(`Server running on port ${port}`);
 });
+
+const shutdown = async () => {
+  await prisma.$disconnect();
+  server.close(() => {
+    process.exit(0);
+  });
+};
+
+process.on("SIGINT", shutdown);
+process.on("SIGTERM", shutdown);

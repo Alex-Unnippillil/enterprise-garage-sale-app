@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { CustomFormField } from "../FormField";
+import { CustomFormField } from "@/components/FormField";
 import { createListing } from "@/lib/api";
 
 const listingSchema = z.object({

@@ -5,6 +5,7 @@ import { S3Client } from "@aws-sdk/client-s3";
 import { Location } from "@prisma/client";
 import { Upload } from "@aws-sdk/lib-storage";
 import axios from "axios";
+import { asyncHandler } from "../middleware/asyncHandler";
 
 const prisma = new PrismaClient();
 
@@ -12,11 +13,8 @@ const s3Client = new S3Client({
   region: process.env.AWS_REGION,
 });
 
-export const getProperties = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  try {
+export const getProperties = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
     const {
       favoriteIds,
       priceMin,
@@ -143,18 +141,11 @@ export const getProperties = async (
     const properties = await prisma.$queryRaw(completeQuery);
 
     res.json(properties);
-  } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error retrieving properties: ${error.message}` });
   }
-};
+);
 
-export const getProperty = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  try {
+export const getProperty = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params;
     const property = await prisma.property.findUnique({
       where: { id: Number(id) },
@@ -183,18 +174,11 @@ export const getProperty = async (
       };
       res.json(propertyWithCoordinates);
     }
-  } catch (err: any) {
-    res
-      .status(500)
-      .json({ message: `Error retrieving property: ${err.message}` });
   }
-};
+);
 
-export const createProperty = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  try {
+export const createProperty = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
     const files = req.files as Express.Multer.File[];
     const {
       address,
@@ -285,9 +269,5 @@ export const createProperty = async (
     });
 
     res.status(201).json(newProperty);
-  } catch (err: any) {
-    res
-      .status(500)
-      .json({ message: `Error creating property: ${err.message}` });
   }
-};
+);

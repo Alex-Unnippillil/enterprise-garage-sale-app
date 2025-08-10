@@ -1,14 +1,12 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 import { wktToGeoJSON } from "@terraformer/wkt";
+import { asyncHandler } from "../middleware/asyncHandler";
 
 const prisma = new PrismaClient();
 
-export const getManager = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  try {
+export const getManager = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
     const { cognitoId } = req.params;
     const manager = await prisma.manager.findUnique({
       where: { cognitoId },
@@ -19,18 +17,11 @@ export const getManager = async (
     } else {
       res.status(404).json({ message: "Manager not found" });
     }
-  } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error retrieving manager: ${error.message}` });
   }
-};
+);
 
-export const createManager = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  try {
+export const createManager = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
     const { cognitoId, name, email, phoneNumber } = req.body;
 
     const manager = await prisma.manager.create({
@@ -43,18 +34,11 @@ export const createManager = async (
     });
 
     res.status(201).json(manager);
-  } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error creating manager: ${error.message}` });
   }
-};
+);
 
-export const updateManager = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  try {
+export const updateManager = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
     const { cognitoId } = req.params;
     const { name, email, phoneNumber } = req.body;
 
@@ -68,18 +52,11 @@ export const updateManager = async (
     });
 
     res.json(updateManager);
-  } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error updating manager: ${error.message}` });
   }
-};
+);
 
-export const getManagerProperties = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  try {
+export const getManagerProperties = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
     const { cognitoId } = req.params;
     const properties = await prisma.property.findMany({
       where: { managerCognitoId: cognitoId },
@@ -111,9 +88,5 @@ export const getManagerProperties = async (
     );
 
     res.json(propertiesWithFormattedLocation);
-  } catch (err: any) {
-    res
-      .status(500)
-      .json({ message: `Error retrieving manager properties: ${err.message}` });
   }
-};
+);

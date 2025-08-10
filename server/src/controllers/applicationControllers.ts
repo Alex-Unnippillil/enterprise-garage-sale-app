@@ -1,13 +1,11 @@
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
+import { asyncHandler } from "../middleware/asyncHandler";
 
 const prisma = new PrismaClient();
 
-export const listApplications = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  try {
+export const listApplications = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
     const { userId, userType } = req.query;
 
     let whereClause = {};
@@ -76,18 +74,11 @@ export const listApplications = async (
     );
 
     res.json(formattedApplications);
-  } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error retrieving applications: ${error.message}` });
   }
-};
+);
 
-export const createApplication = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  try {
+export const createApplication = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
     const {
       applicationDate,
       status,
@@ -158,18 +149,11 @@ export const createApplication = async (
     });
 
     res.status(201).json(newApplication);
-  } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error creating application: ${error.message}` });
   }
-};
+);
 
-export const updateApplicationStatus = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  try {
+export const updateApplicationStatus = asyncHandler(
+  async (req: Request, res: Response): Promise<void> => {
     const { id } = req.params;
     const { status } = req.body;
     console.log("status:", status);
@@ -240,9 +224,5 @@ export const updateApplicationStatus = async (
     });
 
     res.json(updatedApplication);
-  } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error updating application status: ${error.message}` });
   }
-};
+);

@@ -12,7 +12,7 @@ test.describe('Listing browsing flow', () => {
           <script>
             fetch('/properties').then(r=>r.json()).then(data=>{
               const div=document.getElementById('list');
-              div.innerHTML = '<div>' + data[0].name + '</div>';
+              div.innerHTML = '<div>' + data[0].name + ' - $' + data[0].pricePerMonth + '</div>';
             });
           </script>
         </body></html>`
@@ -26,13 +26,14 @@ test.describe('Listing browsing flow', () => {
         body: JSON.stringify([
           {
             id: 1,
-            name: 'Sample Property'
+            name: 'Sample Property',
+            pricePerMonth: 1500
           }
         ])
       });
     });
 
     await page.goto('http://localhost:3000/search');
-    await expect(page.getByText('Sample Property')).toBeVisible();
+    await expect(page.getByText('Sample Property - $1500')).toBeVisible();
   });
 });

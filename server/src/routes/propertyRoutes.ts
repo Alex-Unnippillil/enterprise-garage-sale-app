@@ -1,24 +1,45 @@
 import express from "express";
+import multer from "multer";
+import { authMiddleware } from "../middleware/authMiddleware";
+import { asyncHandler } from "../middleware/asyncHandler";
 import {
   getProperties,
   getProperty,
   createProperty,
-} from "../controllers/propertyControllers";
-import multer from "multer";
-import { authMiddleware } from "../middleware/authMiddleware";
+} from "../services/propertyService";
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 const router = express.Router();
 
-router.get("/", getProperties);
-router.get("/:id", getProperty);
+router.get(
+  "/",
+  asyncHandler(async (req, res) => {
+    const properties = await getProperties(req.query);
+    res.json(properties);
+  })
+);
+
+router.get(
+  "/:id",
+  asyncHandler(async (req, res) => {
+    const property = await getProperty(Number(req.params.id));
+    res.json(property);
+  })
+);
+
 router.post(
   "/",
   authMiddleware(["manager"]),
   upload.array("photos"),
-  createProperty
+  asyncHandler(async (req, res) => {
+    const newProperty = await createProperty(
+      req.body,
+      req.files as Express.Multer.File[]
+    );
+    res.status(201).json(newProperty);
+  })
 );
 
 export default router;

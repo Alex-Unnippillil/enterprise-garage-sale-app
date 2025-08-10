@@ -1,10 +1,14 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { PrismaClient } from "@prisma/client";
 import { wktToGeoJSON } from "@terraformer/wkt";
 
 const prisma = new PrismaClient();
 
-export const getTenant = async (req: Request, res: Response): Promise<void> => {
+export const getTenant = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     const { cognitoId } = req.params;
     const tenant = await prisma.tenant.findUnique({
@@ -19,16 +23,15 @@ export const getTenant = async (req: Request, res: Response): Promise<void> => {
     } else {
       res.status(404).json({ message: "Tenant not found" });
     }
-  } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error retrieving tenant: ${error.message}` });
+  } catch (error) {
+    next(error);
   }
 };
 
 export const createTenant = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const { cognitoId, name, email, phoneNumber } = req.body;
@@ -43,16 +46,15 @@ export const createTenant = async (
     });
 
     res.status(201).json(tenant);
-  } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error creating tenant: ${error.message}` });
+  } catch (error) {
+    next(error);
   }
 };
 
 export const updateTenant = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const { cognitoId } = req.params;
@@ -68,16 +70,15 @@ export const updateTenant = async (
     });
 
     res.json(updateTenant);
-  } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error updating tenant: ${error.message}` });
+  } catch (error) {
+    next(error);
   }
 };
 
 export const getCurrentResidences = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const { cognitoId } = req.params;
@@ -111,16 +112,15 @@ export const getCurrentResidences = async (
     );
 
     res.json(residencesWithFormattedLocation);
-  } catch (err: any) {
-    res
-      .status(500)
-      .json({ message: `Error retrieving manager properties: ${err.message}` });
+  } catch (err) {
+    next(err);
   }
 };
 
 export const addFavoriteProperty = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const { cognitoId, propertyId } = req.params;
@@ -151,16 +151,15 @@ export const addFavoriteProperty = async (
     } else {
       res.status(409).json({ message: "Property already added as favorite" });
     }
-  } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error adding favorite property: ${error.message}` });
+  } catch (error) {
+    next(error);
   }
 };
 
 export const removeFavoriteProperty = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const { cognitoId, propertyId } = req.params;
@@ -177,9 +176,7 @@ export const removeFavoriteProperty = async (
     });
 
     res.json(updatedTenant);
-  } catch (err: any) {
-    res
-      .status(500)
-      .json({ message: `Error removing favorite property: ${err.message}` });
+  } catch (err) {
+    next(err);
   }
 };

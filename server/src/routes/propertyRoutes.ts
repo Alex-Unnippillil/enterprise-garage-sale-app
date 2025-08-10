@@ -6,18 +6,24 @@ import {
 } from "../controllers/propertyControllers";
 import multer from "multer";
 import { authMiddleware } from "../middleware/authMiddleware";
+import { validateBody, validateQuery } from "../middleware/validationMiddleware";
+import {
+  propertyCreateSchema,
+  propertyQuerySchema,
+} from "../validation/propertySchema";
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
 
 const router = express.Router();
 
-router.get("/", getProperties);
+router.get("/", validateQuery(propertyQuerySchema), getProperties);
 router.get("/:id", getProperty);
 router.post(
   "/",
   authMiddleware(["manager"]),
   upload.array("photos"),
+  validateBody(propertyCreateSchema),
   createProperty
 );
 

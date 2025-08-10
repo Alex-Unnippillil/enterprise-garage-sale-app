@@ -1,3 +1,4 @@
+import { mockData } from "../test-utils/prismaMock";
 import request from "supertest";
 import express from "express";
 import listingsRouter from "../routes/listings";
@@ -11,6 +12,8 @@ app.use("/listings", listingsRouter);
 describe("Listings API", () => {
   beforeEach(async () => {
     await prisma.listing.deleteMany();
+    mockData.listings.length = 0;
+    jest.clearAllMocks();
   });
 
   afterAll(async () => {

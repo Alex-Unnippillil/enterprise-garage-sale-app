@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { PrismaClient, Prisma } from "@prisma/client";
 import { wktToGeoJSON } from "@terraformer/wkt";
 import { S3Client } from "@aws-sdk/client-s3";
@@ -14,7 +14,8 @@ const s3Client = new S3Client({
 
 export const getProperties = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const {
@@ -144,15 +145,14 @@ export const getProperties = async (
 
     res.json(properties);
   } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error retrieving properties: ${error.message}` });
+    next(error);
   }
 };
 
 export const getProperty = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const { id } = req.params;
@@ -184,15 +184,14 @@ export const getProperty = async (
       res.json(propertyWithCoordinates);
     }
   } catch (err: any) {
-    res
-      .status(500)
-      .json({ message: `Error retrieving property: ${err.message}` });
+    next(err);
   }
 };
 
 export const createProperty = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const files = req.files as Express.Multer.File[];
@@ -286,8 +285,6 @@ export const createProperty = async (
 
     res.status(201).json(newProperty);
   } catch (err: any) {
-    res
-      .status(500)
-      .json({ message: `Error creating property: ${err.message}` });
+    next(err);
   }
 };

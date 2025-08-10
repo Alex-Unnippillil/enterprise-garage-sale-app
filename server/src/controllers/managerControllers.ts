@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { PrismaClient } from "@prisma/client";
 import { wktToGeoJSON } from "@terraformer/wkt";
 
@@ -6,7 +6,8 @@ const prisma = new PrismaClient();
 
 export const getManager = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const { cognitoId } = req.params;
@@ -20,15 +21,14 @@ export const getManager = async (
       res.status(404).json({ message: "Manager not found" });
     }
   } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error retrieving manager: ${error.message}` });
+    next(error);
   }
 };
 
 export const createManager = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const { cognitoId, name, email, phoneNumber } = req.body;
@@ -44,15 +44,14 @@ export const createManager = async (
 
     res.status(201).json(manager);
   } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error creating manager: ${error.message}` });
+    next(error);
   }
 };
 
 export const updateManager = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const { cognitoId } = req.params;
@@ -69,15 +68,14 @@ export const updateManager = async (
 
     res.json(updateManager);
   } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error updating manager: ${error.message}` });
+    next(error);
   }
 };
 
 export const getManagerProperties = async (
   req: Request,
-  res: Response
+  res: Response,
+  next: NextFunction
 ): Promise<void> => {
   try {
     const { cognitoId } = req.params;
@@ -112,8 +110,6 @@ export const getManagerProperties = async (
 
     res.json(propertiesWithFormattedLocation);
   } catch (err: any) {
-    res
-      .status(500)
-      .json({ message: `Error retrieving manager properties: ${err.message}` });
+    next(err);
   }
 };

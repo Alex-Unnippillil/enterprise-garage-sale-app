@@ -1,20 +1,26 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export const getListings = async (req: Request, res: Response): Promise<void> => {
+export const getListings = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     const listings = await prisma.listing.findMany();
     res.json(listings);
   } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error retrieving listings: ${error.message}` });
+    next(error);
   }
 };
 
-export const getListing = async (req: Request, res: Response): Promise<void> => {
+export const getListing = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     const { id } = req.params;
     const listing = await prisma.listing.findUnique({
@@ -26,13 +32,15 @@ export const getListing = async (req: Request, res: Response): Promise<void> => 
       res.status(404).json({ message: "Listing not found" });
     }
   } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error retrieving listing: ${error.message}` });
+    next(error);
   }
 };
 
-export const createListing = async (req: Request, res: Response): Promise<void> => {
+export const createListing = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     const { title, description, price } = req.body;
     const listing = await prisma.listing.create({
@@ -44,13 +52,15 @@ export const createListing = async (req: Request, res: Response): Promise<void> 
     });
     res.status(201).json(listing);
   } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error creating listing: ${error.message}` });
+    next(error);
   }
 };
 
-export const updateListing = async (req: Request, res: Response): Promise<void> => {
+export const updateListing = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     const { id } = req.params;
     const { title, description, price } = req.body;
@@ -64,20 +74,20 @@ export const updateListing = async (req: Request, res: Response): Promise<void> 
     });
     res.json(listing);
   } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error updating listing: ${error.message}` });
+    next(error);
   }
 };
 
-export const deleteListing = async (req: Request, res: Response): Promise<void> => {
+export const deleteListing = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     const { id } = req.params;
     await prisma.listing.delete({ where: { id: Number(id) } });
     res.status(204).send();
   } catch (error: any) {
-    res
-      .status(500)
-      .json({ message: `Error deleting listing: ${error.message}` });
+    next(error);
   }
 };

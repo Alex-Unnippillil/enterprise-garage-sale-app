@@ -5,6 +5,7 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import { authMiddleware } from "./middleware/authMiddleware";
+import { errorHandler } from "./middleware/errorHandler";
 /* ROUTE IMPORT */
 import tenantRoutes from "./routes/tenantRoutes";
 import managerRoutes from "./routes/managerRoutes";
@@ -35,6 +36,9 @@ app.use("/leases", leaseRoutes);
 app.use("/listings", listingsRoutes);
 app.use("/tenants", authMiddleware(["tenant"]), tenantRoutes);
 app.use("/managers", authMiddleware(["manager"]), managerRoutes);
+
+/* ERROR HANDLER */
+app.use(errorHandler);
 
 /* SERVER */
 const port = Number(process.env.PORT) || 3002;

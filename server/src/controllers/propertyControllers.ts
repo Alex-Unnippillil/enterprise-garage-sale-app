@@ -5,11 +5,12 @@ import { S3Client } from "@aws-sdk/client-s3";
 import { Location } from "@prisma/client";
 import { Upload } from "@aws-sdk/lib-storage";
 import axios from "axios";
+import { AWS_REGION, S3_BUCKET_NAME } from "../config";
 
 const prisma = new PrismaClient();
 
 const s3Client = new S3Client({
-  region: process.env.AWS_REGION,
+  region: AWS_REGION,
 });
 
 export const getProperties = async (
@@ -209,7 +210,7 @@ export const createProperty = async (
     const photoUrls = await Promise.all(
       files.map(async (file) => {
         const uploadParams = {
-          Bucket: process.env.S3_BUCKET_NAME!,
+          Bucket: S3_BUCKET_NAME,
           Key: `properties/${Date.now()}-${file.originalname}`,
           Body: file.buffer,
           ContentType: file.mimetype,

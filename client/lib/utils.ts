@@ -1,6 +1,8 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { toast } from "sonner";
+import { Property } from "@/types/prismaTypes";
+import { Listing } from "@/components/ListingCard";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -34,6 +36,14 @@ export function cleanParams(params: Record<string, any>): Record<string, any> {
     )
   );
 }
+
+export const mapPropertyToListing = (property: Property): Listing => ({
+  id: property.id,
+  name: property.name,
+  description: property.description,
+  pricePerMonth: property.pricePerMonth,
+  photoUrls: property.photoUrls,
+});
 
 type MutationMessages = {
   success?: string;

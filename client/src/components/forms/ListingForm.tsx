@@ -7,9 +7,9 @@ import { CustomFormField } from "../FormField";
 import { createListing } from "@/lib/api";
 
 const listingSchema = z.object({
-  title: z.string().min(1, "Title is required"),
+  name: z.string().min(1, "Name is required"),
   description: z.string().min(1, "Description is required"),
-  price: z.coerce.number().positive("Price must be positive"),
+  pricePerMonth: z.coerce.number().positive("Price must be positive"),
 });
 
 export type ListingFormData = z.infer<typeof listingSchema>;
@@ -28,9 +28,9 @@ const ListingForm = ({ onSuccess }: { onSuccess?: () => void }) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <CustomFormField name="title" label="Title" />
+        <CustomFormField name="name" label="Property Name" />
         <CustomFormField name="description" label="Description" type="textarea" />
-        <CustomFormField name="price" label="Price" type="number" />
+        <CustomFormField name="pricePerMonth" label="Price per Month" type="number" />
         <Button type="submit">Submit</Button>
       </form>
     </Form>

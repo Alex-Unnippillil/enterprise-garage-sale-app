@@ -32,7 +32,14 @@ export const getProperties = async (
       availableFrom,
       latitude,
       longitude,
+      page,
+      limit,
     } = req.query;
+
+    const pageNum = parseInt(page as string) || 1;
+    const limitNum = parseInt(limit as string) || 10;
+    const skip = (pageNum - 1) * limitNum;
+    const take = limitNum;
 
     let locationIds: number[] | undefined;
     if (latitude && longitude) {
@@ -65,10 +72,15 @@ export const getProperties = async (
       locationIds,
     });
 
-    const properties = await prisma.property.findMany({
-      where: filters,
-      include: { location: true },
-    });
+    const [totalCount, properties] = await prisma.$transaction([
+      prisma.property.count({ where: filters }),
+      prisma.property.findMany({
+        where: filters,
+        include: { location: true },
+        skip,
+        take,
+      }),
+    ]);
 
     const locIds = properties.map((p) => p.locationId);
     let coordsMap = new Map<number, { longitude: number; latitude: number }>();
@@ -100,7 +112,14 @@ export const getProperties = async (
       },
     }));
 
-    
+    res.set("X-Total-Count", totalCount.toString());
+    res.set(
+      "X-Page-Count",
+      Math.ceil(totalCount / limitNum).toString()
+    );
+    res.json(propertiesWithCoordinates);
+  } catch (err) {
+    next(err);
   }
 };
 

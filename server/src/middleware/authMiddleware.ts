@@ -27,7 +27,16 @@ export const authMiddleware = (allowedRoles: string[]) => {
     }
 
     try {
-      const decoded = jwt.decode(token) as DecodedToken;
+      const decoded = jwt.verify(
+        token,
+        process.env.COGNITO_JWT_PUBLIC_KEY || process.env.JWT_SECRET || "",
+        {
+          algorithms: ["RS256"],
+          audience: process.env.COGNITO_AUDIENCE,
+          issuer: process.env.COGNITO_ISSUER,
+        }
+      ) as DecodedToken;
+
       const userRole = decoded["custom:role"] || "";
       req.user = {
         id: decoded.sub,
@@ -39,12 +48,12 @@ export const authMiddleware = (allowedRoles: string[]) => {
         res.status(403).json({ message: "Access Denied" });
         return;
       }
+
+      next();
     } catch (err) {
-      console.error("Failed to decode token:", err);
-      res.status(400).json({ message: "Invalid token" });
+      console.error("Failed to verify token:", err);
+      res.status(401).json({ message: "Invalid or expired token" });
       return;
     }
-
-    next();
   };
 };

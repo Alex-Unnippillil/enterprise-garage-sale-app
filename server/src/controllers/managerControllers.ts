@@ -1,8 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { PrismaClient } from "@prisma/client";
 import { wktToGeoJSON } from "@terraformer/wkt";
-
-const prisma = new PrismaClient();
+import prisma from "../prismaClient";
 
 export const getManager = async (
   req: Request,

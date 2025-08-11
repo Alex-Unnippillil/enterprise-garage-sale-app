@@ -1,13 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import { PrismaClient, Prisma } from "@prisma/client";
+import { Prisma, Location } from "@prisma/client";
 import { buildPropertyFilters } from "../utils/buildPropertyFilters";
 import { wktToGeoJSON } from "@terraformer/wkt";
 import { S3Client } from "@aws-sdk/client-s3";
-import { Location } from "@prisma/client";
 import { Upload } from "@aws-sdk/lib-storage";
 import axios from "axios";
-
-const prisma = new PrismaClient();
+import prisma from "../prismaClient";
 
 const s3Client = new S3Client({
   region: process.env.AWS_REGION,
@@ -100,7 +98,9 @@ export const getProperties = async (
       },
     }));
 
-    
+    res.json(propertiesWithCoordinates);
+  } catch (err) {
+    next(err);
   }
 };
 

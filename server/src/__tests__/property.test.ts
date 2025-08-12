@@ -10,16 +10,6 @@ jest.mock("../utils/geocodeAddress", () => ({
   geocodeAddress: jest.fn().mockResolvedValue([0, 0]),
 }));
 
-process.env.DATABASE_URL = "https://example.com";
-process.env.GEOCODE_USER_AGENT = "test-agent";
-process.env.COGNITO_JWT_PUBLIC_KEY = "key";
-process.env.COGNITO_AUDIENCE = "aud";
-process.env.COGNITO_ISSUER = "issuer";
-process.env.AWS_REGION = "us-east-1";
-process.env.S3_BUCKET_NAME = "bucket";
-process.env.AWS_ACCESS_KEY_ID = "id";
-process.env.AWS_SECRET_ACCESS_KEY = "secret";
-process.env.JWT_SECRET = "secret";
 
 const mockPrisma = {
   property: {

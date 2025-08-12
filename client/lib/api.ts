@@ -1,13 +1,13 @@
 import axios from "axios";
-import { mapPropertyToListing } from "./utils";
+import { Property } from "@/types/prismaTypes";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3002",
 });
 
-export const fetchListings = async (search?: string) => {
+export const fetchListings = async (search?: string): Promise<Property[]> => {
   const response = await api.get("/properties", { params: { q: search } });
-  return response.data.map(mapPropertyToListing);
+  return response.data as Property[];
 };
 
 export const createListing = async (data: any) => {

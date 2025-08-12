@@ -1,13 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import ListingCard, { Listing } from "@/components/ListingCard";
+import ListingCard from "@/components/ListingCard";
 import ListingForm from "@/components/forms/ListingForm";
 import { fetchListings } from "@/lib/api";
 import { useDebounce } from "@/hooks/use-debounce";
+import { Property } from "@/types/prismaTypes";
 
 const ListingsPage = () => {
-  const [listings, setListings] = useState<Listing[]>([]);
+  const [listings, setListings] = useState<Property[]>([]);
   const [query, setQuery] = useState("");
   const debouncedQuery = useDebounce(query, 300);
 

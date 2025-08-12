@@ -1,8 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { PrismaClient } from "@prisma/client";
+import prisma from "../utils/prisma";
 import { updateApplicationStatus as updateApplicationStatusService } from "../services/applicationService";
-
-const prisma = new PrismaClient();
 
 export const listApplications = async (
   req: Request,

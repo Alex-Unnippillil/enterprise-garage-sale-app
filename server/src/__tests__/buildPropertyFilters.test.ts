@@ -43,4 +43,12 @@ describe("buildPropertyFilters", () => {
     const filters = buildPropertyFilters({ locationIds: [1, 2] });
     expect(filters.locationId).toEqual({ in: [1, 2] });
   });
+
+  it("handles q search", () => {
+    const filters = buildPropertyFilters({ q: "home" });
+    expect(filters.OR).toEqual([
+      { name: { contains: "home", mode: "insensitive" } },
+      { description: { contains: "home", mode: "insensitive" } },
+    ]);
+  });
 });

@@ -12,6 +12,7 @@ interface PropertyFilterParams {
   amenities?: string;
   availableFrom?: string;
   locationIds?: number[];
+  q?: string;
 }
 
 export const buildPropertyFilters = (
@@ -29,6 +30,7 @@ export const buildPropertyFilters = (
     amenities,
     availableFrom,
     locationIds,
+    q,
   } = params;
 
   const filters: Prisma.PropertyWhereInput = {};
@@ -93,6 +95,13 @@ export const buildPropertyFilters = (
 
   if (locationIds && locationIds.length > 0) {
     filters.locationId = { in: locationIds };
+  }
+
+  if (q && q.trim() !== "") {
+    filters.OR = [
+      { name: { contains: q, mode: "insensitive" } },
+      { description: { contains: q, mode: "insensitive" } },
+    ];
   }
 
   return filters;

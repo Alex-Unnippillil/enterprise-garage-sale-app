@@ -15,7 +15,17 @@ function toCamelCase(str: string): string {
   return str.charAt(0).toLowerCase() + str.slice(1);
 }
 
-async function insertLocationData(locations: any[]) {
+interface SeedLocation {
+  id: number;
+  country: string;
+  city: string;
+  state: string;
+  address: string;
+  postalCode: string;
+  coordinates: string;
+}
+
+async function insertLocationData(locations: SeedLocation[]) {
   for (const location of locations) {
     const { id, country, city, state, address, postalCode, coordinates } =
       location;
@@ -31,18 +41,22 @@ async function insertLocationData(locations: any[]) {
   }
 }
 
+type PrismaModel = {
+  deleteMany: (args?: unknown) => Promise<unknown>;
+  create: (args: { data: unknown }) => Promise<unknown>;
+  findMany?: (args?: unknown) => Promise<{ id: number }[]>;
+};
+
 async function resetSequence(modelName: string) {
   const quotedModelName = `"${toPascalCase(modelName)}"`;
 
-  const maxIdResult = await (
-    prisma[modelName as keyof PrismaClient] as any
-  ).findMany({
+  const model = prisma[modelName as keyof PrismaClient] as unknown as PrismaModel;
+  const maxIdResult = await model.findMany?.({
     select: { id: true },
     orderBy: { id: "desc" },
     take: 1,
   });
-
-  if (maxIdResult.length === 0) return;
+  if (!maxIdResult || maxIdResult.length === 0) return;
 
   const nextId = maxIdResult[0].id + 1;
   await prisma.$executeRaw(
@@ -60,7 +74,7 @@ async function deleteAllData(orderedFileNames: string[]) {
 
   for (const modelName of modelNames.reverse()) {
     const modelNameCamel = toCamelCase(modelName);
-    const model = (prisma as any)[modelNameCamel];
+    const model = prisma[modelNameCamel as keyof PrismaClient] as unknown as PrismaModel;
     if (!model) {
       console.error(`Model ${modelName} not found in Prisma client`);
       continue;
@@ -102,7 +116,7 @@ async function main() {
     if (modelName === "Location") {
       await insertLocationData(jsonData);
     } else {
-      const model = (prisma as any)[modelNameCamel];
+      const model = prisma[modelNameCamel as keyof PrismaClient] as unknown as PrismaModel;
       try {
         for (const item of jsonData) {
           await model.create({

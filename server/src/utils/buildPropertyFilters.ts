@@ -1,4 +1,4 @@
-import { Prisma } from "@prisma/client";
+import { Prisma, PropertyType, Amenity } from "@prisma/client";
 
 interface PropertyFilterParams {
   favoriteIds?: string;
@@ -77,12 +77,12 @@ export const buildPropertyFilters = (
   }
 
   if (propertyType && propertyType !== "any") {
-    filters.propertyType = propertyType as any;
+    filters.propertyType = propertyType as PropertyType;
   }
 
   if (amenities && amenities !== "any") {
     filters.amenities = {
-      hasEvery: amenities.split(",") as any,
+      hasEvery: amenities.split(",") as Amenity[],
     };
   }
 

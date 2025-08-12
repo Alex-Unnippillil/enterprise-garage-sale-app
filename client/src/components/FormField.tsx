@@ -4,6 +4,7 @@ import {
   FieldValues,
   useFormContext,
   useFieldArray,
+  Control,
 } from "react-hook-form";
 import {
   FormControl,
@@ -212,7 +213,7 @@ export const CustomFormField: React.FC<FormFieldProps> = ({
 };
 interface MultiInputFieldProps {
   name: string;
-  control: any;
+  control: Control<FieldValues>;
   placeholder?: string;
   inputClassName?: string;
 }

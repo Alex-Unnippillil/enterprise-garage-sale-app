@@ -6,6 +6,7 @@ import { uploadFilesToS3 } from "../utils/s3Upload";
 import { geocodeAddress } from "../utils/geocodeAddress";
 import { z } from "zod";
 import prisma from "../utils/prisma";
+import { Amenity, Highlight, PropertyType } from "@prisma/client";
 
 const createPropertySchema = z.object({
   address: z.string(),
@@ -214,11 +215,11 @@ export const createProperty = async (
           managerCognitoId,
           amenities:
             typeof propertyData.amenities === "string"
-              ? propertyData.amenities.split(",")
+              ? (propertyData.amenities.split(",") as Amenity[])
               : [],
           highlights:
             typeof propertyData.highlights === "string"
-              ? propertyData.highlights.split(",")
+              ? (propertyData.highlights.split(",") as Highlight[])
               : [],
           isPetsAllowed: propertyData.isPetsAllowed === "true",
           isParkingIncluded: propertyData.isParkingIncluded === "true",
@@ -228,6 +229,7 @@ export const createProperty = async (
           beds: propertyData.beds,
           baths: propertyData.baths,
           squareFeet: propertyData.squareFeet,
+          propertyType: propertyData.propertyType as PropertyType,
         },
         include: {
           location: true,

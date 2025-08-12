@@ -1,11 +1,11 @@
-import { Request, Response, NextFunction } from "express";
-import { Prisma, Location } from "@prisma/client";
-import { buildPropertyFilters } from "../utils/buildPropertyFilters";
-import { formatLocation } from "../utils/formatLocation";
-import { uploadFilesToS3 } from "../utils/s3Upload";
-import { geocodeAddress } from "../utils/geocodeAddress";
-import { z } from "zod";
-import prisma from "../utils/prisma";
+import { Request, Response, NextFunction } from 'express';
+import { Prisma, Location } from '@prisma/client';
+import { buildPropertyFilters } from '../utils/buildPropertyFilters';
+import { formatLocation } from '../utils/formatLocation';
+import { uploadFilesToS3 } from '../utils/s3Upload';
+import { geocodeAddress } from '../utils/geocodeAddress';
+import { z } from 'zod';
+import prisma from '../utils/prisma';
 
 const createPropertySchema = z.object({
   address: z.string(),
@@ -31,7 +31,7 @@ const createPropertySchema = z.object({
 export const getProperties = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const {
@@ -48,6 +48,8 @@ export const getProperties = async (
       latitude,
       longitude,
       q,
+      page,
+      pageSize,
     } = req.query;
 
     let locationIds: number[] | undefined;
@@ -82,10 +84,20 @@ export const getProperties = async (
       q: q as string | undefined,
     });
 
-    const properties = await prisma.property.findMany({
-      where: filters,
-      include: { location: true },
-    });
+    const pageNumber = page ? parseInt(page as string, 10) : 1;
+    const pageSizeNumber = pageSize ? parseInt(pageSize as string, 10) : 10;
+    const skip = (pageNumber - 1) * pageSizeNumber;
+    const take = pageSizeNumber;
+
+    const [total, properties] = await prisma.$transaction([
+      prisma.property.count({ where: filters }),
+      prisma.property.findMany({
+        where: filters,
+        include: { location: true },
+        skip,
+        take,
+      }),
+    ]);
 
     const locIds = properties.map((p) => p.locationId);
     let coordsMap = new Map<number, { longitude: number; latitude: number }>();
@@ -105,7 +117,7 @@ export const getProperties = async (
         coordsResults.map((c) => [
           c.id,
           { longitude: Number(c.longitude), latitude: Number(c.latitude) },
-        ])
+        ]),
       );
     }
 
@@ -116,7 +128,7 @@ export const getProperties = async (
         coordinates: coordsMap.get(p.locationId),
       },
     }));
-    res.json(propertiesWithCoordinates);
+    res.json({ properties: propertiesWithCoordinates, total });
   } catch (err) {
     next(err);
   }
@@ -125,7 +137,7 @@ export const getProperties = async (
 export const getProperty = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const { id } = req.params;
@@ -137,9 +149,7 @@ export const getProperty = async (
     });
 
     if (property) {
-      const { longitude, latitude } = await formatLocation(
-        property.location.id
-      );
+      const { longitude, latitude } = await formatLocation(property.location.id);
 
       const propertyWithCoordinates = {
         ...property,
@@ -153,7 +163,7 @@ export const getProperty = async (
       };
       res.json(propertyWithCoordinates);
     } else {
-      res.status(404).json({ message: "Property not found" });
+      res.status(404).json({ message: 'Property not found' });
     }
   } catch (err) {
     next(err);
@@ -163,7 +173,7 @@ export const getProperty = async (
 export const createProperty = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const files = req.files as Express.Multer.File[];
@@ -176,27 +186,15 @@ export const createProperty = async (
 
     const managerCognitoId = req.user?.id;
     if (!managerCognitoId) {
-      res.status(401).json({ message: "Unauthorized" });
+      res.status(401).json({ message: 'Unauthorized' });
       return;
     }
 
-    const {
-      address,
-      city,
-      state,
-      country,
-      postalCode,
-      ...propertyData
-    } = parsed.data;
+    const { address, city, state, country, postalCode, ...propertyData } = parsed.data;
 
     const photoUrls = await uploadFilesToS3(files);
 
-    const [longitude, latitude] = await geocodeAddress(
-      address,
-      city,
-      country,
-      postalCode,
-    );
+    const [longitude, latitude] = await geocodeAddress(address, city, country, postalCode);
 
     const newProperty = await prisma.$transaction(async (tx) => {
       const [location] = await tx.$queryRaw<Location[]>`
@@ -213,15 +211,11 @@ export const createProperty = async (
           locationId: location.id,
           managerCognitoId,
           amenities:
-            typeof propertyData.amenities === "string"
-              ? propertyData.amenities.split(",")
-              : [],
+            typeof propertyData.amenities === 'string' ? propertyData.amenities.split(',') : [],
           highlights:
-            typeof propertyData.highlights === "string"
-              ? propertyData.highlights.split(",")
-              : [],
-          isPetsAllowed: propertyData.isPetsAllowed === "true",
-          isParkingIncluded: propertyData.isParkingIncluded === "true",
+            typeof propertyData.highlights === 'string' ? propertyData.highlights.split(',') : [],
+          isPetsAllowed: propertyData.isPetsAllowed === 'true',
+          isParkingIncluded: propertyData.isParkingIncluded === 'true',
           pricePerMonth: propertyData.pricePerMonth,
           securityDeposit: propertyData.securityDeposit,
           applicationFee: propertyData.applicationFee,

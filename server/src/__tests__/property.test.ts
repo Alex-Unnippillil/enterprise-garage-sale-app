@@ -30,17 +30,16 @@ import prisma from "../utils/prisma";
 
 const app = express();
 app.use(express.json());
-// custom route to bypass auth and file upload middleware
+// custom route to bypass file upload middleware and simulate auth
 app.post("/properties", (req, res, next) => {
   (req as any).files = [];
+  (req as any).user = { id: "manager", role: "manager" };
   createProperty(req, res, next);
 });
 // other property routes
 app.use("/properties", propertyRoutes);
 
-const describeOrSkip = process.env.DATABASE_URL ? describe : describe.skip;
-
-describeOrSkip("Property API", () => {
+describe("Property API", () => {
   beforeEach(async () => {
     jest.clearAllMocks();
     await prisma.property.deleteMany();
@@ -58,6 +57,15 @@ describeOrSkip("Property API", () => {
   });
 
   it("creates property with valid payload", async () => {
+    const propertyCreateMock = jest.fn().mockResolvedValue({
+      id: 1,
+      name: "My Property",
+      locationId: 1,
+      managerCognitoId: "manager",
+      location: {},
+      manager: {},
+    });
+
     mockPrisma.$transaction.mockImplementation(async (cb: any) => {
       const tx = {
         $queryRaw: jest
@@ -73,18 +81,7 @@ describeOrSkip("Property API", () => {
               coordinates: "",
             },
           ]),
-        property: {
-          create: jest
-            .fn()
-            .mockResolvedValue({
-              id: 1,
-              name: "My Property",
-              locationId: 1,
-              managerCognitoId: "manager",
-              location: {},
-              manager: {},
-            }),
-        },
+        property: { create: propertyCreateMock },
       };
       return cb(tx);
     });
@@ -95,7 +92,6 @@ describeOrSkip("Property API", () => {
       state: "TS",
       country: "USA",
       postalCode: "12345",
-      managerCognitoId: "manager",
       name: "My Property",
       description: "Nice place",
       pricePerMonth: "1000",
@@ -110,6 +106,11 @@ describeOrSkip("Property API", () => {
     const res = await request(app).post("/properties").send(payload);
     expect(res.status).toBe(201);
     expect(mockPrisma.$transaction).toHaveBeenCalled();
+    expect(propertyCreateMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({ managerCognitoId: "manager" }),
+      })
+    );
   });
 
   it("returns 400 for invalid payload", async () => {
@@ -119,7 +120,6 @@ describeOrSkip("Property API", () => {
       state: "TS",
       country: "USA",
       postalCode: "12345",
-      managerCognitoId: "manager",
       // name missing
       description: "Nice place",
       pricePerMonth: "1000",

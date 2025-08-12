@@ -4,7 +4,7 @@ import { CustomFormField } from "@/components/FormField";
 import Header from "@/components/Header";
 import { Form } from "@/components/ui/form";
 import { PropertyFormData, propertySchema } from "@/lib/schemas";
-import { useCreatePropertyMutation, useGetAuthUserQuery } from "@/state/api";
+import { useCreatePropertyMutation } from "@/state/api";
 import { AmenityEnum, HighlightEnum, PropertyTypeEnum } from "@/lib/constants";
 import { zodResolver } from "@hookform/resolvers/zod";
 import React from "react";
@@ -13,7 +13,6 @@ import { Button } from "@/components/ui/button";
 
 const NewProperty = () => {
   const [createProperty] = useCreatePropertyMutation();
-  const { data: authUser } = useGetAuthUserQuery();
 
   const form = useForm<PropertyFormData>({
     resolver: zodResolver(propertySchema),
@@ -40,10 +39,6 @@ const NewProperty = () => {
   });
 
   const onSubmit = async (data: PropertyFormData) => {
-    if (!authUser?.cognitoInfo?.userId) {
-      throw new Error("No manager ID found");
-    }
-
     const formData = new FormData();
     Object.entries(data).forEach(([key, value]) => {
       if (key === "photoUrls") {
@@ -57,8 +52,6 @@ const NewProperty = () => {
         formData.append(key, String(value));
       }
     });
-
-    formData.append("managerCognitoId", authUser.cognitoInfo.userId);
 
     await createProperty(formData);
   };

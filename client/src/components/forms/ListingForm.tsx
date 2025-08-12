@@ -7,7 +7,6 @@ import { CustomFormField } from "../FormField";
 import { createListing } from "@/lib/api";
 
 const listingSchema = z.object({
-  managerCognitoId: z.string().min(1, "Manager ID is required"),
   name: z.string().min(1, "Name is required"),
   description: z.string().min(1, "Description is required"),
   pricePerMonth: z.coerce.number().positive("Price must be positive"),
@@ -44,7 +43,6 @@ const ListingForm = ({ onSuccess }: { onSuccess?: () => void }) => {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <CustomFormField name="managerCognitoId" label="Manager ID" />
         <CustomFormField name="name" label="Property Name" />
         <CustomFormField name="description" label="Description" type="textarea" />
         <CustomFormField

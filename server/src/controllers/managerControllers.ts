@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { wktToGeoJSON } from "@terraformer/wkt";
 import prisma from "../utils/prisma";
+import { createUserSchema, updateUserSchema } from "../validators/userValidators";
 
 export const getManager = async (
   req: Request,
@@ -29,7 +30,12 @@ export const createManager = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { cognitoId, name, email, phoneNumber } = req.body;
+    const parsed = createUserSchema.safeParse(req.body);
+    if (!parsed.success) {
+      res.status(400).json({ errors: parsed.error.errors });
+      return;
+    }
+    const { cognitoId, name, email, phoneNumber } = parsed.data;
 
     const manager = await prisma.manager.create({
       data: {
@@ -53,7 +59,12 @@ export const updateManager = async (
 ): Promise<void> => {
   try {
     const { cognitoId } = req.params;
-    const { name, email, phoneNumber } = req.body;
+    const parsed = updateUserSchema.safeParse(req.body);
+    if (!parsed.success) {
+      res.status(400).json({ errors: parsed.error.errors });
+      return;
+    }
+    const { name, email, phoneNumber } = parsed.data;
 
     const updateManager = await prisma.manager.update({
       where: { cognitoId },

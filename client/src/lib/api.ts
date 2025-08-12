@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Property } from "@/types/prismaTypes";
+import { Property } from "@/types/prisma-types";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001",

@@ -1,6 +1,6 @@
 "use client";
 
-import Loading from "@/components/Loading";
+import Loading from "@/components/loading";
 import {
   Table,
   TableBody,
@@ -15,7 +15,7 @@ import {
   useGetPaymentsQuery,
   useGetPropertyQuery,
 } from "@/state/api";
-import { Lease, Payment, Property } from "@/types/prismaTypes";
+import { Lease, Payment, Property } from "@/types/prisma-types";
 import {
   ArrowDownToLineIcon,
   Check,

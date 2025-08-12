@@ -3,9 +3,9 @@ import {
   getProperties,
   getProperty,
   createProperty,
-} from "../controllers/propertyControllers";
+} from "../controllers/property-controllers";
 import multer from "multer";
-import { authMiddleware } from "../middleware/authMiddleware";
+import { authMiddleware } from "../middleware/auth-middleware";
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });

@@ -6,7 +6,7 @@ import {
   Payment,
   Property,
   Tenant,
-} from "@/types/prismaTypes";
+} from "@/types/prisma-types";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { fetchAuthSession, getCurrentUser } from "aws-amplify/auth";
 import { FiltersState } from ".";

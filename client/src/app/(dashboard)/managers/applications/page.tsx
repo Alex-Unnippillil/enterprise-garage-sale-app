@@ -1,8 +1,8 @@
 "use client";
 
-import ApplicationCard from "@/components/ApplicationCard";
-import Header from "@/components/Header";
-import Loading from "@/components/Loading";
+import ApplicationCard from "@/components/application-card";
+import Header from "@/components/header";
+import Loading from "@/components/loading";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   useGetApplicationsQuery,

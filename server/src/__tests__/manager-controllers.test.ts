@@ -25,7 +25,7 @@ jest.mock("@prisma/client", () => ({
 }));
 
 import prisma from "../utils/prisma";
-import { getManager, getManagerProperties } from "../controllers/managerControllers";
+import { getManager, getManagerProperties } from "../controllers/manager-controllers";
 
 const createMockRes = () => {
   const res: Partial<Response> = {};

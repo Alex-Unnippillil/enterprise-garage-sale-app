@@ -1,4 +1,4 @@
-import { formatLocation } from "../formatLocation";
+import { formatLocation } from "../format-location";
 import prisma from "../prisma";
 
 jest.mock("../prisma", () => ({

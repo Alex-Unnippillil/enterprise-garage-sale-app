@@ -14,8 +14,8 @@ import {
   Clock,
   Download
 } from "lucide-react";
-import Header from "@/components/Header";
-import Loading from "@/components/Loading";
+import Header from "@/components/header";
+import Loading from "@/components/loading";
 import { useGetAuthUserQuery } from "@/state/api";
 import { format } from "date-fns";
 

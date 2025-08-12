@@ -17,8 +17,8 @@ jest.mock("../utils/prisma", () => ({
   default: mockPrisma,
 }));
 
-import { createTenant, updateTenant } from "../controllers/tenantControllers";
-import { createManager, updateManager } from "../controllers/managerControllers";
+import { createTenant, updateTenant } from "../controllers/tenant-controllers";
+import { createManager, updateManager } from "../controllers/manager-controllers";
 
 const app = express();
 app.use(express.json());

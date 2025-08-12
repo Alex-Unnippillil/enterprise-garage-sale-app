@@ -1,9 +1,9 @@
 import React from "react";
-import HeroSection from "./HeroSection";
-import FeaturesSection from "./FeaturesSection";
-import DiscoverSection from "./DiscoverSection";
-import CallToActionSection from "./CallToActionSection";
-import FooterSection from "./FooterSection";
+import HeroSection from "./hero-section";
+import FeaturesSection from "./features-section";
+import DiscoverSection from "./discover-section";
+import CallToActionSection from "./call-to-action-section";
+import FooterSection from "./footer-section";
 
 const Landing = () => {
   return (

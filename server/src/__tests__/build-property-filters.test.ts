@@ -1,4 +1,4 @@
-import { buildPropertyFilters } from "../utils/buildPropertyFilters";
+import { buildPropertyFilters } from "../utils/build-property-filters";
 import { PropertyType, Amenity } from "@prisma/client";
 
 describe("buildPropertyFilters", () => {

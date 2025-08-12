@@ -2,15 +2,15 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-import { authMiddleware } from "./middleware/authMiddleware";
-import { errorHandler } from "./middleware/errorHandler";
+import { authMiddleware } from "./middleware/auth-middleware";
+import { errorHandler } from "./middleware/error-handler";
 import env from "./env";
 /* ROUTE IMPORT */
-import tenantRoutes from "./routes/tenantRoutes";
-import managerRoutes from "./routes/managerRoutes";
-import propertyRoutes from "./routes/propertyRoutes";
-import leaseRoutes from "./routes/leaseRoutes";
-import applicationRoutes from "./routes/applicationRoutes";
+import tenantRoutes from "./routes/tenant-routes";
+import managerRoutes from "./routes/manager-routes";
+import propertyRoutes from "./routes/property-routes";
+import leaseRoutes from "./routes/lease-routes";
+import applicationRoutes from "./routes/application-routes";
 
 /* CONFIGURATIONS */
 const app = express();

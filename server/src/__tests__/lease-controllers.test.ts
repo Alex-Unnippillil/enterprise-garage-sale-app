@@ -16,7 +16,7 @@ jest.mock("@prisma/client", () => ({
 }));
 
 import prisma from "../utils/prisma";
-import { getLeases, getLeasePayments } from "../controllers/leaseControllers";
+import { getLeases, getLeasePayments } from "../controllers/lease-controllers";
 
 const createMockRes = () => {
   const res: Partial<Response> = {};

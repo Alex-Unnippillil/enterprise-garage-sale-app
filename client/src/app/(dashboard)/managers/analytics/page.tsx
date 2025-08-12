@@ -27,8 +27,8 @@ import {
   MapPin,
   Star
 } from "lucide-react";
-import Header from "@/components/Header";
-import Loading from "@/components/Loading";
+import Header from "@/components/header";
+import Loading from "@/components/loading";
 import { useGetAuthUserQuery, useGetManagerPropertiesQuery } from "@/state/api";
 
 const Analytics = () => {

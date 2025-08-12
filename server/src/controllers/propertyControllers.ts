@@ -4,8 +4,31 @@ import { buildPropertyFilters } from "../utils/buildPropertyFilters";
 import { wktToGeoJSON } from "@terraformer/wkt";
 import { uploadFilesToS3 } from "../utils/s3Upload";
 import { geocodeAddress } from "../utils/geocodeAddress";
+import { z } from "zod";
 
 const prisma = new PrismaClient();
+
+const createPropertySchema = z.object({
+  address: z.string(),
+  city: z.string(),
+  state: z.string(),
+  country: z.string(),
+  postalCode: z.string(),
+  managerCognitoId: z.string(),
+  name: z.string(),
+  description: z.string(),
+  pricePerMonth: z.string(),
+  securityDeposit: z.string(),
+  applicationFee: z.string(),
+  beds: z.string(),
+  baths: z.string(),
+  squareFeet: z.string(),
+  propertyType: z.string(),
+  amenities: z.string().optional(),
+  highlights: z.string().optional(),
+  isPetsAllowed: z.string().optional(),
+  isParkingIncluded: z.string().optional(),
+});
 
 export const getProperties = async (
   req: Request,
@@ -149,6 +172,13 @@ export const createProperty = async (
 ): Promise<void> => {
   try {
     const files = req.files as Express.Multer.File[];
+
+    const parsed = createPropertySchema.safeParse(req.body);
+    if (!parsed.success) {
+      res.status(400).json({ errors: parsed.error.flatten() });
+      return;
+    }
+
     const {
       address,
       city,
@@ -157,7 +187,7 @@ export const createProperty = async (
       postalCode,
       managerCognitoId,
       ...propertyData
-    } = req.body;
+    } = parsed.data;
 
     const photoUrls = await uploadFilesToS3(files);
 

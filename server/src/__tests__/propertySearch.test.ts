@@ -1,5 +1,14 @@
 import request from "supertest";
 import express from "express";
+jest.mock("../middleware/authMiddleware", () => ({
+  authMiddleware: () => (_req: unknown, _res: unknown, next: any) => next(),
+}));
+jest.mock("../utils/s3Upload", () => ({
+  uploadFilesToS3: jest.fn().mockResolvedValue([]),
+}));
+jest.mock("../utils/geocodeAddress", () => ({
+  geocodeAddress: jest.fn().mockResolvedValue([0, 0]),
+}));
 import propertyRoutes from "../routes/propertyRoutes";
 import prisma from "../utils/prisma";
 const app = express();

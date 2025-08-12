@@ -1,5 +1,5 @@
 import axios from "axios";
-import { GEOCODE_USER_AGENT } from "../env";
+import env from "../utils/env";
 
 export const geocodeAddress = async (
   address: string,
@@ -16,15 +16,9 @@ export const geocodeAddress = async (
     limit: "1",
   }).toString()}`;
 
-  if (!GEOCODE_USER_AGENT) {
-    throw new Error(
-      "GEOCODE_USER_AGENT environment variable is required for geocoding requests",
-    );
-  }
-
   const geocodingResponse = await axios.get(geocodingUrl, {
     headers: {
-      "User-Agent": GEOCODE_USER_AGENT,
+      "User-Agent": env.GEOCODE_USER_AGENT,
     },
   });
 

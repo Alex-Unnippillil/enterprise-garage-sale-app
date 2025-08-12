@@ -22,6 +22,8 @@ describe("env validation", () => {
       COGNITO_ISSUER: "issuer",
       S3_BUCKET_NAME: "bucket",
       S3_REGION: "us-east-1",
+      AWS_ACCESS_KEY_ID: "keyId",
+      AWS_SECRET_ACCESS_KEY: "secret",
     });
 
     const env = require("../env").default;
@@ -38,6 +40,8 @@ describe("env validation", () => {
       COGNITO_ISSUER: "issuer",
       S3_BUCKET_NAME: "bucket",
       S3_REGION: "us-east-1",
+      AWS_ACCESS_KEY_ID: "keyId",
+      AWS_SECRET_ACCESS_KEY: "secret",
     });
 
     expect(() => require("../env")).toThrow();

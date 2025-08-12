@@ -12,6 +12,8 @@ const envSchema = z.object({
   COGNITO_ISSUER: z.string().min(1),
   S3_BUCKET_NAME: z.string().min(1),
   S3_REGION: z.string().min(1),
+  AWS_ACCESS_KEY_ID: z.string().min(1),
+  AWS_SECRET_ACCESS_KEY: z.string().min(1),
 });
 
 const env = envSchema.parse(process.env);

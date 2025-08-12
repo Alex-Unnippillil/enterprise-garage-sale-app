@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Listing creation flow', () => {
+test.describe('Property creation flow', () => {
   test('allows manager to fill new property form', async ({ page }) => {
     await page.route('**/managers/newproperty', (route) => {
       route.fulfill({

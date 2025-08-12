@@ -1,15 +1,8 @@
 import Image from "next/image";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import type { Property } from "@/types/prismaTypes";
 
-export interface Listing {
-  id: number | string;
-  name: string;
-  description: string;
-  pricePerMonth: number;
-  photoUrls?: string[];
-}
-
-const ListingCard = ({ listing }: { listing: Listing }) => {
+const ListingCard = ({ listing }: { listing: Property }) => {
   return (
     <Card className="overflow-hidden">
       {listing.photoUrls?.[0] && (

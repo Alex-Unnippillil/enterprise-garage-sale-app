@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Listing browsing flow', () => {
+test.describe('Property browsing flow', () => {
   test('shows properties from API on search page', async ({ page }) => {
     await page.route('**/search', (route) => {
       route.fulfill({

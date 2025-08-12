@@ -204,7 +204,8 @@ export const createProperty = async (
     const newProperty = await prisma.$transaction(async (tx) => {
       const [location] = await tx.$queryRaw<Location[]>`
         INSERT INTO "Location" (address, city, state, country, "postalCode", coordinates)
-        VALUES (${address}, ${city}, ${state}, ${country}, ${postalCode}, ST_SetSRID(ST_MakePoint(${longitude}, ${latitude}), 4326))
+        VALUES (${address}, ${city}, ${state}, ${country}, ${postalCode},
+          ST_SetSRID(ST_MakePoint(${longitude}, ${latitude}), 4326))
         RETURNING id, address, city, state, country, "postalCode", ST_AsText(coordinates) as coordinates;
       `;
 

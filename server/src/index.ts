@@ -37,7 +37,7 @@ app.use("/managers", authMiddleware(["manager"]), managerRoutes);
 app.use(errorHandler);
 
 /* SERVER */
-const port = env.PORT;
+const port = env.PORT || 3002;
 app.listen(port, "0.0.0.0", () => {
   console.log(`Server running on port ${port}`);
 });

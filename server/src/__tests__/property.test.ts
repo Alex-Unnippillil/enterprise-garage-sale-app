@@ -125,7 +125,7 @@ describe("Property API", () => {
     mockPrisma.property.findMany.mockResolvedValue(properties);
     mockPrisma.$queryRaw.mockResolvedValue([{ id: 10, longitude: 1, latitude: 2 }]);
 
-    const res = await request(app).get("/properties?beds=2&baths=1");
+    const res = await request(app).get("/properties?beds_gte=2&baths_gte=1");
     expect(res.status).toBe(200);
     expect(res.body).toHaveLength(1);
     expect(res.body[0].location.coordinates).toEqual({ longitude: 1, latitude: 2 });

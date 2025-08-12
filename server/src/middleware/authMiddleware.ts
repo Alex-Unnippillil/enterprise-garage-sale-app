@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jwt, { JwtPayload } from "jsonwebtoken";
+import env from "../utils/env";
 
 interface DecodedToken extends JwtPayload {
   sub: string;
@@ -29,11 +30,11 @@ export const authMiddleware = (allowedRoles: string[]) => {
     try {
       const decoded = jwt.verify(
         token,
-        process.env.COGNITO_JWT_PUBLIC_KEY || process.env.JWT_SECRET || "",
+        env.COGNITO_JWT_PUBLIC_KEY,
         {
           algorithms: ["RS256"],
-          audience: process.env.COGNITO_AUDIENCE,
-          issuer: process.env.COGNITO_ISSUER,
+          audience: env.COGNITO_AUDIENCE,
+          issuer: env.COGNITO_ISSUER,
         }
       ) as DecodedToken;
 

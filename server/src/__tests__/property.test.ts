@@ -10,6 +10,10 @@ jest.mock("../utils/geocodeAddress", () => ({
   geocodeAddress: jest.fn().mockResolvedValue([0, 0]),
 }));
 
+jest.mock("../middleware/authMiddleware", () => ({
+  authMiddleware: () => (_req: unknown, _res: unknown, next: any) => next(),
+}));
+
 const mockPrisma = {
   property: {
     deleteMany: jest.fn(),

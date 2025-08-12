@@ -135,5 +135,38 @@ describeOrSkip("Property API", () => {
     expect(res.status).toBe(400);
     expect(mockPrisma.$transaction).not.toHaveBeenCalled();
   });
+
+  it.each([
+    "pricePerMonth",
+    "securityDeposit",
+    "applicationFee",
+    "beds",
+    "baths",
+    "squareFeet",
+  ])("returns 400 when %s is invalid", async (field) => {
+    const payload: any = {
+      address: "123 Main St",
+      city: "Townsville",
+      state: "TS",
+      country: "USA",
+      postalCode: "12345",
+      managerCognitoId: "manager",
+      name: "My Property",
+      description: "Nice place",
+      pricePerMonth: "1000",
+      securityDeposit: "500",
+      applicationFee: "50",
+      beds: "2",
+      baths: "1",
+      squareFeet: "900",
+      propertyType: "Apartment",
+    };
+
+    payload[field] = "invalid";
+
+    const res = await request(app).post("/properties").send(payload);
+    expect(res.status).toBe(400);
+    expect(mockPrisma.$transaction).not.toHaveBeenCalled();
+  });
 });
 

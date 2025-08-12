@@ -13,7 +13,6 @@ const createPropertySchema = z.object({
   state: z.string(),
   country: z.string(),
   postalCode: z.string(),
-  managerCognitoId: z.string(),
   name: z.string(),
   description: z.string(),
   pricePerMonth: z.string(),
@@ -178,13 +177,18 @@ export const createProperty = async (
       return;
     }
 
+    const managerCognitoId = req.user?.id;
+    if (!managerCognitoId) {
+      res.status(401).json({ message: "Unauthorized" });
+      return;
+    }
+
     const {
       address,
       city,
       state,
       country,
       postalCode,
-      managerCognitoId,
       ...propertyData
     } = parsed.data;
 

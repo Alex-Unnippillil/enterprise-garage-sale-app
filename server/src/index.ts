@@ -1,10 +1,10 @@
 import express from "express";
-import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import { authMiddleware } from "./middleware/authMiddleware";
 import { errorHandler } from "./middleware/errorHandler";
+import env from "./utils/env";
 /* ROUTE IMPORT */
 import tenantRoutes from "./routes/tenantRoutes";
 import managerRoutes from "./routes/managerRoutes";
@@ -13,7 +13,6 @@ import leaseRoutes from "./routes/leaseRoutes";
 import applicationRoutes from "./routes/applicationRoutes";
 
 /* CONFIGURATIONS */
-dotenv.config();
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -36,7 +35,7 @@ app.use("/managers", authMiddleware(["manager"]), managerRoutes);
 app.use(errorHandler);
 
 /* SERVER */
-const port = Number(process.env.PORT) || 3002;
+const port = env.PORT;
 app.listen(port, "0.0.0.0", () => {
   console.log(`Server running on port ${port}`);
 });

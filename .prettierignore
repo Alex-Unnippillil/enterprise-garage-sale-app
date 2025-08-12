@@ -1,0 +1,9 @@
+node_modules
+build
+dist
+coverage
+.next
+out
+*.log
+tests/e2e
+client/tests/e2e

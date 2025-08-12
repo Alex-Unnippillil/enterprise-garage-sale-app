@@ -10,9 +10,6 @@ jest.mock("../utils/geocodeAddress", () => ({
   geocodeAddress: jest.fn().mockResolvedValue([0, 0]),
 }));
 
-jest.mock("../utils/formatLocation", () => ({
-  formatLocation: jest.fn().mockResolvedValue({ longitude: 0, latitude: 0 }),
-}));
 
 const mockPrisma = {
   property: {

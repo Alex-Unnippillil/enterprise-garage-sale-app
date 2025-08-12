@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import prisma from "../utils/prisma";
-import { formatLocation } from "../utils/formatLocation";
+
 
 export const getTenant = async (
   req: Request,
@@ -32,7 +32,12 @@ export const createTenant = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { cognitoId, name, email, phoneNumber } = req.body;
+    const parsed = createUserSchema.safeParse(req.body);
+    if (!parsed.success) {
+      res.status(400).json({ errors: parsed.error.errors });
+      return;
+    }
+    const { cognitoId, name, email, phoneNumber } = parsed.data;
 
     const tenant = await prisma.tenant.create({
       data: {
@@ -56,7 +61,12 @@ export const updateTenant = async (
 ): Promise<void> => {
   try {
     const { cognitoId } = req.params;
-    const { name, email, phoneNumber } = req.body;
+    const parsed = updateUserSchema.safeParse(req.body);
+    if (!parsed.success) {
+      res.status(400).json({ errors: parsed.error.errors });
+      return;
+    }
+    const { name, email, phoneNumber } = parsed.data;
 
     const updateTenant = await prisma.tenant.update({
       where: { cognitoId },

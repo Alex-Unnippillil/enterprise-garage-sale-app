@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { wktToGeoJSON } from "@terraformer/wkt";
 import prisma from "../utils/prisma";
+
 
 export const getTenant = async (
   req: Request,
@@ -32,7 +32,12 @@ export const createTenant = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { cognitoId, name, email, phoneNumber } = req.body;
+    const parsed = createUserSchema.safeParse(req.body);
+    if (!parsed.success) {
+      res.status(400).json({ errors: parsed.error.errors });
+      return;
+    }
+    const { cognitoId, name, email, phoneNumber } = parsed.data;
 
     const tenant = await prisma.tenant.create({
       data: {
@@ -56,7 +61,12 @@ export const updateTenant = async (
 ): Promise<void> => {
   try {
     const { cognitoId } = req.params;
-    const { name, email, phoneNumber } = req.body;
+    const parsed = updateUserSchema.safeParse(req.body);
+    if (!parsed.success) {
+      res.status(400).json({ errors: parsed.error.errors });
+      return;
+    }
+    const { name, email, phoneNumber } = parsed.data;
 
     const updateTenant = await prisma.tenant.update({
       where: { cognitoId },
@@ -89,12 +99,9 @@ export const getCurrentResidences = async (
 
     const residencesWithFormattedLocation = await Promise.all(
       properties.map(async (property) => {
-        const coordinates: { coordinates: string }[] =
-          await prisma.$queryRaw`SELECT ST_asText(coordinates) as coordinates from "Location" where id = ${property.location.id}`;
-
-        const geoJSON: any = wktToGeoJSON(coordinates[0]?.coordinates || "");
-        const longitude = geoJSON.coordinates[0];
-        const latitude = geoJSON.coordinates[1];
+        const { longitude, latitude } = await formatLocation(
+          property.location.id
+        );
 
         return {
           ...property,

@@ -2,16 +2,7 @@ import request from 'supertest';
 import express from 'express';
 import prisma from '../utils/prisma';
 
-process.env.GEOCODE_USER_AGENT = 'test-agent';
-// eslint-disable-next-line @typescript-eslint/no-require-imports
-const propertyRoutes = require('../routes/propertyRoutes').default;
-const app = express();
-app.use(express.json());
-app.use('/properties', propertyRoutes);
 
-const describeOrSkip = process.env.DATABASE_URL ? describe : describe.skip;
-
-describeOrSkip('Property search', () => {
   const createProperty = async (name: string, description: string) => {
     const managerId = name.replace(/\s+/g, '-') + '-mgr';
     await prisma.manager.create({

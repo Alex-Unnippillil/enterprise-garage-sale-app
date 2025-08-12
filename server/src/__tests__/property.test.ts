@@ -10,6 +10,7 @@ jest.mock("../utils/geocodeAddress", () => ({
   geocodeAddress: jest.fn().mockResolvedValue([0, 0]),
 }));
 
+
 const mockPrisma = {
   property: {
     deleteMany: jest.fn(),

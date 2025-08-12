@@ -1,27 +1,24 @@
-import type { Express } from "express";
-import { S3Client } from "@aws-sdk/client-s3";
-import { Upload } from "@aws-sdk/lib-storage";
-import {
-  AWS_REGION,
-  S3_BUCKET_NAME,
-  AWS_ACCESS_KEY_ID,
-  AWS_SECRET_ACCESS_KEY,
-} from "../env";
+import type { Express } from 'express';
+import { Upload } from '@aws-sdk/lib-storage';
+import { S3_BUCKET_NAME } from '../env';
+import s3Client from './s3Client';
 
-export const uploadFilesToS3 = async (
-  files: Express.Multer.File[],
-): Promise<string[]> => {
-  const s3Client = new S3Client({
-    region: AWS_REGION,
-    credentials: {
-      accessKeyId: AWS_ACCESS_KEY_ID,
-      secretAccessKey: AWS_SECRET_ACCESS_KEY,
-    },
-  });
+const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png', 'image/gif'];
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
+export const uploadFilesToS3 = async (files: Express.Multer.File[]): Promise<string[]> => {
   const bucket = S3_BUCKET_NAME;
 
   return Promise.all(
     files.map(async (file) => {
+      if (!ALLOWED_MIME_TYPES.includes(file.mimetype)) {
+        throw new Error(`Invalid file type: ${file.mimetype}`);
+      }
+
+      if (file.size > MAX_FILE_SIZE) {
+        throw new Error(`File too large: ${file.originalname}`);
+      }
+
       const uploadResult = await new Upload({
         client: s3Client,
         params: {
@@ -33,7 +30,7 @@ export const uploadFilesToS3 = async (
       }).done();
 
       return uploadResult.Location as string;
-    })
+    }),
   );
 };
 

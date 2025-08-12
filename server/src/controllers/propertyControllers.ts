@@ -1,11 +1,10 @@
 import { Request, Response, NextFunction } from "express";
-import { PrismaClient, Prisma, Location } from "@prisma/client";
+import { Prisma, Location } from "@prisma/client";
+import prisma from "../utils/prisma";
 import { buildPropertyFilters } from "../utils/buildPropertyFilters";
 import { wktToGeoJSON } from "@terraformer/wkt";
 import { uploadFilesToS3 } from "../utils/s3Upload";
 import { geocodeAddress } from "../utils/geocodeAddress";
-
-const prisma = new PrismaClient();
 
 export const getProperties = async (
   req: Request,

@@ -1,9 +1,7 @@
 import request from "supertest";
 import express from "express";
 import propertyRoutes from "../routes/propertyRoutes";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "../utils/prisma";
 const app = express();
 app.use(express.json());
 app.use("/properties", propertyRoutes);

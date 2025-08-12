@@ -17,6 +17,10 @@ Development: http://localhost:3002
 Production: https://your-domain.com
 ```
 
+## 📖 Interactive Docs
+
+Swagger UI is available at [http://localhost:3002/docs](http://localhost:3002/docs) when the server is running locally.
+
 ## 🏠 Property Endpoints
 
 ### Get All Properties

@@ -2,7 +2,7 @@ import axios from "axios";
 import { Property } from "@/types/prismaTypes";
 
 const api = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3002",
+  baseURL: process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001",
 });
 
 export const fetchListings = async (search?: string): Promise<Property[]> => {

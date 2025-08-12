@@ -27,6 +27,8 @@ npm run dev
 ```
 Open <http://localhost:3000> in your browser.
 
+The client reads the API URL from the `NEXT_PUBLIC_API_URL` environment variable. If not set, it defaults to `http://localhost:3001`.
+
 ### Server
 ```bash
 cd server

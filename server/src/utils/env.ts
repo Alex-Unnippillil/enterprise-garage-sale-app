@@ -16,5 +16,17 @@ const envSchema = z.object({
 });
 
 const env = envSchema.parse(process.env);
+const envResult = envSchema.safeParse(process.env);
 
+if (!envResult.success) {
+  const issues = envResult.error.issues
+    .map(issue => `- ${issue.path.join('.')}: ${issue.message}`)
+    .join('\n');
+  throw new Error(
+    `❌ Invalid or missing environment variables:\n${issues}\n\n` +
+    `Please check your .env file and ensure all required variables are set and valid.`
+  );
+}
+
+const env = envResult.data;
 export default env;

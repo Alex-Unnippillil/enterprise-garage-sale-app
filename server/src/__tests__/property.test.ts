@@ -8,7 +8,9 @@ const app = express();
 app.use(express.json());
 app.use("/properties", propertyRoutes);
 
-describe("Property API", () => {
+const describeOrSkip = process.env.DATABASE_URL ? describe : describe.skip;
+
+describeOrSkip("Property API", () => {
   beforeEach(async () => {
     await prisma.property.deleteMany();
   });

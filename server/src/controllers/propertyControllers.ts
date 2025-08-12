@@ -26,6 +26,7 @@ export const getProperties = async (
       availableFrom,
       latitude,
       longitude,
+      q,
     } = req.query;
 
     let locationIds: number[] | undefined;
@@ -57,6 +58,7 @@ export const getProperties = async (
       amenities: amenities as string | undefined,
       availableFrom: availableFrom as string | undefined,
       locationIds,
+      q: q as string | undefined,
     });
 
     const properties = await prisma.property.findMany({

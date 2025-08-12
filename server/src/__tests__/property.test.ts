@@ -26,9 +26,7 @@ jest.mock("@prisma/client", () => ({
 
 import propertyRoutes from "../routes/propertyRoutes";
 import { createProperty } from "../controllers/propertyControllers";
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "../utils/prisma";
 
 const app = express();
 app.use(express.json());

@@ -1,12 +1,11 @@
 import { Request, Response, NextFunction } from "express";
-import { PrismaClient, Prisma, Location } from "@prisma/client";
+import { Prisma, Location } from "@prisma/client";
 import { buildPropertyFilters } from "../utils/buildPropertyFilters";
 import { wktToGeoJSON } from "@terraformer/wkt";
 import { uploadFilesToS3 } from "../utils/s3Upload";
 import { geocodeAddress } from "../utils/geocodeAddress";
 import { z } from "zod";
-
-const prisma = new PrismaClient();
+import prisma from "../utils/prisma";
 
 const createPropertySchema = z.object({
   address: z.string(),

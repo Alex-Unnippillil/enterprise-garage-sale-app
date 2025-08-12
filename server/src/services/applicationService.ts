@@ -1,6 +1,5 @@
-import { PrismaClient, ApplicationStatus } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { ApplicationStatus } from "@prisma/client";
+import prisma from "../utils/prisma";
 
 export const updateApplicationStatus = async (
   id: number,

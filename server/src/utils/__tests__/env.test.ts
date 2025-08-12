@@ -20,11 +20,13 @@ describe("env validation", () => {
       COGNITO_JWT_PUBLIC_KEY: "key",
       COGNITO_AUDIENCE: "aud",
       COGNITO_ISSUER: "issuer",
+      AWS_REGION: "us-east-1",
       S3_BUCKET_NAME: "bucket",
-      S3_REGION: "us-east-1",
+      AWS_ACCESS_KEY_ID: "id",
+      AWS_SECRET_ACCESS_KEY: "secret",
     });
 
-    const env = require("../env").default;
+    const env = require("../../env").default;
     expect(env.PORT).toBe(3000);
     expect(env.DATABASE_URL).toBe("https://example.com");
   });
@@ -36,10 +38,12 @@ describe("env validation", () => {
       COGNITO_JWT_PUBLIC_KEY: "key",
       COGNITO_AUDIENCE: "aud",
       COGNITO_ISSUER: "issuer",
+      AWS_REGION: "us-east-1",
       S3_BUCKET_NAME: "bucket",
-      S3_REGION: "us-east-1",
+      AWS_ACCESS_KEY_ID: "id",
+      AWS_SECRET_ACCESS_KEY: "secret",
     });
 
-    expect(() => require("../env")).toThrow();
+    expect(() => require("../../env")).toThrow();
   });
 });

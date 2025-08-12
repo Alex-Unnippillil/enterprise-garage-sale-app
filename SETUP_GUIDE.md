@@ -98,6 +98,8 @@ S3_REGION=us-east-1
 # Server
 PORT=3001
 NODE_ENV=development
+# Geocoding
+GEOCODE_USER_AGENT=your_app_name (contact@example.com)
 ```
 
 ## AWS Services Setup

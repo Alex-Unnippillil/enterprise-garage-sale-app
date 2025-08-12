@@ -4,12 +4,12 @@ import { NAVBAR_HEIGHT } from "@/lib/constants";
 import { useAppDispatch, useAppSelector } from "@/state/redux";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect } from "react";
-import FiltersBar from "./FiltersBar";
-import FiltersFull from "./FiltersFull";
+import FiltersBar from "./filters-bar";
+import FiltersFull from "./filters-full";
 import { cleanParams } from "@/lib/utils";
 import { setFilters } from "@/state";
-import Map from "./Map";
-import Listings from "./Listings";
+import Map from "./map";
+import Listings from "./listings";
 
 const SearchPage = () => {
   const searchParams = useSearchParams();

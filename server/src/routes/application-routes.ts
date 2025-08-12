@@ -1,10 +1,10 @@
 import express from "express";
-import { authMiddleware } from "../middleware/authMiddleware";
+import { authMiddleware } from "../middleware/auth-middleware";
 import {
   createApplication,
   listApplications,
   updateApplicationStatus,
-} from "../controllers/applicationControllers";
+} from "../controllers/application-controllers";
 
 const router = express.Router();
 

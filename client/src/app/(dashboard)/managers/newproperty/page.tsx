@@ -1,7 +1,7 @@
 "use client";
 
-import { CustomFormField } from "@/components/FormField";
-import Header from "@/components/Header";
+import { CustomFormField } from "@/components/form-field";
+import Header from "@/components/header";
 import { Form } from "@/components/ui/form";
 import { PropertyFormData, propertySchema } from "@/lib/schemas";
 import { useCreatePropertyMutation } from "@/state/api";

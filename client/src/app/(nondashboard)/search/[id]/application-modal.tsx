@@ -1,4 +1,4 @@
-import { CustomFormField } from "@/components/FormField";
+import { CustomFormField } from "@/components/form-field";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,

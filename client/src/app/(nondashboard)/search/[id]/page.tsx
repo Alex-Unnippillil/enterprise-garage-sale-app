@@ -3,12 +3,12 @@
 import { useGetAuthUserQuery } from "@/state/api";
 import { useParams } from "next/navigation";
 import React, { useState } from "react";
-import ImagePreviews from "./ImagePreviews";
-import PropertyOverview from "./PropertyOverview";
-import PropertyDetails from "./PropertyDetails";
-import PropertyLocation from "./PropertyLocation";
-import ContactWidget from "./ContactWidget";
-import ApplicationModal from "./ApplicationModal";
+import ImagePreviews from "./image-previews";
+import PropertyOverview from "./property-overview";
+import PropertyDetails from "./property-details";
+import PropertyLocation from "./property-location";
+import ContactWidget from "./contact-widget";
+import ApplicationModal from "./application-modal";
 
 const SingleListing = () => {
   const { id } = useParams();

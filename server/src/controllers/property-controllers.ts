@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express";
 import { Prisma, Location } from "@prisma/client";
-import { buildPropertyFilters } from "../utils/buildPropertyFilters";
-import { formatLocation } from "../utils/formatLocation";
-import { uploadFilesToS3 } from "../utils/s3Upload";
-import { geocodeAddress } from "../utils/geocodeAddress";
+import { buildPropertyFilters } from "../utils/build-property-filters";
+import { formatLocation } from "../utils/format-location";
+import { uploadFilesToS3 } from "../utils/s3-upload";
+import { geocodeAddress } from "../utils/geocode-address";
 import { z } from "zod";
 import prisma from "../utils/prisma";
 

@@ -1,7 +1,7 @@
 "use client";
 
-import Header from "@/components/Header";
-import Loading from "@/components/Loading";
+import Header from "@/components/header";
+import Loading from "@/components/loading";
 import {
   Table,
   TableBody,

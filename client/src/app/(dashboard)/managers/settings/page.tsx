@@ -1,6 +1,6 @@
 "use client";
 
-import SettingsForm from "@/components/SettingsForm";
+import SettingsForm from "@/components/settings-form";
 import {
   useGetAuthUserQuery,
   useUpdateManagerSettingsMutation,

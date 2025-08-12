@@ -27,8 +27,8 @@ import {
   listApplications,
   createApplication,
   updateApplicationStatus,
-} from "../controllers/applicationControllers";
-import { updateApplicationStatus as updateApplicationStatusService } from "../services/applicationService";
+} from "../controllers/application-controllers";
+import { updateApplicationStatus as updateApplicationStatusService } from "../services/application-service";
 
 const createMockRes = () => {
   const res: Partial<Response> = {};

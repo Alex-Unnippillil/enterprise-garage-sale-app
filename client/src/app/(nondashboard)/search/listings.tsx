@@ -6,10 +6,10 @@ import {
   useRemoveFavoritePropertyMutation,
 } from "@/state/api";
 import { useAppSelector } from "@/state/redux";
-import { Property } from "@/types/prismaTypes";
-import Card from "@/components/Card";
+import { Property } from "@/types/prisma-types";
+import Card from "@/components/card";
 import React from "react";
-import CardCompact from "@/components/CardCompact";
+import CardCompact from "@/components/card-compact";
 
 const Listings = () => {
   const { data: authUser } = useGetAuthUserQuery();

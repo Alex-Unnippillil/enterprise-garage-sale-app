@@ -13,7 +13,7 @@ const mockPrisma = {
 
 jest.mock("@prisma/client", () => ({
   PrismaClient: jest.fn(() => mockPrisma),
-  Prisma: { join: (vals: any[]) => vals },
+  Prisma: { join: (vals: any[]) => vals.join(" ") },
 }));
 
 jest.mock("../middleware/authMiddleware", () => ({

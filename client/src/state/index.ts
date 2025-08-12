@@ -6,6 +6,7 @@ export interface FiltersState {
   baths: string;
   propertyType: string;
   amenities: string[];
+  highlights: string[];
   availableFrom: string;
   priceRange: [number, number] | [null, null];
   squareFeet: [number, number] | [null, null];
@@ -25,6 +26,7 @@ export const initialState: InitialStateTypes = {
     baths: "any",
     propertyType: "any",
     amenities: [],
+    highlights: [],
     availableFrom: "any",
     priceRange: [null, null],
     squareFeet: [null, null],

@@ -25,7 +25,7 @@ import {
   UtensilsCrossed
 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { setFilters, toggleFiltersFullOpen } from "@/state";
+import { setFilters, toggleFiltersFullOpen, FiltersState } from "@/state";
 import { AmenityEnum, HighlightEnum, PropertyTypeEnum } from "@/lib/constants";
 
 interface AdvancedSearchProps {
@@ -38,7 +38,7 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = ({ onSearch, className }) 
   const filters = useSelector((state: any) => state.global.filters);
   const isFiltersFullOpen = useSelector((state: any) => state.global.isFiltersFullOpen);
 
-  const [localFilters, setLocalFilters] = useState({
+  const [localFilters, setLocalFilters] = useState<FiltersState>({
     location: filters.location,
     priceRange: filters.priceRange,
     beds: filters.beds,
@@ -48,6 +48,7 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = ({ onSearch, className }) 
     highlights: [],
     squareFeet: filters.squareFeet,
     availableFrom: filters.availableFrom,
+    coordinates: filters.coordinates,
   });
 
   const handleFilterChange = (key: string, value: any) => {
@@ -63,12 +64,13 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = ({ onSearch, className }) 
   };
 
   const handleReset = () => {
-    const resetFilters = {
+    const resetFilters: FiltersState = {
       location: "Los Angeles",
       beds: "any",
       baths: "any",
       propertyType: "any",
       amenities: [],
+      highlights: [],
       priceRange: [null, null],
       squareFeet: [null, null],
       availableFrom: "any",

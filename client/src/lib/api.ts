@@ -11,7 +11,18 @@ export const fetchListings = async (search?: string) => {
 };
 
 export const createListing = async (data: any) => {
-  const response = await api.post("/properties", data);
+  const formData = new FormData();
+  Object.entries(data).forEach(([key, value]) => {
+    if (key === "photos" && Array.isArray(value)) {
+      value.forEach((file) => formData.append("photos", file as any));
+    } else {
+      formData.append(key, String(value));
+    }
+  });
+
+  const response = await api.post("/properties", formData, {
+    headers: { "Content-Type": "multipart/form-data" },
+  });
   return response.data;
 };
 

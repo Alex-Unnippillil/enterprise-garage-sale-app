@@ -1,7 +1,8 @@
-"use client";
+'use client';
 
-import React, { useEffect } from "react";
-import { Amplify } from "aws-amplify";
+import React, { useEffect } from 'react';
+import { Amplify } from 'aws-amplify';
+import { fetchAuthSession } from 'aws-amplify/auth';
 import {
   Authenticator,
   Heading,
@@ -9,17 +10,16 @@ import {
   RadioGroupField,
   useAuthenticator,
   View,
-} from "@aws-amplify/ui-react";
-import "@aws-amplify/ui-react/styles.css";
-import { useRouter, usePathname } from "next/navigation";
+} from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+import { useRouter, usePathname } from 'next/navigation';
 
 // https://docs.amplify.aws/gen1/javascript/tools/libraries/configure-categories/
 Amplify.configure({
   Auth: {
     Cognito: {
       userPoolId: process.env.NEXT_PUBLIC_AWS_COGNITO_USER_POOL_ID!,
-      userPoolClientId:
-        process.env.NEXT_PUBLIC_AWS_COGNITO_USER_POOL_CLIENT_ID!,
+      userPoolClientId: process.env.NEXT_PUBLIC_AWS_COGNITO_USER_POOL_CLIENT_ID!,
     },
   },
 });
@@ -30,9 +30,7 @@ const components = {
       <View className="mt-4 mb-7">
         <Heading level={3} className="!text-2xl !font-bold">
           RENT
-          <span className="text-secondary-500 font-light hover:!text-primary-300">
-            IFUL
-          </span>
+          <span className="text-secondary-500 font-light hover:!text-primary-300">IFUL</span>
         </Heading>
         <p className="text-muted-foreground mt-2">
           <span className="font-bold">Welcome!</span> Please sign in to continue
@@ -46,7 +44,7 @@ const components = {
       return (
         <View className="text-center mt-4">
           <p className="text-muted-foreground">
-            Don&apos;t have an account?{" "}
+            Don&apos;t have an account?{' '}
             <button
               onClick={toSignUp}
               className="text-primary hover:underline bg-transparent border-none p-0"
@@ -68,8 +66,8 @@ const components = {
           <RadioGroupField
             legend="Role"
             name="custom:role"
-            errorMessage={validationErrors?.["custom:role"]}
-            hasError={!!validationErrors?.["custom:role"]}
+            errorMessage={validationErrors?.['custom:role']}
+            hasError={!!validationErrors?.['custom:role']}
             isRequired
           >
             <Radio value="tenant">Tenant</Radio>
@@ -84,7 +82,7 @@ const components = {
       return (
         <View className="text-center mt-4">
           <p className="text-muted-foreground">
-            Already have an account?{" "}
+            Already have an account?{' '}
             <button
               onClick={toSignIn}
               className="text-primary hover:underline bg-transparent border-none p-0"
@@ -101,39 +99,39 @@ const components = {
 const formFields = {
   signIn: {
     username: {
-      placeholder: "Enter your email",
-      label: "Email",
+      placeholder: 'Enter your email',
+      label: 'Email',
       isRequired: true,
     },
     password: {
-      placeholder: "Enter your password",
-      label: "Password",
+      placeholder: 'Enter your password',
+      label: 'Password',
       isRequired: true,
     },
   },
   signUp: {
     username: {
       order: 1,
-      placeholder: "Choose a username",
-      label: "Username",
+      placeholder: 'Choose a username',
+      label: 'Username',
       isRequired: true,
     },
     email: {
       order: 2,
-      placeholder: "Enter your email address",
-      label: "Email",
+      placeholder: 'Enter your email address',
+      label: 'Email',
       isRequired: true,
     },
     password: {
       order: 3,
-      placeholder: "Create a password",
-      label: "Password",
+      placeholder: 'Create a password',
+      label: 'Password',
       isRequired: true,
     },
     confirm_password: {
       order: 4,
-      placeholder: "Confirm your password",
-      label: "Confirm Password",
+      placeholder: 'Confirm your password',
+      label: 'Confirm Password',
       isRequired: true,
     },
   },
@@ -145,15 +143,29 @@ const Auth = ({ children }: { children: React.ReactNode }) => {
   const pathname = usePathname();
 
   const isAuthPage = pathname.match(/^\/(signin|signup)$/);
-  const isDashboardPage =
-    pathname.startsWith("/manager") || pathname.startsWith("/tenants");
+  const isDashboardPage = pathname.startsWith('/manager') || pathname.startsWith('/tenants');
 
   // Redirect authenticated users away from auth pages
   useEffect(() => {
     if (user && isAuthPage) {
-      router.push("/");
+      router.push('/');
     }
   }, [user, isAuthPage, router]);
+
+  useEffect(() => {
+    const setRoleCookie = async () => {
+      if (user) {
+        const session = await fetchAuthSession();
+        const role = session.tokens?.idToken?.payload['custom:role'] as string | undefined;
+        if (role) {
+          document.cookie = `role=${role}; path=/`;
+        }
+      } else {
+        document.cookie = 'role=; Max-Age=0; path=/';
+      }
+    };
+    setRoleCookie();
+  }, [user]);
 
   // Allow access to public pages without authentication
   if (!isAuthPage && !isDashboardPage) {
@@ -163,7 +175,7 @@ const Auth = ({ children }: { children: React.ReactNode }) => {
   return (
     <div className="h-full">
       <Authenticator
-        initialState={pathname.includes("signup") ? "signUp" : "signIn"}
+        initialState={pathname.includes('signup') ? 'signUp' : 'signIn'}
         components={components}
         formFields={formFields}
       >

@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { wktToGeoJSON } from "@terraformer/wkt";
 import prisma from "../utils/prisma";
+import { formatLocation } from "../utils/formatLocation";
 
 export const getTenant = async (
   req: Request,
@@ -89,12 +89,9 @@ export const getCurrentResidences = async (
 
     const residencesWithFormattedLocation = await Promise.all(
       properties.map(async (property) => {
-        const coordinates: { coordinates: string }[] =
-          await prisma.$queryRaw`SELECT ST_asText(coordinates) as coordinates from "Location" where id = ${property.location.id}`;
-
-        const geoJSON: any = wktToGeoJSON(coordinates[0]?.coordinates || "");
-        const longitude = geoJSON.coordinates[0];
-        const latitude = geoJSON.coordinates[1];
+        const { longitude, latitude } = await formatLocation(
+          property.location.id
+        );
 
         return {
           ...property,

@@ -5,7 +5,7 @@ dotenv.config();
 
 const envSchema = z.object({
   DATABASE_URL: z.string().url(),
-  PORT: z.coerce.number().int(),
+  PORT: z.coerce.number().int().min(1).max(65535),
   COGNITO_JWT_PUBLIC_KEY: z.string(),
   COGNITO_AUDIENCE: z.string(),
   COGNITO_ISSUER: z.string(),

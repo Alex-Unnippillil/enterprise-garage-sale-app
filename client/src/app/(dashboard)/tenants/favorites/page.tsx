@@ -1,32 +1,31 @@
-"use client";
+'use client';
 
-import Card from "@/components/Card";
-import Header from "@/components/Header";
-import Loading from "@/components/Loading";
-import {
-  useGetAuthUserQuery,
-  useGetPropertiesQuery,
-  useGetTenantQuery,
-} from "@/state/api";
-import React from "react";
+import Card from '@/components/Card';
+import Header from '@/components/Header';
+import Loading from '@/components/Loading';
+import { useGetAuthUserQuery, useGetPropertiesQuery, useGetTenantQuery } from '@/state/api';
+import React from 'react';
 
 const Favorites = () => {
   const { data: authUser } = useGetAuthUserQuery();
-  const { data: tenant } = useGetTenantQuery(
-    authUser?.cognitoInfo?.userId || "",
-    {
-      skip: !authUser?.cognitoInfo?.userId,
-    }
-  );
+  const { data: tenant } = useGetTenantQuery(authUser?.cognitoInfo?.userId || '', {
+    skip: !authUser?.cognitoInfo?.userId,
+  });
 
   const {
-    data: favoriteProperties,
+    data: favoritePropertyData,
     isLoading,
     error,
   } = useGetPropertiesQuery(
-    { favoriteIds: tenant?.favorites?.map((fav: { id: number }) => fav.id) },
-    { skip: !tenant?.favorites || tenant?.favorites.length === 0 }
+    {
+      favoriteIds: tenant?.favorites?.map((fav: { id: number }) => fav.id),
+      page: 1,
+      pageSize: tenant?.favorites?.length || 10,
+    },
+    { skip: !tenant?.favorites || tenant?.favorites.length === 0 },
   );
+
+  const favoriteProperties = favoritePropertyData?.properties;
 
   if (isLoading) return <Loading />;
   if (error) return <div>Error loading favorites</div>;

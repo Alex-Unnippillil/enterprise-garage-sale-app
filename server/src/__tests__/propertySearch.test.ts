@@ -2,16 +2,28 @@ import request from "supertest";
 import express from "express";
 import prisma from "../utils/prisma";
 
-process.env.GEOCODE_USER_AGENT = "test-agent";
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const propertyRoutes = require("../routes/propertyRoutes").default;
-const app = express();
-app.use(express.json());
-app.use("/properties", propertyRoutes);
-
 const describeOrSkip = process.env.DATABASE_URL ? describe : describe.skip;
 
 describeOrSkip("Property search", () => {
+  let app: express.Express;
+
+  beforeAll(() => {
+    process.env.GEOCODE_USER_AGENT = "test-agent";
+    process.env.COGNITO_JWT_PUBLIC_KEY = "key";
+    process.env.COGNITO_AUDIENCE = "aud";
+    process.env.COGNITO_ISSUER = "issuer";
+    process.env.AWS_REGION = "us-east-1";
+    process.env.S3_BUCKET_NAME = "bucket";
+    process.env.AWS_ACCESS_KEY_ID = "id";
+    process.env.AWS_SECRET_ACCESS_KEY = "secret";
+    process.env.JWT_SECRET = "secret";
+
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const propertyRoutes = require("../routes/propertyRoutes").default;
+    app = express();
+    app.use(express.json());
+    app.use("/properties", propertyRoutes);
+  });
   const createProperty = async (name: string, description: string) => {
     const managerId = name.replace(/\s+/g, "-") + "-mgr";
     await prisma.manager.create({

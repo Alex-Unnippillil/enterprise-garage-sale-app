@@ -37,6 +37,20 @@ npm run dev
 ```
 The API will run on <http://localhost:3001> by default.
 
+### Required Environment Variables
+The server requires the following environment variables. Copy `.env.example` and adjust values as needed.
+
+- `PORT` – Port for the Express API.
+- `DATABASE_URL` – PostgreSQL connection string.
+- `GEOCODE_USER_AGENT` – User agent for geocoding requests.
+- `COGNITO_JWT_PUBLIC_KEY` or `JWT_SECRET` – Key used to verify JWT tokens.
+- `COGNITO_AUDIENCE` – Expected JWT audience.
+- `COGNITO_ISSUER` – JWT issuer URL.
+- `AWS_REGION` – AWS region used for S3.
+- `S3_BUCKET_NAME` – S3 bucket for property photos.
+- `AWS_ACCESS_KEY_ID` – AWS access key.
+- `AWS_SECRET_ACCESS_KEY` – AWS secret key.
+
 ## Testing
 - **Client:**
   ```bash

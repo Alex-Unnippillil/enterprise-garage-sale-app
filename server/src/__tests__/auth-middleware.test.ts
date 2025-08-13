@@ -78,4 +78,33 @@ describe('authMiddleware', () => {
 
     expect(res.status).toBe(200);
   });
+
+  it('prioritizes RS256 when both public key and secret are provided', async () => {
+    const { privateKey, publicKey } = generateKeyPairSync('rsa', {
+      modulusLength: 2048,
+      publicKeyEncoding: { type: 'spki', format: 'pem' },
+      privateKeyEncoding: { type: 'pkcs8', format: 'pem' },
+    });
+
+    setCommonEnv();
+    process.env.COGNITO_JWT_PUBLIC_KEY = publicKey;
+    process.env.JWT_SECRET = 'supersecret';
+
+    const { authMiddleware } = require('../middleware/auth-middleware');
+
+    const token = jwt.sign({ sub: 'user1', 'custom:role': 'admin' }, privateKey, {
+      algorithm: 'RS256',
+      audience: process.env.COGNITO_AUDIENCE,
+      issuer: process.env.COGNITO_ISSUER,
+    });
+
+    const app = express();
+    app.get('/protected', authMiddleware(['admin']), (_req, res) => {
+      res.json({ ok: true });
+    });
+
+    const res = await request(app).get('/protected').set('Authorization', `Bearer ${token}`);
+
+    expect(res.status).toBe(200);
+  });
 });

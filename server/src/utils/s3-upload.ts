@@ -1,24 +1,13 @@
-import type { Express } from "express";
-import { S3Client } from "@aws-sdk/client-s3";
-import { Upload } from "@aws-sdk/lib-storage";
-import {
-  AWS_REGION,
-  S3_BUCKET_NAME,
-  AWS_ACCESS_KEY_ID,
-  AWS_SECRET_ACCESS_KEY,
-} from "../env";
+import type { Express } from 'express';
+import { S3Client } from '@aws-sdk/client-s3';
+import { Upload } from '@aws-sdk/lib-storage';
+import { AWS_REGION, S3_BUCKET_NAME, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } from '../env';
 
-export const ALLOWED_MIME_TYPES = [
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-];
+export const ALLOWED_MIME_TYPES = ['image/jpeg', 'image/png'];
 
 export const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 
-export const uploadFilesToS3 = async (
-  files: Express.Multer.File[],
-): Promise<string[]> => {
+export const uploadFilesToS3 = async (files: Express.Multer.File[]): Promise<string[]> => {
   files.forEach((file) => {
     if (!ALLOWED_MIME_TYPES.includes(file.mimetype)) {
       throw new Error(`Unsupported file type: ${file.mimetype}`);
@@ -51,7 +40,7 @@ export const uploadFilesToS3 = async (
       }).done();
 
       return uploadResult.Location as string;
-    })
+    }),
   );
 };
 

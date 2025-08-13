@@ -6,9 +6,20 @@ import {
 } from "../controllers/property-controllers";
 import multer from "multer";
 import { authMiddleware } from "../middleware/auth-middleware";
+import { ALLOWED_MIME_TYPES, MAX_FILE_SIZE } from "../utils/s3-upload";
 
 const storage = multer.memoryStorage();
-const upload = multer({ storage: storage });
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: MAX_FILE_SIZE },
+  fileFilter: (_req, file, cb) => {
+    if (ALLOWED_MIME_TYPES.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error("Invalid file type"));
+    }
+  },
+});
 
 const router = express.Router();
 

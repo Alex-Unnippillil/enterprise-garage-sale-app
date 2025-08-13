@@ -26,4 +26,16 @@ router.put(
   updatePayment
 );
 
+router.post(
+  "/:id/payments",
+  authMiddleware(["manager"]),
+  createPayment
+);
+
+router.put(
+  "/payments/:paymentId",
+  authMiddleware(["manager"]),
+  updatePayment
+);
+
 export default router;

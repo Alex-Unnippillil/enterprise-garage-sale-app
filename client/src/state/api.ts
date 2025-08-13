@@ -309,12 +309,7 @@ export const api = createApi({
 
     createPayment: build.mutation<
       Payment,
-      { leaseId: number } & {
-        amountDue: number;
-        amountPaid: number;
-        dueDate: string | Date;
-        paymentStatus: string;
-      }
+
     >({
       query: ({ leaseId, ...body }) => ({
         url: `leases/${leaseId}/payments`,
@@ -332,12 +327,7 @@ export const api = createApi({
 
     updatePayment: build.mutation<
       Payment,
-      { paymentId: number } & Partial<{
-        amountDue: number;
-        amountPaid: number;
-        dueDate: string | Date;
-        paymentStatus: string;
-      }>
+
     >({
       query: ({ paymentId, ...body }) => ({
         url: `leases/payments/${paymentId}`,

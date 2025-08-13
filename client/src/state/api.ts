@@ -4,9 +4,11 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { fetchAuthSession, getCurrentUser } from 'aws-amplify/auth';
 import { FiltersState } from '.';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
+
 export const api = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001',
+    baseUrl: API_URL,
     prepareHeaders: async (headers) => {
       const session = await fetchAuthSession();
       const { idToken } = session.tokens ?? {};
@@ -307,10 +309,7 @@ export const api = createApi({
 
     createPayment: build.mutation<
       Payment,
-      { leaseId: number } & Pick<
-        Payment,
-        'amountDue' | 'amountPaid' | 'dueDate' | 'paymentStatus'
-      >
+
     >({
       query: ({ leaseId, ...body }) => ({
         url: `leases/${leaseId}/payments`,
@@ -328,9 +327,7 @@ export const api = createApi({
 
     updatePayment: build.mutation<
       Payment,
-      { paymentId: number } & Partial<
-        Pick<Payment, 'amountDue' | 'amountPaid' | 'dueDate' | 'paymentStatus'>
-      >
+
     >({
       query: ({ paymentId, ...body }) => ({
         url: `leases/payments/${paymentId}`,

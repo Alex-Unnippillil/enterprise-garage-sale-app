@@ -15,6 +15,16 @@ router.get(
   authMiddleware(["manager", "tenant"]),
   getLeasePayments
 );
+router.post(
+  "/:id/payments",
+  authMiddleware(["manager"]),
+  createPayment
+);
+router.put(
+  "/payments/:paymentId",
+  authMiddleware(["manager"]),
+  updatePayment
+);
 
 router.post(
   "/:id/payments",

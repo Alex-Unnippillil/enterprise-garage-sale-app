@@ -39,8 +39,7 @@ export const getLeasePayments = async (
 const paymentSchema = z.object({
   amountDue: z.coerce.number(),
   amountPaid: z.coerce.number(),
-  dueDate: z.string(),
-  paymentStatus: z.string(),
+
 });
 
 const updatePaymentSchema = paymentSchema.partial();
@@ -54,23 +53,7 @@ export const createPayment = async (
     const { id } = req.params;
     const parsed = paymentSchema.safeParse(req.body);
     if (!parsed.success) {
-      res.status(400).json({ errors: parsed.error.flatten() });
-      return;
-    }
-
-    const { amountDue, amountPaid, dueDate, paymentStatus } = parsed.data;
-
-    const payment = await prisma.payment.create({
-      data: {
-        amountDue,
-        amountPaid,
-        dueDate: new Date(dueDate),
-        paymentDate: new Date(),
-        paymentStatus,
-        leaseId: Number(id),
-      },
-    });
-
+<
     res.status(201).json(payment);
   } catch (error) {
     next(error);
@@ -86,28 +69,6 @@ export const updatePayment = async (
     const { paymentId } = req.params;
     const parsed = updatePaymentSchema.safeParse(req.body);
     if (!parsed.success) {
-      res.status(400).json({ errors: parsed.error.flatten() });
-      return;
-    }
 
-    const { amountDue, amountPaid, dueDate, paymentStatus } = parsed.data;
-
-    const updated = await prisma.payment.update({
-      where: { id: Number(paymentId) },
-      data: {
-        amountDue,
-        amountPaid,
-        dueDate: dueDate ? new Date(dueDate) : undefined,
-        paymentStatus,
-      },
-    });
-
-    res.json(updated);
-  } catch (err: any) {
-    if (err?.code === "P2025") {
-      res.status(404).json({ message: "Payment not found" });
-    } else {
-      next(err);
-    }
   }
 };

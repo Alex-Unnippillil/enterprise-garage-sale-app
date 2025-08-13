@@ -28,8 +28,18 @@ export const authMiddleware = (allowedRoles: string[]) => {
     }
 
     try {
-      const secretOrKey = COGNITO_JWT_PUBLIC_KEY || JWT_SECRET || '';
-      const algorithms = COGNITO_JWT_PUBLIC_KEY ? ['RS256'] : ['HS256'];
+      let secretOrKey: string;
+      let algorithms: jwt.Algorithm[];
+
+      if (COGNITO_JWT_PUBLIC_KEY) {
+        secretOrKey = COGNITO_JWT_PUBLIC_KEY;
+        algorithms = ['RS256'];
+      } else if (JWT_SECRET) {
+        secretOrKey = JWT_SECRET;
+        algorithms = ['HS256'];
+      } else {
+        throw new Error('Missing JWT configuration');
+      }
 
       const decoded = jwt.verify(token, secretOrKey, {
         algorithms,

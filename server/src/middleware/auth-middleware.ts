@@ -1,15 +1,10 @@
-import { Request, Response, NextFunction } from "express";
-import jwt, { JwtPayload } from "jsonwebtoken";
-import {
-  COGNITO_JWT_PUBLIC_KEY,
-  JWT_SECRET,
-  COGNITO_AUDIENCE,
-  COGNITO_ISSUER,
-} from "../env";
+import { Request, Response, NextFunction } from 'express';
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import { COGNITO_JWT_PUBLIC_KEY, JWT_SECRET, COGNITO_AUDIENCE, COGNITO_ISSUER } from '../env';
 
 interface DecodedToken extends JwtPayload {
   sub: string;
-  "custom:role"?: string;
+  'custom:role'?: string;
 }
 
 declare global {
@@ -25,25 +20,24 @@ declare global {
 
 export const authMiddleware = (allowedRoles: string[]) => {
   return (req: Request, res: Response, next: NextFunction): void => {
-    const token = req.headers.authorization?.split(" ")[1];
+    const token = req.headers.authorization?.split(' ')[1];
 
     if (!token) {
-      res.status(401).json({ message: "Unauthorized" });
+      res.status(401).json({ message: 'Unauthorized' });
       return;
     }
 
     try {
-      const decoded = jwt.verify(
-        token,
-        COGNITO_JWT_PUBLIC_KEY || JWT_SECRET || "",
-        {
-          algorithms: ["RS256"],
-          audience: COGNITO_AUDIENCE,
-          issuer: COGNITO_ISSUER,
-        }
-      ) as DecodedToken;
+      const secretOrKey = COGNITO_JWT_PUBLIC_KEY || JWT_SECRET || '';
+      const algorithms = COGNITO_JWT_PUBLIC_KEY ? ['RS256'] : ['HS256'];
 
-      const userRole = decoded["custom:role"] || "";
+      const decoded = jwt.verify(token, secretOrKey, {
+        algorithms,
+        audience: COGNITO_AUDIENCE,
+        issuer: COGNITO_ISSUER,
+      }) as DecodedToken;
+
+      const userRole = decoded['custom:role'] || '';
       req.user = {
         id: decoded.sub,
         role: userRole,
@@ -51,14 +45,14 @@ export const authMiddleware = (allowedRoles: string[]) => {
 
       const hasAccess = allowedRoles.includes(userRole.toLowerCase());
       if (!hasAccess) {
-        res.status(403).json({ message: "Access Denied" });
+        res.status(403).json({ message: 'Access Denied' });
         return;
       }
 
       next();
     } catch (err) {
-      console.error("Failed to verify token:", err);
-      res.status(401).json({ message: "Invalid or expired token" });
+      console.error('Failed to verify token:', err);
+      res.status(401).json({ message: 'Invalid or expired token' });
       return;
     }
   };

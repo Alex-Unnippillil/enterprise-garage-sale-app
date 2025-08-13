@@ -234,6 +234,46 @@ export const api = createApi({
       },
     }),
 
+    updateProperty: build.mutation<
+      Property,
+      { id: number } & Partial<Property>
+    >({
+      query: ({ id, ...updated }) => ({
+        url: `properties/${id}`,
+        method: "PUT",
+        body: updated,
+      }),
+      invalidatesTags: (result, error, { id }) => [
+        { type: "Properties", id },
+        { type: "PropertyDetails", id },
+        { type: "Properties", id: "LIST" },
+      ],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          success: "Property updated successfully!",
+          error: "Failed to update property.",
+        });
+      },
+    }),
+
+    deleteProperty: build.mutation<{ message: string }, number>({
+      query: (id) => ({
+        url: `properties/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: (result, error, id) => [
+        { type: "Properties", id },
+        { type: "PropertyDetails", id },
+        { type: "Properties", id: "LIST" },
+      ],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          success: "Property deleted successfully!",
+          error: "Failed to delete property.",
+        });
+      },
+    }),
+
     // lease related enpoints
     getLeases: build.query<Lease[], number>({
       query: () => 'leases',
@@ -330,6 +370,8 @@ export const {
   useGetCurrentResidencesQuery,
   useGetManagerPropertiesQuery,
   useCreatePropertyMutation,
+  useUpdatePropertyMutation,
+  useDeletePropertyMutation,
   useGetTenantQuery,
   useAddFavoritePropertyMutation,
   useRemoveFavoritePropertyMutation,

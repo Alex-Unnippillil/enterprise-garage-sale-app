@@ -15,22 +15,22 @@ export const getCachedGeocode = async (
     return null;
   }
 
-  return [cache.longitude, cache.latitude];
+  return [cache.latitude, cache.longitude];
 };
 
 export const saveGeocode = async (
   address: string,
   city: string,
   postalCode: string,
-  longitude: number,
   latitude: number,
+  longitude: number,
 ): Promise<void> => {
   await prisma.geocodeCache.upsert({
     where: {
       address_city_postalCode: { address, city, postalCode },
     },
-    update: { longitude, latitude },
-    create: { address, city, postalCode, longitude, latitude },
+    update: { latitude, longitude },
+    create: { address, city, postalCode, latitude, longitude },
   });
 };
 

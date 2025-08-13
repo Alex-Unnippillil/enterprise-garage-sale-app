@@ -208,7 +208,7 @@ export const createProperty = async (
 
     const photoUrls = await uploadFilesToS3(files);
 
-    const [longitude, latitude] = await geocodeAddress(
+    const [latitude, longitude] = await geocodeAddress(
       address,
       city,
       country,

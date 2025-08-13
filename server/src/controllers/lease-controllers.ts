@@ -53,7 +53,7 @@ export const createPayment = async (
     const { id } = req.params;
     const parsed = paymentSchema.safeParse(req.body);
     if (!parsed.success) {
-<
+
     res.status(201).json(payment);
   } catch (error) {
     next(error);
@@ -69,6 +69,7 @@ export const updatePayment = async (
     const { paymentId } = req.params;
     const parsed = updatePaymentSchema.safeParse(req.body);
     if (!parsed.success) {
+
 
   }
 };

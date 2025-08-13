@@ -6,7 +6,7 @@ jest.mock("../utils/geocodeAddress", () => ({ geocodeAddress: jest.fn() }));
 
 const mockPrisma = {
   lease: { findMany: jest.fn() },
-  payment: { findMany: jest.fn(), create: jest.fn(), update: jest.fn() },
+
   $disconnect: jest.fn(),
 };
 
@@ -82,32 +82,18 @@ describe("leaseControllers", () => {
     expect(localNext).toHaveBeenCalled();
   });
 
-  it("creates payment with valid payload", async () => {
-    mockPrisma.payment.create.mockResolvedValue({ id: 1 });
-    const req = {
-      params: { id: "1" },
-      body: {
 
-        paymentStatus: "Pending",
-      },
-    } as unknown as Request;
     const res = createMockRes();
 
     await createPayment(req, res, next);
 
 
-    const req = {
-      params: { id: "1" },
-      body: { amountDue: "abc" },
     } as unknown as Request;
     const res = createMockRes();
 
     await createPayment(req, res, next);
 
     expect(res.status).toHaveBeenCalledWith(400);
-    expect(mockPrisma.payment.create).not.toHaveBeenCalled();
-  });
-
 
     } as unknown as Request;
     const res = createMockRes();
@@ -117,18 +103,12 @@ describe("leaseControllers", () => {
     expect(mockPrisma.payment.update).toHaveBeenCalledWith({
       where: { id: 1 },
 
-    const req = {
-      params: { paymentId: "1" },
-      body: { amountPaid: "abc" },
     } as unknown as Request;
     const res = createMockRes();
 
     await updatePayment(req, res, next);
 
     expect(res.status).toHaveBeenCalledWith(400);
-    expect(mockPrisma.payment.update).not.toHaveBeenCalled();
-  });
-
 
   });
 });

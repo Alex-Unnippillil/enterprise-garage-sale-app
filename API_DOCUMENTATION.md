@@ -26,6 +26,7 @@ Production: https://your-domain.com
 Retrieve all properties with optional filtering.
 
 **Query Parameters:**
+
 - `location` (string): Filter by location
 - `priceMin` (number): Minimum price
 - `priceMax` (number): Maximum price
@@ -37,6 +38,7 @@ Retrieve all properties with optional filtering.
 - `longitude` (number): Longitude for location-based search
 
 **Response:**
+
 ```json
 {
   "properties": [
@@ -78,6 +80,7 @@ Retrieve all properties with optional filtering.
 Retrieve a specific property by ID.
 
 **Response:**
+
 ```json
 {
   "id": 1,
@@ -126,6 +129,7 @@ Retrieve a specific property by ID.
 Create a new property listing. Requires manager authentication.
 
 **Request Body:**
+
 ```json
 {
   "name": "New Property",
@@ -152,10 +156,12 @@ Create a new property listing. Requires manager authentication.
 
 **Photo Upload Limits**
 
-- Allowed MIME types: `image/jpeg`, `image/png`, `image/webp`
-- Maximum file size: 5 MB per file
+- Allowed MIME types: `image/jpeg`, `image/png`
+- Maximum file size: 5 MB per file
+- Files exceeding these limits are rejected before upload
 
 **Response:**
+
 ```json
 {
   "id": 1,
@@ -172,6 +178,7 @@ Update an existing property. Requires manager authentication.
 **Request Body:** Same as create property
 
 **Response:**
+
 ```json
 {
   "message": "Property updated successfully"
@@ -185,6 +192,7 @@ Update an existing property. Requires manager authentication.
 Delete a property. Requires manager authentication.
 
 **Response:**
+
 ```json
 {
   "message": "Property deleted successfully"
@@ -200,6 +208,7 @@ Delete a property. Requires manager authentication.
 Retrieve current user information.
 
 **Response:**
+
 ```json
 {
   "id": 1,
@@ -217,6 +226,7 @@ Retrieve current user information.
 Update user profile information.
 
 **Request Body:**
+
 ```json
 {
   "name": "John Doe",
@@ -226,6 +236,7 @@ Update user profile information.
 ```
 
 **Response:**
+
 ```json
 {
   "message": "Profile updated successfully"
@@ -241,10 +252,12 @@ Update user profile information.
 Retrieve applications. For tenants, returns their applications. For managers, returns applications for their properties.
 
 **Query Parameters:**
+
 - `status` (string): Filter by status (Pending, Approved, Denied)
 - `propertyId` (number): Filter by property ID
 
 **Response:**
+
 ```json
 {
   "applications": [
@@ -277,6 +290,7 @@ Retrieve applications. For tenants, returns their applications. For managers, re
 Submit a new application for a property.
 
 **Request Body:**
+
 ```json
 {
   "propertyId": 1,
@@ -288,6 +302,7 @@ Submit a new application for a property.
 ```
 
 **Response:**
+
 ```json
 {
   "id": 1,
@@ -302,6 +317,7 @@ Submit a new application for a property.
 Update application status. Requires manager authentication.
 
 **Request Body:**
+
 ```json
 {
   "status": "Approved"
@@ -309,6 +325,7 @@ Update application status. Requires manager authentication.
 ```
 
 **Response:**
+
 ```json
 {
   "message": "Application status updated successfully"
@@ -324,6 +341,7 @@ Update application status. Requires manager authentication.
 Retrieve leases. For tenants, returns their leases. For managers, returns leases for their properties.
 
 **Response:**
+
 ```json
 {
   "leases": [
@@ -353,6 +371,7 @@ Retrieve leases. For tenants, returns their leases. For managers, returns leases
 Create a new lease agreement. Requires manager authentication.
 
 **Request Body:**
+
 ```json
 {
   "propertyId": 1,
@@ -365,6 +384,7 @@ Create a new lease agreement. Requires manager authentication.
 ```
 
 **Response:**
+
 ```json
 {
   "id": 1,
@@ -381,10 +401,12 @@ Create a new lease agreement. Requires manager authentication.
 Retrieve payments for leases.
 
 **Query Parameters:**
+
 - `leaseId` (number): Filter by lease ID
 - `status` (string): Filter by payment status
 
 **Response:**
+
 ```json
 {
   "payments": [
@@ -413,6 +435,7 @@ Retrieve payments for leases.
 Create a new payment record.
 
 **Request Body:**
+
 ```json
 {
   "leaseId": 1,
@@ -425,6 +448,7 @@ Create a new payment record.
 ```
 
 **Response:**
+
 ```json
 {
   "id": 1,
@@ -441,6 +465,7 @@ Create a new payment record.
 Advanced property search with multiple filters.
 
 **Query Parameters:**
+
 - `location` (string): Location search
 - `priceMin` (number): Minimum price
 - `priceMax` (number): Maximum price
@@ -457,6 +482,7 @@ Advanced property search with multiple filters.
 - `radius` (number): Search radius in miles
 
 **Response:**
+
 ```json
 {
   "properties": [...],
@@ -475,6 +501,7 @@ Advanced property search with multiple filters.
 Get analytics data for property managers.
 
 **Response:**
+
 ```json
 {
   "totalProperties": 10,
@@ -512,6 +539,7 @@ Get analytics data for property managers.
 Convert address to coordinates.
 
 **Request Body:**
+
 ```json
 {
   "address": "123 Main St, Los Angeles, CA 90210"
@@ -519,6 +547,7 @@ Convert address to coordinates.
 ```
 
 **Response:**
+
 ```json
 {
   "latitude": 34.0522,
@@ -533,11 +562,13 @@ Convert address to coordinates.
 Find properties near a location.
 
 **Query Parameters:**
+
 - `latitude` (number): Latitude
 - `longitude` (number): Longitude
 - `radius` (number): Search radius in miles
 
 **Response:**
+
 ```json
 {
   "properties": [...],
@@ -554,6 +585,7 @@ Find properties near a location.
 Upload images for a property.
 
 **Request Body:**
+
 ```
 Content-Type: multipart/form-data
 
@@ -562,6 +594,7 @@ propertyId: 1
 ```
 
 **Response:**
+
 ```json
 {
   "urls": [
@@ -653,10 +686,12 @@ X-RateLimit-Reset: 1642234567
 List endpoints support pagination:
 
 **Query Parameters:**
+
 - `page` (number): Page number (default: 1)
 - `limit` (number): Items per page (default: 10, max: 100)
 
 **Response Headers:**
+
 ```
 X-Total-Count: 150
 X-Page-Count: 15
@@ -666,6 +701,7 @@ X-Current-Page: 1
 ## 📊 Data Types
 
 ### Property Types
+
 - `Rooms`
 - `Tinyhouse`
 - `Apartment`
@@ -674,17 +710,20 @@ X-Current-Page: 1
 - `Cottage`
 
 ### Application Status
+
 - `Pending`
 - `Approved`
 - `Denied`
 
 ### Payment Status
+
 - `Pending`
 - `Paid`
 - `PartiallyPaid`
 - `Overdue`
 
 ### Amenities
+
 - `WasherDryer`
 - `AirConditioning`
 - `Dishwasher`
@@ -700,6 +739,7 @@ X-Current-Page: 1
 - `WiFi`
 
 ### Highlights
+
 - `HighSpeedInternetAccess`
 - `WasherDryer`
 - `AirConditioning`
@@ -724,24 +764,24 @@ X-Current-Page: 1
 // Get properties
 const response = await fetch('/api/properties', {
   headers: {
-    'Authorization': `Bearer ${token}`
-  }
+    Authorization: `Bearer ${token}`,
+  },
 });
 
 // Create application
 const application = await fetch('/api/applications', {
   method: 'POST',
   headers: {
-    'Authorization': `Bearer ${token}`,
-    'Content-Type': 'application/json'
+    Authorization: `Bearer ${token}`,
+    'Content-Type': 'application/json',
   },
   body: JSON.stringify({
     propertyId: 1,
     name: 'John Doe',
     email: 'john@example.com',
     phoneNumber: '+1234567890',
-    message: 'I\'m interested in this property'
-  })
+    message: "I'm interested in this property",
+  }),
 });
 ```
 
@@ -763,10 +803,11 @@ curl -X POST \
 ## 📞 Support
 
 For API support:
+
 - Check the error responses for specific issues
 - Review the request/response examples
 - Contact the development team for additional help
 
 ---
 
-**Note**: This API documentation is for version 1.0. All endpoints are subject to change in future versions. 
+**Note**: This API documentation is for version 1.0. All endpoints are subject to change in future versions.

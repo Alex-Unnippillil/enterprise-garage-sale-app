@@ -1,10 +1,7 @@
-import { ApplicationStatus } from "@prisma/client";
-import prisma from "../utils/prisma";
+import { ApplicationStatus } from '@prisma/client';
+import prisma from '../utils/prisma';
 
-export const updateApplicationStatus = async (
-  id: number,
-  status: ApplicationStatus
-) => {
+export const updateApplicationStatus = async (id: number, status: ApplicationStatus) => {
   // Find application along with property and tenant details
   const application = await prisma.application.findUnique({
     where: { id },
@@ -16,7 +13,7 @@ export const updateApplicationStatus = async (
   }
 
   return prisma.$transaction(async (tx) => {
-    if (status === "Approved") {
+    if (status === 'Approved' && application.status !== 'Approved' && !application.leaseId) {
       const lease = await tx.lease.create({
         data: {
           startDate: new Date(),
@@ -44,7 +41,6 @@ export const updateApplicationStatus = async (
       });
     }
 
-    // For statuses other than Approved, simply update the status
     return tx.application.update({
       where: { id },
       data: { status },

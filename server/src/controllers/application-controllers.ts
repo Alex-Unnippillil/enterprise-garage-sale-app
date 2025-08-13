@@ -1,7 +1,7 @@
-import { Request, Response, NextFunction } from "express";
-import { z } from "zod";
-import prisma from "../utils/prisma";
-import { updateApplicationStatus as updateApplicationStatusService } from "../services/application-service";
+import { Request, Response, NextFunction } from 'express';
+import { z } from 'zod';
+import prisma from '../utils/prisma';
+import { updateApplicationStatus as updateApplicationStatusService } from '../services/application-service';
 
 const createApplicationSchema = z.object({
   applicationDate: z.string(),
@@ -17,7 +17,7 @@ const createApplicationSchema = z.object({
 export const listApplications = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const { userId, userType } = req.query;
@@ -25,9 +25,9 @@ export const listApplications = async (
     let whereClause = {};
 
     if (userId && userType) {
-      if (userType === "tenant") {
+      if (userType === 'tenant') {
         whereClause = { tenantCognitoId: String(userId) };
-      } else if (userType === "manager") {
+      } else if (userType === 'manager') {
         whereClause = {
           property: {
             managerCognitoId: String(userId),
@@ -67,7 +67,7 @@ export const listApplications = async (
             },
             propertyId: app.propertyId,
           },
-          orderBy: { startDate: "desc" },
+          orderBy: { startDate: 'desc' },
         });
 
         return {
@@ -84,7 +84,7 @@ export const listApplications = async (
               }
             : null,
         };
-      })
+      }),
     );
 
     res.json(formattedApplications);
@@ -96,7 +96,7 @@ export const listApplications = async (
 export const createApplication = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const parsed = createApplicationSchema.safeParse(req.body);
@@ -118,60 +118,33 @@ export const createApplication = async (
 
     const property = await prisma.property.findUnique({
       where: { id: propertyId },
-      select: { pricePerMonth: true, securityDeposit: true },
     });
 
     if (!property) {
-      res.status(404).json({ message: "Property not found" });
+      res.status(404).json({ message: 'Property not found' });
       return;
     }
 
-    const newApplication = await prisma.$transaction(async (prisma) => {
-      // Create lease first
-      const lease = await prisma.lease.create({
-        data: {
-          startDate: new Date(), // Today
-          endDate: new Date(
-            new Date().setFullYear(new Date().getFullYear() + 1)
-          ), // 1 year from today
-          rent: property.pricePerMonth,
-          deposit: property.securityDeposit,
-          property: {
-            connect: { id: propertyId },
-          },
-          tenant: {
-            connect: { cognitoId: tenantCognitoId },
-          },
+    const newApplication = await prisma.application.create({
+      data: {
+        applicationDate: new Date(applicationDate),
+        status,
+        name,
+        email,
+        phoneNumber,
+        message,
+        property: {
+          connect: { id: propertyId },
         },
-      });
-
-      // Then create application with lease connection
-      const application = await prisma.application.create({
-        data: {
-          applicationDate: new Date(applicationDate),
-          status,
-          name,
-          email,
-          phoneNumber,
-          message,
-          property: {
-            connect: { id: propertyId },
-          },
-          tenant: {
-            connect: { cognitoId: tenantCognitoId },
-          },
-          lease: {
-            connect: { id: lease.id },
-          },
+        tenant: {
+          connect: { cognitoId: tenantCognitoId },
         },
-        include: {
-          property: true,
-          tenant: true,
-          lease: true,
-        },
-      });
-
-      return application;
+      },
+      include: {
+        property: true,
+        tenant: true,
+        lease: true,
+      },
     });
 
     res.status(201).json(newApplication);
@@ -183,19 +156,16 @@ export const createApplication = async (
 export const updateApplicationStatus = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const { id } = req.params;
     const { status } = req.body;
 
-    const updatedApplication = await updateApplicationStatusService(
-      Number(id),
-      status
-    );
+    const updatedApplication = await updateApplicationStatusService(Number(id), status);
 
     if (!updatedApplication) {
-      res.status(404).json({ message: "Application not found." });
+      res.status(404).json({ message: 'Application not found.' });
       return;
     }
 

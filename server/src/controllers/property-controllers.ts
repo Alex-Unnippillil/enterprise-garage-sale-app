@@ -272,6 +272,26 @@ export const updateProperty = async (
       return;
     }
 
+    const managerCognitoId = req.user?.id;
+    if (!managerCognitoId) {
+      res.status(401).json({ message: "Unauthorized" });
+      return;
+    }
+
+    const property = await prisma.property.findUnique({
+      where: { id: Number(id) },
+    });
+
+    if (!property) {
+      res.status(404).json({ message: "Property not found" });
+      return;
+    }
+
+    if (property.managerCognitoId !== managerCognitoId) {
+      res.status(403).json({ message: "Forbidden" });
+      return;
+    }
+
     const data = parsed.data;
     const updatedProperty = await prisma.property.update({
       where: { id: Number(id) },
@@ -313,6 +333,26 @@ export const deleteProperty = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
+    const managerCognitoId = req.user?.id;
+    if (!managerCognitoId) {
+      res.status(401).json({ message: "Unauthorized" });
+      return;
+    }
+
+    const property = await prisma.property.findUnique({
+      where: { id: Number(id) },
+    });
+
+    if (!property) {
+      res.status(404).json({ message: "Property not found" });
+      return;
+    }
+
+    if (property.managerCognitoId !== managerCognitoId) {
+      res.status(403).json({ message: "Forbidden" });
+      return;
+    }
+
     await prisma.property.delete({ where: { id: Number(id) } });
     res.json({ message: "Property deleted" });
   } catch (err: any) {

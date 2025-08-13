@@ -3,6 +3,8 @@ import {
   getProperties,
   getProperty,
   createProperty,
+  updateProperty,
+  deleteProperty,
 } from "../controllers/property-controllers";
 import multer from "multer";
 import { authMiddleware } from "../middleware/auth-middleware";
@@ -19,6 +21,16 @@ router.post(
   authMiddleware(["manager"]),
   upload.array("photos"),
   createProperty
+);
+router.put(
+  "/:id",
+  authMiddleware(["manager"]),
+  updateProperty
+);
+router.delete(
+  "/:id",
+  authMiddleware(["manager"]),
+  deleteProperty
 );
 
 export default router;

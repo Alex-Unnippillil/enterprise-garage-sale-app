@@ -2,11 +2,11 @@ import request from "supertest";
 import express from "express";
 
 // mocks must be defined before imports that use them
-jest.mock("../utils/s3Upload", () => ({
+jest.mock("../utils/s3-upload", () => ({
   uploadFilesToS3: jest.fn().mockResolvedValue([]),
 }));
 
-jest.mock("../utils/geocodeAddress", () => ({
+jest.mock("../utils/geocode-address", () => ({
   geocodeAddress: jest.fn().mockResolvedValue([0, 0]),
 }));
 
@@ -15,6 +15,8 @@ const mockPrisma = {
   property: {
     deleteMany: jest.fn(),
     findUnique: jest.fn(),
+    update: jest.fn(),
+    delete: jest.fn(),
   },
   $transaction: jest.fn(),
   $disconnect: jest.fn(),
@@ -25,9 +27,23 @@ jest.mock("@prisma/client", () => ({
   Prisma: { join: jest.fn() },
 }));
 
-import propertyRoutes from "../routes/property-routes";
-import { createProperty } from "../controllers/property-controllers";
-import prisma from "../utils/prisma";
+process.env.DATABASE_URL = "postgres://test";
+process.env.GEOCODE_USER_AGENT = "test";
+process.env.COGNITO_AUDIENCE = "test";
+process.env.COGNITO_ISSUER = "test";
+process.env.AWS_REGION = "test";
+process.env.S3_BUCKET_NAME = "test";
+process.env.AWS_ACCESS_KEY_ID = "test";
+process.env.AWS_SECRET_ACCESS_KEY = "test";
+process.env.JWT_SECRET = "test";
+
+const propertyRoutes = require("../routes/property-routes").default;
+const {
+  createProperty,
+  updateProperty,
+  deleteProperty,
+} = require("../controllers/property-controllers");
+const prisma = require("../utils/prisma").default;
 
 const app = express();
 app.use(express.json());
@@ -36,6 +52,14 @@ app.post("/properties", (req, res, next) => {
   (req as any).files = [];
   (req as any).user = { id: "manager", role: "manager" };
   createProperty(req, res, next);
+});
+app.put("/properties/:id", (req, res, next) => {
+  (req as any).user = { id: "manager", role: "manager" };
+  updateProperty(req, res, next);
+});
+app.delete("/properties/:id", (req, res, next) => {
+  (req as any).user = { id: "manager", role: "manager" };
+  deleteProperty(req, res, next);
 });
 // other property routes
 app.use("/properties", propertyRoutes);
@@ -168,6 +192,53 @@ describe("Property API", () => {
     const res = await request(app).post("/properties").send(payload);
     expect(res.status).toBe(400);
     expect(mockPrisma.$transaction).not.toHaveBeenCalled();
+  });
+
+  it("updates property with valid payload", async () => {
+    const updateMock = jest
+      .fn()
+      .mockResolvedValue({ id: 1, name: "Updated Property" });
+    mockPrisma.property.update.mockImplementation(updateMock);
+
+    const res = await request(app)
+      .put("/properties/1")
+      .send({ name: "Updated Property" });
+    expect(res.status).toBe(200);
+    expect(updateMock).toHaveBeenCalledWith(
+      expect.objectContaining({
+        where: { id: 1 },
+        data: expect.objectContaining({ name: "Updated Property" }),
+      })
+    );
+  });
+
+  it("returns 404 when updating missing property", async () => {
+    mockPrisma.property.update.mockRejectedValue({ code: "P2025" });
+
+    const res = await request(app)
+      .put("/properties/999")
+      .send({ name: "Updated Property" });
+    expect(res.status).toBe(404);
+    expect(res.body).toEqual({ message: "Property not found" });
+  });
+
+  it("deletes property", async () => {
+    mockPrisma.property.delete.mockResolvedValue({});
+
+    const res = await request(app).delete("/properties/1");
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({ message: "Property deleted" });
+    expect(mockPrisma.property.delete).toHaveBeenCalledWith({
+      where: { id: 1 },
+    });
+  });
+
+  it("returns 404 when deleting missing property", async () => {
+    mockPrisma.property.delete.mockRejectedValue({ code: "P2025" });
+
+    const res = await request(app).delete("/properties/999");
+    expect(res.status).toBe(404);
+    expect(res.body).toEqual({ message: "Property not found" });
   });
 });
 

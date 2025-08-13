@@ -28,6 +28,23 @@ const createPropertySchema = z.object({
   isParkingIncluded: z.string().optional(),
 });
 
+const updatePropertySchema = z.object({
+  name: z.string().optional(),
+  description: z.string().optional(),
+  pricePerMonth: z.coerce.number().optional(),
+  securityDeposit: z.coerce.number().optional(),
+  applicationFee: z.coerce.number().optional(),
+  beds: z.coerce.number().optional(),
+  baths: z.coerce.number().optional(),
+  squareFeet: z.coerce.number().optional(),
+  propertyType: z.string().optional(),
+  amenities: z.string().optional(),
+  highlights: z.string().optional(),
+  isPetsAllowed: z.string().optional(),
+  isParkingIncluded: z.string().optional(),
+  photoUrls: z.array(z.string()).optional(),
+});
+
 export const getProperties = async (
   req: Request,
   res: Response,
@@ -239,5 +256,70 @@ export const createProperty = async (
     res.status(201).json(newProperty);
   } catch (err) {
     next(err);
+  }
+};
+
+export const updateProperty = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const parsed = updatePropertySchema.safeParse(req.body);
+    if (!parsed.success) {
+      res.status(400).json({ errors: parsed.error.flatten() });
+      return;
+    }
+
+    const data = parsed.data;
+    const updatedProperty = await prisma.property.update({
+      where: { id: Number(id) },
+      data: {
+        ...data,
+        amenities:
+          typeof data.amenities === "string"
+            ? data.amenities.split(",")
+            : data.amenities,
+        highlights:
+          typeof data.highlights === "string"
+            ? data.highlights.split(",")
+            : data.highlights,
+        isPetsAllowed:
+          data.isPetsAllowed === undefined
+            ? undefined
+            : data.isPetsAllowed === "true",
+        isParkingIncluded:
+          data.isParkingIncluded === undefined
+            ? undefined
+            : data.isParkingIncluded === "true",
+      },
+    });
+
+    res.json(updatedProperty);
+  } catch (err: any) {
+    if (err?.code === "P2025") {
+      res.status(404).json({ message: "Property not found" });
+    } else {
+      next(err);
+    }
+  }
+};
+
+export const deleteProperty = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+    await prisma.property.delete({ where: { id: Number(id) } });
+    res.json({ message: "Property deleted" });
+  } catch (err: any) {
+    if (err?.code === "P2025") {
+      res.status(404).json({ message: "Property not found" });
+    } else {
+      next(err);
+    }
   }
 };

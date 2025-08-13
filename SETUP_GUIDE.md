@@ -3,6 +3,7 @@
 This guide provides step-by-step instructions to set up and test the real estate application locally and on AWS.
 
 ## Table of Contents
+
 1. [Prerequisites](#prerequisites)
 2. [Local Development Setup](#local-development-setup)
 3. [AWS Services Setup](#aws-services-setup)
@@ -15,6 +16,7 @@ This guide provides step-by-step instructions to set up and test the real estate
 ## Prerequisites
 
 ### Required Software
+
 - **Node.js** (v18 or higher)
 - **npm** or **yarn**
 - **Git**
@@ -22,6 +24,7 @@ This guide provides step-by-step instructions to set up and test the real estate
 - **AWS CLI** (for AWS deployment)
 
 ### AWS Account Requirements
+
 - AWS Account with appropriate permissions
 - Access to AWS Console
 - AWS CLI configured with credentials
@@ -69,8 +72,9 @@ CREATE EXTENSION IF NOT EXISTS postgis;
 Create the following environment files:
 
 **`client/.env.local`:**
+
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:3001
+NEXT_PUBLIC_API_URL=http://localhost:3001 # base URL for the API
 NEXT_PUBLIC_AWS_REGION=us-east-1
 NEXT_PUBLIC_USER_POOLS_WEB_CLIENT_ID=your_cognito_client_id
 NEXT_PUBLIC_USER_POOL_ID=your_cognito_user_pool_id
@@ -79,6 +83,7 @@ NEXT_PUBLIC_MAPBOX_TOKEN=your_mapbox_token
 ```
 
 **`server/.env`:**
+
 ```env
 # Database
 DATABASE_URL="postgresql://postgres:password@localhost:5432/real_estate_dev"
@@ -147,11 +152,7 @@ GEOCODE_USER_AGENT=your_app_name (contact@example.com)
        "Statement": [
          {
            "Effect": "Allow",
-           "Action": [
-             "s3:GetObject",
-             "s3:PutObject",
-             "s3:DeleteObject"
-           ],
+           "Action": ["s3:GetObject", "s3:PutObject", "s3:DeleteObject"],
            "Resource": "arn:aws:s3:::your-s3-bucket-name/*"
          }
        ]
@@ -208,13 +209,14 @@ GEOCODE_USER_AGENT=your_app_name (contact@example.com)
    - Create database
 
 2. **Install PostGIS Extension:**
+
    ```sql
    -- Connect to your RDS instance
    psql -h your-rds-endpoint -U postgres -d postgres
-   
+
    -- Create PostGIS extension
    CREATE EXTENSION IF NOT EXISTS postgis;
-   
+
    -- Verify installation
    SELECT PostGIS_Version();
    ```
@@ -224,8 +226,9 @@ GEOCODE_USER_AGENT=your_app_name (contact@example.com)
 After setting up AWS services, update your environment files with the actual values:
 
 **`client/.env.local`:**
+
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:3001
+NEXT_PUBLIC_API_URL=http://localhost:3001 # base URL for the API
 NEXT_PUBLIC_AWS_REGION=us-east-1
 NEXT_PUBLIC_USER_POOLS_WEB_CLIENT_ID=your_actual_client_id
 NEXT_PUBLIC_USER_POOL_ID=your_actual_user_pool_id
@@ -234,6 +237,7 @@ NEXT_PUBLIC_MAPBOX_TOKEN=your_mapbox_token
 ```
 
 **`server/.env`:**
+
 ```env
 # Database (use RDS endpoint for production)
 DATABASE_URL="postgresql://postgres:your_password@your-rds-endpoint:5432/postgres"
@@ -374,6 +378,7 @@ npm run test:e2e:ui
 ### Step 4: Manual Testing Checklist
 
 #### Authentication Testing
+
 - [ ] User registration with email verification
 - [ ] User login with email/password
 - [ ] Password reset functionality
@@ -381,6 +386,7 @@ npm run test:e2e:ui
 - [ ] Role-based access (tenant vs manager)
 
 #### Property Management Testing
+
 - [ ] View property listings
 - [ ] Search and filter properties
 - [ ] View property details
@@ -388,18 +394,21 @@ npm run test:e2e:ui
 - [ ] Create/edit properties (managers)
 
 #### Application Management Testing
+
 - [ ] Submit rental applications
 - [ ] View application status
 - [ ] Process applications (managers)
 - [ ] Accept/reject applications
 
 #### Payment System Testing
+
 - [ ] View payment history
 - [ ] Track upcoming payments
 - [ ] Mark payments as paid
 - [ ] Generate payment reports
 
 #### Analytics Testing
+
 - [ ] View manager dashboard
 - [ ] Check revenue analytics
 - [ ] View occupancy rates
@@ -423,6 +432,7 @@ curl -w "@curl-format.txt" -o /dev/null -s "http://localhost:3001/api/properties
 ### Common Issues and Solutions
 
 #### 1. Database Connection Issues
+
 ```bash
 # Check if PostgreSQL is running
 # Windows: Check Services
@@ -434,6 +444,7 @@ psql -h localhost -U postgres -d real_estate_dev
 ```
 
 #### 2. AWS Credentials Issues
+
 ```bash
 # Configure AWS CLI
 aws configure
@@ -443,21 +454,25 @@ aws sts get-caller-identity
 ```
 
 #### 3. CORS Issues
+
 - Ensure your server CORS configuration includes `http://localhost:3000`
 - Check browser console for CORS errors
 - Verify API endpoints are accessible
 
 #### 4. Authentication Issues
+
 - Verify Cognito configuration in environment variables
 - Check browser console for authentication errors
 - Ensure user pool and identity pool are properly configured
 
 #### 5. S3 Upload Issues
+
 - Verify S3 bucket permissions
 - Check CORS configuration
 - Ensure AWS credentials have S3 access
 
 #### 6. Environment Variable Issues
+
 ```bash
 # Check environment variables are loaded
 # Frontend
@@ -470,12 +485,14 @@ echo $DATABASE_URL
 ### Debug Mode
 
 #### Frontend Debug
+
 ```bash
 # Start with debug logging
 NODE_ENV=development DEBUG=* npm run dev
 ```
 
 #### Backend Debug
+
 ```bash
 # Start with debug logging
 DEBUG=* npm run dev
@@ -484,6 +501,7 @@ DEBUG=* npm run dev
 ### Logs and Monitoring
 
 #### Check Application Logs
+
 ```bash
 # Frontend logs (browser console)
 # Backend logs (terminal where server is running)
@@ -491,6 +509,7 @@ DEBUG=* npm run dev
 ```
 
 #### Monitor Performance
+
 ```bash
 # Check memory usage
 top -p $(pgrep node)
@@ -505,6 +524,7 @@ netstat -an | grep :3001
 ## Next Steps
 
 ### Production Deployment
+
 1. Set up production AWS services
 2. Configure domain and SSL certificates
 3. Set up CI/CD pipeline
@@ -512,6 +532,7 @@ netstat -an | grep :3001
 5. Set up backup and disaster recovery
 
 ### Scaling Considerations
+
 1. Implement caching (Redis)
 2. Set up CDN for static assets
 3. Configure auto-scaling groups
@@ -519,6 +540,7 @@ netstat -an | grep :3001
 5. Set up load balancing
 
 ### Security Hardening
+
 1. Implement rate limiting
 2. Set up WAF (Web Application Firewall)
 3. Configure security groups properly
@@ -536,7 +558,8 @@ If you encounter issues during setup or testing:
 5. Test each component individually
 
 For additional help, refer to:
+
 - [API Documentation](API_DOCUMENTATION.md)
 - [Deployment Guide](DEPLOYMENT.md)
 - [Testing Guide](TESTING.md)
-- [README](README.md) 
+- [README](README.md)

@@ -57,6 +57,34 @@ describe('authMiddleware', () => {
     expect(res.status).toBe(200);
   });
 
+  it('rejects HS256 token when public key is provided', async () => {
+    const { publicKey } = generateKeyPairSync('rsa', {
+      modulusLength: 2048,
+      publicKeyEncoding: { type: 'spki', format: 'pem' },
+      privateKeyEncoding: { type: 'pkcs8', format: 'pem' },
+    });
+
+    setCommonEnv();
+    process.env.COGNITO_JWT_PUBLIC_KEY = publicKey;
+
+    const { authMiddleware } = require('../middleware/auth-middleware');
+
+    const token = jwt.sign({ sub: 'user1', 'custom:role': 'admin' }, 'wrong-secret', {
+      algorithm: 'HS256',
+      audience: process.env.COGNITO_AUDIENCE,
+      issuer: process.env.COGNITO_ISSUER,
+    });
+
+    const app = express();
+    app.get('/protected', authMiddleware(['admin']), (_req, res) => {
+      res.json({ ok: true });
+    });
+
+    const res = await request(app).get('/protected').set('Authorization', `Bearer ${token}`);
+
+    expect(res.status).toBe(401);
+  });
+
   it('verifies token using HS256 when secret is provided', async () => {
     setCommonEnv();
     process.env.JWT_SECRET = 'supersecret';
@@ -77,5 +105,33 @@ describe('authMiddleware', () => {
     const res = await request(app).get('/protected').set('Authorization', `Bearer ${token}`);
 
     expect(res.status).toBe(200);
+  });
+
+  it('rejects RS256 token when secret is provided', async () => {
+    const { privateKey } = generateKeyPairSync('rsa', {
+      modulusLength: 2048,
+      publicKeyEncoding: { type: 'spki', format: 'pem' },
+      privateKeyEncoding: { type: 'pkcs8', format: 'pem' },
+    });
+
+    setCommonEnv();
+    process.env.JWT_SECRET = 'supersecret';
+
+    const { authMiddleware } = require('../middleware/auth-middleware');
+
+    const token = jwt.sign({ sub: 'user1', 'custom:role': 'admin' }, privateKey, {
+      algorithm: 'RS256',
+      audience: process.env.COGNITO_AUDIENCE,
+      issuer: process.env.COGNITO_ISSUER,
+    });
+
+    const app = express();
+    app.get('/protected', authMiddleware(['admin']), (_req, res) => {
+      res.json({ ok: true });
+    });
+
+    const res = await request(app).get('/protected').set('Authorization', `Bearer ${token}`);
+
+    expect(res.status).toBe(401);
   });
 });

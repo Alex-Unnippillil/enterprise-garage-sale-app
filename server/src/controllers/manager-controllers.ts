@@ -1,15 +1,12 @@
-import { Request, Response, NextFunction } from "express";
-import { createUserSchema, updateUserSchema } from "../validators/user-validators";
-import { formatLocation } from "../utils/format-location";
-import prisma from "../utils/prisma";
-import { createUserSchema, updateUserSchema } from "../validators/user-validators";
-import { formatLocation } from "../utils/format-location";
-
+import { Request, Response, NextFunction } from 'express';
+import { createUserSchema, updateUserSchema } from '../validators/user-validators';
+import { formatLocation } from '../utils/format-location';
+import prisma from '../utils/prisma';
 
 export const getManager = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const { cognitoId } = req.params;
@@ -20,7 +17,7 @@ export const getManager = async (
     if (manager) {
       res.json(manager);
     } else {
-      res.status(404).json({ message: "Manager not found" });
+      res.status(404).json({ message: 'Manager not found' });
     }
   } catch (error) {
     next(error);
@@ -30,7 +27,7 @@ export const getManager = async (
 export const createManager = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const parsed = createUserSchema.safeParse(req.body);
@@ -58,7 +55,7 @@ export const createManager = async (
 export const updateManager = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const { cognitoId } = req.params;
@@ -87,7 +84,7 @@ export const updateManager = async (
 export const getManagerProperties = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const { cognitoId } = req.params;
@@ -100,9 +97,7 @@ export const getManagerProperties = async (
 
     const propertiesWithFormattedLocation = await Promise.all(
       properties.map(async (property) => {
-        const { longitude, latitude } = await formatLocation(
-          property.location.id
-        );
+        const { longitude, latitude } = await formatLocation(property.location.id);
 
         return {
           ...property,
@@ -114,7 +109,7 @@ export const getManagerProperties = async (
             },
           },
         };
-      })
+      }),
     );
 
     res.json(propertiesWithFormattedLocation);

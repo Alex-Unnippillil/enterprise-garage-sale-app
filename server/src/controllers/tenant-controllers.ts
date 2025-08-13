@@ -1,16 +1,9 @@
-import { Request, Response, NextFunction } from "express";
-import { createUserSchema, updateUserSchema } from "../validators/user-validators";
-import { formatLocation } from "../utils/format-location";
-import prisma from "../utils/prisma";
-import { createUserSchema, updateUserSchema } from "../validators/user-validators";
-import { formatLocation } from "../utils/format-location";
+import { Request, Response, NextFunction } from 'express';
+import { createUserSchema, updateUserSchema } from '../validators/user-validators';
+import { formatLocation } from '../utils/format-location';
+import prisma from '../utils/prisma';
 
-
-export const getTenant = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
+export const getTenant = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const { cognitoId } = req.params;
     const tenant = await prisma.tenant.findUnique({
@@ -23,7 +16,7 @@ export const getTenant = async (
     if (tenant) {
       res.json(tenant);
     } else {
-      res.status(404).json({ message: "Tenant not found" });
+      res.status(404).json({ message: 'Tenant not found' });
     }
   } catch (error) {
     next(error);
@@ -33,7 +26,7 @@ export const getTenant = async (
 export const createTenant = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const parsed = createUserSchema.safeParse(req.body);
@@ -61,7 +54,7 @@ export const createTenant = async (
 export const updateTenant = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const { cognitoId } = req.params;
@@ -90,7 +83,7 @@ export const updateTenant = async (
 export const getCurrentResidences = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const { cognitoId } = req.params;
@@ -103,9 +96,7 @@ export const getCurrentResidences = async (
 
     const residencesWithFormattedLocation = await Promise.all(
       properties.map(async (property) => {
-        const { longitude, latitude } = await formatLocation(
-          property.location.id
-        );
+        const { longitude, latitude } = await formatLocation(property.location.id);
 
         return {
           ...property,
@@ -117,7 +108,7 @@ export const getCurrentResidences = async (
             },
           },
         };
-      })
+      }),
     );
 
     res.json(residencesWithFormattedLocation);
@@ -129,7 +120,7 @@ export const getCurrentResidences = async (
 export const addFavoriteProperty = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const { cognitoId, propertyId } = req.params;
@@ -139,7 +130,7 @@ export const addFavoriteProperty = async (
     });
 
     if (!tenant) {
-      res.status(404).json({ message: "Tenant not found" });
+      res.status(404).json({ message: 'Tenant not found' });
       return;
     }
 
@@ -158,7 +149,7 @@ export const addFavoriteProperty = async (
       });
       res.json(updatedTenant);
     } else {
-      res.status(409).json({ message: "Property already added as favorite" });
+      res.status(409).json({ message: 'Property already added as favorite' });
     }
   } catch (error) {
     next(error);
@@ -168,7 +159,7 @@ export const addFavoriteProperty = async (
 export const removeFavoriteProperty = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const { cognitoId, propertyId } = req.params;

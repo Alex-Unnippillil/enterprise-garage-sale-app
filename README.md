@@ -27,7 +27,7 @@ npm run dev
 ```
 Open <http://localhost:3000> in your browser.
 
-The client reads the API URL from the `NEXT_PUBLIC_API_URL` environment variable. If not set, it defaults to `http://localhost:3001`.
+The client reads the API URL from the `NEXT_PUBLIC_API_URL` environment variable, which typically points to `http://localhost:3001` during development.
 
 ### Server
 ```bash
@@ -38,7 +38,7 @@ npm run dev
 The API will run on <http://localhost:3001> by default.
 
 ### Required Environment Variables
-The server requires the following environment variables. Copy `.env.example` and adjust values as needed.
+The server requires the following environment variables. Copy `.env.example` and adjust values as needed. The client also expects `NEXT_PUBLIC_API_URL` to be set to the API's base URL.
 
 - `PORT` – Port for the Express API.
 - `DATABASE_URL` – PostgreSQL connection string.

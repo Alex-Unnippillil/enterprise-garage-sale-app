@@ -6,7 +6,11 @@ jest.mock("../utils/geocodeAddress", () => ({ geocodeAddress: jest.fn() }));
 
 const mockPrisma = {
   lease: { findMany: jest.fn() },
-  payment: { findMany: jest.fn() },
+  payment: {
+    findMany: jest.fn(),
+    create: jest.fn(),
+    update: jest.fn(),
+  },
   $disconnect: jest.fn(),
 };
 
@@ -16,7 +20,12 @@ jest.mock("@prisma/client", () => ({
 }));
 
 import prisma from "../utils/prisma";
-import { getLeases, getLeasePayments } from "../controllers/lease-controllers";
+import {
+  getLeases,
+  getLeasePayments,
+  createPayment,
+  updatePayment,
+} from "../controllers/lease-controllers";
 
 const createMockRes = () => {
   const res: Partial<Response> = {};
@@ -75,6 +84,73 @@ describe("leaseControllers", () => {
     await getLeasePayments(req, res, localNext);
 
     expect(localNext).toHaveBeenCalled();
+  });
+
+  it("creates a payment", async () => {
+    const paymentData = {
+      amountDue: 1000,
+      amountPaid: 500,
+      dueDate: "2023-01-01",
+      paymentStatus: "Pending",
+    };
+    mockPrisma.payment.create.mockResolvedValue({ id: 1 });
+    const req = { params: { id: "1" }, body: paymentData } as unknown as Request;
+    const res = createMockRes();
+
+    await createPayment(req, res, next);
+
+    expect(mockPrisma.payment.create).toHaveBeenCalledWith({
+      data: expect.objectContaining({
+        amountDue: 1000,
+        amountPaid: 500,
+        dueDate: new Date("2023-01-01"),
+        paymentStatus: "Pending",
+        lease: { connect: { id: 1 } },
+      }),
+    });
+    expect(res.status).toHaveBeenCalledWith(201);
+    expect(res.json).toHaveBeenCalledWith({ id: 1 });
+  });
+
+  it("returns 400 on invalid payment creation", async () => {
+    const req = {
+      params: { id: "1" },
+      body: { amountDue: "bad" },
+    } as unknown as Request;
+    const res = createMockRes();
+
+    await createPayment(req, res, next);
+
+    expect(res.status).toHaveBeenCalledWith(400);
+  });
+
+  it("updates a payment", async () => {
+    mockPrisma.payment.update.mockResolvedValue({ id: 1 });
+    const req = {
+      params: { paymentId: "1" },
+      body: { amountPaid: 900 },
+    } as unknown as Request;
+    const res = createMockRes();
+
+    await updatePayment(req, res, next);
+
+    expect(mockPrisma.payment.update).toHaveBeenCalledWith({
+      where: { id: 1 },
+      data: { amountPaid: 900 },
+    });
+    expect(res.json).toHaveBeenCalledWith({ id: 1 });
+  });
+
+  it("returns 400 on invalid payment update", async () => {
+    const req = {
+      params: { paymentId: "1" },
+      body: { amountPaid: "bad" },
+    } as unknown as Request;
+    const res = createMockRes();
+
+    await updatePayment(req, res, next);
+
+    expect(res.status).toHaveBeenCalledWith(400);
   });
 });
 

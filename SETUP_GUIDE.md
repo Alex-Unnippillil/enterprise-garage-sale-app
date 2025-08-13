@@ -74,7 +74,7 @@ Create the following environment files:
 **`client/.env.local`:**
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:3001 # base URL for the API
+NEXT_PUBLIC_API_URL=http://localhost:3001 # API base URL
 NEXT_PUBLIC_AWS_REGION=us-east-1
 NEXT_PUBLIC_USER_POOLS_WEB_CLIENT_ID=your_cognito_client_id
 NEXT_PUBLIC_USER_POOL_ID=your_cognito_user_pool_id
@@ -228,7 +228,7 @@ After setting up AWS services, update your environment files with the actual val
 **`client/.env.local`:**
 
 ```env
-NEXT_PUBLIC_API_URL=http://localhost:3001 # base URL for the API
+NEXT_PUBLIC_API_URL=http://localhost:3001 # API base URL
 NEXT_PUBLIC_AWS_REGION=us-east-1
 NEXT_PUBLIC_USER_POOLS_WEB_CLIENT_ID=your_actual_client_id
 NEXT_PUBLIC_USER_POOL_ID=your_actual_user_pool_id
@@ -476,7 +476,7 @@ aws sts get-caller-identity
 ```bash
 # Check environment variables are loaded
 # Frontend
-echo $NEXT_PUBLIC_API_URL
+echo $NEXT_PUBLIC_API_URL  # prints the API base URL
 
 # Backend
 echo $DATABASE_URL

@@ -1,11 +1,11 @@
-import { Request, Response, NextFunction } from "express";
-import { Prisma, Location } from "@prisma/client";
-import { buildPropertyFilters } from "../utils/build-property-filters";
-import { formatLocation } from "../utils/format-location";
-import { uploadFilesToS3 } from "../utils/s3-upload";
-import { geocodeAddress } from "../utils/geocode-address";
-import { z } from "zod";
-import prisma from "../utils/prisma";
+import { Request, Response, NextFunction } from 'express';
+import { Prisma, Location } from '@prisma/client';
+import { buildPropertyFilters } from '../utils/build-property-filters';
+import { formatLocation } from '../utils/format-location';
+import { uploadFilesToS3 } from '../utils/s3-upload';
+import { geocodeAddress } from '../utils/geocode-address';
+import { z } from 'zod';
+import prisma from '../utils/prisma';
 
 const createPropertySchema = z.object({
   address: z.string(),
@@ -48,7 +48,7 @@ const updatePropertySchema = z.object({
 export const getProperties = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const {
@@ -122,7 +122,7 @@ export const getProperties = async (
         coordsResults.map((c) => [
           c.id,
           { longitude: Number(c.longitude), latitude: Number(c.latitude) },
-        ])
+        ]),
       );
     }
 
@@ -142,7 +142,7 @@ export const getProperties = async (
 export const getProperty = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const { id } = req.params;
@@ -154,9 +154,7 @@ export const getProperty = async (
     });
 
     if (property) {
-      const { longitude, latitude } = await formatLocation(
-        property.location.id
-      );
+      const { longitude, latitude } = await formatLocation(property.location.id);
 
       const propertyWithCoordinates = {
         ...property,
@@ -170,7 +168,7 @@ export const getProperty = async (
       };
       res.json(propertyWithCoordinates);
     } else {
-      res.status(404).json({ message: "Property not found" });
+      res.status(404).json({ message: 'Property not found' });
     }
   } catch (err) {
     next(err);
@@ -180,7 +178,7 @@ export const getProperty = async (
 export const createProperty = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const files = req.files as Express.Multer.File[];
@@ -193,27 +191,15 @@ export const createProperty = async (
 
     const managerCognitoId = req.user?.id;
     if (!managerCognitoId) {
-      res.status(401).json({ message: "Unauthorized" });
+      res.status(401).json({ message: 'Unauthorized' });
       return;
     }
 
-    const {
-      address,
-      city,
-      state,
-      country,
-      postalCode,
-      ...propertyData
-    } = parsed.data;
+    const { address, city, state, country, postalCode, ...propertyData } = parsed.data;
 
     const photoUrls = await uploadFilesToS3(files);
 
-    const [longitude, latitude] = await geocodeAddress(
-      address,
-      city,
-      country,
-      postalCode,
-    );
+    const [longitude, latitude] = await geocodeAddress(address, city, country, postalCode);
 
     const newProperty = await prisma.$transaction(async (tx) => {
       const [location] = await tx.$queryRaw<Location[]>`
@@ -230,15 +216,11 @@ export const createProperty = async (
           locationId: location.id,
           managerCognitoId,
           amenities:
-            typeof propertyData.amenities === "string"
-              ? propertyData.amenities.split(",")
-              : [],
+            typeof propertyData.amenities === 'string' ? propertyData.amenities.split(',') : [],
           highlights:
-            typeof propertyData.highlights === "string"
-              ? propertyData.highlights.split(",")
-              : [],
-          isPetsAllowed: propertyData.isPetsAllowed === "true",
-          isParkingIncluded: propertyData.isParkingIncluded === "true",
+            typeof propertyData.highlights === 'string' ? propertyData.highlights.split(',') : [],
+          isPetsAllowed: propertyData.isPetsAllowed === 'true',
+          isParkingIncluded: propertyData.isParkingIncluded === 'true',
           pricePerMonth: propertyData.pricePerMonth,
           securityDeposit: propertyData.securityDeposit,
           applicationFee: propertyData.applicationFee,
@@ -262,24 +244,10 @@ export const createProperty = async (
 export const updateProperty = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const { id } = req.params;
-
-    const property = await prisma.property.findUnique({
-      where: { id: Number(id) },
-    });
-
-    if (!property) {
-      res.status(404).json({ message: "Property not found" });
-      return;
-    }
-
-    if (property.managerCognitoId !== req.user?.id) {
-      res.status(403).json({ message: "Forbidden" });
-      return;
-    }
 
     const parsed = updatePropertySchema.safeParse(req.body);
     if (!parsed.success) {
@@ -292,46 +260,28 @@ export const updateProperty = async (
       where: { id: Number(id) },
       data: {
         ...data,
-        amenities:
-          typeof data.amenities === "string"
-            ? data.amenities.split(",")
-            : data.amenities,
+        amenities: typeof data.amenities === 'string' ? data.amenities.split(',') : data.amenities,
         highlights:
-          typeof data.highlights === "string"
-            ? data.highlights.split(",")
-            : data.highlights,
-        isPetsAllowed:
-          data.isPetsAllowed === undefined
-            ? undefined
-            : data.isPetsAllowed === "true",
+          typeof data.highlights === 'string' ? data.highlights.split(',') : data.highlights,
+        isPetsAllowed: data.isPetsAllowed === undefined ? undefined : data.isPetsAllowed === 'true',
         isParkingIncluded:
-          data.isParkingIncluded === undefined
-            ? undefined
-            : data.isParkingIncluded === "true",
+          data.isParkingIncluded === undefined ? undefined : data.isParkingIncluded === 'true',
       },
     });
 
     res.json(updatedProperty);
-  } catch (err) {
-    next(err);
+
   }
 };
 
 export const deleteProperty = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const { id } = req.params;
 
-    const property = await prisma.property.findUnique({
-      where: { id: Number(id) },
-    });
-
-    if (!property) {
-      res.status(404).json({ message: "Property not found" });
-      return;
     }
 
     if (property.managerCognitoId !== req.user?.id) {

@@ -266,6 +266,21 @@ export const updateProperty = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
+
+    const property = await prisma.property.findUnique({
+      where: { id: Number(id) },
+    });
+
+    if (!property) {
+      res.status(404).json({ message: "Property not found" });
+      return;
+    }
+
+    if (property.managerCognitoId !== req.user?.id) {
+      res.status(403).json({ message: "Forbidden" });
+      return;
+    }
+
     const parsed = updatePropertySchema.safeParse(req.body);
     if (!parsed.success) {
       res.status(400).json({ errors: parsed.error.flatten() });
@@ -297,12 +312,8 @@ export const updateProperty = async (
     });
 
     res.json(updatedProperty);
-  } catch (err: any) {
-    if (err?.code === "P2025") {
-      res.status(404).json({ message: "Property not found" });
-    } else {
-      next(err);
-    }
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -313,13 +324,24 @@ export const deleteProperty = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
+
+    const property = await prisma.property.findUnique({
+      where: { id: Number(id) },
+    });
+
+    if (!property) {
+      res.status(404).json({ message: "Property not found" });
+      return;
+    }
+
+    if (property.managerCognitoId !== req.user?.id) {
+      res.status(403).json({ message: "Forbidden" });
+      return;
+    }
+
     await prisma.property.delete({ where: { id: Number(id) } });
     res.json({ message: "Property deleted" });
-  } catch (err: any) {
-    if (err?.code === "P2025") {
-      res.status(404).json({ message: "Property not found" });
-    } else {
-      next(err);
-    }
+  } catch (err) {
+    next(err);
   }
 };

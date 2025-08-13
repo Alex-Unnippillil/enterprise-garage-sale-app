@@ -223,7 +223,7 @@ npm install -g pm2
 3. Import your repository
 4. Configure environment variables:
    ```
-   NEXT_PUBLIC_API_BASE_URL=https://your-ec2-ip:3002
+   NEXT_PUBLIC_API_URL=https://your-ec2-ip:3002
    NEXT_PUBLIC_AWS_COGNITO_USER_POOL_ID=your_user_pool_id
    NEXT_PUBLIC_AWS_COGNITO_USER_POOL_CLIENT_ID=your_client_id
    NEXT_PUBLIC_MAPBOX_TOKEN=your_mapbox_token

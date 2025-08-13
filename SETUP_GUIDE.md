@@ -70,6 +70,7 @@ Create the following environment files:
 
 **`client/.env.local`:**
 ```env
+# API base URL
 NEXT_PUBLIC_API_URL=http://localhost:3001
 NEXT_PUBLIC_AWS_REGION=us-east-1
 NEXT_PUBLIC_USER_POOLS_WEB_CLIENT_ID=your_cognito_client_id
@@ -225,6 +226,7 @@ After setting up AWS services, update your environment files with the actual val
 
 **`client/.env.local`:**
 ```env
+# API base URL
 NEXT_PUBLIC_API_URL=http://localhost:3001
 NEXT_PUBLIC_AWS_REGION=us-east-1
 NEXT_PUBLIC_USER_POOLS_WEB_CLIENT_ID=your_actual_client_id

@@ -28,6 +28,8 @@ const createPropertySchema = z.object({
   isParkingIncluded: z.string().optional(),
 });
 
+const updatePropertySchema = createPropertySchema.partial();
+
 export const getProperties = async (
   req: Request,
   res: Response,
@@ -237,6 +239,96 @@ export const createProperty = async (
     });
 
     res.status(201).json(newProperty);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const updateProperty = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const parsed = updatePropertySchema.safeParse(req.body);
+    if (!parsed.success) {
+      res.status(400).json({ errors: parsed.error.flatten() });
+      return;
+    }
+
+    const existing = await prisma.property.findUnique({
+      where: { id: Number(id) },
+    });
+
+    if (!existing) {
+      res.status(404).json({ message: "Property not found" });
+      return;
+    }
+
+    const {
+      amenities,
+      highlights,
+      isPetsAllowed,
+      isParkingIncluded,
+      pricePerMonth,
+      securityDeposit,
+      applicationFee,
+      beds,
+      baths,
+      squareFeet,
+      ...rest
+    } = parsed.data;
+
+    const updatedProperty = await prisma.property.update({
+      where: { id: Number(id) },
+      data: {
+        ...rest,
+        amenities:
+          typeof amenities === "string" ? amenities.split(",") : amenities,
+        highlights:
+          typeof highlights === "string" ? highlights.split(",") : highlights,
+        isPetsAllowed:
+          isPetsAllowed !== undefined ? isPetsAllowed === "true" : undefined,
+        isParkingIncluded:
+          isParkingIncluded !== undefined
+            ? isParkingIncluded === "true"
+            : undefined,
+        pricePerMonth,
+        securityDeposit,
+        applicationFee,
+        beds,
+        baths,
+        squareFeet,
+      },
+      include: { location: true, manager: true },
+    });
+
+    res.json(updatedProperty);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const deleteProperty = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+
+    const existing = await prisma.property.findUnique({
+      where: { id: Number(id) },
+    });
+
+    if (!existing) {
+      res.status(404).json({ message: "Property not found" });
+      return;
+    }
+
+    await prisma.property.delete({ where: { id: Number(id) } });
+    res.status(204).send();
   } catch (err) {
     next(err);
   }

@@ -113,12 +113,12 @@ Add this CORS configuration to your bucket:
 
 ```json
 [
-    {
-        "AllowedHeaders": ["*"],
-        "AllowedMethods": ["GET", "POST", "PUT", "DELETE"],
-        "AllowedOrigins": ["*"],
-        "ExposeHeaders": []
-    }
+  {
+    "AllowedHeaders": ["*"],
+    "AllowedMethods": ["GET", "POST", "PUT", "DELETE"],
+    "AllowedOrigins": ["*"],
+    "ExposeHeaders": []
+  }
 ]
 ```
 
@@ -175,22 +175,26 @@ npm install -g pm2
 ### 4.4 Deploy Backend Code
 
 1. Clone your repository:
+
    ```bash
    git clone <your-repo-url>
    cd real-estate-prod-master/server
    ```
 
 2. Install dependencies:
+
    ```bash
    npm install
    ```
 
 3. Create environment file:
+
    ```bash
    nano .env
    ```
 
 4. Add environment variables:
+
    ```env
    DATABASE_URL="postgresql://username:password@your-rds-endpoint:5432/rentiful"
    PORT=3002
@@ -201,6 +205,7 @@ npm install -g pm2
    ```
 
 5. Set up database:
+
    ```bash
    npx prisma generate
    npx prisma db push
@@ -223,7 +228,7 @@ npm install -g pm2
 3. Import your repository
 4. Configure environment variables:
    ```
-   NEXT_PUBLIC_API_BASE_URL=https://your-ec2-ip:3002
+   NEXT_PUBLIC_API_URL=https://your-ec2-ip:3002
    NEXT_PUBLIC_AWS_COGNITO_USER_POOL_ID=your_user_pool_id
    NEXT_PUBLIC_AWS_COGNITO_USER_POOL_CLIENT_ID=your_client_id
    NEXT_PUBLIC_MAPBOX_TOKEN=your_mapbox_token
@@ -385,6 +390,7 @@ df -h
 ## 📞 Support
 
 For issues and questions:
+
 - Check AWS documentation
 - Review application logs
 - Monitor CloudWatch metrics
@@ -392,4 +398,4 @@ For issues and questions:
 
 ---
 
-**Note**: This deployment guide assumes a production-ready setup. For development, you can use simpler configurations and free tier services. 
+**Note**: This deployment guide assumes a production-ready setup. For development, you can use simpler configurations and free tier services.

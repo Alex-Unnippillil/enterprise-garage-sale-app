@@ -1,5 +1,9 @@
 import axios from "axios";
 import { GEOCODE_USER_AGENT } from "../env";
+import {
+  getCachedGeocode,
+  saveGeocodeToCache,
+} from "../services/geocode-cache";
 
 export const geocodeAddress = async (
   address: string,
@@ -7,6 +11,11 @@ export const geocodeAddress = async (
   country: string,
   postalCode: string,
 ): Promise<[number, number]> => {
+  const cached = await getCachedGeocode(address, city, postalCode);
+  if (cached) {
+    return cached;
+  }
+
   const geocodingUrl = `https://nominatim.openstreetmap.org/search?${new URLSearchParams({
     street: address,
     city,
@@ -32,10 +41,20 @@ export const geocodeAddress = async (
     throw new Error("Geocoding failed");
   }
 
-  return [
+  const coordinates: [number, number] = [
     parseFloat(geocodingResponse.data[0].lon),
     parseFloat(geocodingResponse.data[0].lat),
   ];
+
+  await saveGeocodeToCache(
+    address,
+    city,
+    postalCode,
+    coordinates[0],
+    coordinates[1],
+  );
+
+  return coordinates;
 };
 
 export default geocodeAddress;

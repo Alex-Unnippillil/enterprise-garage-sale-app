@@ -66,7 +66,7 @@ CREATE EXTENSION IF NOT EXISTS postgis;
 
 ### Step 3: Environment Variables Setup
 
-Create the following environment files:
+Create the following environment files. The client relies on `NEXT_PUBLIC_API_URL` to locate the server:
 
 **`client/.env.local`:**
 ```env

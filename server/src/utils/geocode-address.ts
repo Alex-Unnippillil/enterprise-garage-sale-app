@@ -36,12 +36,12 @@ export const geocodeAddress = async (
     throw new Error('Geocoding failed');
   }
 
-  const longitude = parseFloat(geocodingResponse.data[0].lon);
   const latitude = parseFloat(geocodingResponse.data[0].lat);
+  const longitude = parseFloat(geocodingResponse.data[0].lon);
 
-  await saveGeocode(address, city, postalCode, longitude, latitude);
+  await saveGeocode(address, city, postalCode, latitude, longitude);
 
-  return [longitude, latitude];
+  return [latitude, longitude];
 };
 
 export default geocodeAddress;

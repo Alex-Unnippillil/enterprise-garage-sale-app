@@ -2,9 +2,6 @@ import { Request, Response, NextFunction } from "express";
 import { createUserSchema, updateUserSchema } from "../validators/user-validators";
 import { formatLocation } from "../utils/format-location";
 import prisma from "../utils/prisma";
-import { createUserSchema, updateUserSchema } from "../validators/user-validators";
-import { formatLocation } from "../utils/format-location";
-
 
 export const getTenant = async (
   req: Request,

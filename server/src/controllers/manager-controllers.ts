@@ -3,6 +3,7 @@ import { createUserSchema, updateUserSchema } from "../validators/user-validator
 import { formatLocation } from "../utils/format-location";
 import prisma from "../utils/prisma";
 
+
 export const getManager = async (
   req: Request,
   res: Response,

@@ -4,9 +4,11 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { fetchAuthSession, getCurrentUser } from 'aws-amplify/auth';
 import { FiltersState } from '.';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
+
 export const api = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001',
+    baseUrl: API_URL,
     prepareHeaders: async (headers) => {
       const session = await fetchAuthSession();
       const { idToken } = session.tokens ?? {};
@@ -305,6 +307,42 @@ export const api = createApi({
       },
     }),
 
+    createPayment: build.mutation<
+      Payment,
+
+    >({
+      query: ({ leaseId, ...body }) => ({
+        url: `leases/${leaseId}/payments`,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Payments'],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          success: 'Payment created successfully!',
+          error: 'Failed to create payment.',
+        });
+      },
+    }),
+
+    updatePayment: build.mutation<
+      Payment,
+
+    >({
+      query: ({ paymentId, ...body }) => ({
+        url: `leases/payments/${paymentId}`,
+        method: 'PUT',
+        body,
+      }),
+      invalidatesTags: ['Payments'],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          success: 'Payment updated successfully!',
+          error: 'Failed to update payment.',
+        });
+      },
+    }),
+
     // application related endpoints
     getApplications: build.query<Application[], { userId?: string; userType?: string }>({
       query: (params) => {
@@ -378,6 +416,8 @@ export const {
   useGetLeasesQuery,
   useGetPropertyLeasesQuery,
   useGetPaymentsQuery,
+  useCreatePaymentMutation,
+  useUpdatePaymentMutation,
   useGetApplicationsQuery,
   useUpdateApplicationStatusMutation,
   useCreateApplicationMutation,

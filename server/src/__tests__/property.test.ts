@@ -199,6 +199,10 @@ describe("Property API", () => {
       .fn()
       .mockResolvedValue({ id: 1, name: "Updated Property" });
     mockPrisma.property.update.mockImplementation(updateMock);
+    mockPrisma.property.findUnique.mockResolvedValue({
+      id: 1,
+      managerCognitoId: "manager",
+    });
 
     const res = await request(app)
       .put("/properties/1")
@@ -213,16 +217,36 @@ describe("Property API", () => {
   });
 
   it("returns 404 when updating missing property", async () => {
-    mockPrisma.property.update.mockRejectedValue({ code: "P2025" });
+    mockPrisma.property.findUnique.mockResolvedValue(null);
+    mockPrisma.property.update.mockImplementation(jest.fn());
 
     const res = await request(app)
       .put("/properties/999")
       .send({ name: "Updated Property" });
     expect(res.status).toBe(404);
     expect(res.body).toEqual({ message: "Property not found" });
+    expect(mockPrisma.property.update).not.toHaveBeenCalled();
+  });
+
+  it("returns 403 when updating property not owned by user", async () => {
+    mockPrisma.property.findUnique.mockResolvedValue({
+      id: 1,
+      managerCognitoId: "other",
+    });
+
+    const res = await request(app)
+      .put("/properties/1")
+      .send({ name: "Updated Property" });
+    expect(res.status).toBe(403);
+    expect(res.body).toEqual({ message: "Forbidden" });
+    expect(mockPrisma.property.update).not.toHaveBeenCalled();
   });
 
   it("deletes property", async () => {
+    mockPrisma.property.findUnique.mockResolvedValue({
+      id: 1,
+      managerCognitoId: "manager",
+    });
     mockPrisma.property.delete.mockResolvedValue({});
 
     const res = await request(app).delete("/properties/1");
@@ -234,11 +258,25 @@ describe("Property API", () => {
   });
 
   it("returns 404 when deleting missing property", async () => {
-    mockPrisma.property.delete.mockRejectedValue({ code: "P2025" });
+    mockPrisma.property.findUnique.mockResolvedValue(null);
+    mockPrisma.property.delete.mockImplementation(jest.fn());
 
     const res = await request(app).delete("/properties/999");
     expect(res.status).toBe(404);
     expect(res.body).toEqual({ message: "Property not found" });
+    expect(mockPrisma.property.delete).not.toHaveBeenCalled();
+  });
+
+  it("returns 403 when deleting property not owned by user", async () => {
+    mockPrisma.property.findUnique.mockResolvedValue({
+      id: 1,
+      managerCognitoId: "other",
+    });
+
+    const res = await request(app).delete("/properties/1");
+    expect(res.status).toBe(403);
+    expect(res.body).toEqual({ message: "Forbidden" });
+    expect(mockPrisma.property.delete).not.toHaveBeenCalled();
   });
 });
 

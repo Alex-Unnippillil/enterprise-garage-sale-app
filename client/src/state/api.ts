@@ -305,6 +305,47 @@ export const api = createApi({
       },
     }),
 
+    createPayment: build.mutation<
+      Payment,
+      { leaseId: number } & Pick<
+        Payment,
+        'amountDue' | 'amountPaid' | 'dueDate' | 'paymentStatus'
+      >
+    >({
+      query: ({ leaseId, ...body }) => ({
+        url: `leases/${leaseId}/payments`,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Payments'],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          success: 'Payment created successfully!',
+          error: 'Failed to create payment.',
+        });
+      },
+    }),
+
+    updatePayment: build.mutation<
+      Payment,
+      { paymentId: number } & Partial<
+        Pick<Payment, 'amountDue' | 'amountPaid' | 'dueDate' | 'paymentStatus'>
+      >
+    >({
+      query: ({ paymentId, ...body }) => ({
+        url: `leases/payments/${paymentId}`,
+        method: 'PUT',
+        body,
+      }),
+      invalidatesTags: ['Payments'],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          success: 'Payment updated successfully!',
+          error: 'Failed to update payment.',
+        });
+      },
+    }),
+
     // application related endpoints
     getApplications: build.query<Application[], { userId?: string; userType?: string }>({
       query: (params) => {
@@ -378,6 +419,8 @@ export const {
   useGetLeasesQuery,
   useGetPropertyLeasesQuery,
   useGetPaymentsQuery,
+  useCreatePaymentMutation,
+  useUpdatePaymentMutation,
   useGetApplicationsQuery,
   useUpdateApplicationStatusMutation,
   useCreateApplicationMutation,

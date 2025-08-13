@@ -8,9 +8,21 @@ import {
   AWS_SECRET_ACCESS_KEY,
 } from "../env";
 
+export const ALLOWED_MIME_TYPES = ["image/jpeg", "image/png"];
+export const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
 export const uploadFilesToS3 = async (
   files: Express.Multer.File[],
 ): Promise<string[]> => {
+  files.forEach((file) => {
+    if (!ALLOWED_MIME_TYPES.includes(file.mimetype)) {
+      throw new Error(`Unsupported file type: ${file.mimetype}`);
+    }
+    if (file.size > MAX_FILE_SIZE) {
+      throw new Error(`File size exceeds limit of ${MAX_FILE_SIZE} bytes`);
+    }
+  });
+
   const s3Client = new S3Client({
     region: AWS_REGION,
     credentials: {

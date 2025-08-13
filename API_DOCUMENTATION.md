@@ -150,6 +150,8 @@ Create a new property listing. Requires manager authentication.
 }
 ```
 
+**Photo Upload Limits:** Only `image/jpeg` and `image/png` files are accepted, and each file must be no larger than 5MB.
+
 **Response:**
 ```json
 {

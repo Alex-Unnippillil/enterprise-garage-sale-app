@@ -4,9 +4,11 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { fetchAuthSession, getCurrentUser } from 'aws-amplify/auth';
 import { FiltersState } from '.';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
+
 export const api = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001',
+    baseUrl: API_URL,
     prepareHeaders: async (headers) => {
       const session = await fetchAuthSession();
       const { idToken } = session.tokens ?? {};

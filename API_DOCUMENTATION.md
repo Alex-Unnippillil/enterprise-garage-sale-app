@@ -150,6 +150,11 @@ Create a new property listing. Requires manager authentication.
 }
 ```
 
+**Photo Upload Limits**
+
+- Allowed MIME types: `image/jpeg`, `image/png`, `image/webp`
+- Maximum file size: 5 MB per file
+
 **Response:**
 ```json
 {

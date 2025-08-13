@@ -67,41 +67,36 @@ describe("applicationControllers", () => {
     );
   });
 
-  it("creates application when property exists", async () => {
-    mockPrisma.property.findUnique.mockResolvedValue({
-      pricePerMonth: 1000,
-      securityDeposit: 500,
-    });
+    it("creates application when property exists", async () => {
+      mockPrisma.property.findUnique.mockResolvedValue({ id: 1 });
+      mockPrisma.application.create.mockResolvedValue({
+        id: 1,
+        property: {},
+        tenant: {},
+        lease: null,
+      });
 
-    mockPrisma.$transaction.mockImplementation(async (cb: any) => {
-      const tx = {
-        lease: { create: jest.fn().mockResolvedValue({ id: 1 }) },
-        application: {
-          create: jest.fn().mockResolvedValue({ id: 1, property: {}, tenant: {}, lease: {} }),
+      const req = {
+        body: {
+          applicationDate: new Date().toISOString(),
+          status: "PENDING",
+          propertyId: 1,
+          tenantCognitoId: "t1",
+          name: "n",
+          email: "e@example.com",
+          phoneNumber: "p",
+          message: "m",
         },
-      };
-      return cb(tx);
+      } as unknown as Request;
+      const res = createMockRes();
+
+      await createApplication(req, res, next);
+
+      expect(res.status).toHaveBeenCalledWith(201);
+      expect(res.json).toHaveBeenCalled();
+      expect(mockPrisma.$transaction).not.toHaveBeenCalled();
+      expect(mockPrisma.lease.create).not.toHaveBeenCalled();
     });
-
-    const req = {
-      body: {
-        applicationDate: new Date().toISOString(),
-        status: "PENDING",
-        propertyId: 1,
-        tenantCognitoId: "t1",
-        name: "n",
-        email: "e@example.com",
-        phoneNumber: "p",
-        message: "m",
-      },
-    } as unknown as Request;
-    const res = createMockRes();
-
-    await createApplication(req, res, next);
-
-    expect(res.status).toHaveBeenCalledWith(201);
-    expect(res.json).toHaveBeenCalled();
-  });
 
   it("returns 404 when property missing", async () => {
     mockPrisma.property.findUnique.mockResolvedValue(null);

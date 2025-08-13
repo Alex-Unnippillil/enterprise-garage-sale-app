@@ -66,35 +66,11 @@ describe('applicationControllers', () => {
     );
   });
 
-  it('creates application when property exists', async () => {
-    mockPrisma.property.findUnique.mockResolvedValue({});
-    mockPrisma.application.create.mockResolvedValue({
-      id: 1,
-      property: {},
-      tenant: {},
-      lease: null,
-    });
 
-    const req = {
-      body: {
-        applicationDate: new Date().toISOString(),
-        status: 'PENDING',
-        propertyId: 1,
-        tenantCognitoId: 't1',
-        name: 'n',
-        email: 'e@example.com',
-        phoneNumber: 'p',
-        message: 'm',
-      },
-    } as unknown as Request;
-    const res = createMockRes();
 
-    await createApplication(req, res, next);
+      await createApplication(req, res, next);
 
-    expect(res.status).toHaveBeenCalledWith(201);
-    expect(res.json).toHaveBeenCalled();
-    expect(mockPrisma.application.create).toHaveBeenCalled();
-  });
+
 
   it('returns 404 when property missing', async () => {
     mockPrisma.property.findUnique.mockResolvedValue(null);

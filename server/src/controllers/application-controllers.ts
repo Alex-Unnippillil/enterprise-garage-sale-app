@@ -118,6 +118,7 @@ export const createApplication = async (
 
     const property = await prisma.property.findUnique({
       where: { id: propertyId },
+
     });
 
     if (!property) {

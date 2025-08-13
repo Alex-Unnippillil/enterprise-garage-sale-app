@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from "express";
+import { z } from "zod";
 import prisma from "../utils/prisma";
 
 export const getLeases = async (
@@ -32,5 +33,42 @@ export const getLeasePayments = async (
     res.json(payments);
   } catch (error) {
     next(error);
+  }
+};
+
+const paymentSchema = z.object({
+  amountDue: z.coerce.number(),
+  amountPaid: z.coerce.number(),
+
+});
+
+const updatePaymentSchema = paymentSchema.partial();
+
+export const createPayment = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { id } = req.params;
+    const parsed = paymentSchema.safeParse(req.body);
+    if (!parsed.success) {
+<
+    res.status(201).json(payment);
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const updatePayment = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const { paymentId } = req.params;
+    const parsed = updatePaymentSchema.safeParse(req.body);
+    if (!parsed.success) {
+
   }
 };

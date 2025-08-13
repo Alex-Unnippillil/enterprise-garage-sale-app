@@ -13,38 +13,30 @@ export const updateApplicationStatus = async (id: number, status: ApplicationSta
   }
 
   return prisma.$transaction(async (tx) => {
-    if (status === 'Approved' && application.status !== 'Approved' && !application.leaseId) {
-      const lease = await tx.lease.create({
-        data: {
-          startDate: new Date(),
-          endDate: new Date(new Date().setFullYear(new Date().getFullYear() + 1)),
-          rent: application.property.pricePerMonth,
-          deposit: application.property.securityDeposit,
-          propertyId: application.propertyId,
-          tenantCognitoId: application.tenantCognitoId,
-        },
-      });
 
-      await tx.property.update({
-        where: { id: application.propertyId },
-        data: {
-          tenants: {
-            connect: { cognitoId: application.tenantCognitoId },
+
+        await tx.property.update({
+          where: { id: application.propertyId },
+          data: {
+            tenants: {
+              connect: { cognitoId: application.tenantCognitoId },
+            },
           },
-        },
-      });
+        });
 
+        return tx.application.update({
+          where: { id },
+          data: { status, leaseId: lease.id },
+          include: { property: true, tenant: true, lease: true },
+        });
+      }
+
+      // For statuses other than transitioning to Approved, simply update the status
       return tx.application.update({
         where: { id },
-        data: { status, leaseId: lease.id },
+        data: { status },
         include: { property: true, tenant: true, lease: true },
       });
-    }
 
-    return tx.application.update({
-      where: { id },
-      data: { status },
-      include: { property: true, tenant: true, lease: true },
     });
-  });
-};
+  };

@@ -1,6 +1,18 @@
 import { Request, Response, NextFunction } from "express";
+import { z } from "zod";
 import prisma from "../utils/prisma";
 import { updateApplicationStatus as updateApplicationStatusService } from "../services/application-service";
+
+const createApplicationSchema = z.object({
+  applicationDate: z.string(),
+  status: z.string(),
+  propertyId: z.coerce.number(),
+  tenantCognitoId: z.string(),
+  name: z.string(),
+  email: z.string().email(),
+  phoneNumber: z.string(),
+  message: z.string().optional(),
+});
 
 export const listApplications = async (
   req: Request,
@@ -87,6 +99,12 @@ export const createApplication = async (
   next: NextFunction
 ): Promise<void> => {
   try {
+    const parsed = createApplicationSchema.safeParse(req.body);
+    if (!parsed.success) {
+      res.status(400).json({ errors: parsed.error.flatten() });
+      return;
+    }
+
     const {
       applicationDate,
       status,
@@ -96,7 +114,7 @@ export const createApplication = async (
       email,
       phoneNumber,
       message,
-    } = req.body;
+    } = parsed.data;
 
     const property = await prisma.property.findUnique({
       where: { id: propertyId },

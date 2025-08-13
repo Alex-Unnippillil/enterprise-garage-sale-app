@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 
 // Mock external services
-jest.mock("../utils/s3Upload", () => ({ uploadFilesToS3: jest.fn() }));
-jest.mock("../utils/geocodeAddress", () => ({ geocodeAddress: jest.fn() }));
+jest.mock("../utils/s3-upload", () => ({ uploadFilesToS3: jest.fn() }));
+jest.mock("../utils/geocode-address", () => ({ geocodeAddress: jest.fn() }));
 
-jest.mock("../services/applicationService", () => ({
+jest.mock("../services/application-service", () => ({
   updateApplicationStatus: jest.fn(),
 }));
 
@@ -90,7 +90,7 @@ describe("applicationControllers", () => {
         propertyId: 1,
         tenantCognitoId: "t1",
         name: "n",
-        email: "e",
+        email: "e@example.com",
         phoneNumber: "p",
         message: "m",
       },
@@ -105,7 +105,17 @@ describe("applicationControllers", () => {
 
   it("returns 404 when property missing", async () => {
     mockPrisma.property.findUnique.mockResolvedValue(null);
-    const req = { body: { propertyId: 1 } } as unknown as Request;
+    const req = {
+      body: {
+        applicationDate: new Date().toISOString(),
+        status: "PENDING",
+        propertyId: 1,
+        tenantCognitoId: "t1",
+        name: "n",
+        email: "e@example.com",
+        phoneNumber: "p",
+      },
+    } as unknown as Request;
     const res = createMockRes();
 
     await createApplication(req, res, next);
@@ -116,13 +126,38 @@ describe("applicationControllers", () => {
 
   it("calls next on create error", async () => {
     mockPrisma.property.findUnique.mockRejectedValue(new Error("db"));
-    const req = { body: { propertyId: 1 } } as unknown as Request;
+    const req = {
+      body: {
+        applicationDate: new Date().toISOString(),
+        status: "PENDING",
+        propertyId: 1,
+        tenantCognitoId: "t1",
+        name: "n",
+        email: "e@example.com",
+        phoneNumber: "p",
+      },
+    } as unknown as Request;
     const res = createMockRes();
     const localNext = jest.fn();
 
     await createApplication(req, res, localNext);
 
     expect(localNext).toHaveBeenCalled();
+  });
+
+  it("returns 400 for invalid payload", async () => {
+    const req = {
+      body: {
+        // missing required fields
+        propertyId: 1,
+      },
+    } as unknown as Request;
+    const res = createMockRes();
+
+    await createApplication(req, res, next);
+
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(mockPrisma.property.findUnique).not.toHaveBeenCalled();
   });
 
   it("updates application status", async () => {

@@ -28,10 +28,11 @@ export const authMiddleware = (allowedRoles: string[]) => {
     }
 
     try {
-      const secretOrKey = COGNITO_JWT_PUBLIC_KEY || JWT_SECRET || '';
-      const algorithms = COGNITO_JWT_PUBLIC_KEY ? ['RS256'] : ['HS256'];
+      const hasPublicKey = Boolean(COGNITO_JWT_PUBLIC_KEY);
+      const secretOrKey = hasPublicKey ? COGNITO_JWT_PUBLIC_KEY : JWT_SECRET;
+      const algorithms = hasPublicKey ? ['RS256'] : ['HS256'];
 
-      const decoded = jwt.verify(token, secretOrKey, {
+      const decoded = jwt.verify(token, secretOrKey as string, {
         algorithms,
         audience: COGNITO_AUDIENCE,
         issuer: COGNITO_ISSUER,

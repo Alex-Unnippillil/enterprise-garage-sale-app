@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import { Amplify } from "aws-amplify";
+import { env } from "@/env";
 import {
   Authenticator,
   Heading,
@@ -17,9 +18,8 @@ import { useRouter, usePathname } from "next/navigation";
 Amplify.configure({
   Auth: {
     Cognito: {
-      userPoolId: process.env.NEXT_PUBLIC_AWS_COGNITO_USER_POOL_ID!,
-      userPoolClientId:
-        process.env.NEXT_PUBLIC_AWS_COGNITO_USER_POOL_CLIENT_ID!,
+      userPoolId: env.NEXT_PUBLIC_AWS_COGNITO_USER_POOL_ID,
+      userPoolClientId: env.NEXT_PUBLIC_AWS_COGNITO_USER_POOL_CLIENT_ID,
     },
   },
 });

@@ -107,4 +107,60 @@ describe('authMiddleware', () => {
 
     expect(res.status).toBe(200);
   });
+
+  it('returns 401 when HS256 token is verified with RSA public key', async () => {
+    const { publicKey } = generateKeyPairSync('rsa', {
+      modulusLength: 2048,
+      publicKeyEncoding: { type: 'spki', format: 'pem' },
+      privateKeyEncoding: { type: 'pkcs8', format: 'pem' },
+    });
+
+    setCommonEnv();
+    process.env.COGNITO_JWT_PUBLIC_KEY = publicKey;
+
+    const { authMiddleware } = require('../middleware/auth-middleware');
+
+    const token = jwt.sign({ sub: 'user1', 'custom:role': 'admin' }, 'supersecret', {
+      algorithm: 'HS256',
+      audience: process.env.COGNITO_AUDIENCE,
+      issuer: process.env.COGNITO_ISSUER,
+    });
+
+    const app = express();
+    app.get('/protected', authMiddleware(['admin']), (_req, res) => {
+      res.json({ ok: true });
+    });
+
+    const res = await request(app).get('/protected').set('Authorization', `Bearer ${token}`);
+
+    expect(res.status).toBe(401);
+  });
+
+  it('returns 401 when RS256 token is verified with HMAC secret', async () => {
+    const { privateKey } = generateKeyPairSync('rsa', {
+      modulusLength: 2048,
+      publicKeyEncoding: { type: 'spki', format: 'pem' },
+      privateKeyEncoding: { type: 'pkcs8', format: 'pem' },
+    });
+
+    setCommonEnv();
+    process.env.JWT_SECRET = 'supersecret';
+
+    const { authMiddleware } = require('../middleware/auth-middleware');
+
+    const token = jwt.sign({ sub: 'user1', 'custom:role': 'admin' }, privateKey, {
+      algorithm: 'RS256',
+      audience: process.env.COGNITO_AUDIENCE,
+      issuer: process.env.COGNITO_ISSUER,
+    });
+
+    const app = express();
+    app.get('/protected', authMiddleware(['admin']), (_req, res) => {
+      res.json({ ok: true });
+    });
+
+    const res = await request(app).get('/protected').set('Authorization', `Bearer ${token}`);
+
+    expect(res.status).toBe(401);
+  });
 });

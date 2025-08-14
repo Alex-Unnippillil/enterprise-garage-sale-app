@@ -52,21 +52,6 @@ export const createPayment = async (
       return;
     }
 
-    const { amountDue, amountPaid } = parsed.data;
-    const paymentStatus =
-      amountPaid >= amountDue ? 'Paid' : amountPaid > 0 ? 'PartiallyPaid' : 'Pending';
-
-    const payment = await prisma.payment.create({
-      data: {
-        leaseId: Number(id),
-        amountDue,
-        amountPaid,
-        dueDate: new Date(),
-        paymentDate: new Date(),
-        paymentStatus,
-      },
-    });
-
     res.status(201).json(payment);
   } catch (error) {
     next(error);
@@ -91,8 +76,5 @@ export const updatePayment = async (
       data: parsed.data,
     });
 
-    res.json(payment);
-  } catch (error) {
-    res.status(400).json({ message: 'Failed to update payment' });
   }
 };

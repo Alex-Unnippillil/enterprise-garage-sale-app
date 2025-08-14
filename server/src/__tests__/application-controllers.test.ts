@@ -11,7 +11,7 @@ jest.mock('../services/application-service', () => ({
 const mockPrisma = {
   application: { findMany: jest.fn(), create: jest.fn() },
   property: { findUnique: jest.fn() },
-  lease: { findFirst: jest.fn() },
+  lease: { findFirst: jest.fn(), create: jest.fn() },
   tenant: {},
   $disconnect: jest.fn(),
 };
@@ -66,11 +66,29 @@ describe('applicationControllers', () => {
     );
   });
 
+  it('creates application without creating lease', async () => {
+    mockPrisma.property.findUnique.mockResolvedValue({});
+    mockPrisma.application.create.mockResolvedValue({ id: 1 });
+    const req = {
+      body: {
+        applicationDate: new Date().toISOString(),
+        status: 'PENDING',
+        propertyId: 1,
+        tenantCognitoId: 't1',
+        name: 'n',
+        email: 'e@example.com',
+        phoneNumber: 'p',
+        message: 'm',
+      },
+    } as unknown as Request;
+    const res = createMockRes();
 
+    await createApplication(req, res, next);
 
-      await createApplication(req, res, next);
-
-
+    expect(res.status).toHaveBeenCalledWith(201);
+    expect(res.json).toHaveBeenCalledWith({ id: 1 });
+    expect(mockPrisma.lease.create).not.toHaveBeenCalled();
+  });
 
   it('returns 404 when property missing', async () => {
     mockPrisma.property.findUnique.mockResolvedValue(null);

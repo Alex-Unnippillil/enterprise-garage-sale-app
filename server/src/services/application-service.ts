@@ -13,30 +13,43 @@ export const updateApplicationStatus = async (id: number, status: ApplicationSta
   }
 
   return prisma.$transaction(async (tx) => {
+    if (
+      application.status !== ApplicationStatus.Approved &&
+      status === ApplicationStatus.Approved
+    ) {
+      const startDate = new Date();
+      const endDate = new Date(startDate);
+      endDate.setFullYear(endDate.getFullYear() + 1);
 
-
-        await tx.property.update({
-          where: { id: application.propertyId },
-          data: {
-            tenants: {
-              connect: { cognitoId: application.tenantCognitoId },
-            },
-          },
-        });
-
-        return tx.application.update({
-          where: { id },
-          data: { status, leaseId: lease.id },
-          include: { property: true, tenant: true, lease: true },
-        });
-      }
-
-      // For statuses other than transitioning to Approved, simply update the status
-      return tx.application.update({
-        where: { id },
-        data: { status },
-        include: { property: true, tenant: true, lease: true },
+      const lease = await tx.lease.create({
+        data: {
+          startDate,
+          endDate,
+          rent: application.property.pricePerMonth,
+          deposit: application.property.securityDeposit,
+          propertyId: application.propertyId,
+          tenantCognitoId: application.tenantCognitoId,
+        },
       });
 
+      await tx.property.update({
+        where: { id: application.propertyId },
+        data: {
+          tenants: { connect: { cognitoId: application.tenantCognitoId } },
+        },
+      });
+
+      return tx.application.update({
+        where: { id },
+        data: { status, leaseId: lease.id },
+        include: { property: true, tenant: true, lease: true },
+      });
+    }
+
+    return tx.application.update({
+      where: { id },
+      data: { status },
+      include: { property: true, tenant: true, lease: true },
     });
-  };
+  });
+};

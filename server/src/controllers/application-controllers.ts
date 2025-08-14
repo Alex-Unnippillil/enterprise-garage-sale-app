@@ -144,7 +144,6 @@ export const createApplication = async (
       include: {
         property: true,
         tenant: true,
-        lease: true,
       },
     });
 

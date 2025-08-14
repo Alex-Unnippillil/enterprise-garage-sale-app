@@ -1,8 +1,12 @@
 import request from 'supertest';
 import express from 'express';
+import propertyRoutes from '../routes/property-routes';
 import prisma from '../utils/prisma';
 
+const app = express();
+app.use('/properties', propertyRoutes);
 
+describe('property search', () => {
   const createProperty = async (name: string, description: string) => {
     const managerId = name.replace(/\s+/g, '-') + '-mgr';
     await prisma.manager.create({

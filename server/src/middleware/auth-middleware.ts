@@ -28,24 +28,23 @@ export const authMiddleware = (allowedRoles: string[]) => {
     }
 
     try {
-      let secretOrKey: string;
-      let algorithms: jwt.Algorithm[];
+      let decoded: DecodedToken;
 
       if (COGNITO_JWT_PUBLIC_KEY) {
-        secretOrKey = COGNITO_JWT_PUBLIC_KEY;
-        algorithms = ['RS256'];
+        decoded = jwt.verify(token, COGNITO_JWT_PUBLIC_KEY, {
+          algorithms: ['RS256'],
+          audience: COGNITO_AUDIENCE,
+          issuer: COGNITO_ISSUER,
+        }) as DecodedToken;
       } else if (JWT_SECRET) {
-        secretOrKey = JWT_SECRET;
-        algorithms = ['HS256'];
+        decoded = jwt.verify(token, JWT_SECRET, {
+          algorithms: ['HS256'],
+          audience: COGNITO_AUDIENCE,
+          issuer: COGNITO_ISSUER,
+        }) as DecodedToken;
       } else {
         throw new Error('Missing JWT configuration');
       }
-
-      const decoded = jwt.verify(token, secretOrKey, {
-        algorithms,
-        audience: COGNITO_AUDIENCE,
-        issuer: COGNITO_ISSUER,
-      }) as DecodedToken;
 
       const userRole = decoded['custom:role'] || '';
       req.user = {

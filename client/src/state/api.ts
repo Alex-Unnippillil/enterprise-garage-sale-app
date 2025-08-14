@@ -323,8 +323,6 @@ export const api = createApi({
     updatePayment: build.mutation<
       Payment,
 
-      
-      
       }),
       invalidatesTags: ['Payments'],
       async onQueryStarted(_, { queryFulfilled }) {

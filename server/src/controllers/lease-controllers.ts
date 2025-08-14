@@ -1,12 +1,8 @@
-import { Request, Response, NextFunction } from "express";
-import { z } from "zod";
-import prisma from "../utils/prisma";
+import { Request, Response, NextFunction } from 'express';
+import { z } from 'zod';
+import prisma from '../utils/prisma';
 
-export const getLeases = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-): Promise<void> => {
+export const getLeases = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
     const leases = await prisma.lease.findMany({
       include: {
@@ -23,7 +19,7 @@ export const getLeases = async (
 export const getLeasePayments = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const { id } = req.params;
@@ -39,7 +35,6 @@ export const getLeasePayments = async (
 const paymentSchema = z.object({
   amountDue: z.coerce.number(),
   amountPaid: z.coerce.number(),
-
 });
 
 const updatePaymentSchema = paymentSchema.partial();
@@ -47,7 +42,7 @@ const updatePaymentSchema = paymentSchema.partial();
 export const createPayment = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const { id } = req.params;
@@ -56,9 +51,7 @@ export const createPayment = async (
       res.status(400).json({ errors: parsed.error.errors });
       return;
     }
-    const payment = await prisma.payment.create({
-      data: { ...parsed.data, leaseId: Number(id) },
-    });
+
     res.status(201).json(payment);
   } catch (error) {
     next(error);
@@ -68,7 +61,7 @@ export const createPayment = async (
 export const updatePayment = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   try {
     const { paymentId } = req.params;
@@ -77,12 +70,11 @@ export const updatePayment = async (
       res.status(400).json({ errors: parsed.error.errors });
       return;
     }
+
     const payment = await prisma.payment.update({
       where: { id: Number(paymentId) },
       data: parsed.data,
     });
-    res.json(payment);
-  } catch (error) {
-    res.status(400).json({ message: "Failed to update payment" });
+
   }
 };

@@ -3,8 +3,7 @@ import { Application, Lease, Manager, Payment, Property, Tenant } from '@/types/
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { fetchAuthSession, getCurrentUser } from 'aws-amplify/auth';
 import { FiltersState } from '.';
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
+import { API_URL } from '@/config';
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({

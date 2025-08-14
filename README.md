@@ -82,6 +82,10 @@ The server requires the following environment variables. Copy `.env.example` and
 
 The application is designed for AWS deployment using services such as Cognito for authentication and S3 for asset storage. Refer to [DEPLOYMENT.md](DEPLOYMENT.md) for step-by-step production guidance.
 
+## Contributing
+
+We welcome community contributions! Please read the [CONTRIBUTING.md](CONTRIBUTING.md) guide for information on branching, committing, and running tests. By participating in this project you agree to abide by our [Code of Conduct](CODE_OF_CONDUCT.md).
+
 ## Further Reading
 
 - [API Documentation](API_DOCUMENTATION.md)

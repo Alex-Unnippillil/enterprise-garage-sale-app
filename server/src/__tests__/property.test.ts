@@ -1,5 +1,5 @@
 import request from 'supertest';
-import express from 'express';
+import express, { Request, Response } from 'express';
 
 // mocks must be defined before imports that use them
 jest.mock('../utils/s3-upload', () => ({
@@ -43,20 +43,31 @@ const {
   deleteProperty,
 } = require('../controllers/property-controllers');
 const prisma = require('../utils/prisma').default;
-
 const app = express();
 app.use(express.json());
-// custom route to bypass file upload middleware and simulate auth
+// custom routes to simulate auth without middleware
 app.post('/properties', (req, res, next) => {
   (req as any).files = [];
   (req as any).user = { id: 'manager', role: 'manager' };
   createProperty(req, res, next);
 });
-
+app.put('/properties/:id', (req, res, next) => {
+  (req as any).user = { id: 'manager', role: 'manager' };
+  updateProperty(req, res, next);
+});
+app.delete('/properties/:id', (req, res, next) => {
+  (req as any).user = { id: 'manager', role: 'manager' };
   deleteProperty(req, res, next);
 });
 // other property routes
 app.use('/properties', propertyRoutes);
+
+const createMockRes = () => {
+  const res: Partial<Response> = {};
+  res.status = jest.fn().mockReturnValue(res);
+  res.json = jest.fn().mockReturnValue(res);
+  return res as Response;
+};
 
 describe('Property API', () => {
   beforeEach(async () => {
@@ -181,7 +192,12 @@ describe('Property API', () => {
       expect(mockPrisma.$transaction).not.toHaveBeenCalled();
     },
   );
+  it('updates property with valid payload', async () => {
+    const updateMock = jest.fn().mockResolvedValue({ id: 1, name: 'Updated Property' });
+    mockPrisma.property.findUnique.mockResolvedValue({ id: 1, managerCognitoId: 'manager' });
+    mockPrisma.property.update = updateMock;
 
+    const res = await request(app).put('/properties/1').send({ name: 'Updated Property' });
     expect(res.status).toBe(200);
     expect(updateMock).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -191,25 +207,57 @@ describe('Property API', () => {
     );
   });
 
+  it('returns 404 when updating missing property', async () => {
     mockPrisma.property.findUnique.mockResolvedValue(null);
 
     const res = await request(app).put('/properties/999').send({ name: 'Updated Property' });
     expect(res.status).toBe(404);
-
-    expect(res.status).toBe(200);
-    expect(res.body).toEqual({ message: 'Property deleted' });
-    expect(mockPrisma.property.delete).toHaveBeenCalledWith({
-      where: { id: 1 },
-    });
+    expect(mockPrisma.property.update).not.toHaveBeenCalled();
   });
 
+  it('returns 403 when updating property without ownership', async () => {
+    mockPrisma.property.findUnique.mockResolvedValue({ id: 1, managerCognitoId: 'manager' });
 
+    const req = {
+      params: { id: '1' },
+      body: { name: 'Updated Property' },
+      user: { id: 'other', role: 'manager' },
+    } as unknown as Request;
+    const res = createMockRes();
+    await updateProperty(req, res, jest.fn());
+    expect(res.status).toHaveBeenCalledWith(403);
+    expect(mockPrisma.property.update).not.toHaveBeenCalled();
+  });
+
+  it('deletes property successfully', async () => {
+    mockPrisma.property.findUnique.mockResolvedValue({ id: 1, managerCognitoId: 'manager' });
+    const deleteMock = jest.fn().mockResolvedValue({});
+    mockPrisma.property.delete = deleteMock;
+
+    const res = await request(app).delete('/properties/1');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({ message: 'Property deleted' });
+    expect(deleteMock).toHaveBeenCalledWith({ where: { id: 1 } });
+  });
+
+  it('returns 404 when deleting missing property', async () => {
     mockPrisma.property.findUnique.mockResolvedValue(null);
 
     const res = await request(app).delete('/properties/999');
     expect(res.status).toBe(404);
+    expect(mockPrisma.property.delete).not.toHaveBeenCalled();
+  });
 
+  it('returns 403 when deleting property without ownership', async () => {
+    mockPrisma.property.findUnique.mockResolvedValue({ id: 1, managerCognitoId: 'manager' });
 
+    const req = {
+      params: { id: '1' },
+      user: { id: 'other', role: 'manager' },
+    } as unknown as Request;
+    const res = createMockRes();
+    await deleteProperty(req, res, jest.fn());
+    expect(res.status).toHaveBeenCalledWith(403);
     expect(mockPrisma.property.delete).not.toHaveBeenCalled();
   });
 });

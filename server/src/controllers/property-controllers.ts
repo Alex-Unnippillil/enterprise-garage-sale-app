@@ -255,22 +255,39 @@ export const updateProperty = async (
       return;
     }
 
+    const property = await prisma.property.findUnique({ where: { id: Number(id) } });
+
+    if (!property) {
+      res.status(404).json({ message: 'Property not found' });
+      return;
+    }
+
+    if (property.managerCognitoId !== req.user?.id) {
+      res.status(403).json({ message: 'Forbidden' });
+      return;
+    }
+
     const data = parsed.data;
     const updatedProperty = await prisma.property.update({
       where: { id: Number(id) },
       data: {
         ...data,
-        amenities: typeof data.amenities === 'string' ? data.amenities.split(',') : data.amenities,
+        amenities:
+          typeof data.amenities === 'string' ? data.amenities.split(',') : data.amenities,
         highlights:
           typeof data.highlights === 'string' ? data.highlights.split(',') : data.highlights,
-        isPetsAllowed: data.isPetsAllowed === undefined ? undefined : data.isPetsAllowed === 'true',
+        isPetsAllowed:
+          data.isPetsAllowed === undefined ? undefined : data.isPetsAllowed === 'true',
         isParkingIncluded:
-          data.isParkingIncluded === undefined ? undefined : data.isParkingIncluded === 'true',
+          data.isParkingIncluded === undefined
+            ? undefined
+            : data.isParkingIncluded === 'true',
       },
     });
 
     res.json(updatedProperty);
-
+  } catch (err) {
+    next(err);
   }
 };
 
@@ -281,16 +298,20 @@ export const deleteProperty = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
+    const property = await prisma.property.findUnique({ where: { id: Number(id) } });
 
+    if (!property) {
+      res.status(404).json({ message: 'Property not found' });
+      return;
     }
 
     if (property.managerCognitoId !== req.user?.id) {
-      res.status(403).json({ message: "Forbidden" });
+      res.status(403).json({ message: 'Forbidden' });
       return;
     }
 
     await prisma.property.delete({ where: { id: Number(id) } });
-    res.json({ message: "Property deleted" });
+    res.json({ message: 'Property deleted' });
   } catch (err) {
     next(err);
   }

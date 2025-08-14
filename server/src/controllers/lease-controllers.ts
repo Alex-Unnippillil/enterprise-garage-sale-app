@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { z } from "zod";
+import { PaymentStatus } from "@prisma/client";
 import prisma from "../utils/prisma";
 
 export const getLeases = async (
@@ -53,6 +54,28 @@ export const createPayment = async (
     const { id } = req.params;
     const parsed = paymentSchema.safeParse(req.body);
     if (!parsed.success) {
+      res.status(400).json({ errors: parsed.error.flatten() });
+      return;
+    }
+
+    const { amountDue, amountPaid } = parsed.data;
+    const paymentStatus =
+      amountPaid >= amountDue
+        ? PaymentStatus.Paid
+        : amountPaid > 0
+          ? PaymentStatus.PartiallyPaid
+          : PaymentStatus.Pending;
+
+    const payment = await prisma.payment.create({
+      data: {
+        leaseId: Number(id),
+        amountDue,
+        amountPaid,
+        dueDate: new Date(),
+        paymentDate: new Date(),
+        paymentStatus,
+      },
+    });
 
     res.status(201).json(payment);
   } catch (error) {
@@ -69,7 +92,35 @@ export const updatePayment = async (
     const { paymentId } = req.params;
     const parsed = updatePaymentSchema.safeParse(req.body);
     if (!parsed.success) {
+      res.status(400).json({ errors: parsed.error.flatten() });
+      return;
+    }
 
+    const existing = await prisma.payment.findUnique({
+      where: { id: Number(paymentId) },
+    });
 
+    if (!existing) {
+      res.status(404).json({ message: "Payment not found" });
+      return;
+    }
+
+    const amountDue = parsed.data.amountDue ?? existing.amountDue;
+    const amountPaid = parsed.data.amountPaid ?? existing.amountPaid;
+    const paymentStatus =
+      amountPaid >= amountDue
+        ? PaymentStatus.Paid
+        : amountPaid > 0
+          ? PaymentStatus.PartiallyPaid
+          : PaymentStatus.Pending;
+
+    const payment = await prisma.payment.update({
+      where: { id: Number(paymentId) },
+      data: { ...parsed.data, paymentStatus },
+    });
+
+    res.json(payment);
+  } catch (error) {
+    next(error);
   }
 };

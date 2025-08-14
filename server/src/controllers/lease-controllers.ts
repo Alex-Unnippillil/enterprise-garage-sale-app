@@ -53,7 +53,13 @@ export const createPayment = async (
     const { id } = req.params;
     const parsed = paymentSchema.safeParse(req.body);
     if (!parsed.success) {
+      res.status(400).json({ errors: parsed.error.flatten() });
+      return;
+    }
 
+    const payment = await prisma.payment.create({
+      data: { ...parsed.data, leaseId: Number(id) },
+    });
     res.status(201).json(payment);
   } catch (error) {
     next(error);
@@ -69,7 +75,16 @@ export const updatePayment = async (
     const { paymentId } = req.params;
     const parsed = updatePaymentSchema.safeParse(req.body);
     if (!parsed.success) {
+      res.status(400).json({ errors: parsed.error.flatten() });
+      return;
+    }
 
-
+    const payment = await prisma.payment.update({
+      where: { id: Number(paymentId) },
+      data: parsed.data,
+    });
+    res.json(payment);
+  } catch (error) {
+    next(error);
   }
 };

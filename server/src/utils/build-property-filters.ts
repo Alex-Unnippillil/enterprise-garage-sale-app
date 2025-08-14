@@ -1,19 +1,5 @@
 import { Prisma } from "@prisma/client";
-
-interface PropertyFilterParams {
-  favoriteIds?: string;
-  priceMin?: string;
-  priceMax?: string;
-  beds?: string;
-  baths?: string;
-  propertyType?: string;
-  squareFeetMin?: string;
-  squareFeetMax?: string;
-  amenities?: string;
-  availableFrom?: string;
-  locationIds?: number[];
-  q?: string;
-}
+import type { PropertyFilterParams } from "../../../client/src/types/listing";
 
 export const buildPropertyFilters = (
   params: PropertyFilterParams

@@ -1,8 +1,8 @@
 import { cleanParams, createNewUserInDatabase, withToast } from '@/lib/utils';
 import { Application, Lease, Manager, Payment, Property, Tenant } from '@/types/prisma-types';
+import type { PropertyFilters } from '@/types/listing';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { fetchAuthSession, getCurrentUser } from 'aws-amplify/auth';
-import { FiltersState } from '.';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
 
@@ -66,7 +66,7 @@ export const api = createApi({
     }),
 
     // property related endpoints
-    getProperties: build.query<Property[], Partial<FiltersState> & { favoriteIds?: number[] }>({
+    getProperties: build.query<Property[], Partial<PropertyFilters> & { favoriteIds?: number[] }>({
       query: (filters) => {
         const params = cleanParams({
           location: filters.location,
@@ -309,7 +309,12 @@ export const api = createApi({
 
     createPayment: build.mutation<
       Payment,
-
+      { leaseId: number; amountDue: number; amountPaid: number }
+    >({
+      query: ({ leaseId, ...body }) => ({
+        url: `leases/${leaseId}/payments`,
+        method: 'POST',
+        body,
       }),
       invalidatesTags: ['Payments'],
       async onQueryStarted(_, { queryFulfilled }) {
@@ -322,7 +327,12 @@ export const api = createApi({
 
     updatePayment: build.mutation<
       Payment,
-
+      { paymentId: number; amountPaid: number }
+    >({
+      query: ({ paymentId, ...body }) => ({
+        url: `leases/payments/${paymentId}`,
+        method: 'PUT',
+        body,
       }),
       invalidatesTags: ['Payments'],
       async onQueryStarted(_, { queryFulfilled }) {

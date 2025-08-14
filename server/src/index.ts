@@ -4,6 +4,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import { authMiddleware } from "./middleware/auth-middleware";
 import { errorHandler } from "./middleware/error-handler";
+import { notFound } from "./middleware/not-found";
 import env from "./env";
 /* ROUTE IMPORT */
 import tenantRoutes from "./routes/tenant-routes";
@@ -32,6 +33,7 @@ app.use("/leases", leaseRoutes);
 app.use("/tenants", authMiddleware(["tenant"]), tenantRoutes);
 app.use("/managers", authMiddleware(["manager"]), managerRoutes);
 
+app.use(notFound);
 app.use(errorHandler);
 
 /* SERVER */

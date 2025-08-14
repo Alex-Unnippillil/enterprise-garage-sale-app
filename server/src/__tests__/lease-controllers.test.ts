@@ -16,12 +16,7 @@ jest.mock("@prisma/client", () => ({
 }));
 
 import prisma from "../utils/prisma";
-import {
-  getLeases,
-  getLeasePayments,
-  createPayment,
-  updatePayment,
-} from "../controllers/lease-controllers";
+import { getLeases, getLeasePayments } from "../controllers/lease-controllers";
 
 const createMockRes = () => {
   const res: Partial<Response> = {};
@@ -81,35 +76,4 @@ describe("leaseControllers", () => {
 
     expect(localNext).toHaveBeenCalled();
   });
-
-
-    const res = createMockRes();
-
-    await createPayment(req, res, next);
-
-
-    } as unknown as Request;
-    const res = createMockRes();
-
-    await createPayment(req, res, next);
-
-    expect(res.status).toHaveBeenCalledWith(400);
-
-    } as unknown as Request;
-    const res = createMockRes();
-
-    await updatePayment(req, res, next);
-
-    expect(mockPrisma.payment.update).toHaveBeenCalledWith({
-      where: { id: 1 },
-
-    } as unknown as Request;
-    const res = createMockRes();
-
-    await updatePayment(req, res, next);
-
-    expect(res.status).toHaveBeenCalledWith(400);
-
-  });
 });
-

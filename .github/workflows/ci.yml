@@ -91,6 +91,9 @@ jobs:
   e2e:
     permissions: { contents: read }
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser: [chromium, firefox, webkit]
     steps:
       - uses: actions/checkout@v4.1.1
       - uses: actions/setup-node@v4.1.0
@@ -115,7 +118,15 @@ jobs:
           cd client
           npm start &
           npx wait-on http://localhost:3000
-          npm run test:e2e
+          npm run test:e2e -- --browser=${{ matrix.browser }}
+      - name: Upload Playwright artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-${{ matrix.browser }}
+          path: |
+            client/playwright-report
+            client/test-results
 
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'

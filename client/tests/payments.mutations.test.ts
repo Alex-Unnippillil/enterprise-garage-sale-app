@@ -20,7 +20,6 @@ jest.mock('@/lib/utils', () => ({
 const { api } = require('@/state/api');
 const { withToast } = require('@/lib/utils');
 
-const API_URL = env.NEXT_PUBLIC_API_URL;
 
 const setupStore = () =>
   configureStore({

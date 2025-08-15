@@ -147,6 +147,7 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./server
+          file: ./server/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/garage-sale-server:latest
       - name: Build and push client image
@@ -154,5 +155,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./client
+          file: ./client/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/garage-sale-client:latest

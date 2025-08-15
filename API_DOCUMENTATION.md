@@ -17,6 +17,10 @@ Development: http://localhost:3002
 Production: https://your-domain.com
 ```
 
+## 🔧 Environment Variables
+
+- `CLIENT_ORIGIN`: Allowed origin for CORS requests.
+
 ## 🏠 Property Endpoints
 
 ### Get All Properties

@@ -11,6 +11,7 @@
     "start": "next start",
     "lint": "prettier --ignore-path ../.prettierignore --check . && next lint",
     "lint:deps": "depcheck",
+    "typecheck": "tsc --noEmit",
     "test": "jest",
     "test:e2e": "playwright test -c tests/e2e/playwright.config.ts",
     "test:e2e:ui": "playwright test -c tests/e2e/playwright.config.ts --ui",

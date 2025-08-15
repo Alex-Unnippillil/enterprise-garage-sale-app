@@ -52,7 +52,7 @@ describe('payments mutations', () => {
           leaseId: 1,
           amountDue: 500,
           amountPaid: 400,
-        })
+        }),
       )
       .unwrap();
     const request = (fetch as jest.Mock).mock.calls[0][0];
@@ -69,7 +69,7 @@ describe('payments mutations', () => {
         api.endpoints.updatePayment.initiate({
           paymentId: 2,
           amountPaid: 300,
-        })
+        }),
       )
       .unwrap();
     const request = (fetch as jest.Mock).mock.calls[0][0];

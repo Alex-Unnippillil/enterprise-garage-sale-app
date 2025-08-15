@@ -305,12 +305,7 @@ export const api = createApi({
 
     createPayment: build.mutation<
       Payment,
-      { leaseId: number } & Partial<Omit<Payment, 'id' | 'leaseId'>>
-    >({
-      query: ({ leaseId, id, ...body }) => ({
-        url: `leases/${leaseId ?? id}/payments`,
-        method: 'POST',
-        body,
+
       }),
       invalidatesTags: ['Payments'],
       async onQueryStarted(_, { queryFulfilled }) {
@@ -323,12 +318,7 @@ export const api = createApi({
 
     updatePayment: build.mutation<
       Payment,
-      { paymentId: number } & Partial<Omit<Payment, 'id' | 'leaseId'>>
-    >({
-      query: ({ paymentId, ...body }) => ({
-        url: `leases/payments/${paymentId}`,
-        method: 'PUT',
-        body,
+
       }),
       invalidatesTags: ['Payments'],
       async onQueryStarted(_, { queryFulfilled }) {

@@ -209,30 +209,35 @@ export const createProperty = async (
         RETURNING id, address, city, state, country, "postalCode", ST_AsText(coordinates) as coordinates;
       `;
 
-      return tx.property.create({
-        data: {
-          ...propertyData,
-          photoUrls,
-          locationId: location.id,
-          managerCognitoId,
-          amenities:
-            typeof propertyData.amenities === 'string' ? propertyData.amenities.split(',') : [],
-          highlights:
-            typeof propertyData.highlights === 'string' ? propertyData.highlights.split(',') : [],
-          isPetsAllowed: propertyData.isPetsAllowed === 'true',
-          isParkingIncluded: propertyData.isParkingIncluded === 'true',
-          pricePerMonth: propertyData.pricePerMonth,
-          securityDeposit: propertyData.securityDeposit,
-          applicationFee: propertyData.applicationFee,
-          beds: propertyData.beds,
-          baths: propertyData.baths,
-          squareFeet: propertyData.squareFeet,
-        },
-        include: {
-          location: true,
-          manager: true,
-        },
-      });
+        return tx.property.create({
+          data: {
+            ...propertyData,
+            photoUrls,
+            locationId: location.id,
+            managerCognitoId,
+            propertyType: propertyData.propertyType as any,
+            amenities:
+              typeof propertyData.amenities === 'string'
+                ? (propertyData.amenities.split(',') as any)
+                : [],
+            highlights:
+              typeof propertyData.highlights === 'string'
+                ? (propertyData.highlights.split(',') as any)
+                : [],
+            isPetsAllowed: propertyData.isPetsAllowed === 'true',
+            isParkingIncluded: propertyData.isParkingIncluded === 'true',
+            pricePerMonth: propertyData.pricePerMonth,
+            securityDeposit: propertyData.securityDeposit,
+            applicationFee: propertyData.applicationFee,
+            beds: propertyData.beds,
+            baths: propertyData.baths,
+            squareFeet: propertyData.squareFeet,
+          },
+          include: {
+            location: true,
+            manager: true,
+          },
+        });
     });
 
     res.status(201).json(newProperty);
@@ -267,20 +272,25 @@ export const updateProperty = async (
     }
 
     const data = parsed.data;
-    const updatedProperty = await prisma.property.update({
-      where: { id: Number(id) },
-      data: {
-        ...data,
-        amenities:
-          typeof data.amenities === 'string' ? data.amenities.split(',') : data.amenities,
-        highlights:
-          typeof data.highlights === 'string' ? data.highlights.split(',') : data.highlights,
-        isPetsAllowed:
-          data.isPetsAllowed === undefined ? undefined : data.isPetsAllowed === 'true',
-        isParkingIncluded:
-          data.isParkingIncluded === undefined ? undefined : data.isParkingIncluded === 'true',
-      },
-    });
+      const updatedProperty = await prisma.property.update({
+        where: { id: Number(id) },
+        data: {
+          ...data,
+          propertyType: (data as any).propertyType,
+          amenities:
+            typeof data.amenities === 'string'
+              ? (data.amenities.split(',') as any)
+              : (data.amenities as any),
+          highlights:
+            typeof data.highlights === 'string'
+              ? (data.highlights.split(',') as any)
+              : (data.highlights as any),
+          isPetsAllowed:
+            data.isPetsAllowed === undefined ? undefined : data.isPetsAllowed === 'true',
+          isParkingIncluded:
+            data.isParkingIncluded === undefined ? undefined : data.isParkingIncluded === 'true',
+        },
+      });
 
     res.json(updatedProperty);
   } catch (err) {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { Property } from '@/types/prisma-types';
-import { API_URL } from '@/config';
+
 
 const api = axios.create({
   baseURL: API_URL,

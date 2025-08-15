@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { env } from '@/env';
 
 (global as any).fetch = () => Promise.resolve({});
 (global as any).Request = function (url: string, init: any = {}) {
@@ -18,7 +19,7 @@ jest.mock('@/lib/utils', () => ({
 
 const { api } = require('@/state/api');
 const { withToast } = require('@/lib/utils');
-const { API_URL } = require('@/config');
+
 
 const setupStore = () =>
   configureStore({
@@ -50,7 +51,7 @@ describe('payments mutations', () => {
           leaseId: 1,
           amountDue: 500,
           amountPaid: 400,
-        })
+        }),
       )
       .unwrap();
     const request = (fetch as jest.Mock).mock.calls[0][0];
@@ -67,7 +68,7 @@ describe('payments mutations', () => {
         api.endpoints.updatePayment.initiate({
           paymentId: 2,
           amountPaid: 300,
-        })
+        }),
       )
       .unwrap();
     const request = (fetch as jest.Mock).mock.calls[0][0];

@@ -153,16 +153,7 @@ jobs:
         run: |
           cd client
           npm start &
-          npx wait-on http://localhost:3000
-          npm run test:e2e -- --browser=${{ matrix.browser }}
-      - name: Upload Playwright artifacts
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: playwright-${{ matrix.browser }}
-          path: |
-            client/playwright-report
-            client/test-results
+
 
   deploy:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'

@@ -21,6 +21,7 @@ Users interact with the Next.js client, which makes REST calls to the Express se
 
 - Node.js 18+
 - npm
+- Node Version Manager (nvm)
 - PostgreSQL
 - Required environment variables (see [Setup Guide](SETUP_GUIDE.md))
 
@@ -28,6 +29,7 @@ Users interact with the Next.js client, which makes REST calls to the Express se
 
 ```bash
 cd client
+nvm use
 npm install
 npm run dev
 ```
@@ -42,6 +44,7 @@ Set this variable in `.env.local` or your deployment environment.
 
 ```bash
 cd server
+nvm use
 npm install
 npm run dev
 ```

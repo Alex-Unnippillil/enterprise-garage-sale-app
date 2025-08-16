@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { Property } from '@/types/prisma-types';
-import type { ListingCreationPayload } from '@/types/listing';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
+import { Property } from '@/types/prisma-types';
+
+
 
 const api = axios.create({
   baseURL: API_URL,

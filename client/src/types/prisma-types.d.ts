@@ -1,7 +1,9 @@
 
+// @ts-nocheck
+
 /**
  * Client
-**/
+ **/
 
 import * as runtime from '@prisma/client/runtime/library.js';
 import $Types = runtime.Types // general types

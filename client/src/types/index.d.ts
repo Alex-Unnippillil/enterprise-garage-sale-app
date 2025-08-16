@@ -1,10 +1,15 @@
 import { LucideIcon } from "lucide-react";
 import { AuthUser } from "aws-amplify/auth";
 import { Manager, Tenant, Property, Application } from "./prisma-types";
-import { MotionProps as OriginalMotionProps } from "framer-motion";
+import type { MotionProps } from "framer-motion";
+
+type SettingsFormData = any;
+type JsonObject = Record<string, unknown>;
+type JsonPrimitive = string | number | boolean | null;
+type JsonArray = unknown[];
 
 declare module "framer-motion" {
-  interface MotionProps extends OriginalMotionProps {
+  interface MotionProps {
     className?: string;
   }
 }
@@ -133,7 +138,7 @@ declare global {
   interface User {
     cognitoInfo: AuthUser;
     userInfo: Tenant | Manager;
-    userRole: JsonObject | JsonPrimitive | JsonArray;
+    userRole: string;
   }
 }
 

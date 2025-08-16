@@ -17,6 +17,8 @@ Development: http://localhost:3002
 Production: https://your-domain.com
 ```
 
+
+
 ## 🏠 Property Endpoints
 
 ### Get All Properties

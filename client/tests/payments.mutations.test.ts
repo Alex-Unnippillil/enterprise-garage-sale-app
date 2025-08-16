@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { env } from '@/env';
+
 
 (global as any).fetch = () => Promise.resolve({});
 (global as any).Request = function (url: string, init: any = {}) {
@@ -20,7 +20,7 @@ jest.mock('@/lib/utils', () => ({
 const { api } = require('@/state/api');
 const { withToast } = require('@/lib/utils');
 
-const API_URL = env.NEXT_PUBLIC_API_URL;
+
 
 const setupStore = () =>
   configureStore({

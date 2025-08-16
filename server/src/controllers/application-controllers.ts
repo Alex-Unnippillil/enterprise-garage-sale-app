@@ -126,13 +126,13 @@ export const createApplication = async (
       return;
     }
 
-    const newApplication = await prisma.application.create({
-      data: {
-        applicationDate: new Date(applicationDate),
-        status,
-        name,
-        email,
-        phoneNumber,
+      const newApplication = await prisma.application.create({
+        data: {
+          applicationDate: new Date(applicationDate),
+          status: status as any,
+          name,
+          email,
+          phoneNumber,
         message,
         property: {
           connect: { id: propertyId },

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { API_URL } from "@/config";
 import { Property } from '@/types/prisma-types';
 
 

@@ -51,7 +51,15 @@ export const createPayment = async (
       res.status(400).json({ errors: parsed.error.errors });
       return;
     }
-
+    const payment = await prisma.payment.create({
+      data: {
+        ...parsed.data,
+        leaseId: Number(id),
+        dueDate: new Date(),
+        paymentDate: new Date(),
+        paymentStatus: 'PENDING' as any,
+      },
+    });
     res.status(201).json(payment);
   } catch (error) {
     next(error);
@@ -76,5 +84,8 @@ export const updatePayment = async (
       data: parsed.data,
     });
 
+    res.json(payment);
+  } catch (error) {
+    next(error);
   }
 };

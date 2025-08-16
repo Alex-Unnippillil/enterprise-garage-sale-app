@@ -69,10 +69,11 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = ({ onSearch, className }) 
       baths: "any",
       propertyType: "any",
       amenities: [],
-      priceRange: [null, null],
-      squareFeet: [null, null],
+      highlights: [],
+      priceRange: [null, null] as [null, null],
+      squareFeet: [null, null] as [null, null],
       availableFrom: "any",
-      coordinates: [-118.25, 34.05],
+      coordinates: [-118.25, 34.05] as [number, number],
     };
     setLocalFilters(resetFilters);
     dispatch(setFilters(resetFilters));
@@ -211,14 +212,14 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = ({ onSearch, className }) 
                       ${localFilters.priceRange[0] || 0} - ${localFilters.priceRange[1] || 10000}
                     </span>
                   </div>
-                  <Slider
-                    value={localFilters.priceRange.map(v => v || 0)}
-                    onValueChange={(value) => handleFilterChange("priceRange", value)}
-                    max={10000}
-                    min={0}
-                    step={100}
-                    className="w-full"
-                  />
+                    <Slider
+                      value={localFilters.priceRange.map((v: number | null) => v || 0)}
+                      onValueChange={(value) => handleFilterChange("priceRange", value)}
+                      max={10000}
+                      min={0}
+                      step={100}
+                      className="w-full"
+                    />
                 </div>
               </FilterSection>
 
@@ -269,14 +270,14 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = ({ onSearch, className }) 
                       {localFilters.squareFeet[0] || 0} - {localFilters.squareFeet[1] || 5000} sq ft
                     </span>
                   </div>
-                  <Slider
-                    value={localFilters.squareFeet.map(v => v || 0)}
-                    onValueChange={(value) => handleFilterChange("squareFeet", value)}
-                    max={5000}
-                    min={0}
-                    step={100}
-                    className="w-full"
-                  />
+                    <Slider
+                      value={localFilters.squareFeet.map((v: number | null) => v || 0)}
+                      onValueChange={(value) => handleFilterChange("squareFeet", value)}
+                      max={5000}
+                      min={0}
+                      step={100}
+                      className="w-full"
+                    />
                 </div>
               </FilterSection>
             </div>

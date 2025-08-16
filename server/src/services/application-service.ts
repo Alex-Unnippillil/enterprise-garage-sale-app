@@ -13,30 +13,35 @@ export const updateApplicationStatus = async (id: number, status: ApplicationSta
   }
 
   return prisma.$transaction(async (tx) => {
-
-
-        await tx.property.update({
-          where: { id: application.propertyId },
-          data: {
-            tenants: {
-              connect: { cognitoId: application.tenantCognitoId },
-            },
-          },
-        });
-
-        return tx.application.update({
-          where: { id },
-          data: { status, leaseId: lease.id },
-          include: { property: true, tenant: true, lease: true },
-        });
-      }
-
-      // For statuses other than transitioning to Approved, simply update the status
-      return tx.application.update({
-        where: { id },
-        data: { status },
-        include: { property: true, tenant: true, lease: true },
+    if (status === 'Approved') {
+      const lease = await tx.lease.create({
+        data: {
+          property: { connect: { id: application.propertyId } },
+          tenant: { connect: { cognitoId: application.tenantCognitoId } },
+        },
       });
 
+      await tx.property.update({
+        where: { id: application.propertyId },
+        data: {
+          tenants: {
+            connect: { cognitoId: application.tenantCognitoId },
+          },
+        },
+      });
+
+      return tx.application.update({
+        where: { id },
+        data: { status, leaseId: lease.id },
+        include: { property: true, tenant: true, lease: true },
+      });
+    }
+
+    // For statuses other than transitioning to Approved, simply update the status
+    return tx.application.update({
+      where: { id },
+      data: { status },
+      include: { property: true, tenant: true, lease: true },
     });
-  };
+  });
+};

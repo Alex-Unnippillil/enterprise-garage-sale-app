@@ -66,18 +66,12 @@ describe('applicationControllers', () => {
     );
   });
 
-
-
-      await createApplication(req, res, next);
-
-
-
   it('returns 404 when property missing', async () => {
     mockPrisma.property.findUnique.mockResolvedValue(null);
     const req = {
       body: {
         applicationDate: new Date().toISOString(),
-        status: 'PENDING',
+        status: 'Pending',
         propertyId: 1,
         tenantCognitoId: 't1',
         name: 'n',
@@ -99,7 +93,7 @@ describe('applicationControllers', () => {
     const req = {
       body: {
         applicationDate: new Date().toISOString(),
-        status: 'PENDING',
+        status: 'Pending',
         propertyId: 1,
         tenantCognitoId: 't1',
         name: 'n',
@@ -130,19 +124,33 @@ describe('applicationControllers', () => {
     expect(mockPrisma.property.findUnique).not.toHaveBeenCalled();
   });
 
-  it('updates application status', async () => {
-    (updateApplicationStatusService as jest.Mock).mockResolvedValue({ id: 1 });
-    const req = { params: { id: '1' }, body: { status: 'APPROVED' } } as unknown as Request;
+  it('updates application status to Approved', async () => {
+    const updated = { id: 1, status: 'Approved', leaseId: 10 };
+    (updateApplicationStatusService as jest.Mock).mockResolvedValue(updated);
+    const req = { params: { id: '1' }, body: { status: 'Approved' } } as unknown as Request;
     const res = createMockRes();
 
     await updateApplicationStatus(req, res, next);
 
-    expect(res.json).toHaveBeenCalledWith({ id: 1 });
+    expect(updateApplicationStatusService).toHaveBeenCalledWith(1, 'Approved');
+    expect(res.json).toHaveBeenCalledWith(updated);
+  });
+
+  it('updates application status without approval', async () => {
+    const updated = { id: 1, status: 'Denied', leaseId: null };
+    (updateApplicationStatusService as jest.Mock).mockResolvedValue(updated);
+    const req = { params: { id: '1' }, body: { status: 'Denied' } } as unknown as Request;
+    const res = createMockRes();
+
+    await updateApplicationStatus(req, res, next);
+
+    expect(updateApplicationStatusService).toHaveBeenCalledWith(1, 'Denied');
+    expect(res.json).toHaveBeenCalledWith(updated);
   });
 
   it('returns 404 when updating missing application', async () => {
     (updateApplicationStatusService as jest.Mock).mockResolvedValue(null);
-    const req = { params: { id: '1' }, body: { status: 'APPROVED' } } as unknown as Request;
+    const req = { params: { id: '1' }, body: { status: 'Approved' } } as unknown as Request;
     const res = createMockRes();
 
     await updateApplicationStatus(req, res, next);

@@ -1,6 +1,7 @@
 import axios from 'axios';
 
 import { Property } from '@/types/prisma-types';
+import { env } from '@/env';
 
 
 const api = axios.create({

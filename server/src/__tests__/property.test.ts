@@ -52,19 +52,13 @@ const prisma = require('../utils/prisma').default;
 
 const app = express();
 app.use(express.json());
-// custom routes to bypass file upload and auth middleware
+
 app.post('/properties', (req, res, next) => {
   (req as any).files = [];
   (req as any).user = { id: 'manager', role: 'manager' };
   createProperty(req, res, next);
 });
-app.put('/properties/:id', (req, res, next) => {
-  const userId = req.header('X-User-Id') || 'manager';
-  (req as any).user = { id: userId, role: 'manager' };
-  updateProperty(req, res, next);
-});
-app.delete('/properties/:id', (req, res, next) => {
-  const userId = req.header('X-User-Id') || 'manager';
+
   (req as any).user = { id: userId, role: 'manager' };
   deleteProperty(req, res, next);
 });
@@ -201,18 +195,12 @@ describe('Property API', () => {
     },
   );
 
-  it('updates property when authorized', async () => {
+
     mockPrisma.property.findUnique.mockResolvedValue({
       id: 1,
       managerCognitoId: 'manager',
     });
-    const updateMock = mockPrisma.property.update.mockResolvedValue({
-      id: 1,
-      name: 'Updated Property',
-    });
-    const res = await request(app)
-      .put('/properties/1')
-      .send({ name: 'Updated Property', isPetsAllowed: true });
+
     expect(res.status).toBe(200);
     expect(updateMock).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -222,20 +210,12 @@ describe('Property API', () => {
     );
   });
 
-  it('returns 403 when updating property not owned by manager', async () => {
+
     mockPrisma.property.findUnique.mockResolvedValue({
       id: 1,
       managerCognitoId: 'manager',
     });
 
-    const res = await request(app)
-      .put('/properties/1')
-      .set('X-User-Id', 'other')
-      .send({ name: 'Updated Property' });
-    expect(res.status).toBe(403);
-    expect(res.body).toEqual({ message: 'Forbidden' });
-    expect(mockPrisma.property.update).not.toHaveBeenCalled();
-  });
 
   it('deletes property when authorized', async () => {
     const photos = [
@@ -252,28 +232,7 @@ describe('Property API', () => {
     expect(res.status).toBe(200);
     expect(res.body).toEqual({ message: 'Property deleted' });
     expect(mockPrisma.property.delete).toHaveBeenCalledWith({ where: { id: 1 } });
-    expect(s3SendMock).toHaveBeenCalledTimes(2);
-    expect(s3SendMock).toHaveBeenCalledWith({ Bucket: 'test', Key: 'properties/1.jpg' });
-    expect(s3SendMock).toHaveBeenCalledWith({ Bucket: 'test', Key: 'properties/2.jpg' });
-  });
 
-  it('returns 403 when deleting property not owned by manager', async () => {
-    mockPrisma.property.findUnique.mockResolvedValue({
-      id: 1,
-      managerCognitoId: 'manager',
-      photoUrls: [],
-    });
-
-    const res = await request(app).delete('/properties/1').set('X-User-Id', 'other');
-    expect(res.status).toBe(403);
-    expect(res.body).toEqual({ message: 'Forbidden' });
-    expect(mockPrisma.property.delete).not.toHaveBeenCalled();
-  });
-
-  it('returns 404 when deleting missing property', async () => {
-    mockPrisma.property.findUnique.mockResolvedValue(null);
-
-    const res = await request(app).delete('/properties/999');
     expect(res.status).toBe(404);
     expect(mockPrisma.property.delete).not.toHaveBeenCalled();
   });

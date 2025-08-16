@@ -1,10 +1,9 @@
 import { API_URL } from '@/env';
 import { cleanParams, createNewUserInDatabase, withToast } from '@/lib/utils';
 import { Application, Lease, Manager, Payment, Property, Tenant } from '@/types/prisma-types';
+import type { PropertyFilters } from '@/types/listing';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { fetchAuthSession, getCurrentUser } from 'aws-amplify/auth';
-import { FiltersState } from '.';
-import { env } from '@/env';
 
 
 
@@ -68,7 +67,7 @@ export const api = createApi({
     }),
 
     // property related endpoints
-    getProperties: build.query<Property[], Partial<FiltersState> & { favoriteIds?: number[] }>({
+    getProperties: build.query<Property[], Partial<PropertyFilters> & { favoriteIds?: number[] }>({
       query: (filters) => {
         const params = cleanParams({
           location: filters.location,
@@ -308,10 +307,7 @@ export const api = createApi({
 
     createPayment: build.mutation<
       Payment,
-      { leaseId: number } & Partial<Omit<Payment, 'id' | 'leaseId'>>
-    >({
-      query: ({ leaseId, id, ...body }) => ({
-        url: `leases/${leaseId ?? id}/payments`,
+
         method: 'POST',
         body,
       }),
@@ -326,7 +322,7 @@ export const api = createApi({
 
     updatePayment: build.mutation<
       Payment,
-      { paymentId: number } & Partial<Omit<Payment, 'id' | 'leaseId'>>
+
     >({
       query: ({ paymentId, ...body }) => ({
         url: `leases/payments/${paymentId}`,

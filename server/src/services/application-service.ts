@@ -18,15 +18,7 @@ export const updateApplicationStatus = async (
     if (status === 'Approved') {
       const lease = await tx.lease.create({
         data: {
-          startDate: new Date(),
-          endDate: new Date(
-            new Date().setFullYear(new Date().getFullYear() + 1),
-          ),
-          rent: application.property.pricePerMonth,
-          deposit: application.property.securityDeposit,
-          property: { connect: { id: application.propertyId } },
-          tenant: { connect: { cognitoId: application.tenantCognitoId } },
-          application: { connect: { id: application.id } },
+
         },
       });
 
@@ -45,6 +37,7 @@ export const updateApplicationStatus = async (
         include: { property: true, tenant: true, lease: true },
       });
     }
+
 
     return tx.application.update({
       where: { id },

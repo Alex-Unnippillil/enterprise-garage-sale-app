@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
-import morgan from "morgan";
+import pinoHttp from "pino-http";
+import logger from "./logger";
 import { authMiddleware } from "./middleware/auth-middleware";
 import { errorHandler } from "./middleware/error-handler";
 import env from "./env";
@@ -18,7 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-app.use(morgan("common"));
+app.use(pinoHttp({ logger }));
 app.use(cors());
 
 /* ROUTES */

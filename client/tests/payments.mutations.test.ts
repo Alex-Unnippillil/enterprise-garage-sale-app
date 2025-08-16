@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { env } from '@/env';
+import { API_URL } from '@/env';
 
 (global as any).fetch = () => Promise.resolve({});
 (global as any).Request = function (url: string, init: any = {}) {

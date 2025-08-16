@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { API_URL } from '@/env';
+
 import { Property } from '@/types/prisma-types';
 
 

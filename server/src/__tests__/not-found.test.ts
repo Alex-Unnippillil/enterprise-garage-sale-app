@@ -17,4 +17,22 @@ describe('notFound middleware', () => {
     expect(res.status).toBe(404);
     expect(res.body).toEqual({ message: 'Route not found' });
   });
+
+  it('logs errors with errorHandler', async () => {
+    const app = express();
+    const testError = new Error('Test error');
+    app.get('/error', () => {
+      throw testError;
+    });
+    const consoleErrorSpy = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+    app.use(errorHandler);
+
+    const res = await request(app).get('/error');
+
+    expect(res.status).toBe(500);
+    expect(consoleErrorSpy).toHaveBeenCalledWith(testError);
+    consoleErrorSpy.mockRestore();
+  });
 });

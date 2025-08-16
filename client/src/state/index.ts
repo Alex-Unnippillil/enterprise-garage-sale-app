@@ -1,19 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-export interface FiltersState {
-  location: string;
-  beds: string;
-  baths: string;
-  propertyType: string;
-  amenities: string[];
-  availableFrom: string;
-  priceRange: [number, number] | [null, null];
-  squareFeet: [number, number] | [null, null];
-  coordinates: [number, number];
-}
+import type { PropertyFilters } from "@/types/listing";
+export type FiltersState = PropertyFilters;
 
 interface InitialStateTypes {
-  filters: FiltersState;
+  filters: PropertyFilters;
   isFiltersFullOpen: boolean;
   viewMode: "grid" | "list";
 }
@@ -38,7 +28,7 @@ export const globalSlice = createSlice({
   name: "global",
   initialState,
   reducers: {
-    setFilters: (state, action: PayloadAction<Partial<FiltersState>>) => {
+    setFilters: (state, action: PayloadAction<Partial<PropertyFilters>>) => {
       state.filters = { ...state.filters, ...action.payload };
     },
     toggleFiltersFullOpen: (state) => {

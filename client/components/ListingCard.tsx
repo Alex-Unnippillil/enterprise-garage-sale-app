@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { Property } from "@/types/prismaTypes";
+import { Property } from "@/types/prisma-types";
 
 const ListingCard = ({ listing }: { listing: Property }) => {
   return (

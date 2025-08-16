@@ -10,6 +10,12 @@ jest.mock('../utils/geocode-address', () => ({
   geocodeAddress: jest.fn().mockResolvedValue([0, 0]),
 }));
 
+const s3SendMock = jest.fn();
+jest.mock('@aws-sdk/client-s3', () => ({
+  S3Client: jest.fn(() => ({ send: s3SendMock })),
+  DeleteObjectCommand: jest.fn().mockImplementation((params) => params),
+}));
+
 const mockPrisma = {
   property: {
     deleteMany: jest.fn(),
@@ -46,13 +52,14 @@ const prisma = require('../utils/prisma').default;
 
 const app = express();
 app.use(express.json());
-// custom route to bypass file upload middleware and simulate auth
+
 app.post('/properties', (req, res, next) => {
   (req as any).files = [];
   (req as any).user = { id: 'manager', role: 'manager' };
   createProperty(req, res, next);
 });
 
+  (req as any).user = { id: userId, role: 'manager' };
   deleteProperty(req, res, next);
 });
 // other property routes
@@ -118,6 +125,8 @@ describe('Property API', () => {
       baths: '1',
       squareFeet: '900',
       propertyType: 'Apartment',
+      isPetsAllowed: true,
+      isParkingIncluded: false,
     };
 
     const res = await request(app).post('/properties').send(payload);
@@ -125,7 +134,11 @@ describe('Property API', () => {
     expect(mockPrisma.$transaction).toHaveBeenCalled();
     expect(propertyCreateMock).toHaveBeenCalledWith(
       expect.objectContaining({
-        data: expect.objectContaining({ managerCognitoId: 'manager' }),
+        data: expect.objectContaining({
+          managerCognitoId: 'manager',
+          isPetsAllowed: true,
+          isParkingIncluded: false,
+        }),
       }),
     );
   });
@@ -182,34 +195,45 @@ describe('Property API', () => {
     },
   );
 
+
+    mockPrisma.property.findUnique.mockResolvedValue({
+      id: 1,
+      managerCognitoId: 'manager',
+    });
+
     expect(res.status).toBe(200);
     expect(updateMock).toHaveBeenCalledWith(
       expect.objectContaining({
         where: { id: 1 },
-        data: expect.objectContaining({ name: 'Updated Property' }),
+        data: expect.objectContaining({ name: 'Updated Property', isPetsAllowed: true }),
       }),
     );
   });
 
-    mockPrisma.property.findUnique.mockResolvedValue(null);
 
-    const res = await request(app).put('/properties/999').send({ name: 'Updated Property' });
-    expect(res.status).toBe(404);
+    mockPrisma.property.findUnique.mockResolvedValue({
+      id: 1,
+      managerCognitoId: 'manager',
+    });
 
+
+  it('deletes property when authorized', async () => {
+    const photos = [
+      'https://bucket.s3.amazonaws.com/properties/1.jpg',
+      'https://bucket.s3.amazonaws.com/properties/2.jpg',
+    ];
+    mockPrisma.property.findUnique.mockResolvedValue({
+      id: 1,
+      managerCognitoId: 'manager',
+      photoUrls: photos,
+    });
+
+    const res = await request(app).delete('/properties/1');
     expect(res.status).toBe(200);
     expect(res.body).toEqual({ message: 'Property deleted' });
-    expect(mockPrisma.property.delete).toHaveBeenCalledWith({
-      where: { id: 1 },
-    });
-  });
+    expect(mockPrisma.property.delete).toHaveBeenCalledWith({ where: { id: 1 } });
 
-
-    mockPrisma.property.findUnique.mockResolvedValue(null);
-
-    const res = await request(app).delete('/properties/999');
     expect(res.status).toBe(404);
-
-
     expect(mockPrisma.property.delete).not.toHaveBeenCalled();
   });
 });

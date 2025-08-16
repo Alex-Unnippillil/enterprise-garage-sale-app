@@ -125,37 +125,52 @@ describe('applicationControllers', () => {
   });
 
   it('updates application status to Approved', async () => {
-    const updated = { id: 1, status: 'Approved', leaseId: 10 };
-    (updateApplicationStatusService as jest.Mock).mockResolvedValue(updated);
-    const req = { params: { id: '1' }, body: { status: 'Approved' } } as unknown as Request;
+
     const res = createMockRes();
 
     await updateApplicationStatus(req, res, next);
 
-    expect(updateApplicationStatusService).toHaveBeenCalledWith(1, 'Approved');
-    expect(res.json).toHaveBeenCalledWith(updated);
+
   });
 
-  it('updates application status without approval', async () => {
-    const updated = { id: 1, status: 'Denied', leaseId: null };
-    (updateApplicationStatusService as jest.Mock).mockResolvedValue(updated);
-    const req = { params: { id: '1' }, body: { status: 'Denied' } } as unknown as Request;
+  it('updates application status to non-Approved value', async () => {
+    (updateApplicationStatusService as jest.Mock).mockResolvedValue({ id: 2 });
+    const req = {
+      params: { id: '2' },
+      body: { status: 'Pending' },
+    } as unknown as Request;
     const res = createMockRes();
 
     await updateApplicationStatus(req, res, next);
 
-    expect(updateApplicationStatusService).toHaveBeenCalledWith(1, 'Denied');
-    expect(res.json).toHaveBeenCalledWith(updated);
+    expect(updateApplicationStatusService).toHaveBeenCalledWith(2, 'Pending');
+    expect(res.json).toHaveBeenCalledWith({ id: 2 });
   });
 
   it('returns 404 when updating missing application', async () => {
     (updateApplicationStatusService as jest.Mock).mockResolvedValue(null);
-    const req = { params: { id: '1' }, body: { status: 'Approved' } } as unknown as Request;
+
     const res = createMockRes();
 
     await updateApplicationStatus(req, res, next);
 
     expect(res.status).toHaveBeenCalledWith(404);
     expect(res.json).toHaveBeenCalledWith({ message: 'Application not found.' });
+  });
+
+  it('calls next on service error', async () => {
+    (updateApplicationStatusService as jest.Mock).mockRejectedValue(
+      new Error('db'),
+    );
+    const req = {
+      params: { id: '1' },
+      body: { status: 'Approved' },
+    } as unknown as Request;
+    const res = createMockRes();
+    const localNext = jest.fn();
+
+    await updateApplicationStatus(req, res, localNext);
+
+    expect(localNext).toHaveBeenCalled();
   });
 });

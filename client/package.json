@@ -2,12 +2,16 @@
   "name": "real-estate",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "18.x"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "prettier --ignore-path ../.prettierignore --check . && next lint",
     "lint:deps": "depcheck",
+    "typecheck": "tsc --noEmit",
     "test": "jest",
     "test:e2e": "playwright test -c tests/e2e/playwright.config.ts",
     "test:e2e:ui": "playwright test -c tests/e2e/playwright.config.ts --ui",
@@ -92,6 +96,7 @@
     "tailwindcss": "^3.4.17",
     "ts-jest": "^29.2.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "wait-on": "^8.0.4"
   }
 }

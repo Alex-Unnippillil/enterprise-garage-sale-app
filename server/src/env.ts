@@ -1,5 +1,5 @@
-import dotenv from "dotenv";
-import { z } from "zod";
+import dotenv from 'dotenv';
+import { z } from 'zod';
 
 dotenv.config();
 
@@ -16,10 +16,11 @@ const envSchema = z
     S3_BUCKET_NAME: z.string().min(1),
     AWS_ACCESS_KEY_ID: z.string().min(1),
     AWS_SECRET_ACCESS_KEY: z.string().min(1),
+    CLIENT_ORIGIN: z.string().url(),
   })
   .refine(
     (env) => env.COGNITO_JWT_PUBLIC_KEY || env.JWT_SECRET,
-    "Either COGNITO_JWT_PUBLIC_KEY or JWT_SECRET must be provided",
+    'Either COGNITO_JWT_PUBLIC_KEY or JWT_SECRET must be provided',
   );
 
 type Env = z.infer<typeof envSchema>;
@@ -38,6 +39,7 @@ export const {
   S3_BUCKET_NAME,
   AWS_ACCESS_KEY_ID,
   AWS_SECRET_ACCESS_KEY,
+  CLIENT_ORIGIN,
 } = env;
 
 export default env;

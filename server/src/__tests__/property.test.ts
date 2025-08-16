@@ -125,6 +125,8 @@ describe('Property API', () => {
       baths: '1',
       squareFeet: '900',
       propertyType: 'Apartment',
+      isPetsAllowed: true,
+      isParkingIncluded: false,
     };
 
     const res = await request(app).post('/properties').send(payload);
@@ -132,7 +134,11 @@ describe('Property API', () => {
     expect(mockPrisma.$transaction).toHaveBeenCalled();
     expect(propertyCreateMock).toHaveBeenCalledWith(
       expect.objectContaining({
-        data: expect.objectContaining({ managerCognitoId: 'manager' }),
+        data: expect.objectContaining({
+          managerCognitoId: 'manager',
+          isPetsAllowed: true,
+          isParkingIncluded: false,
+        }),
       }),
     );
   });
@@ -198,13 +204,14 @@ describe('Property API', () => {
       id: 1,
       name: 'Updated Property',
     });
-
-    const res = await request(app).put('/properties/1').send({ name: 'Updated Property' });
+    const res = await request(app)
+      .put('/properties/1')
+      .send({ name: 'Updated Property', isPetsAllowed: true });
     expect(res.status).toBe(200);
     expect(updateMock).toHaveBeenCalledWith(
       expect.objectContaining({
         where: { id: 1 },
-        data: expect.objectContaining({ name: 'Updated Property' }),
+        data: expect.objectContaining({ name: 'Updated Property', isPetsAllowed: true }),
       }),
     );
   });
@@ -242,9 +249,7 @@ describe('Property API', () => {
       managerCognitoId: 'manager',
     });
 
-    const res = await request(app)
-      .delete('/properties/1')
-      .set('X-User-Id', 'other');
+    const res = await request(app).delete('/properties/1').set('X-User-Id', 'other');
     expect(res.status).toBe(403);
     expect(res.body).toEqual({ message: 'Forbidden' });
     expect(mockPrisma.property.delete).not.toHaveBeenCalled();

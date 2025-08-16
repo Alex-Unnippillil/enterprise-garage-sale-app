@@ -17,9 +17,7 @@ Development: http://localhost:3002
 Production: https://your-domain.com
 ```
 
-## 🚦 Rate Limiting
 
-Each IP address can make up to **100 requests** every **15 minutes**. Exceeding this limit results in a `429 Too Many Requests` response.
 
 ## 🏠 Property Endpoints
 

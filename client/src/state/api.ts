@@ -1,3 +1,4 @@
+import { API_URL } from '@/env';
 import { cleanParams, createNewUserInDatabase, withToast } from '@/lib/utils';
 import { Application, Lease, Manager, Payment, Property, Tenant } from '@/types/prisma-types';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';

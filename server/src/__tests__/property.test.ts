@@ -46,13 +46,22 @@ const prisma = require('../utils/prisma').default;
 
 const app = express();
 app.use(express.json());
-// custom route to bypass file upload middleware and simulate auth
+// custom routes to bypass file upload middleware and simulate auth
 app.post('/properties', (req, res, next) => {
   (req as any).files = [];
   (req as any).user = { id: 'manager', role: 'manager' };
   createProperty(req, res, next);
 });
 
+app.put('/properties/:id', (req, res, next) => {
+  const userId = (req.headers['x-user-id'] as string) || 'manager';
+  (req as any).user = { id: userId, role: 'manager' };
+  updateProperty(req, res, next);
+});
+
+app.delete('/properties/:id', (req, res, next) => {
+  const userId = (req.headers['x-user-id'] as string) || 'manager';
+  (req as any).user = { id: userId, role: 'manager' };
   deleteProperty(req, res, next);
 });
 // other property routes
@@ -182,6 +191,19 @@ describe('Property API', () => {
     },
   );
 
+  it('updates property for authorized manager', async () => {
+    const updateMock = jest.fn().mockResolvedValue({ id: 1, name: 'Updated Property' });
+    mockPrisma.property.findUnique.mockResolvedValue({
+      id: 1,
+      managerCognitoId: 'manager',
+    });
+    mockPrisma.property.update.mockImplementation(updateMock);
+
+    const res = await request(app)
+      .put('/properties/1')
+      .set('x-user-id', 'manager')
+      .send({ name: 'Updated Property' });
+
     expect(res.status).toBe(200);
     expect(updateMock).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -191,25 +213,70 @@ describe('Property API', () => {
     );
   });
 
+  it('returns 403 when manager updates property they do not own', async () => {
+    mockPrisma.property.findUnique.mockResolvedValue({
+      id: 1,
+      managerCognitoId: 'manager',
+    });
+
+    const res = await request(app)
+      .put('/properties/1')
+      .set('x-user-id', 'other')
+      .send({ name: 'Updated Property' });
+
+    expect(res.status).toBe(403);
+    expect(mockPrisma.property.update).not.toHaveBeenCalled();
+  });
+
+  it('returns 404 when updating missing property', async () => {
     mockPrisma.property.findUnique.mockResolvedValue(null);
 
-    const res = await request(app).put('/properties/999').send({ name: 'Updated Property' });
+    const res = await request(app)
+      .put('/properties/999')
+      .set('x-user-id', 'manager')
+      .send({ name: 'Updated Property' });
+
     expect(res.status).toBe(404);
+  });
+
+  it('deletes property for authorized manager', async () => {
+    mockPrisma.property.findUnique.mockResolvedValue({
+      id: 1,
+      managerCognitoId: 'manager',
+    });
+    mockPrisma.property.delete.mockResolvedValue({});
+
+    const res = await request(app)
+      .delete('/properties/1')
+      .set('x-user-id', 'manager');
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual({ message: 'Property deleted' });
-    expect(mockPrisma.property.delete).toHaveBeenCalledWith({
-      where: { id: 1 },
-    });
+    expect(mockPrisma.property.delete).toHaveBeenCalledWith({ where: { id: 1 } });
   });
 
+  it('returns 403 when manager deletes property they do not own', async () => {
+    mockPrisma.property.findUnique.mockResolvedValue({
+      id: 1,
+      managerCognitoId: 'manager',
+    });
 
+    const res = await request(app)
+      .delete('/properties/1')
+      .set('x-user-id', 'other');
+
+    expect(res.status).toBe(403);
+    expect(mockPrisma.property.delete).not.toHaveBeenCalled();
+  });
+
+  it('returns 404 when deleting missing property', async () => {
     mockPrisma.property.findUnique.mockResolvedValue(null);
 
-    const res = await request(app).delete('/properties/999');
+    const res = await request(app)
+      .delete('/properties/999')
+      .set('x-user-id', 'manager');
+
     expect(res.status).toBe(404);
-
-
     expect(mockPrisma.property.delete).not.toHaveBeenCalled();
   });
 });

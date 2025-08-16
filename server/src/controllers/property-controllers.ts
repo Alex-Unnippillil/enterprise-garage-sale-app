@@ -6,6 +6,21 @@ import { uploadFilesToS3 } from '../utils/s3-upload';
 import { geocodeAddress } from '../utils/geocode-address';
 import { z } from 'zod';
 import prisma from '../utils/prisma';
+import { S3Client, DeleteObjectCommand } from '@aws-sdk/client-s3';
+import {
+  AWS_REGION,
+  S3_BUCKET_NAME,
+  AWS_ACCESS_KEY_ID,
+  AWS_SECRET_ACCESS_KEY,
+} from '../env';
+
+const s3Client = new S3Client({
+  region: AWS_REGION,
+  credentials: {
+    accessKeyId: AWS_ACCESS_KEY_ID,
+    secretAccessKey: AWS_SECRET_ACCESS_KEY,
+  },
+});
 
 const createPropertySchema = z.object({
   address: z.string(),
@@ -313,6 +328,21 @@ export const deleteProperty = async (
     if (property.managerCognitoId !== req.user?.id) {
       res.status(403).json({ message: 'Forbidden' });
       return;
+    }
+
+    for (const url of property.photoUrls) {
+      try {
+        const parsed = new URL(url);
+        let Key = parsed.pathname.replace(/^\/+/g, '');
+        if (Key.startsWith(`${S3_BUCKET_NAME}/`)) {
+          Key = Key.slice(S3_BUCKET_NAME.length + 1);
+        }
+        await s3Client.send(
+          new DeleteObjectCommand({ Bucket: S3_BUCKET_NAME, Key }),
+        );
+      } catch {
+        // ignore errors from invalid URLs or S3 deletions
+      }
     }
 
     await prisma.property.delete({ where: { id: Number(id) } });

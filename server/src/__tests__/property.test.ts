@@ -10,6 +10,12 @@ jest.mock('../utils/geocode-address', () => ({
   geocodeAddress: jest.fn().mockResolvedValue([0, 0]),
 }));
 
+const s3SendMock = jest.fn();
+jest.mock('@aws-sdk/client-s3', () => ({
+  S3Client: jest.fn(() => ({ send: s3SendMock })),
+  DeleteObjectCommand: jest.fn().mockImplementation((params) => params),
+}));
+
 const mockPrisma = {
   property: {
     deleteMany: jest.fn(),
@@ -232,21 +238,30 @@ describe('Property API', () => {
   });
 
   it('deletes property when authorized', async () => {
+    const photos = [
+      'https://bucket.s3.amazonaws.com/properties/1.jpg',
+      'https://bucket.s3.amazonaws.com/properties/2.jpg',
+    ];
     mockPrisma.property.findUnique.mockResolvedValue({
       id: 1,
       managerCognitoId: 'manager',
+      photoUrls: photos,
     });
 
     const res = await request(app).delete('/properties/1');
     expect(res.status).toBe(200);
     expect(res.body).toEqual({ message: 'Property deleted' });
     expect(mockPrisma.property.delete).toHaveBeenCalledWith({ where: { id: 1 } });
+    expect(s3SendMock).toHaveBeenCalledTimes(2);
+    expect(s3SendMock).toHaveBeenCalledWith({ Bucket: 'test', Key: 'properties/1.jpg' });
+    expect(s3SendMock).toHaveBeenCalledWith({ Bucket: 'test', Key: 'properties/2.jpg' });
   });
 
   it('returns 403 when deleting property not owned by manager', async () => {
     mockPrisma.property.findUnique.mockResolvedValue({
       id: 1,
       managerCognitoId: 'manager',
+      photoUrls: [],
     });
 
     const res = await request(app).delete('/properties/1').set('X-User-Id', 'other');

@@ -21,6 +21,7 @@ Users interact with the Next.js client, which makes REST calls to the Express se
 
 - Node.js 18+
 - npm
+- Node Version Manager (nvm)
 - PostgreSQL
 - Required environment variables (see [Setup Guide](SETUP_GUIDE.md))
 
@@ -28,6 +29,7 @@ Users interact with the Next.js client, which makes REST calls to the Express se
 
 ```bash
 cd client
+nvm use
 npm install
 npm run dev
 ```
@@ -42,6 +44,7 @@ Set this variable in `.env.local` or your deployment environment.
 
 ```bash
 cd server
+nvm use
 npm install
 npm run dev
 ```
@@ -81,6 +84,10 @@ The server requires the following environment variables. Copy `.env.example` and
 ## Deployment Notes
 
 The application is designed for AWS deployment using services such as Cognito for authentication and S3 for asset storage. Refer to [DEPLOYMENT.md](DEPLOYMENT.md) for step-by-step production guidance.
+
+## Contributing
+
+We welcome community contributions! Please read the [CONTRIBUTING.md](CONTRIBUTING.md) guide for information on branching, committing, and running tests. By participating in this project you agree to abide by our [Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Further Reading
 

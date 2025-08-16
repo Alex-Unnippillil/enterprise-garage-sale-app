@@ -1,7 +1,8 @@
 import axios from 'axios';
+
 import { Property } from '@/types/prisma-types';
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:3001';
+
 
 const api = axios.create({
   baseURL: API_URL,
@@ -12,11 +13,11 @@ export const fetchListings = async (search?: string): Promise<Property[]> => {
   return response.data as Property[];
 };
 
-export const createListing = async (data: any) => {
+export const createListing = async (data: ListingCreationPayload) => {
   const formData = new FormData();
   Object.entries(data).forEach(([key, value]) => {
     if (key === 'photos' && Array.isArray(value)) {
-      value.forEach((file) => formData.append('photos', file as any));
+      value.forEach((file) => formData.append('photos', file));
     } else {
       formData.append(key, String(value));
     }

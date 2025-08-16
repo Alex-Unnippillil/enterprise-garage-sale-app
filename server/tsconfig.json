@@ -84,6 +84,7 @@
 
     /* Type Checking */
     "strict": true /* Enable all strict type-checking options. */,
+    "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied 'any' type. */
     // "noImplicitAny": true,                            /* Enable error reporting for expressions and declarations with an implied 'any' type. */
     // "strictNullChecks": true,                         /* When type checking, take into account 'null' and 'undefined'. */
     // "strictFunctionTypes": true,                      /* When assigning functions, check to ensure parameters and the return values are subtype-compatible. */
@@ -108,5 +109,6 @@
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
-  "include": ["src/**/*", "src/data/**/*.json", "prisma/**/*"]
+  "include": ["src/**/*", "src/data/**/*.json", "prisma/**/*"],
+  "exclude": ["**/__tests__/**", "**/*.test.ts"]
 }

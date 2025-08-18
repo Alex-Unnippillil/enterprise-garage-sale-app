@@ -332,7 +332,9 @@ export const deleteProperty = async (
 ): Promise<void> => {
   try {
     const { id } = req.params;
-
+    const property = await prisma.property.findUnique({
+      where: { id: Number(id) },
+    });
 
     if (!property) {
       res.status(404).json({ message: 'Property not found' });

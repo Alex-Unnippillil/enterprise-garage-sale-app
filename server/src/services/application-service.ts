@@ -1,10 +1,7 @@
 import { ApplicationStatus } from '@prisma/client';
 import prisma from '../utils/prisma';
 
-export const updateApplicationStatus = async (
-  id: number,
-  status: ApplicationStatus,
-) => {
+export const updateApplicationStatus = async (id: number, status: ApplicationStatus) => {
   const application = await prisma.application.findUnique({
     where: { id },
     include: { property: true, tenant: true },
@@ -17,9 +14,7 @@ export const updateApplicationStatus = async (
   return prisma.$transaction(async (tx) => {
     if (status === 'Approved') {
       const lease = await tx.lease.create({
-        data: {
-
-        },
+        data: {} as any,
       });
 
       await tx.property.update({
@@ -37,7 +32,6 @@ export const updateApplicationStatus = async (
         include: { property: true, tenant: true, lease: true },
       });
     }
-
 
     return tx.application.update({
       where: { id },

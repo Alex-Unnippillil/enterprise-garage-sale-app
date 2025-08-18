@@ -1,3 +1,13 @@
+/* STANDARD IMPORTS */
+import express from 'express';
+import helmet from 'helmet';
+import cors from 'cors';
+import morgan from 'morgan';
+import rateLimit from 'express-rate-limit';
+import { PORT, CLIENT_ORIGIN } from './env';
+import { authMiddleware } from './middleware/auth-middleware';
+import notFound from './middleware/not-found';
+import errorHandler from './middleware/error-handler';
 
 /* ROUTE IMPORT */
 import tenantRoutes from './routes/tenant-routes';

@@ -7,12 +7,7 @@ import { geocodeAddress } from '../utils/geocode-address';
 import { z } from 'zod';
 import prisma from '../utils/prisma';
 import { S3Client, DeleteObjectCommand } from '@aws-sdk/client-s3';
-import {
-  AWS_REGION,
-  S3_BUCKET_NAME,
-  AWS_ACCESS_KEY_ID,
-  AWS_SECRET_ACCESS_KEY,
-} from '../env';
+import { AWS_REGION, S3_BUCKET_NAME, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } from '../env';
 
 const s3Client = new S3Client({
   region: AWS_REGION,
@@ -289,17 +284,6 @@ export const updateProperty = async (
       return;
     }
 
-    const property = await prisma.property.findUnique({ where: { id: Number(id) } });
-    if (!property) {
-      res.status(404).json({ message: 'Property not found' });
-      return;
-    }
-
-    if (property.managerCognitoId !== req.user?.id) {
-      res.status(403).json({ message: 'Forbidden' });
-      return;
-    }
-
     const data = parsed.data;
     const updatedProperty = await prisma.property.update({
       where: { id: Number(id) },
@@ -333,6 +317,9 @@ export const deleteProperty = async (
   try {
     const { id } = req.params;
 
+    const property = await prisma.property.findUnique({
+      where: { id: Number(id) },
+    });
 
     if (!property) {
       res.status(404).json({ message: 'Property not found' });
@@ -351,9 +338,7 @@ export const deleteProperty = async (
         if (Key.startsWith(`${S3_BUCKET_NAME}/`)) {
           Key = Key.slice(S3_BUCKET_NAME.length + 1);
         }
-        await s3Client.send(
-          new DeleteObjectCommand({ Bucket: S3_BUCKET_NAME, Key }),
-        );
+        await s3Client.send(new DeleteObjectCommand({ Bucket: S3_BUCKET_NAME, Key }));
       } catch {
         // ignore errors from invalid URLs or S3 deletions
       }

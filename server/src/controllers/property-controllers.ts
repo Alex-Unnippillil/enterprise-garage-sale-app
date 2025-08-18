@@ -289,17 +289,6 @@ export const updateProperty = async (
       return;
     }
 
-    const property = await prisma.property.findUnique({ where: { id: Number(id) } });
-    if (!property) {
-      res.status(404).json({ message: 'Property not found' });
-      return;
-    }
-
-    if (property.managerCognitoId !== req.user?.id) {
-      res.status(403).json({ message: 'Forbidden' });
-      return;
-    }
-
     const data = parsed.data;
     const updatedProperty = await prisma.property.update({
       where: { id: Number(id) },

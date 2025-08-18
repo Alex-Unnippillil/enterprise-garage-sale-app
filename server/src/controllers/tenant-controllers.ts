@@ -70,7 +70,7 @@ export const updateTenant = async (
     }
     const { name, email, phoneNumber } = parsed.data;
 
-    const updateTenant = await prisma.tenant.update({
+    const updatedTenant = await prisma.tenant.update({
       where: { cognitoId },
       data: {
         name,
@@ -79,7 +79,7 @@ export const updateTenant = async (
       },
     });
 
-    res.json(updateTenant);
+    res.json(updatedTenant);
   } catch (error) {
     next(error);
   }

@@ -1,8 +1,8 @@
 import axios from 'axios';
 
+import { API_URL } from '@/env';
 import { Property } from '@/types/prisma-types';
-
-
+import type { ListingCreationPayload } from '@/types/listing';
 
 const api = axios.create({
   baseURL: API_URL,

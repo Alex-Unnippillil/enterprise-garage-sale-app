@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import type { PropertyFilterParams } from "../../../client/src/types/listing";
+import type { PropertyFilterParams } from "../../../shared/types/listing";
 
 export const buildPropertyFilters = (
   params: PropertyFilterParams

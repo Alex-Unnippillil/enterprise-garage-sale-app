@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import type { PropertyFilters } from "@/types/listing";
+import type { PropertyFilters } from "../../../shared/types/listing";
 export type FiltersState = PropertyFilters;
 
 interface InitialStateTypes {

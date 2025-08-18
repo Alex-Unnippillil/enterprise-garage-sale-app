@@ -122,7 +122,7 @@ describe('Card Component', () => {
 // client/src/components/__tests__/FormField.test.tsx
 import { render, screen, fireEvent } from '@testing-library/react';
 import { useForm } from 'react-hook-form';
-import { CustomFormField } from '../FormField';
+import { CustomFormField } from '../form-field';
 
 const TestComponent = ({ name, label, type = "text" }) => {
   const { register, handleSubmit } = useForm();

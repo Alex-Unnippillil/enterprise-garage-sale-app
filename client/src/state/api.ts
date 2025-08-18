@@ -1,7 +1,7 @@
 import { API_URL } from '@/env';
 import { cleanParams, createNewUserInDatabase, withToast } from '@/lib/utils';
 import { Application, Lease, Manager, Payment, Property, Tenant } from '@/types/prisma-types';
-import type { PropertyFilters } from '@/types/listing';
+import type { PropertyFilters } from '../../../shared/types/listing';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { fetchAuthSession, getCurrentUser } from 'aws-amplify/auth';
 

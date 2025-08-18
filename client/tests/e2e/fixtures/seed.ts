@@ -1,5 +1,4 @@
-// @ts-ignore
-import { PrismaClient } from '../../../../server/node_modules/@prisma/client/index.js';
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 

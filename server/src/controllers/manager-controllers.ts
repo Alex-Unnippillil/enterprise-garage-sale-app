@@ -67,7 +67,7 @@ export const updateManager = async (
     }
     const { name, email, phoneNumber } = parsed.data;
 
-    const updateManager = await prisma.manager.update({
+    const updatedManager = await prisma.manager.update({
       where: { cognitoId },
       data: {
         name,
@@ -76,7 +76,7 @@ export const updateManager = async (
       },
     });
 
-    res.json(updateManager);
+    res.json(updatedManager);
   } catch (error) {
     next(error);
   }

@@ -14,6 +14,7 @@ import managerRoutes from './routes/manager-routes';
 import propertyRoutes from './routes/property-routes';
 import leaseRoutes from './routes/lease-routes';
 import applicationRoutes from './routes/application-routes';
+import paymentRoutes from './routes/payment-routes';
 
 /* CONFIGURATIONS */
 const app = express();
@@ -38,6 +39,7 @@ app.get('/', (req, res) => {
 app.use('/applications', applicationRoutes);
 app.use('/properties', propertyRoutes);
 app.use('/leases', leaseRoutes);
+app.use('/payments', paymentRoutes);
 app.use('/tenants', authMiddleware(['tenant']), tenantRoutes);
 app.use('/managers', authMiddleware(['manager']), managerRoutes);
 

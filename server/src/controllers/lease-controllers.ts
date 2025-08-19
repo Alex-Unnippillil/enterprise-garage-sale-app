@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
 import prisma from '../utils/prisma';
+import { createCharge } from '../services/payment-service';
 
 export const getLeases = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
@@ -60,6 +61,7 @@ export const createPayment = async (
         paymentStatus: 'PENDING' as any,
       },
     });
+    await createCharge(payment.amountDue, { paymentId: payment.id.toString() });
     res.status(201).json(payment);
   } catch (error) {
     next(error);
@@ -83,7 +85,9 @@ export const updatePayment = async (
       where: { id: Number(paymentId) },
       data: parsed.data,
     });
-
+    await createCharge(payment.amountPaid || payment.amountDue, {
+      paymentId: payment.id.toString(),
+    });
     res.json(payment);
   } catch (error) {
     next(error);

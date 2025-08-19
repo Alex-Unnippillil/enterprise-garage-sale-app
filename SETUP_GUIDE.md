@@ -105,6 +105,9 @@ PORT=3001
 NODE_ENV=development
 # Geocoding
 GEOCODE_USER_AGENT=your_app_name (contact@example.com)
+# Stripe
+STRIPE_SECRET_KEY=your_stripe_secret_key
+STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
 ```
 
 ## AWS Services Setup

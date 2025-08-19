@@ -15,8 +15,13 @@ jest.mock('@prisma/client', () => ({
   Prisma: { join: jest.fn() },
 }));
 
+jest.mock('../services/payment-service', () => ({
+  createCharge: jest.fn(),
+}));
+
 const prisma = require('../utils/prisma').default;
 const { createPayment, updatePayment } = require('../controllers/lease-controllers');
+const { createCharge } = require('../services/payment-service');
 
 const app = express();
 app.use(express.json());
@@ -61,6 +66,7 @@ describe('Payment API', () => {
         amountPaid: 50,
       }),
     });
+    expect(createCharge).toHaveBeenCalled();
   });
 
   it('returns 400 when create payload invalid', async () => {
@@ -91,6 +97,7 @@ describe('Payment API', () => {
       where: { id: 1 },
       data: { amountPaid: 75 },
     });
+    expect(createCharge).toHaveBeenCalled();
   });
 
   it('returns 400 when update payload invalid', async () => {

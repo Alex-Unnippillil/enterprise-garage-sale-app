@@ -1,0 +1,12 @@
+process.env.PORT = '3000';
+process.env.DATABASE_URL = 'https://example.com';
+process.env.GEOCODE_USER_AGENT = 'agent';
+process.env.COGNITO_AUDIENCE = 'aud';
+process.env.COGNITO_ISSUER = 'issuer';
+process.env.AWS_REGION = 'us-east-1';
+process.env.S3_BUCKET_NAME = 'bucket';
+process.env.AWS_ACCESS_KEY_ID = 'key';
+process.env.AWS_SECRET_ACCESS_KEY = 'secret';
+process.env.CLIENT_ORIGIN = 'http://localhost:3000';
+process.env.STRIPE_SECRET_KEY = 'test';
+process.env.STRIPE_WEBHOOK_SECRET = 'test';

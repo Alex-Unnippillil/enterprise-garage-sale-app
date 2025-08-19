@@ -17,6 +17,8 @@ const envSchema = z
     AWS_ACCESS_KEY_ID: z.string().min(1),
     AWS_SECRET_ACCESS_KEY: z.string().min(1),
     CLIENT_ORIGIN: z.string().url(),
+    STRIPE_SECRET_KEY: z.string().min(1),
+    STRIPE_WEBHOOK_SECRET: z.string().min(1),
   })
   .refine(
     (env) => env.COGNITO_JWT_PUBLIC_KEY || env.JWT_SECRET,
@@ -40,6 +42,8 @@ export const {
   AWS_ACCESS_KEY_ID,
   AWS_SECRET_ACCESS_KEY,
   CLIENT_ORIGIN,
+  STRIPE_SECRET_KEY,
+  STRIPE_WEBHOOK_SECRET,
 } = env;
 
 export default env;

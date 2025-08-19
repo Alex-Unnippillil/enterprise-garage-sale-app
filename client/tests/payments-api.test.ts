@@ -76,7 +76,7 @@ describe('payment mutations', () => {
     };
 
     const result = await store
-      .dispatch(api.endpoints.createPayment.initiate({ id: 1, ...body }))
+      .dispatch(api.endpoints.createPayment.initiate({ leaseId: 1, ...body }))
       .unwrap();
 
     const req = fetchMock.mock.calls[0][0] as any;
@@ -135,6 +135,80 @@ describe('payment mutations', () => {
       expect.objectContaining({
         success: 'Payment updated successfully!',
         error: 'Failed to update payment.',
+      })
+    );
+  });
+
+  it('fetches payment history via GET', async () => {
+    const store = setupStore();
+    const mockPayments: Payment[] = [
+      {
+        id: 1,
+        amountDue: 100,
+        amountPaid: 100,
+        dueDate: '2024-01-01T00:00:00.000Z',
+        paymentDate: '2024-01-02T00:00:00.000Z',
+        paymentStatus: 'PAID',
+        leaseId: 1,
+      },
+    ];
+
+    fetchMock.mockResolvedValueOnce({
+      ok: true,
+      status: 200,
+      json: async () => mockPayments,
+      text: async () => JSON.stringify(mockPayments),
+      clone() {
+        return this;
+      },
+      headers: { get: () => 'application/json' },
+    });
+
+    const result = await store
+      .dispatch(api.endpoints.getPaymentHistory.initiate())
+      .unwrap();
+
+    const req = fetchMock.mock.calls[0][0] as any;
+    expect(req.url).toBe('http://localhost:3001/payments/history');
+    expect(req.method).toBeUndefined();
+    expect(result).toEqual(mockPayments);
+    expect(withToast).toHaveBeenCalledWith(
+      expect.any(Promise),
+      expect.objectContaining({
+        error: 'Failed to fetch payment history.',
+      })
+    );
+  });
+
+  it('creates a charge via POST', async () => {
+    const store = setupStore();
+    const mockResponse = { clientSecret: 'secret' };
+
+    fetchMock.mockResolvedValueOnce({
+      ok: true,
+      status: 200,
+      json: async () => mockResponse,
+      text: async () => JSON.stringify(mockResponse),
+      clone() {
+        return this;
+      },
+      headers: { get: () => 'application/json' },
+    });
+
+    const body = { amount: 500, leaseId: 1 };
+    const result = await store
+      .dispatch(api.endpoints.chargePayment.initiate(body))
+      .unwrap();
+
+    const req = fetchMock.mock.calls[0][0] as any;
+    expect(req.url).toBe('http://localhost:3001/payments/charge');
+    expect(req.method).toBe('POST');
+    expect(req.body).toBe(JSON.stringify(body));
+    expect(result).toEqual(mockResponse);
+    expect(withToast).toHaveBeenCalledWith(
+      expect.any(Promise),
+      expect.objectContaining({
+        error: 'Failed to create charge.',
       })
     );
   });

@@ -170,6 +170,7 @@ model Payment {
   paymentDate   DateTime
   paymentStatus PaymentStatus
   leaseId       Int
+  stripePaymentIntentId String? @unique
 
   lease Lease @relation(fields: [leaseId], references: [id])
 }

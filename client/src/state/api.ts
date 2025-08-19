@@ -341,6 +341,33 @@ export const api = createApi({
       },
     }),
 
+    chargePayment: build.mutation<
+      { clientSecret: string },
+      { amount: number; leaseId: number }
+    >({
+      query: (body) => ({
+        url: `payments/charge`,
+        method: 'POST',
+        body,
+      }),
+      invalidatesTags: ['Payments'],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          error: 'Failed to create charge.',
+        });
+      },
+    }),
+
+    getPaymentHistory: build.query<Payment[], void>({
+      query: () => `payments/history`,
+      providesTags: ['Payments'],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          error: 'Failed to fetch payment history.',
+        });
+      },
+    }),
+
     // application related endpoints
     getApplications: build.query<Application[], { userId?: string; userType?: string }>({
       query: (params) => {
@@ -416,6 +443,8 @@ export const {
   useGetPaymentsQuery,
   useCreatePaymentMutation,
   useUpdatePaymentMutation,
+  useChargePaymentMutation,
+  useGetPaymentHistoryQuery,
   useGetApplicationsQuery,
   useUpdateApplicationStatusMutation,
   useCreateApplicationMutation,

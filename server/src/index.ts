@@ -14,6 +14,7 @@ import managerRoutes from './routes/manager-routes';
 import propertyRoutes from './routes/property-routes';
 import leaseRoutes from './routes/lease-routes';
 import applicationRoutes from './routes/application-routes';
+import favoriteRoutes from './routes/favorite-routes';
 
 /* CONFIGURATIONS */
 const app = express();
@@ -40,6 +41,7 @@ app.use('/properties', propertyRoutes);
 app.use('/leases', leaseRoutes);
 app.use('/tenants', authMiddleware(['tenant']), tenantRoutes);
 app.use('/managers', authMiddleware(['manager']), managerRoutes);
+app.use('/favorites', authMiddleware(['tenant']), favoriteRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

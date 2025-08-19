@@ -1,26 +1,24 @@
 import {
-  useAddFavoritePropertyMutation,
+  useAddFavoriteMutation,
   useGetAuthUserQuery,
   useGetPropertiesQuery,
-  useGetTenantQuery,
-  useRemoveFavoritePropertyMutation,
+  useGetFavoritesQuery,
+  useRemoveFavoriteMutation,
 } from "@/state/api";
 import { useAppSelector } from "@/state/redux";
 import { Property } from "@/types/prisma-types";
+import { Favorite } from "@/types/favorite";
 import Card from "@/components/card";
 import React from "react";
 import CardCompact from "@/components/card-compact";
 
 const Listings = () => {
   const { data: authUser } = useGetAuthUserQuery();
-  const { data: tenant } = useGetTenantQuery(
-    authUser?.cognitoInfo?.userId || "",
-    {
-      skip: !authUser?.cognitoInfo?.userId,
-    }
-  );
-  const [addFavorite] = useAddFavoritePropertyMutation();
-  const [removeFavorite] = useRemoveFavoritePropertyMutation();
+  const { data: favorites } = useGetFavoritesQuery(undefined, {
+    skip: !authUser,
+  });
+  const [addFavorite] = useAddFavoriteMutation();
+  const [removeFavorite] = useRemoveFavoriteMutation();
   const viewMode = useAppSelector((state) => state.global.viewMode);
   const filters = useAppSelector((state) => state.global.filters);
 
@@ -33,20 +31,17 @@ const Listings = () => {
   const handleFavoriteToggle = async (propertyId: number) => {
     if (!authUser) return;
 
-    const isFavorite = tenant?.favorites?.some(
-      (fav: Property) => fav.id === propertyId
+    const isFavorite = favorites?.some(
+      (fav: Favorite) => fav.propertyId === propertyId
     );
+    const favoriteId = favorites?.find(
+      (fav: Favorite) => fav.propertyId === propertyId
+    )?.id;
 
-    if (isFavorite) {
-      await removeFavorite({
-        cognitoId: authUser.cognitoInfo.userId,
-        propertyId,
-      });
+    if (isFavorite && favoriteId) {
+      await removeFavorite(favoriteId);
     } else {
-      await addFavorite({
-        cognitoId: authUser.cognitoInfo.userId,
-        propertyId,
-      });
+      await addFavorite({ propertyId });
     }
   };
 
@@ -69,8 +64,8 @@ const Listings = () => {
                 key={property.id}
                 property={property}
                 isFavorite={
-                  tenant?.favorites?.some(
-                    (fav: Property) => fav.id === property.id
+                  favorites?.some(
+                    (fav: Favorite) => fav.propertyId === property.id
                   ) || false
                 }
                 onFavoriteToggle={() => handleFavoriteToggle(property.id)}
@@ -82,8 +77,8 @@ const Listings = () => {
                 key={property.id}
                 property={property}
                 isFavorite={
-                  tenant?.favorites?.some(
-                    (fav: Property) => fav.id === property.id
+                  favorites?.some(
+                    (fav: Favorite) => fav.propertyId === property.id
                   ) || false
                 }
                 onFavoriteToggle={() => handleFavoriteToggle(property.id)}

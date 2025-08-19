@@ -1,9 +1,11 @@
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { CustomFormField } from "../form-field";
+import DragAndDropUpload from "../drag-and-drop-upload";
 import { createListing } from "@/lib/api";
 
 const listingSchema = z.object({
@@ -33,10 +35,12 @@ const ListingForm = ({ onSuccess }: { onSuccess?: () => void }) => {
   const form = useForm<ListingFormData>({
     resolver: zodResolver(listingSchema),
   });
+  const [photos, setPhotos] = useState<File[]>([]);
 
   const onSubmit = async (data: ListingFormData) => {
-    await createListing(data);
+    await createListing({ ...data, photos });
     form.reset();
+    setPhotos([]);
     onSuccess?.();
   };
 
@@ -72,11 +76,12 @@ const ListingForm = ({ onSuccess }: { onSuccess?: () => void }) => {
         <CustomFormField name="city" label="City" />
         <CustomFormField name="state" label="State" />
         <CustomFormField name="country" label="Country" />
-        <CustomFormField name="postalCode" label="Postal Code" />
-        <Button type="submit">Submit</Button>
-      </form>
-    </Form>
-  );
-};
+          <CustomFormField name="postalCode" label="Postal Code" />
+          <DragAndDropUpload onFiles={setPhotos} />
+          <Button type="submit">Submit</Button>
+        </form>
+      </Form>
+    );
+  };
 
 export default ListingForm;

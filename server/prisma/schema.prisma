@@ -93,6 +93,7 @@ model Property {
   applications Application[]
   favoritedBy  Tenant[]      @relation("TenantFavorites")
   tenants      Tenant[]      @relation("TenantProperties")
+  documents    Document[]
 }
 
 model Manager {
@@ -160,6 +161,7 @@ model Lease {
   tenant      Tenant       @relation(fields: [tenantCognitoId], references: [cognitoId])
   application Application?
   payments    Payment[]
+  documents   Document[]
 }
 
 model Payment {
@@ -172,6 +174,21 @@ model Payment {
   leaseId       Int
 
   lease Lease @relation(fields: [leaseId], references: [id])
+}
+
+model Document {
+  id           Int      @id @default(autoincrement())
+  key          String
+  url          String
+  originalName String
+  mimeType     String
+  size         Int
+  propertyId   Int?
+  leaseId      Int?
+  createdAt    DateTime @default(now())
+
+  property Property? @relation(fields: [propertyId], references: [id])
+  lease    Lease?    @relation(fields: [leaseId], references: [id])
 }
 
 model Listing {

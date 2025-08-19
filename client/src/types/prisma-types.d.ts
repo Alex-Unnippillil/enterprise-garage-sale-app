@@ -1,9 +1,7 @@
 
-// @ts-nocheck
-
 /**
  * Client
- **/
+**/
 
 import * as runtime from '@prisma/client/runtime/library.js';
 import $Types = runtime.Types // general types
@@ -50,6 +48,21 @@ export type Lease = $Result.DefaultSelection<Prisma.$LeasePayload>
  * 
  */
 export type Payment = $Result.DefaultSelection<Prisma.$PaymentPayload>
+/**
+ * Model Document
+ * 
+ */
+export type Document = $Result.DefaultSelection<Prisma.$DocumentPayload>
+/**
+ * Model Listing
+ * 
+ */
+export type Listing = $Result.DefaultSelection<Prisma.$ListingPayload>
+/**
+ * Model GeocodeCache
+ * 
+ */
+export type GeocodeCache = $Result.DefaultSelection<Prisma.$GeocodeCachePayload>
 
 /**
  * Enums
@@ -341,6 +354,36 @@ export class PrismaClient<
     * ```
     */
   get payment(): Prisma.PaymentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.document`: Exposes CRUD operations for the **Document** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Documents
+    * const documents = await prisma.document.findMany()
+    * ```
+    */
+  get document(): Prisma.DocumentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.listing`: Exposes CRUD operations for the **Listing** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Listings
+    * const listings = await prisma.listing.findMany()
+    * ```
+    */
+  get listing(): Prisma.ListingDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.geocodeCache`: Exposes CRUD operations for the **GeocodeCache** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GeocodeCaches
+    * const geocodeCaches = await prisma.geocodeCache.findMany()
+    * ```
+    */
+  get geocodeCache(): Prisma.GeocodeCacheDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -787,7 +830,10 @@ export namespace Prisma {
     Location: 'Location',
     Application: 'Application',
     Lease: 'Lease',
-    Payment: 'Payment'
+    Payment: 'Payment',
+    Document: 'Document',
+    Listing: 'Listing',
+    GeocodeCache: 'GeocodeCache'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -806,7 +852,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "property" | "manager" | "tenant" | "location" | "application" | "lease" | "payment"
+      modelProps: "property" | "manager" | "tenant" | "location" | "application" | "lease" | "payment" | "document" | "listing" | "geocodeCache"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1312,6 +1358,228 @@ export namespace Prisma {
           }
         }
       }
+      Document: {
+        payload: Prisma.$DocumentPayload<ExtArgs>
+        fields: Prisma.DocumentFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.DocumentFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.DocumentFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentPayload>
+          }
+          findFirst: {
+            args: Prisma.DocumentFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.DocumentFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentPayload>
+          }
+          findMany: {
+            args: Prisma.DocumentFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentPayload>[]
+          }
+          create: {
+            args: Prisma.DocumentCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentPayload>
+          }
+          createMany: {
+            args: Prisma.DocumentCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.DocumentCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentPayload>[]
+          }
+          delete: {
+            args: Prisma.DocumentDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentPayload>
+          }
+          update: {
+            args: Prisma.DocumentUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentPayload>
+          }
+          deleteMany: {
+            args: Prisma.DocumentDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.DocumentUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.DocumentUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentPayload>[]
+          }
+          upsert: {
+            args: Prisma.DocumentUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$DocumentPayload>
+          }
+          aggregate: {
+            args: Prisma.DocumentAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateDocument>
+          }
+          groupBy: {
+            args: Prisma.DocumentGroupByArgs<ExtArgs>
+            result: $Utils.Optional<DocumentGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.DocumentCountArgs<ExtArgs>
+            result: $Utils.Optional<DocumentCountAggregateOutputType> | number
+          }
+        }
+      }
+      Listing: {
+        payload: Prisma.$ListingPayload<ExtArgs>
+        fields: Prisma.ListingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.ListingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.ListingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListingPayload>
+          }
+          findFirst: {
+            args: Prisma.ListingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.ListingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListingPayload>
+          }
+          findMany: {
+            args: Prisma.ListingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListingPayload>[]
+          }
+          create: {
+            args: Prisma.ListingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListingPayload>
+          }
+          createMany: {
+            args: Prisma.ListingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.ListingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListingPayload>[]
+          }
+          delete: {
+            args: Prisma.ListingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListingPayload>
+          }
+          update: {
+            args: Prisma.ListingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListingPayload>
+          }
+          deleteMany: {
+            args: Prisma.ListingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.ListingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.ListingUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListingPayload>[]
+          }
+          upsert: {
+            args: Prisma.ListingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$ListingPayload>
+          }
+          aggregate: {
+            args: Prisma.ListingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateListing>
+          }
+          groupBy: {
+            args: Prisma.ListingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<ListingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.ListingCountArgs<ExtArgs>
+            result: $Utils.Optional<ListingCountAggregateOutputType> | number
+          }
+        }
+      }
+      GeocodeCache: {
+        payload: Prisma.$GeocodeCachePayload<ExtArgs>
+        fields: Prisma.GeocodeCacheFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.GeocodeCacheFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GeocodeCachePayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.GeocodeCacheFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GeocodeCachePayload>
+          }
+          findFirst: {
+            args: Prisma.GeocodeCacheFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GeocodeCachePayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.GeocodeCacheFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GeocodeCachePayload>
+          }
+          findMany: {
+            args: Prisma.GeocodeCacheFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GeocodeCachePayload>[]
+          }
+          create: {
+            args: Prisma.GeocodeCacheCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GeocodeCachePayload>
+          }
+          createMany: {
+            args: Prisma.GeocodeCacheCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.GeocodeCacheCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GeocodeCachePayload>[]
+          }
+          delete: {
+            args: Prisma.GeocodeCacheDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GeocodeCachePayload>
+          }
+          update: {
+            args: Prisma.GeocodeCacheUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GeocodeCachePayload>
+          }
+          deleteMany: {
+            args: Prisma.GeocodeCacheDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.GeocodeCacheUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.GeocodeCacheUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GeocodeCachePayload>[]
+          }
+          upsert: {
+            args: Prisma.GeocodeCacheUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$GeocodeCachePayload>
+          }
+          aggregate: {
+            args: Prisma.GeocodeCacheAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateGeocodeCache>
+          }
+          groupBy: {
+            args: Prisma.GeocodeCacheGroupByArgs<ExtArgs>
+            result: $Utils.Optional<GeocodeCacheGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.GeocodeCacheCountArgs<ExtArgs>
+            result: $Utils.Optional<GeocodeCacheCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1411,6 +1679,9 @@ export namespace Prisma {
     application?: ApplicationOmit
     lease?: LeaseOmit
     payment?: PaymentOmit
+    document?: DocumentOmit
+    listing?: ListingOmit
+    geocodeCache?: GeocodeCacheOmit
   }
 
   /* Types for Logging */
@@ -1514,6 +1785,7 @@ export namespace Prisma {
     applications: number
     favoritedBy: number
     tenants: number
+    documents: number
   }
 
   export type PropertyCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1521,6 +1793,7 @@ export namespace Prisma {
     applications?: boolean | PropertyCountOutputTypeCountApplicationsArgs
     favoritedBy?: boolean | PropertyCountOutputTypeCountFavoritedByArgs
     tenants?: boolean | PropertyCountOutputTypeCountTenantsArgs
+    documents?: boolean | PropertyCountOutputTypeCountDocumentsArgs
   }
 
   // Custom InputTypes
@@ -1560,6 +1833,13 @@ export namespace Prisma {
    */
   export type PropertyCountOutputTypeCountTenantsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: TenantWhereInput
+  }
+
+  /**
+   * PropertyCountOutputType without action
+   */
+  export type PropertyCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DocumentWhereInput
   }
 
 
@@ -1689,10 +1969,12 @@ export namespace Prisma {
 
   export type LeaseCountOutputType = {
     payments: number
+    documents: number
   }
 
   export type LeaseCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     payments?: boolean | LeaseCountOutputTypeCountPaymentsArgs
+    documents?: boolean | LeaseCountOutputTypeCountDocumentsArgs
   }
 
   // Custom InputTypes
@@ -1711,6 +1993,13 @@ export namespace Prisma {
    */
   export type LeaseCountOutputTypeCountPaymentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PaymentWhereInput
+  }
+
+  /**
+   * LeaseCountOutputType without action
+   */
+  export type LeaseCountOutputTypeCountDocumentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DocumentWhereInput
   }
 
 
@@ -2066,6 +2355,7 @@ export namespace Prisma {
     applications?: boolean | Property$applicationsArgs<ExtArgs>
     favoritedBy?: boolean | Property$favoritedByArgs<ExtArgs>
     tenants?: boolean | Property$tenantsArgs<ExtArgs>
+    documents?: boolean | Property$documentsArgs<ExtArgs>
     _count?: boolean | PropertyCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["property"]>
 
@@ -2150,6 +2440,7 @@ export namespace Prisma {
     applications?: boolean | Property$applicationsArgs<ExtArgs>
     favoritedBy?: boolean | Property$favoritedByArgs<ExtArgs>
     tenants?: boolean | Property$tenantsArgs<ExtArgs>
+    documents?: boolean | Property$documentsArgs<ExtArgs>
     _count?: boolean | PropertyCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PropertyIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2170,6 +2461,7 @@ export namespace Prisma {
       applications: Prisma.$ApplicationPayload<ExtArgs>[]
       favoritedBy: Prisma.$TenantPayload<ExtArgs>[]
       tenants: Prisma.$TenantPayload<ExtArgs>[]
+      documents: Prisma.$DocumentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2592,6 +2884,7 @@ export namespace Prisma {
     applications<T extends Property$applicationsArgs<ExtArgs> = {}>(args?: Subset<T, Property$applicationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     favoritedBy<T extends Property$favoritedByArgs<ExtArgs> = {}>(args?: Subset<T, Property$favoritedByArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     tenants<T extends Property$tenantsArgs<ExtArgs> = {}>(args?: Subset<T, Property$tenantsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    documents<T extends Property$documentsArgs<ExtArgs> = {}>(args?: Subset<T, Property$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3130,6 +3423,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: TenantScalarFieldEnum | TenantScalarFieldEnum[]
+  }
+
+  /**
+   * Property.documents
+   */
+  export type Property$documentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Document
+     */
+    select?: DocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Document
+     */
+    omit?: DocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentInclude<ExtArgs> | null
+    where?: DocumentWhereInput
+    orderBy?: DocumentOrderByWithRelationInput | DocumentOrderByWithRelationInput[]
+    cursor?: DocumentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DocumentScalarFieldEnum | DocumentScalarFieldEnum[]
   }
 
   /**
@@ -7828,6 +8145,7 @@ export namespace Prisma {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     application?: boolean | Lease$applicationArgs<ExtArgs>
     payments?: boolean | Lease$paymentsArgs<ExtArgs>
+    documents?: boolean | Lease$documentsArgs<ExtArgs>
     _count?: boolean | LeaseCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["lease"]>
 
@@ -7871,6 +8189,7 @@ export namespace Prisma {
     tenant?: boolean | TenantDefaultArgs<ExtArgs>
     application?: boolean | Lease$applicationArgs<ExtArgs>
     payments?: boolean | Lease$paymentsArgs<ExtArgs>
+    documents?: boolean | Lease$documentsArgs<ExtArgs>
     _count?: boolean | LeaseCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type LeaseIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -7889,6 +8208,7 @@ export namespace Prisma {
       tenant: Prisma.$TenantPayload<ExtArgs>
       application: Prisma.$ApplicationPayload<ExtArgs> | null
       payments: Prisma.$PaymentPayload<ExtArgs>[]
+      documents: Prisma.$DocumentPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -8296,6 +8616,7 @@ export namespace Prisma {
     tenant<T extends TenantDefaultArgs<ExtArgs> = {}>(args?: Subset<T, TenantDefaultArgs<ExtArgs>>): Prisma__TenantClient<$Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     application<T extends Lease$applicationArgs<ExtArgs> = {}>(args?: Subset<T, Lease$applicationArgs<ExtArgs>>): Prisma__ApplicationClient<$Result.GetResult<Prisma.$ApplicationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     payments<T extends Lease$paymentsArgs<ExtArgs> = {}>(args?: Subset<T, Lease$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    documents<T extends Lease$documentsArgs<ExtArgs> = {}>(args?: Subset<T, Lease$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -8768,6 +9089,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PaymentScalarFieldEnum | PaymentScalarFieldEnum[]
+  }
+
+  /**
+   * Lease.documents
+   */
+  export type Lease$documentsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Document
+     */
+    select?: DocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Document
+     */
+    omit?: DocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentInclude<ExtArgs> | null
+    where?: DocumentWhereInput
+    orderBy?: DocumentOrderByWithRelationInput | DocumentOrderByWithRelationInput[]
+    cursor?: DocumentWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: DocumentScalarFieldEnum | DocumentScalarFieldEnum[]
   }
 
   /**
@@ -9920,6 +10265,3304 @@ export namespace Prisma {
 
 
   /**
+   * Model Document
+   */
+
+  export type AggregateDocument = {
+    _count: DocumentCountAggregateOutputType | null
+    _avg: DocumentAvgAggregateOutputType | null
+    _sum: DocumentSumAggregateOutputType | null
+    _min: DocumentMinAggregateOutputType | null
+    _max: DocumentMaxAggregateOutputType | null
+  }
+
+  export type DocumentAvgAggregateOutputType = {
+    id: number | null
+    size: number | null
+    propertyId: number | null
+    leaseId: number | null
+  }
+
+  export type DocumentSumAggregateOutputType = {
+    id: number | null
+    size: number | null
+    propertyId: number | null
+    leaseId: number | null
+  }
+
+  export type DocumentMinAggregateOutputType = {
+    id: number | null
+    key: string | null
+    url: string | null
+    originalName: string | null
+    mimeType: string | null
+    size: number | null
+    propertyId: number | null
+    leaseId: number | null
+    createdAt: Date | null
+  }
+
+  export type DocumentMaxAggregateOutputType = {
+    id: number | null
+    key: string | null
+    url: string | null
+    originalName: string | null
+    mimeType: string | null
+    size: number | null
+    propertyId: number | null
+    leaseId: number | null
+    createdAt: Date | null
+  }
+
+  export type DocumentCountAggregateOutputType = {
+    id: number
+    key: number
+    url: number
+    originalName: number
+    mimeType: number
+    size: number
+    propertyId: number
+    leaseId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type DocumentAvgAggregateInputType = {
+    id?: true
+    size?: true
+    propertyId?: true
+    leaseId?: true
+  }
+
+  export type DocumentSumAggregateInputType = {
+    id?: true
+    size?: true
+    propertyId?: true
+    leaseId?: true
+  }
+
+  export type DocumentMinAggregateInputType = {
+    id?: true
+    key?: true
+    url?: true
+    originalName?: true
+    mimeType?: true
+    size?: true
+    propertyId?: true
+    leaseId?: true
+    createdAt?: true
+  }
+
+  export type DocumentMaxAggregateInputType = {
+    id?: true
+    key?: true
+    url?: true
+    originalName?: true
+    mimeType?: true
+    size?: true
+    propertyId?: true
+    leaseId?: true
+    createdAt?: true
+  }
+
+  export type DocumentCountAggregateInputType = {
+    id?: true
+    key?: true
+    url?: true
+    originalName?: true
+    mimeType?: true
+    size?: true
+    propertyId?: true
+    leaseId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type DocumentAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Document to aggregate.
+     */
+    where?: DocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Documents to fetch.
+     */
+    orderBy?: DocumentOrderByWithRelationInput | DocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: DocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Documents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Documents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Documents
+    **/
+    _count?: true | DocumentCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: DocumentAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: DocumentSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: DocumentMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: DocumentMaxAggregateInputType
+  }
+
+  export type GetDocumentAggregateType<T extends DocumentAggregateArgs> = {
+        [P in keyof T & keyof AggregateDocument]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateDocument[P]>
+      : GetScalarType<T[P], AggregateDocument[P]>
+  }
+
+
+
+
+  export type DocumentGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: DocumentWhereInput
+    orderBy?: DocumentOrderByWithAggregationInput | DocumentOrderByWithAggregationInput[]
+    by: DocumentScalarFieldEnum[] | DocumentScalarFieldEnum
+    having?: DocumentScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: DocumentCountAggregateInputType | true
+    _avg?: DocumentAvgAggregateInputType
+    _sum?: DocumentSumAggregateInputType
+    _min?: DocumentMinAggregateInputType
+    _max?: DocumentMaxAggregateInputType
+  }
+
+  export type DocumentGroupByOutputType = {
+    id: number
+    key: string
+    url: string
+    originalName: string
+    mimeType: string
+    size: number
+    propertyId: number | null
+    leaseId: number | null
+    createdAt: Date
+    _count: DocumentCountAggregateOutputType | null
+    _avg: DocumentAvgAggregateOutputType | null
+    _sum: DocumentSumAggregateOutputType | null
+    _min: DocumentMinAggregateOutputType | null
+    _max: DocumentMaxAggregateOutputType | null
+  }
+
+  type GetDocumentGroupByPayload<T extends DocumentGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<DocumentGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof DocumentGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], DocumentGroupByOutputType[P]>
+            : GetScalarType<T[P], DocumentGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type DocumentSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    key?: boolean
+    url?: boolean
+    originalName?: boolean
+    mimeType?: boolean
+    size?: boolean
+    propertyId?: boolean
+    leaseId?: boolean
+    createdAt?: boolean
+    property?: boolean | Document$propertyArgs<ExtArgs>
+    lease?: boolean | Document$leaseArgs<ExtArgs>
+  }, ExtArgs["result"]["document"]>
+
+  export type DocumentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    key?: boolean
+    url?: boolean
+    originalName?: boolean
+    mimeType?: boolean
+    size?: boolean
+    propertyId?: boolean
+    leaseId?: boolean
+    createdAt?: boolean
+    property?: boolean | Document$propertyArgs<ExtArgs>
+    lease?: boolean | Document$leaseArgs<ExtArgs>
+  }, ExtArgs["result"]["document"]>
+
+  export type DocumentSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    key?: boolean
+    url?: boolean
+    originalName?: boolean
+    mimeType?: boolean
+    size?: boolean
+    propertyId?: boolean
+    leaseId?: boolean
+    createdAt?: boolean
+    property?: boolean | Document$propertyArgs<ExtArgs>
+    lease?: boolean | Document$leaseArgs<ExtArgs>
+  }, ExtArgs["result"]["document"]>
+
+  export type DocumentSelectScalar = {
+    id?: boolean
+    key?: boolean
+    url?: boolean
+    originalName?: boolean
+    mimeType?: boolean
+    size?: boolean
+    propertyId?: boolean
+    leaseId?: boolean
+    createdAt?: boolean
+  }
+
+  export type DocumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "key" | "url" | "originalName" | "mimeType" | "size" | "propertyId" | "leaseId" | "createdAt", ExtArgs["result"]["document"]>
+  export type DocumentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    property?: boolean | Document$propertyArgs<ExtArgs>
+    lease?: boolean | Document$leaseArgs<ExtArgs>
+  }
+  export type DocumentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    property?: boolean | Document$propertyArgs<ExtArgs>
+    lease?: boolean | Document$leaseArgs<ExtArgs>
+  }
+  export type DocumentIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    property?: boolean | Document$propertyArgs<ExtArgs>
+    lease?: boolean | Document$leaseArgs<ExtArgs>
+  }
+
+  export type $DocumentPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Document"
+    objects: {
+      property: Prisma.$PropertyPayload<ExtArgs> | null
+      lease: Prisma.$LeasePayload<ExtArgs> | null
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      key: string
+      url: string
+      originalName: string
+      mimeType: string
+      size: number
+      propertyId: number | null
+      leaseId: number | null
+      createdAt: Date
+    }, ExtArgs["result"]["document"]>
+    composites: {}
+  }
+
+  type DocumentGetPayload<S extends boolean | null | undefined | DocumentDefaultArgs> = $Result.GetResult<Prisma.$DocumentPayload, S>
+
+  type DocumentCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<DocumentFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: DocumentCountAggregateInputType | true
+    }
+
+  export interface DocumentDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Document'], meta: { name: 'Document' } }
+    /**
+     * Find zero or one Document that matches the filter.
+     * @param {DocumentFindUniqueArgs} args - Arguments to find a Document
+     * @example
+     * // Get one Document
+     * const document = await prisma.document.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends DocumentFindUniqueArgs>(args: SelectSubset<T, DocumentFindUniqueArgs<ExtArgs>>): Prisma__DocumentClient<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Document that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {DocumentFindUniqueOrThrowArgs} args - Arguments to find a Document
+     * @example
+     * // Get one Document
+     * const document = await prisma.document.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends DocumentFindUniqueOrThrowArgs>(args: SelectSubset<T, DocumentFindUniqueOrThrowArgs<ExtArgs>>): Prisma__DocumentClient<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Document that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentFindFirstArgs} args - Arguments to find a Document
+     * @example
+     * // Get one Document
+     * const document = await prisma.document.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends DocumentFindFirstArgs>(args?: SelectSubset<T, DocumentFindFirstArgs<ExtArgs>>): Prisma__DocumentClient<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Document that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentFindFirstOrThrowArgs} args - Arguments to find a Document
+     * @example
+     * // Get one Document
+     * const document = await prisma.document.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends DocumentFindFirstOrThrowArgs>(args?: SelectSubset<T, DocumentFindFirstOrThrowArgs<ExtArgs>>): Prisma__DocumentClient<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Documents that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Documents
+     * const documents = await prisma.document.findMany()
+     * 
+     * // Get first 10 Documents
+     * const documents = await prisma.document.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const documentWithIdOnly = await prisma.document.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends DocumentFindManyArgs>(args?: SelectSubset<T, DocumentFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Document.
+     * @param {DocumentCreateArgs} args - Arguments to create a Document.
+     * @example
+     * // Create one Document
+     * const Document = await prisma.document.create({
+     *   data: {
+     *     // ... data to create a Document
+     *   }
+     * })
+     * 
+     */
+    create<T extends DocumentCreateArgs>(args: SelectSubset<T, DocumentCreateArgs<ExtArgs>>): Prisma__DocumentClient<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Documents.
+     * @param {DocumentCreateManyArgs} args - Arguments to create many Documents.
+     * @example
+     * // Create many Documents
+     * const document = await prisma.document.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends DocumentCreateManyArgs>(args?: SelectSubset<T, DocumentCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Documents and returns the data saved in the database.
+     * @param {DocumentCreateManyAndReturnArgs} args - Arguments to create many Documents.
+     * @example
+     * // Create many Documents
+     * const document = await prisma.document.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Documents and only return the `id`
+     * const documentWithIdOnly = await prisma.document.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends DocumentCreateManyAndReturnArgs>(args?: SelectSubset<T, DocumentCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Document.
+     * @param {DocumentDeleteArgs} args - Arguments to delete one Document.
+     * @example
+     * // Delete one Document
+     * const Document = await prisma.document.delete({
+     *   where: {
+     *     // ... filter to delete one Document
+     *   }
+     * })
+     * 
+     */
+    delete<T extends DocumentDeleteArgs>(args: SelectSubset<T, DocumentDeleteArgs<ExtArgs>>): Prisma__DocumentClient<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Document.
+     * @param {DocumentUpdateArgs} args - Arguments to update one Document.
+     * @example
+     * // Update one Document
+     * const document = await prisma.document.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends DocumentUpdateArgs>(args: SelectSubset<T, DocumentUpdateArgs<ExtArgs>>): Prisma__DocumentClient<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Documents.
+     * @param {DocumentDeleteManyArgs} args - Arguments to filter Documents to delete.
+     * @example
+     * // Delete a few Documents
+     * const { count } = await prisma.document.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends DocumentDeleteManyArgs>(args?: SelectSubset<T, DocumentDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Documents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Documents
+     * const document = await prisma.document.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends DocumentUpdateManyArgs>(args: SelectSubset<T, DocumentUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Documents and returns the data updated in the database.
+     * @param {DocumentUpdateManyAndReturnArgs} args - Arguments to update many Documents.
+     * @example
+     * // Update many Documents
+     * const document = await prisma.document.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Documents and only return the `id`
+     * const documentWithIdOnly = await prisma.document.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends DocumentUpdateManyAndReturnArgs>(args: SelectSubset<T, DocumentUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Document.
+     * @param {DocumentUpsertArgs} args - Arguments to update or create a Document.
+     * @example
+     * // Update or create a Document
+     * const document = await prisma.document.upsert({
+     *   create: {
+     *     // ... data to create a Document
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Document we want to update
+     *   }
+     * })
+     */
+    upsert<T extends DocumentUpsertArgs>(args: SelectSubset<T, DocumentUpsertArgs<ExtArgs>>): Prisma__DocumentClient<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Documents.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentCountArgs} args - Arguments to filter Documents to count.
+     * @example
+     * // Count the number of Documents
+     * const count = await prisma.document.count({
+     *   where: {
+     *     // ... the filter for the Documents we want to count
+     *   }
+     * })
+    **/
+    count<T extends DocumentCountArgs>(
+      args?: Subset<T, DocumentCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], DocumentCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Document.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends DocumentAggregateArgs>(args: Subset<T, DocumentAggregateArgs>): Prisma.PrismaPromise<GetDocumentAggregateType<T>>
+
+    /**
+     * Group by Document.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {DocumentGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends DocumentGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: DocumentGroupByArgs['orderBy'] }
+        : { orderBy?: DocumentGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, DocumentGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetDocumentGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Document model
+   */
+  readonly fields: DocumentFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Document.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__DocumentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    property<T extends Document$propertyArgs<ExtArgs> = {}>(args?: Subset<T, Document$propertyArgs<ExtArgs>>): Prisma__PropertyClient<$Result.GetResult<Prisma.$PropertyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    lease<T extends Document$leaseArgs<ExtArgs> = {}>(args?: Subset<T, Document$leaseArgs<ExtArgs>>): Prisma__LeaseClient<$Result.GetResult<Prisma.$LeasePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Document model
+   */
+  interface DocumentFieldRefs {
+    readonly id: FieldRef<"Document", 'Int'>
+    readonly key: FieldRef<"Document", 'String'>
+    readonly url: FieldRef<"Document", 'String'>
+    readonly originalName: FieldRef<"Document", 'String'>
+    readonly mimeType: FieldRef<"Document", 'String'>
+    readonly size: FieldRef<"Document", 'Int'>
+    readonly propertyId: FieldRef<"Document", 'Int'>
+    readonly leaseId: FieldRef<"Document", 'Int'>
+    readonly createdAt: FieldRef<"Document", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Document findUnique
+   */
+  export type DocumentFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Document
+     */
+    select?: DocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Document
+     */
+    omit?: DocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which Document to fetch.
+     */
+    where: DocumentWhereUniqueInput
+  }
+
+  /**
+   * Document findUniqueOrThrow
+   */
+  export type DocumentFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Document
+     */
+    select?: DocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Document
+     */
+    omit?: DocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which Document to fetch.
+     */
+    where: DocumentWhereUniqueInput
+  }
+
+  /**
+   * Document findFirst
+   */
+  export type DocumentFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Document
+     */
+    select?: DocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Document
+     */
+    omit?: DocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which Document to fetch.
+     */
+    where?: DocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Documents to fetch.
+     */
+    orderBy?: DocumentOrderByWithRelationInput | DocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Documents.
+     */
+    cursor?: DocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Documents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Documents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Documents.
+     */
+    distinct?: DocumentScalarFieldEnum | DocumentScalarFieldEnum[]
+  }
+
+  /**
+   * Document findFirstOrThrow
+   */
+  export type DocumentFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Document
+     */
+    select?: DocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Document
+     */
+    omit?: DocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which Document to fetch.
+     */
+    where?: DocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Documents to fetch.
+     */
+    orderBy?: DocumentOrderByWithRelationInput | DocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Documents.
+     */
+    cursor?: DocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Documents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Documents.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Documents.
+     */
+    distinct?: DocumentScalarFieldEnum | DocumentScalarFieldEnum[]
+  }
+
+  /**
+   * Document findMany
+   */
+  export type DocumentFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Document
+     */
+    select?: DocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Document
+     */
+    omit?: DocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentInclude<ExtArgs> | null
+    /**
+     * Filter, which Documents to fetch.
+     */
+    where?: DocumentWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Documents to fetch.
+     */
+    orderBy?: DocumentOrderByWithRelationInput | DocumentOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Documents.
+     */
+    cursor?: DocumentWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Documents from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Documents.
+     */
+    skip?: number
+    distinct?: DocumentScalarFieldEnum | DocumentScalarFieldEnum[]
+  }
+
+  /**
+   * Document create
+   */
+  export type DocumentCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Document
+     */
+    select?: DocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Document
+     */
+    omit?: DocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Document.
+     */
+    data: XOR<DocumentCreateInput, DocumentUncheckedCreateInput>
+  }
+
+  /**
+   * Document createMany
+   */
+  export type DocumentCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Documents.
+     */
+    data: DocumentCreateManyInput | DocumentCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Document createManyAndReturn
+   */
+  export type DocumentCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Document
+     */
+    select?: DocumentSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Document
+     */
+    omit?: DocumentOmit<ExtArgs> | null
+    /**
+     * The data used to create many Documents.
+     */
+    data: DocumentCreateManyInput | DocumentCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Document update
+   */
+  export type DocumentUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Document
+     */
+    select?: DocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Document
+     */
+    omit?: DocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Document.
+     */
+    data: XOR<DocumentUpdateInput, DocumentUncheckedUpdateInput>
+    /**
+     * Choose, which Document to update.
+     */
+    where: DocumentWhereUniqueInput
+  }
+
+  /**
+   * Document updateMany
+   */
+  export type DocumentUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Documents.
+     */
+    data: XOR<DocumentUpdateManyMutationInput, DocumentUncheckedUpdateManyInput>
+    /**
+     * Filter which Documents to update
+     */
+    where?: DocumentWhereInput
+    /**
+     * Limit how many Documents to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Document updateManyAndReturn
+   */
+  export type DocumentUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Document
+     */
+    select?: DocumentSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Document
+     */
+    omit?: DocumentOmit<ExtArgs> | null
+    /**
+     * The data used to update Documents.
+     */
+    data: XOR<DocumentUpdateManyMutationInput, DocumentUncheckedUpdateManyInput>
+    /**
+     * Filter which Documents to update
+     */
+    where?: DocumentWhereInput
+    /**
+     * Limit how many Documents to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Document upsert
+   */
+  export type DocumentUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Document
+     */
+    select?: DocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Document
+     */
+    omit?: DocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Document to update in case it exists.
+     */
+    where: DocumentWhereUniqueInput
+    /**
+     * In case the Document found by the `where` argument doesn't exist, create a new Document with this data.
+     */
+    create: XOR<DocumentCreateInput, DocumentUncheckedCreateInput>
+    /**
+     * In case the Document was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<DocumentUpdateInput, DocumentUncheckedUpdateInput>
+  }
+
+  /**
+   * Document delete
+   */
+  export type DocumentDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Document
+     */
+    select?: DocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Document
+     */
+    omit?: DocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentInclude<ExtArgs> | null
+    /**
+     * Filter which Document to delete.
+     */
+    where: DocumentWhereUniqueInput
+  }
+
+  /**
+   * Document deleteMany
+   */
+  export type DocumentDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Documents to delete
+     */
+    where?: DocumentWhereInput
+    /**
+     * Limit how many Documents to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Document.property
+   */
+  export type Document$propertyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Property
+     */
+    select?: PropertySelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Property
+     */
+    omit?: PropertyOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: PropertyInclude<ExtArgs> | null
+    where?: PropertyWhereInput
+  }
+
+  /**
+   * Document.lease
+   */
+  export type Document$leaseArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Lease
+     */
+    select?: LeaseSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Lease
+     */
+    omit?: LeaseOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: LeaseInclude<ExtArgs> | null
+    where?: LeaseWhereInput
+  }
+
+  /**
+   * Document without action
+   */
+  export type DocumentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Document
+     */
+    select?: DocumentSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Document
+     */
+    omit?: DocumentOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: DocumentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model Listing
+   */
+
+  export type AggregateListing = {
+    _count: ListingCountAggregateOutputType | null
+    _avg: ListingAvgAggregateOutputType | null
+    _sum: ListingSumAggregateOutputType | null
+    _min: ListingMinAggregateOutputType | null
+    _max: ListingMaxAggregateOutputType | null
+  }
+
+  export type ListingAvgAggregateOutputType = {
+    id: number | null
+    price: number | null
+  }
+
+  export type ListingSumAggregateOutputType = {
+    id: number | null
+    price: number | null
+  }
+
+  export type ListingMinAggregateOutputType = {
+    id: number | null
+    title: string | null
+    description: string | null
+    price: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ListingMaxAggregateOutputType = {
+    id: number | null
+    title: string | null
+    description: string | null
+    price: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type ListingCountAggregateOutputType = {
+    id: number
+    title: number
+    description: number
+    price: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type ListingAvgAggregateInputType = {
+    id?: true
+    price?: true
+  }
+
+  export type ListingSumAggregateInputType = {
+    id?: true
+    price?: true
+  }
+
+  export type ListingMinAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    price?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ListingMaxAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    price?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type ListingCountAggregateInputType = {
+    id?: true
+    title?: true
+    description?: true
+    price?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type ListingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Listing to aggregate.
+     */
+    where?: ListingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Listings to fetch.
+     */
+    orderBy?: ListingOrderByWithRelationInput | ListingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: ListingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Listings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Listings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Listings
+    **/
+    _count?: true | ListingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: ListingAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: ListingSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: ListingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: ListingMaxAggregateInputType
+  }
+
+  export type GetListingAggregateType<T extends ListingAggregateArgs> = {
+        [P in keyof T & keyof AggregateListing]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateListing[P]>
+      : GetScalarType<T[P], AggregateListing[P]>
+  }
+
+
+
+
+  export type ListingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: ListingWhereInput
+    orderBy?: ListingOrderByWithAggregationInput | ListingOrderByWithAggregationInput[]
+    by: ListingScalarFieldEnum[] | ListingScalarFieldEnum
+    having?: ListingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: ListingCountAggregateInputType | true
+    _avg?: ListingAvgAggregateInputType
+    _sum?: ListingSumAggregateInputType
+    _min?: ListingMinAggregateInputType
+    _max?: ListingMaxAggregateInputType
+  }
+
+  export type ListingGroupByOutputType = {
+    id: number
+    title: string
+    description: string
+    price: number
+    createdAt: Date
+    updatedAt: Date
+    _count: ListingCountAggregateOutputType | null
+    _avg: ListingAvgAggregateOutputType | null
+    _sum: ListingSumAggregateOutputType | null
+    _min: ListingMinAggregateOutputType | null
+    _max: ListingMaxAggregateOutputType | null
+  }
+
+  type GetListingGroupByPayload<T extends ListingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<ListingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof ListingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], ListingGroupByOutputType[P]>
+            : GetScalarType<T[P], ListingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type ListingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    price?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["listing"]>
+
+  export type ListingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    price?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["listing"]>
+
+  export type ListingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    price?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }, ExtArgs["result"]["listing"]>
+
+  export type ListingSelectScalar = {
+    id?: boolean
+    title?: boolean
+    description?: boolean
+    price?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type ListingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "price" | "createdAt" | "updatedAt", ExtArgs["result"]["listing"]>
+
+  export type $ListingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Listing"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      title: string
+      description: string
+      price: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["listing"]>
+    composites: {}
+  }
+
+  type ListingGetPayload<S extends boolean | null | undefined | ListingDefaultArgs> = $Result.GetResult<Prisma.$ListingPayload, S>
+
+  type ListingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<ListingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: ListingCountAggregateInputType | true
+    }
+
+  export interface ListingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Listing'], meta: { name: 'Listing' } }
+    /**
+     * Find zero or one Listing that matches the filter.
+     * @param {ListingFindUniqueArgs} args - Arguments to find a Listing
+     * @example
+     * // Get one Listing
+     * const listing = await prisma.listing.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends ListingFindUniqueArgs>(args: SelectSubset<T, ListingFindUniqueArgs<ExtArgs>>): Prisma__ListingClient<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Listing that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {ListingFindUniqueOrThrowArgs} args - Arguments to find a Listing
+     * @example
+     * // Get one Listing
+     * const listing = await prisma.listing.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends ListingFindUniqueOrThrowArgs>(args: SelectSubset<T, ListingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__ListingClient<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Listing that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ListingFindFirstArgs} args - Arguments to find a Listing
+     * @example
+     * // Get one Listing
+     * const listing = await prisma.listing.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends ListingFindFirstArgs>(args?: SelectSubset<T, ListingFindFirstArgs<ExtArgs>>): Prisma__ListingClient<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Listing that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ListingFindFirstOrThrowArgs} args - Arguments to find a Listing
+     * @example
+     * // Get one Listing
+     * const listing = await prisma.listing.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends ListingFindFirstOrThrowArgs>(args?: SelectSubset<T, ListingFindFirstOrThrowArgs<ExtArgs>>): Prisma__ListingClient<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Listings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ListingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Listings
+     * const listings = await prisma.listing.findMany()
+     * 
+     * // Get first 10 Listings
+     * const listings = await prisma.listing.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const listingWithIdOnly = await prisma.listing.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends ListingFindManyArgs>(args?: SelectSubset<T, ListingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Listing.
+     * @param {ListingCreateArgs} args - Arguments to create a Listing.
+     * @example
+     * // Create one Listing
+     * const Listing = await prisma.listing.create({
+     *   data: {
+     *     // ... data to create a Listing
+     *   }
+     * })
+     * 
+     */
+    create<T extends ListingCreateArgs>(args: SelectSubset<T, ListingCreateArgs<ExtArgs>>): Prisma__ListingClient<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Listings.
+     * @param {ListingCreateManyArgs} args - Arguments to create many Listings.
+     * @example
+     * // Create many Listings
+     * const listing = await prisma.listing.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends ListingCreateManyArgs>(args?: SelectSubset<T, ListingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Listings and returns the data saved in the database.
+     * @param {ListingCreateManyAndReturnArgs} args - Arguments to create many Listings.
+     * @example
+     * // Create many Listings
+     * const listing = await prisma.listing.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Listings and only return the `id`
+     * const listingWithIdOnly = await prisma.listing.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends ListingCreateManyAndReturnArgs>(args?: SelectSubset<T, ListingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Listing.
+     * @param {ListingDeleteArgs} args - Arguments to delete one Listing.
+     * @example
+     * // Delete one Listing
+     * const Listing = await prisma.listing.delete({
+     *   where: {
+     *     // ... filter to delete one Listing
+     *   }
+     * })
+     * 
+     */
+    delete<T extends ListingDeleteArgs>(args: SelectSubset<T, ListingDeleteArgs<ExtArgs>>): Prisma__ListingClient<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Listing.
+     * @param {ListingUpdateArgs} args - Arguments to update one Listing.
+     * @example
+     * // Update one Listing
+     * const listing = await prisma.listing.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends ListingUpdateArgs>(args: SelectSubset<T, ListingUpdateArgs<ExtArgs>>): Prisma__ListingClient<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Listings.
+     * @param {ListingDeleteManyArgs} args - Arguments to filter Listings to delete.
+     * @example
+     * // Delete a few Listings
+     * const { count } = await prisma.listing.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends ListingDeleteManyArgs>(args?: SelectSubset<T, ListingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Listings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ListingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Listings
+     * const listing = await prisma.listing.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends ListingUpdateManyArgs>(args: SelectSubset<T, ListingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Listings and returns the data updated in the database.
+     * @param {ListingUpdateManyAndReturnArgs} args - Arguments to update many Listings.
+     * @example
+     * // Update many Listings
+     * const listing = await prisma.listing.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Listings and only return the `id`
+     * const listingWithIdOnly = await prisma.listing.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends ListingUpdateManyAndReturnArgs>(args: SelectSubset<T, ListingUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Listing.
+     * @param {ListingUpsertArgs} args - Arguments to update or create a Listing.
+     * @example
+     * // Update or create a Listing
+     * const listing = await prisma.listing.upsert({
+     *   create: {
+     *     // ... data to create a Listing
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Listing we want to update
+     *   }
+     * })
+     */
+    upsert<T extends ListingUpsertArgs>(args: SelectSubset<T, ListingUpsertArgs<ExtArgs>>): Prisma__ListingClient<$Result.GetResult<Prisma.$ListingPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Listings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ListingCountArgs} args - Arguments to filter Listings to count.
+     * @example
+     * // Count the number of Listings
+     * const count = await prisma.listing.count({
+     *   where: {
+     *     // ... the filter for the Listings we want to count
+     *   }
+     * })
+    **/
+    count<T extends ListingCountArgs>(
+      args?: Subset<T, ListingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], ListingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Listing.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ListingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends ListingAggregateArgs>(args: Subset<T, ListingAggregateArgs>): Prisma.PrismaPromise<GetListingAggregateType<T>>
+
+    /**
+     * Group by Listing.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {ListingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends ListingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: ListingGroupByArgs['orderBy'] }
+        : { orderBy?: ListingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, ListingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetListingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Listing model
+   */
+  readonly fields: ListingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Listing.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__ListingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Listing model
+   */
+  interface ListingFieldRefs {
+    readonly id: FieldRef<"Listing", 'Int'>
+    readonly title: FieldRef<"Listing", 'String'>
+    readonly description: FieldRef<"Listing", 'String'>
+    readonly price: FieldRef<"Listing", 'Float'>
+    readonly createdAt: FieldRef<"Listing", 'DateTime'>
+    readonly updatedAt: FieldRef<"Listing", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Listing findUnique
+   */
+  export type ListingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listing
+     */
+    select?: ListingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listing
+     */
+    omit?: ListingOmit<ExtArgs> | null
+    /**
+     * Filter, which Listing to fetch.
+     */
+    where: ListingWhereUniqueInput
+  }
+
+  /**
+   * Listing findUniqueOrThrow
+   */
+  export type ListingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listing
+     */
+    select?: ListingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listing
+     */
+    omit?: ListingOmit<ExtArgs> | null
+    /**
+     * Filter, which Listing to fetch.
+     */
+    where: ListingWhereUniqueInput
+  }
+
+  /**
+   * Listing findFirst
+   */
+  export type ListingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listing
+     */
+    select?: ListingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listing
+     */
+    omit?: ListingOmit<ExtArgs> | null
+    /**
+     * Filter, which Listing to fetch.
+     */
+    where?: ListingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Listings to fetch.
+     */
+    orderBy?: ListingOrderByWithRelationInput | ListingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Listings.
+     */
+    cursor?: ListingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Listings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Listings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Listings.
+     */
+    distinct?: ListingScalarFieldEnum | ListingScalarFieldEnum[]
+  }
+
+  /**
+   * Listing findFirstOrThrow
+   */
+  export type ListingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listing
+     */
+    select?: ListingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listing
+     */
+    omit?: ListingOmit<ExtArgs> | null
+    /**
+     * Filter, which Listing to fetch.
+     */
+    where?: ListingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Listings to fetch.
+     */
+    orderBy?: ListingOrderByWithRelationInput | ListingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Listings.
+     */
+    cursor?: ListingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Listings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Listings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Listings.
+     */
+    distinct?: ListingScalarFieldEnum | ListingScalarFieldEnum[]
+  }
+
+  /**
+   * Listing findMany
+   */
+  export type ListingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listing
+     */
+    select?: ListingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listing
+     */
+    omit?: ListingOmit<ExtArgs> | null
+    /**
+     * Filter, which Listings to fetch.
+     */
+    where?: ListingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Listings to fetch.
+     */
+    orderBy?: ListingOrderByWithRelationInput | ListingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Listings.
+     */
+    cursor?: ListingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Listings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Listings.
+     */
+    skip?: number
+    distinct?: ListingScalarFieldEnum | ListingScalarFieldEnum[]
+  }
+
+  /**
+   * Listing create
+   */
+  export type ListingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listing
+     */
+    select?: ListingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listing
+     */
+    omit?: ListingOmit<ExtArgs> | null
+    /**
+     * The data needed to create a Listing.
+     */
+    data: XOR<ListingCreateInput, ListingUncheckedCreateInput>
+  }
+
+  /**
+   * Listing createMany
+   */
+  export type ListingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Listings.
+     */
+    data: ListingCreateManyInput | ListingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Listing createManyAndReturn
+   */
+  export type ListingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listing
+     */
+    select?: ListingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listing
+     */
+    omit?: ListingOmit<ExtArgs> | null
+    /**
+     * The data used to create many Listings.
+     */
+    data: ListingCreateManyInput | ListingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Listing update
+   */
+  export type ListingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listing
+     */
+    select?: ListingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listing
+     */
+    omit?: ListingOmit<ExtArgs> | null
+    /**
+     * The data needed to update a Listing.
+     */
+    data: XOR<ListingUpdateInput, ListingUncheckedUpdateInput>
+    /**
+     * Choose, which Listing to update.
+     */
+    where: ListingWhereUniqueInput
+  }
+
+  /**
+   * Listing updateMany
+   */
+  export type ListingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Listings.
+     */
+    data: XOR<ListingUpdateManyMutationInput, ListingUncheckedUpdateManyInput>
+    /**
+     * Filter which Listings to update
+     */
+    where?: ListingWhereInput
+    /**
+     * Limit how many Listings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Listing updateManyAndReturn
+   */
+  export type ListingUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listing
+     */
+    select?: ListingSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listing
+     */
+    omit?: ListingOmit<ExtArgs> | null
+    /**
+     * The data used to update Listings.
+     */
+    data: XOR<ListingUpdateManyMutationInput, ListingUncheckedUpdateManyInput>
+    /**
+     * Filter which Listings to update
+     */
+    where?: ListingWhereInput
+    /**
+     * Limit how many Listings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Listing upsert
+   */
+  export type ListingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listing
+     */
+    select?: ListingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listing
+     */
+    omit?: ListingOmit<ExtArgs> | null
+    /**
+     * The filter to search for the Listing to update in case it exists.
+     */
+    where: ListingWhereUniqueInput
+    /**
+     * In case the Listing found by the `where` argument doesn't exist, create a new Listing with this data.
+     */
+    create: XOR<ListingCreateInput, ListingUncheckedCreateInput>
+    /**
+     * In case the Listing was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<ListingUpdateInput, ListingUncheckedUpdateInput>
+  }
+
+  /**
+   * Listing delete
+   */
+  export type ListingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listing
+     */
+    select?: ListingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listing
+     */
+    omit?: ListingOmit<ExtArgs> | null
+    /**
+     * Filter which Listing to delete.
+     */
+    where: ListingWhereUniqueInput
+  }
+
+  /**
+   * Listing deleteMany
+   */
+  export type ListingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Listings to delete
+     */
+    where?: ListingWhereInput
+    /**
+     * Limit how many Listings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Listing without action
+   */
+  export type ListingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Listing
+     */
+    select?: ListingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Listing
+     */
+    omit?: ListingOmit<ExtArgs> | null
+  }
+
+
+  /**
+   * Model GeocodeCache
+   */
+
+  export type AggregateGeocodeCache = {
+    _count: GeocodeCacheCountAggregateOutputType | null
+    _avg: GeocodeCacheAvgAggregateOutputType | null
+    _sum: GeocodeCacheSumAggregateOutputType | null
+    _min: GeocodeCacheMinAggregateOutputType | null
+    _max: GeocodeCacheMaxAggregateOutputType | null
+  }
+
+  export type GeocodeCacheAvgAggregateOutputType = {
+    id: number | null
+    latitude: number | null
+    longitude: number | null
+  }
+
+  export type GeocodeCacheSumAggregateOutputType = {
+    id: number | null
+    latitude: number | null
+    longitude: number | null
+  }
+
+  export type GeocodeCacheMinAggregateOutputType = {
+    id: number | null
+    address: string | null
+    city: string | null
+    postalCode: string | null
+    latitude: number | null
+    longitude: number | null
+  }
+
+  export type GeocodeCacheMaxAggregateOutputType = {
+    id: number | null
+    address: string | null
+    city: string | null
+    postalCode: string | null
+    latitude: number | null
+    longitude: number | null
+  }
+
+  export type GeocodeCacheCountAggregateOutputType = {
+    id: number
+    address: number
+    city: number
+    postalCode: number
+    latitude: number
+    longitude: number
+    _all: number
+  }
+
+
+  export type GeocodeCacheAvgAggregateInputType = {
+    id?: true
+    latitude?: true
+    longitude?: true
+  }
+
+  export type GeocodeCacheSumAggregateInputType = {
+    id?: true
+    latitude?: true
+    longitude?: true
+  }
+
+  export type GeocodeCacheMinAggregateInputType = {
+    id?: true
+    address?: true
+    city?: true
+    postalCode?: true
+    latitude?: true
+    longitude?: true
+  }
+
+  export type GeocodeCacheMaxAggregateInputType = {
+    id?: true
+    address?: true
+    city?: true
+    postalCode?: true
+    latitude?: true
+    longitude?: true
+  }
+
+  export type GeocodeCacheCountAggregateInputType = {
+    id?: true
+    address?: true
+    city?: true
+    postalCode?: true
+    latitude?: true
+    longitude?: true
+    _all?: true
+  }
+
+  export type GeocodeCacheAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GeocodeCache to aggregate.
+     */
+    where?: GeocodeCacheWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GeocodeCaches to fetch.
+     */
+    orderBy?: GeocodeCacheOrderByWithRelationInput | GeocodeCacheOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: GeocodeCacheWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GeocodeCaches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GeocodeCaches.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned GeocodeCaches
+    **/
+    _count?: true | GeocodeCacheCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: GeocodeCacheAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: GeocodeCacheSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: GeocodeCacheMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: GeocodeCacheMaxAggregateInputType
+  }
+
+  export type GetGeocodeCacheAggregateType<T extends GeocodeCacheAggregateArgs> = {
+        [P in keyof T & keyof AggregateGeocodeCache]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateGeocodeCache[P]>
+      : GetScalarType<T[P], AggregateGeocodeCache[P]>
+  }
+
+
+
+
+  export type GeocodeCacheGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: GeocodeCacheWhereInput
+    orderBy?: GeocodeCacheOrderByWithAggregationInput | GeocodeCacheOrderByWithAggregationInput[]
+    by: GeocodeCacheScalarFieldEnum[] | GeocodeCacheScalarFieldEnum
+    having?: GeocodeCacheScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: GeocodeCacheCountAggregateInputType | true
+    _avg?: GeocodeCacheAvgAggregateInputType
+    _sum?: GeocodeCacheSumAggregateInputType
+    _min?: GeocodeCacheMinAggregateInputType
+    _max?: GeocodeCacheMaxAggregateInputType
+  }
+
+  export type GeocodeCacheGroupByOutputType = {
+    id: number
+    address: string
+    city: string
+    postalCode: string
+    latitude: number
+    longitude: number
+    _count: GeocodeCacheCountAggregateOutputType | null
+    _avg: GeocodeCacheAvgAggregateOutputType | null
+    _sum: GeocodeCacheSumAggregateOutputType | null
+    _min: GeocodeCacheMinAggregateOutputType | null
+    _max: GeocodeCacheMaxAggregateOutputType | null
+  }
+
+  type GetGeocodeCacheGroupByPayload<T extends GeocodeCacheGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<GeocodeCacheGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof GeocodeCacheGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], GeocodeCacheGroupByOutputType[P]>
+            : GetScalarType<T[P], GeocodeCacheGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type GeocodeCacheSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    address?: boolean
+    city?: boolean
+    postalCode?: boolean
+    latitude?: boolean
+    longitude?: boolean
+  }, ExtArgs["result"]["geocodeCache"]>
+
+  export type GeocodeCacheSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    address?: boolean
+    city?: boolean
+    postalCode?: boolean
+    latitude?: boolean
+    longitude?: boolean
+  }, ExtArgs["result"]["geocodeCache"]>
+
+  export type GeocodeCacheSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    address?: boolean
+    city?: boolean
+    postalCode?: boolean
+    latitude?: boolean
+    longitude?: boolean
+  }, ExtArgs["result"]["geocodeCache"]>
+
+  export type GeocodeCacheSelectScalar = {
+    id?: boolean
+    address?: boolean
+    city?: boolean
+    postalCode?: boolean
+    latitude?: boolean
+    longitude?: boolean
+  }
+
+  export type GeocodeCacheOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "address" | "city" | "postalCode" | "latitude" | "longitude", ExtArgs["result"]["geocodeCache"]>
+
+  export type $GeocodeCachePayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "GeocodeCache"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      id: number
+      address: string
+      city: string
+      postalCode: string
+      latitude: number
+      longitude: number
+    }, ExtArgs["result"]["geocodeCache"]>
+    composites: {}
+  }
+
+  type GeocodeCacheGetPayload<S extends boolean | null | undefined | GeocodeCacheDefaultArgs> = $Result.GetResult<Prisma.$GeocodeCachePayload, S>
+
+  type GeocodeCacheCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<GeocodeCacheFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: GeocodeCacheCountAggregateInputType | true
+    }
+
+  export interface GeocodeCacheDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['GeocodeCache'], meta: { name: 'GeocodeCache' } }
+    /**
+     * Find zero or one GeocodeCache that matches the filter.
+     * @param {GeocodeCacheFindUniqueArgs} args - Arguments to find a GeocodeCache
+     * @example
+     * // Get one GeocodeCache
+     * const geocodeCache = await prisma.geocodeCache.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends GeocodeCacheFindUniqueArgs>(args: SelectSubset<T, GeocodeCacheFindUniqueArgs<ExtArgs>>): Prisma__GeocodeCacheClient<$Result.GetResult<Prisma.$GeocodeCachePayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one GeocodeCache that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {GeocodeCacheFindUniqueOrThrowArgs} args - Arguments to find a GeocodeCache
+     * @example
+     * // Get one GeocodeCache
+     * const geocodeCache = await prisma.geocodeCache.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends GeocodeCacheFindUniqueOrThrowArgs>(args: SelectSubset<T, GeocodeCacheFindUniqueOrThrowArgs<ExtArgs>>): Prisma__GeocodeCacheClient<$Result.GetResult<Prisma.$GeocodeCachePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GeocodeCache that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GeocodeCacheFindFirstArgs} args - Arguments to find a GeocodeCache
+     * @example
+     * // Get one GeocodeCache
+     * const geocodeCache = await prisma.geocodeCache.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends GeocodeCacheFindFirstArgs>(args?: SelectSubset<T, GeocodeCacheFindFirstArgs<ExtArgs>>): Prisma__GeocodeCacheClient<$Result.GetResult<Prisma.$GeocodeCachePayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first GeocodeCache that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GeocodeCacheFindFirstOrThrowArgs} args - Arguments to find a GeocodeCache
+     * @example
+     * // Get one GeocodeCache
+     * const geocodeCache = await prisma.geocodeCache.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends GeocodeCacheFindFirstOrThrowArgs>(args?: SelectSubset<T, GeocodeCacheFindFirstOrThrowArgs<ExtArgs>>): Prisma__GeocodeCacheClient<$Result.GetResult<Prisma.$GeocodeCachePayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more GeocodeCaches that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GeocodeCacheFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all GeocodeCaches
+     * const geocodeCaches = await prisma.geocodeCache.findMany()
+     * 
+     * // Get first 10 GeocodeCaches
+     * const geocodeCaches = await prisma.geocodeCache.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const geocodeCacheWithIdOnly = await prisma.geocodeCache.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends GeocodeCacheFindManyArgs>(args?: SelectSubset<T, GeocodeCacheFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GeocodeCachePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a GeocodeCache.
+     * @param {GeocodeCacheCreateArgs} args - Arguments to create a GeocodeCache.
+     * @example
+     * // Create one GeocodeCache
+     * const GeocodeCache = await prisma.geocodeCache.create({
+     *   data: {
+     *     // ... data to create a GeocodeCache
+     *   }
+     * })
+     * 
+     */
+    create<T extends GeocodeCacheCreateArgs>(args: SelectSubset<T, GeocodeCacheCreateArgs<ExtArgs>>): Prisma__GeocodeCacheClient<$Result.GetResult<Prisma.$GeocodeCachePayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many GeocodeCaches.
+     * @param {GeocodeCacheCreateManyArgs} args - Arguments to create many GeocodeCaches.
+     * @example
+     * // Create many GeocodeCaches
+     * const geocodeCache = await prisma.geocodeCache.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends GeocodeCacheCreateManyArgs>(args?: SelectSubset<T, GeocodeCacheCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many GeocodeCaches and returns the data saved in the database.
+     * @param {GeocodeCacheCreateManyAndReturnArgs} args - Arguments to create many GeocodeCaches.
+     * @example
+     * // Create many GeocodeCaches
+     * const geocodeCache = await prisma.geocodeCache.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many GeocodeCaches and only return the `id`
+     * const geocodeCacheWithIdOnly = await prisma.geocodeCache.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends GeocodeCacheCreateManyAndReturnArgs>(args?: SelectSubset<T, GeocodeCacheCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GeocodeCachePayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a GeocodeCache.
+     * @param {GeocodeCacheDeleteArgs} args - Arguments to delete one GeocodeCache.
+     * @example
+     * // Delete one GeocodeCache
+     * const GeocodeCache = await prisma.geocodeCache.delete({
+     *   where: {
+     *     // ... filter to delete one GeocodeCache
+     *   }
+     * })
+     * 
+     */
+    delete<T extends GeocodeCacheDeleteArgs>(args: SelectSubset<T, GeocodeCacheDeleteArgs<ExtArgs>>): Prisma__GeocodeCacheClient<$Result.GetResult<Prisma.$GeocodeCachePayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one GeocodeCache.
+     * @param {GeocodeCacheUpdateArgs} args - Arguments to update one GeocodeCache.
+     * @example
+     * // Update one GeocodeCache
+     * const geocodeCache = await prisma.geocodeCache.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends GeocodeCacheUpdateArgs>(args: SelectSubset<T, GeocodeCacheUpdateArgs<ExtArgs>>): Prisma__GeocodeCacheClient<$Result.GetResult<Prisma.$GeocodeCachePayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more GeocodeCaches.
+     * @param {GeocodeCacheDeleteManyArgs} args - Arguments to filter GeocodeCaches to delete.
+     * @example
+     * // Delete a few GeocodeCaches
+     * const { count } = await prisma.geocodeCache.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends GeocodeCacheDeleteManyArgs>(args?: SelectSubset<T, GeocodeCacheDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GeocodeCaches.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GeocodeCacheUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many GeocodeCaches
+     * const geocodeCache = await prisma.geocodeCache.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends GeocodeCacheUpdateManyArgs>(args: SelectSubset<T, GeocodeCacheUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more GeocodeCaches and returns the data updated in the database.
+     * @param {GeocodeCacheUpdateManyAndReturnArgs} args - Arguments to update many GeocodeCaches.
+     * @example
+     * // Update many GeocodeCaches
+     * const geocodeCache = await prisma.geocodeCache.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more GeocodeCaches and only return the `id`
+     * const geocodeCacheWithIdOnly = await prisma.geocodeCache.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends GeocodeCacheUpdateManyAndReturnArgs>(args: SelectSubset<T, GeocodeCacheUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$GeocodeCachePayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one GeocodeCache.
+     * @param {GeocodeCacheUpsertArgs} args - Arguments to update or create a GeocodeCache.
+     * @example
+     * // Update or create a GeocodeCache
+     * const geocodeCache = await prisma.geocodeCache.upsert({
+     *   create: {
+     *     // ... data to create a GeocodeCache
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the GeocodeCache we want to update
+     *   }
+     * })
+     */
+    upsert<T extends GeocodeCacheUpsertArgs>(args: SelectSubset<T, GeocodeCacheUpsertArgs<ExtArgs>>): Prisma__GeocodeCacheClient<$Result.GetResult<Prisma.$GeocodeCachePayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of GeocodeCaches.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GeocodeCacheCountArgs} args - Arguments to filter GeocodeCaches to count.
+     * @example
+     * // Count the number of GeocodeCaches
+     * const count = await prisma.geocodeCache.count({
+     *   where: {
+     *     // ... the filter for the GeocodeCaches we want to count
+     *   }
+     * })
+    **/
+    count<T extends GeocodeCacheCountArgs>(
+      args?: Subset<T, GeocodeCacheCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], GeocodeCacheCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a GeocodeCache.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GeocodeCacheAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends GeocodeCacheAggregateArgs>(args: Subset<T, GeocodeCacheAggregateArgs>): Prisma.PrismaPromise<GetGeocodeCacheAggregateType<T>>
+
+    /**
+     * Group by GeocodeCache.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {GeocodeCacheGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends GeocodeCacheGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: GeocodeCacheGroupByArgs['orderBy'] }
+        : { orderBy?: GeocodeCacheGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, GeocodeCacheGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetGeocodeCacheGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the GeocodeCache model
+   */
+  readonly fields: GeocodeCacheFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for GeocodeCache.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__GeocodeCacheClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the GeocodeCache model
+   */
+  interface GeocodeCacheFieldRefs {
+    readonly id: FieldRef<"GeocodeCache", 'Int'>
+    readonly address: FieldRef<"GeocodeCache", 'String'>
+    readonly city: FieldRef<"GeocodeCache", 'String'>
+    readonly postalCode: FieldRef<"GeocodeCache", 'String'>
+    readonly latitude: FieldRef<"GeocodeCache", 'Float'>
+    readonly longitude: FieldRef<"GeocodeCache", 'Float'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * GeocodeCache findUnique
+   */
+  export type GeocodeCacheFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GeocodeCache
+     */
+    select?: GeocodeCacheSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GeocodeCache
+     */
+    omit?: GeocodeCacheOmit<ExtArgs> | null
+    /**
+     * Filter, which GeocodeCache to fetch.
+     */
+    where: GeocodeCacheWhereUniqueInput
+  }
+
+  /**
+   * GeocodeCache findUniqueOrThrow
+   */
+  export type GeocodeCacheFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GeocodeCache
+     */
+    select?: GeocodeCacheSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GeocodeCache
+     */
+    omit?: GeocodeCacheOmit<ExtArgs> | null
+    /**
+     * Filter, which GeocodeCache to fetch.
+     */
+    where: GeocodeCacheWhereUniqueInput
+  }
+
+  /**
+   * GeocodeCache findFirst
+   */
+  export type GeocodeCacheFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GeocodeCache
+     */
+    select?: GeocodeCacheSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GeocodeCache
+     */
+    omit?: GeocodeCacheOmit<ExtArgs> | null
+    /**
+     * Filter, which GeocodeCache to fetch.
+     */
+    where?: GeocodeCacheWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GeocodeCaches to fetch.
+     */
+    orderBy?: GeocodeCacheOrderByWithRelationInput | GeocodeCacheOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GeocodeCaches.
+     */
+    cursor?: GeocodeCacheWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GeocodeCaches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GeocodeCaches.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GeocodeCaches.
+     */
+    distinct?: GeocodeCacheScalarFieldEnum | GeocodeCacheScalarFieldEnum[]
+  }
+
+  /**
+   * GeocodeCache findFirstOrThrow
+   */
+  export type GeocodeCacheFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GeocodeCache
+     */
+    select?: GeocodeCacheSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GeocodeCache
+     */
+    omit?: GeocodeCacheOmit<ExtArgs> | null
+    /**
+     * Filter, which GeocodeCache to fetch.
+     */
+    where?: GeocodeCacheWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GeocodeCaches to fetch.
+     */
+    orderBy?: GeocodeCacheOrderByWithRelationInput | GeocodeCacheOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for GeocodeCaches.
+     */
+    cursor?: GeocodeCacheWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GeocodeCaches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GeocodeCaches.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of GeocodeCaches.
+     */
+    distinct?: GeocodeCacheScalarFieldEnum | GeocodeCacheScalarFieldEnum[]
+  }
+
+  /**
+   * GeocodeCache findMany
+   */
+  export type GeocodeCacheFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GeocodeCache
+     */
+    select?: GeocodeCacheSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GeocodeCache
+     */
+    omit?: GeocodeCacheOmit<ExtArgs> | null
+    /**
+     * Filter, which GeocodeCaches to fetch.
+     */
+    where?: GeocodeCacheWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of GeocodeCaches to fetch.
+     */
+    orderBy?: GeocodeCacheOrderByWithRelationInput | GeocodeCacheOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing GeocodeCaches.
+     */
+    cursor?: GeocodeCacheWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` GeocodeCaches from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` GeocodeCaches.
+     */
+    skip?: number
+    distinct?: GeocodeCacheScalarFieldEnum | GeocodeCacheScalarFieldEnum[]
+  }
+
+  /**
+   * GeocodeCache create
+   */
+  export type GeocodeCacheCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GeocodeCache
+     */
+    select?: GeocodeCacheSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GeocodeCache
+     */
+    omit?: GeocodeCacheOmit<ExtArgs> | null
+    /**
+     * The data needed to create a GeocodeCache.
+     */
+    data: XOR<GeocodeCacheCreateInput, GeocodeCacheUncheckedCreateInput>
+  }
+
+  /**
+   * GeocodeCache createMany
+   */
+  export type GeocodeCacheCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many GeocodeCaches.
+     */
+    data: GeocodeCacheCreateManyInput | GeocodeCacheCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GeocodeCache createManyAndReturn
+   */
+  export type GeocodeCacheCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GeocodeCache
+     */
+    select?: GeocodeCacheSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GeocodeCache
+     */
+    omit?: GeocodeCacheOmit<ExtArgs> | null
+    /**
+     * The data used to create many GeocodeCaches.
+     */
+    data: GeocodeCacheCreateManyInput | GeocodeCacheCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * GeocodeCache update
+   */
+  export type GeocodeCacheUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GeocodeCache
+     */
+    select?: GeocodeCacheSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GeocodeCache
+     */
+    omit?: GeocodeCacheOmit<ExtArgs> | null
+    /**
+     * The data needed to update a GeocodeCache.
+     */
+    data: XOR<GeocodeCacheUpdateInput, GeocodeCacheUncheckedUpdateInput>
+    /**
+     * Choose, which GeocodeCache to update.
+     */
+    where: GeocodeCacheWhereUniqueInput
+  }
+
+  /**
+   * GeocodeCache updateMany
+   */
+  export type GeocodeCacheUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update GeocodeCaches.
+     */
+    data: XOR<GeocodeCacheUpdateManyMutationInput, GeocodeCacheUncheckedUpdateManyInput>
+    /**
+     * Filter which GeocodeCaches to update
+     */
+    where?: GeocodeCacheWhereInput
+    /**
+     * Limit how many GeocodeCaches to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GeocodeCache updateManyAndReturn
+   */
+  export type GeocodeCacheUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GeocodeCache
+     */
+    select?: GeocodeCacheSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the GeocodeCache
+     */
+    omit?: GeocodeCacheOmit<ExtArgs> | null
+    /**
+     * The data used to update GeocodeCaches.
+     */
+    data: XOR<GeocodeCacheUpdateManyMutationInput, GeocodeCacheUncheckedUpdateManyInput>
+    /**
+     * Filter which GeocodeCaches to update
+     */
+    where?: GeocodeCacheWhereInput
+    /**
+     * Limit how many GeocodeCaches to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * GeocodeCache upsert
+   */
+  export type GeocodeCacheUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GeocodeCache
+     */
+    select?: GeocodeCacheSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GeocodeCache
+     */
+    omit?: GeocodeCacheOmit<ExtArgs> | null
+    /**
+     * The filter to search for the GeocodeCache to update in case it exists.
+     */
+    where: GeocodeCacheWhereUniqueInput
+    /**
+     * In case the GeocodeCache found by the `where` argument doesn't exist, create a new GeocodeCache with this data.
+     */
+    create: XOR<GeocodeCacheCreateInput, GeocodeCacheUncheckedCreateInput>
+    /**
+     * In case the GeocodeCache was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<GeocodeCacheUpdateInput, GeocodeCacheUncheckedUpdateInput>
+  }
+
+  /**
+   * GeocodeCache delete
+   */
+  export type GeocodeCacheDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GeocodeCache
+     */
+    select?: GeocodeCacheSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GeocodeCache
+     */
+    omit?: GeocodeCacheOmit<ExtArgs> | null
+    /**
+     * Filter which GeocodeCache to delete.
+     */
+    where: GeocodeCacheWhereUniqueInput
+  }
+
+  /**
+   * GeocodeCache deleteMany
+   */
+  export type GeocodeCacheDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which GeocodeCaches to delete
+     */
+    where?: GeocodeCacheWhereInput
+    /**
+     * Limit how many GeocodeCaches to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * GeocodeCache without action
+   */
+  export type GeocodeCacheDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GeocodeCache
+     */
+    select?: GeocodeCacheSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the GeocodeCache
+     */
+    omit?: GeocodeCacheOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -10033,6 +13676,45 @@ export namespace Prisma {
   };
 
   export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
+
+
+  export const DocumentScalarFieldEnum: {
+    id: 'id',
+    key: 'key',
+    url: 'url',
+    originalName: 'originalName',
+    mimeType: 'mimeType',
+    size: 'size',
+    propertyId: 'propertyId',
+    leaseId: 'leaseId',
+    createdAt: 'createdAt'
+  };
+
+  export type DocumentScalarFieldEnum = (typeof DocumentScalarFieldEnum)[keyof typeof DocumentScalarFieldEnum]
+
+
+  export const ListingScalarFieldEnum: {
+    id: 'id',
+    title: 'title',
+    description: 'description',
+    price: 'price',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type ListingScalarFieldEnum = (typeof ListingScalarFieldEnum)[keyof typeof ListingScalarFieldEnum]
+
+
+  export const GeocodeCacheScalarFieldEnum: {
+    id: 'id',
+    address: 'address',
+    city: 'city',
+    postalCode: 'postalCode',
+    latitude: 'latitude',
+    longitude: 'longitude'
+  };
+
+  export type GeocodeCacheScalarFieldEnum = (typeof GeocodeCacheScalarFieldEnum)[keyof typeof GeocodeCacheScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -10230,6 +13912,7 @@ export namespace Prisma {
     applications?: ApplicationListRelationFilter
     favoritedBy?: TenantListRelationFilter
     tenants?: TenantListRelationFilter
+    documents?: DocumentListRelationFilter
   }
 
   export type PropertyOrderByWithRelationInput = {
@@ -10259,6 +13942,7 @@ export namespace Prisma {
     applications?: ApplicationOrderByRelationAggregateInput
     favoritedBy?: TenantOrderByRelationAggregateInput
     tenants?: TenantOrderByRelationAggregateInput
+    documents?: DocumentOrderByRelationAggregateInput
   }
 
   export type PropertyWhereUniqueInput = Prisma.AtLeast<{
@@ -10291,6 +13975,7 @@ export namespace Prisma {
     applications?: ApplicationListRelationFilter
     favoritedBy?: TenantListRelationFilter
     tenants?: TenantListRelationFilter
+    documents?: DocumentListRelationFilter
   }, "id">
 
   export type PropertyOrderByWithAggregationInput = {
@@ -10635,6 +14320,7 @@ export namespace Prisma {
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     application?: XOR<ApplicationNullableScalarRelationFilter, ApplicationWhereInput> | null
     payments?: PaymentListRelationFilter
+    documents?: DocumentListRelationFilter
   }
 
   export type LeaseOrderByWithRelationInput = {
@@ -10649,6 +14335,7 @@ export namespace Prisma {
     tenant?: TenantOrderByWithRelationInput
     application?: ApplicationOrderByWithRelationInput
     payments?: PaymentOrderByRelationAggregateInput
+    documents?: DocumentOrderByRelationAggregateInput
   }
 
   export type LeaseWhereUniqueInput = Prisma.AtLeast<{
@@ -10666,6 +14353,7 @@ export namespace Prisma {
     tenant?: XOR<TenantScalarRelationFilter, TenantWhereInput>
     application?: XOR<ApplicationNullableScalarRelationFilter, ApplicationWhereInput> | null
     payments?: PaymentListRelationFilter
+    documents?: DocumentListRelationFilter
   }, "id">
 
   export type LeaseOrderByWithAggregationInput = {
@@ -10763,6 +14451,205 @@ export namespace Prisma {
     leaseId?: IntWithAggregatesFilter<"Payment"> | number
   }
 
+  export type DocumentWhereInput = {
+    AND?: DocumentWhereInput | DocumentWhereInput[]
+    OR?: DocumentWhereInput[]
+    NOT?: DocumentWhereInput | DocumentWhereInput[]
+    id?: IntFilter<"Document"> | number
+    key?: StringFilter<"Document"> | string
+    url?: StringFilter<"Document"> | string
+    originalName?: StringFilter<"Document"> | string
+    mimeType?: StringFilter<"Document"> | string
+    size?: IntFilter<"Document"> | number
+    propertyId?: IntNullableFilter<"Document"> | number | null
+    leaseId?: IntNullableFilter<"Document"> | number | null
+    createdAt?: DateTimeFilter<"Document"> | Date | string
+    property?: XOR<PropertyNullableScalarRelationFilter, PropertyWhereInput> | null
+    lease?: XOR<LeaseNullableScalarRelationFilter, LeaseWhereInput> | null
+  }
+
+  export type DocumentOrderByWithRelationInput = {
+    id?: SortOrder
+    key?: SortOrder
+    url?: SortOrder
+    originalName?: SortOrder
+    mimeType?: SortOrder
+    size?: SortOrder
+    propertyId?: SortOrderInput | SortOrder
+    leaseId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    property?: PropertyOrderByWithRelationInput
+    lease?: LeaseOrderByWithRelationInput
+  }
+
+  export type DocumentWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: DocumentWhereInput | DocumentWhereInput[]
+    OR?: DocumentWhereInput[]
+    NOT?: DocumentWhereInput | DocumentWhereInput[]
+    key?: StringFilter<"Document"> | string
+    url?: StringFilter<"Document"> | string
+    originalName?: StringFilter<"Document"> | string
+    mimeType?: StringFilter<"Document"> | string
+    size?: IntFilter<"Document"> | number
+    propertyId?: IntNullableFilter<"Document"> | number | null
+    leaseId?: IntNullableFilter<"Document"> | number | null
+    createdAt?: DateTimeFilter<"Document"> | Date | string
+    property?: XOR<PropertyNullableScalarRelationFilter, PropertyWhereInput> | null
+    lease?: XOR<LeaseNullableScalarRelationFilter, LeaseWhereInput> | null
+  }, "id">
+
+  export type DocumentOrderByWithAggregationInput = {
+    id?: SortOrder
+    key?: SortOrder
+    url?: SortOrder
+    originalName?: SortOrder
+    mimeType?: SortOrder
+    size?: SortOrder
+    propertyId?: SortOrderInput | SortOrder
+    leaseId?: SortOrderInput | SortOrder
+    createdAt?: SortOrder
+    _count?: DocumentCountOrderByAggregateInput
+    _avg?: DocumentAvgOrderByAggregateInput
+    _max?: DocumentMaxOrderByAggregateInput
+    _min?: DocumentMinOrderByAggregateInput
+    _sum?: DocumentSumOrderByAggregateInput
+  }
+
+  export type DocumentScalarWhereWithAggregatesInput = {
+    AND?: DocumentScalarWhereWithAggregatesInput | DocumentScalarWhereWithAggregatesInput[]
+    OR?: DocumentScalarWhereWithAggregatesInput[]
+    NOT?: DocumentScalarWhereWithAggregatesInput | DocumentScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Document"> | number
+    key?: StringWithAggregatesFilter<"Document"> | string
+    url?: StringWithAggregatesFilter<"Document"> | string
+    originalName?: StringWithAggregatesFilter<"Document"> | string
+    mimeType?: StringWithAggregatesFilter<"Document"> | string
+    size?: IntWithAggregatesFilter<"Document"> | number
+    propertyId?: IntNullableWithAggregatesFilter<"Document"> | number | null
+    leaseId?: IntNullableWithAggregatesFilter<"Document"> | number | null
+    createdAt?: DateTimeWithAggregatesFilter<"Document"> | Date | string
+  }
+
+  export type ListingWhereInput = {
+    AND?: ListingWhereInput | ListingWhereInput[]
+    OR?: ListingWhereInput[]
+    NOT?: ListingWhereInput | ListingWhereInput[]
+    id?: IntFilter<"Listing"> | number
+    title?: StringFilter<"Listing"> | string
+    description?: StringFilter<"Listing"> | string
+    price?: FloatFilter<"Listing"> | number
+    createdAt?: DateTimeFilter<"Listing"> | Date | string
+    updatedAt?: DateTimeFilter<"Listing"> | Date | string
+  }
+
+  export type ListingOrderByWithRelationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    price?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ListingWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    AND?: ListingWhereInput | ListingWhereInput[]
+    OR?: ListingWhereInput[]
+    NOT?: ListingWhereInput | ListingWhereInput[]
+    title?: StringFilter<"Listing"> | string
+    description?: StringFilter<"Listing"> | string
+    price?: FloatFilter<"Listing"> | number
+    createdAt?: DateTimeFilter<"Listing"> | Date | string
+    updatedAt?: DateTimeFilter<"Listing"> | Date | string
+  }, "id">
+
+  export type ListingOrderByWithAggregationInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    price?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: ListingCountOrderByAggregateInput
+    _avg?: ListingAvgOrderByAggregateInput
+    _max?: ListingMaxOrderByAggregateInput
+    _min?: ListingMinOrderByAggregateInput
+    _sum?: ListingSumOrderByAggregateInput
+  }
+
+  export type ListingScalarWhereWithAggregatesInput = {
+    AND?: ListingScalarWhereWithAggregatesInput | ListingScalarWhereWithAggregatesInput[]
+    OR?: ListingScalarWhereWithAggregatesInput[]
+    NOT?: ListingScalarWhereWithAggregatesInput | ListingScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"Listing"> | number
+    title?: StringWithAggregatesFilter<"Listing"> | string
+    description?: StringWithAggregatesFilter<"Listing"> | string
+    price?: FloatWithAggregatesFilter<"Listing"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"Listing"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Listing"> | Date | string
+  }
+
+  export type GeocodeCacheWhereInput = {
+    AND?: GeocodeCacheWhereInput | GeocodeCacheWhereInput[]
+    OR?: GeocodeCacheWhereInput[]
+    NOT?: GeocodeCacheWhereInput | GeocodeCacheWhereInput[]
+    id?: IntFilter<"GeocodeCache"> | number
+    address?: StringFilter<"GeocodeCache"> | string
+    city?: StringFilter<"GeocodeCache"> | string
+    postalCode?: StringFilter<"GeocodeCache"> | string
+    latitude?: FloatFilter<"GeocodeCache"> | number
+    longitude?: FloatFilter<"GeocodeCache"> | number
+  }
+
+  export type GeocodeCacheOrderByWithRelationInput = {
+    id?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    postalCode?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+  }
+
+  export type GeocodeCacheWhereUniqueInput = Prisma.AtLeast<{
+    id?: number
+    address_city_postalCode?: GeocodeCacheAddressCityPostalCodeCompoundUniqueInput
+    AND?: GeocodeCacheWhereInput | GeocodeCacheWhereInput[]
+    OR?: GeocodeCacheWhereInput[]
+    NOT?: GeocodeCacheWhereInput | GeocodeCacheWhereInput[]
+    address?: StringFilter<"GeocodeCache"> | string
+    city?: StringFilter<"GeocodeCache"> | string
+    postalCode?: StringFilter<"GeocodeCache"> | string
+    latitude?: FloatFilter<"GeocodeCache"> | number
+    longitude?: FloatFilter<"GeocodeCache"> | number
+  }, "id" | "address_city_postalCode">
+
+  export type GeocodeCacheOrderByWithAggregationInput = {
+    id?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    postalCode?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+    _count?: GeocodeCacheCountOrderByAggregateInput
+    _avg?: GeocodeCacheAvgOrderByAggregateInput
+    _max?: GeocodeCacheMaxOrderByAggregateInput
+    _min?: GeocodeCacheMinOrderByAggregateInput
+    _sum?: GeocodeCacheSumOrderByAggregateInput
+  }
+
+  export type GeocodeCacheScalarWhereWithAggregatesInput = {
+    AND?: GeocodeCacheScalarWhereWithAggregatesInput | GeocodeCacheScalarWhereWithAggregatesInput[]
+    OR?: GeocodeCacheScalarWhereWithAggregatesInput[]
+    NOT?: GeocodeCacheScalarWhereWithAggregatesInput | GeocodeCacheScalarWhereWithAggregatesInput[]
+    id?: IntWithAggregatesFilter<"GeocodeCache"> | number
+    address?: StringWithAggregatesFilter<"GeocodeCache"> | string
+    city?: StringWithAggregatesFilter<"GeocodeCache"> | string
+    postalCode?: StringWithAggregatesFilter<"GeocodeCache"> | string
+    latitude?: FloatWithAggregatesFilter<"GeocodeCache"> | number
+    longitude?: FloatWithAggregatesFilter<"GeocodeCache"> | number
+  }
+
   export type PropertyCreateInput = {
     name: string
     description: string
@@ -10787,6 +14674,7 @@ export namespace Prisma {
     applications?: ApplicationCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantCreateNestedManyWithoutFavoritesInput
     tenants?: TenantCreateNestedManyWithoutPropertiesInput
+    documents?: DocumentCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyUncheckedCreateInput = {
@@ -10814,6 +14702,7 @@ export namespace Prisma {
     applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantUncheckedCreateNestedManyWithoutFavoritesInput
     tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyUpdateInput = {
@@ -10840,6 +14729,7 @@ export namespace Prisma {
     applications?: ApplicationUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUpdateManyWithoutFavoritesNestedInput
     tenants?: TenantUpdateManyWithoutPropertiesNestedInput
+    documents?: DocumentUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateInput = {
@@ -10867,6 +14757,7 @@ export namespace Prisma {
     applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUncheckedUpdateManyWithoutFavoritesNestedInput
     tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyCreateManyInput = {
@@ -11191,6 +15082,7 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutLeasesInput
     application?: ApplicationCreateNestedOneWithoutLeaseInput
     payments?: PaymentCreateNestedManyWithoutLeaseInput
+    documents?: DocumentCreateNestedManyWithoutLeaseInput
   }
 
   export type LeaseUncheckedCreateInput = {
@@ -11203,6 +15095,7 @@ export namespace Prisma {
     tenantCognitoId: string
     application?: ApplicationUncheckedCreateNestedOneWithoutLeaseInput
     payments?: PaymentUncheckedCreateNestedManyWithoutLeaseInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutLeaseInput
   }
 
   export type LeaseUpdateInput = {
@@ -11214,6 +15107,7 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutLeasesNestedInput
     application?: ApplicationUpdateOneWithoutLeaseNestedInput
     payments?: PaymentUpdateManyWithoutLeaseNestedInput
+    documents?: DocumentUpdateManyWithoutLeaseNestedInput
   }
 
   export type LeaseUncheckedUpdateInput = {
@@ -11226,6 +15120,7 @@ export namespace Prisma {
     tenantCognitoId?: StringFieldUpdateOperationsInput | string
     application?: ApplicationUncheckedUpdateOneWithoutLeaseNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutLeaseNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutLeaseNestedInput
   }
 
   export type LeaseCreateManyInput = {
@@ -11319,6 +15214,205 @@ export namespace Prisma {
     paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
     leaseId?: IntFieldUpdateOperationsInput | number
+  }
+
+  export type DocumentCreateInput = {
+    key: string
+    url: string
+    originalName: string
+    mimeType: string
+    size: number
+    createdAt?: Date | string
+    property?: PropertyCreateNestedOneWithoutDocumentsInput
+    lease?: LeaseCreateNestedOneWithoutDocumentsInput
+  }
+
+  export type DocumentUncheckedCreateInput = {
+    id?: number
+    key: string
+    url: string
+    originalName: string
+    mimeType: string
+    size: number
+    propertyId?: number | null
+    leaseId?: number | null
+    createdAt?: Date | string
+  }
+
+  export type DocumentUpdateInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    originalName?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    property?: PropertyUpdateOneWithoutDocumentsNestedInput
+    lease?: LeaseUpdateOneWithoutDocumentsNestedInput
+  }
+
+  export type DocumentUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    key?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    originalName?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    propertyId?: NullableIntFieldUpdateOperationsInput | number | null
+    leaseId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentCreateManyInput = {
+    id?: number
+    key: string
+    url: string
+    originalName: string
+    mimeType: string
+    size: number
+    propertyId?: number | null
+    leaseId?: number | null
+    createdAt?: Date | string
+  }
+
+  export type DocumentUpdateManyMutationInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    originalName?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    key?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    originalName?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    propertyId?: NullableIntFieldUpdateOperationsInput | number | null
+    leaseId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ListingCreateInput = {
+    title: string
+    description: string
+    price: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ListingUncheckedCreateInput = {
+    id?: number
+    title: string
+    description: string
+    price: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ListingUpdateInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ListingUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ListingCreateManyInput = {
+    id?: number
+    title: string
+    description: string
+    price: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type ListingUpdateManyMutationInput = {
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type ListingUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    title?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    price?: FloatFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type GeocodeCacheCreateInput = {
+    address: string
+    city: string
+    postalCode: string
+    latitude: number
+    longitude: number
+  }
+
+  export type GeocodeCacheUncheckedCreateInput = {
+    id?: number
+    address: string
+    city: string
+    postalCode: string
+    latitude: number
+    longitude: number
+  }
+
+  export type GeocodeCacheUpdateInput = {
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    postalCode?: StringFieldUpdateOperationsInput | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type GeocodeCacheUncheckedUpdateInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    postalCode?: StringFieldUpdateOperationsInput | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type GeocodeCacheCreateManyInput = {
+    id?: number
+    address: string
+    city: string
+    postalCode: string
+    latitude: number
+    longitude: number
+  }
+
+  export type GeocodeCacheUpdateManyMutationInput = {
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    postalCode?: StringFieldUpdateOperationsInput | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
+  }
+
+  export type GeocodeCacheUncheckedUpdateManyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    address?: StringFieldUpdateOperationsInput | string
+    city?: StringFieldUpdateOperationsInput | string
+    postalCode?: StringFieldUpdateOperationsInput | string
+    latitude?: FloatFieldUpdateOperationsInput | number
+    longitude?: FloatFieldUpdateOperationsInput | number
   }
 
   export type IntFilter<$PrismaModel = never> = {
@@ -11455,6 +15549,12 @@ export namespace Prisma {
     none?: TenantWhereInput
   }
 
+  export type DocumentListRelationFilter = {
+    every?: DocumentWhereInput
+    some?: DocumentWhereInput
+    none?: DocumentWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -11469,6 +15569,10 @@ export namespace Prisma {
   }
 
   export type TenantOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type DocumentOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -12025,6 +16129,143 @@ export namespace Prisma {
     _max?: NestedEnumPaymentStatusFilter<$PrismaModel>
   }
 
+  export type PropertyNullableScalarRelationFilter = {
+    is?: PropertyWhereInput | null
+    isNot?: PropertyWhereInput | null
+  }
+
+  export type DocumentCountOrderByAggregateInput = {
+    id?: SortOrder
+    key?: SortOrder
+    url?: SortOrder
+    originalName?: SortOrder
+    mimeType?: SortOrder
+    size?: SortOrder
+    propertyId?: SortOrder
+    leaseId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DocumentAvgOrderByAggregateInput = {
+    id?: SortOrder
+    size?: SortOrder
+    propertyId?: SortOrder
+    leaseId?: SortOrder
+  }
+
+  export type DocumentMaxOrderByAggregateInput = {
+    id?: SortOrder
+    key?: SortOrder
+    url?: SortOrder
+    originalName?: SortOrder
+    mimeType?: SortOrder
+    size?: SortOrder
+    propertyId?: SortOrder
+    leaseId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DocumentMinOrderByAggregateInput = {
+    id?: SortOrder
+    key?: SortOrder
+    url?: SortOrder
+    originalName?: SortOrder
+    mimeType?: SortOrder
+    size?: SortOrder
+    propertyId?: SortOrder
+    leaseId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type DocumentSumOrderByAggregateInput = {
+    id?: SortOrder
+    size?: SortOrder
+    propertyId?: SortOrder
+    leaseId?: SortOrder
+  }
+
+  export type ListingCountOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    price?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ListingAvgOrderByAggregateInput = {
+    id?: SortOrder
+    price?: SortOrder
+  }
+
+  export type ListingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    price?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ListingMinOrderByAggregateInput = {
+    id?: SortOrder
+    title?: SortOrder
+    description?: SortOrder
+    price?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type ListingSumOrderByAggregateInput = {
+    id?: SortOrder
+    price?: SortOrder
+  }
+
+  export type GeocodeCacheAddressCityPostalCodeCompoundUniqueInput = {
+    address: string
+    city: string
+    postalCode: string
+  }
+
+  export type GeocodeCacheCountOrderByAggregateInput = {
+    id?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    postalCode?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+  }
+
+  export type GeocodeCacheAvgOrderByAggregateInput = {
+    id?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+  }
+
+  export type GeocodeCacheMaxOrderByAggregateInput = {
+    id?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    postalCode?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+  }
+
+  export type GeocodeCacheMinOrderByAggregateInput = {
+    id?: SortOrder
+    address?: SortOrder
+    city?: SortOrder
+    postalCode?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+  }
+
+  export type GeocodeCacheSumOrderByAggregateInput = {
+    id?: SortOrder
+    latitude?: SortOrder
+    longitude?: SortOrder
+  }
+
   export type PropertyCreatephotoUrlsInput = {
     set: string[]
   }
@@ -12073,6 +16314,13 @@ export namespace Prisma {
     connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
   }
 
+  export type DocumentCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<DocumentCreateWithoutPropertyInput, DocumentUncheckedCreateWithoutPropertyInput> | DocumentCreateWithoutPropertyInput[] | DocumentUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutPropertyInput | DocumentCreateOrConnectWithoutPropertyInput[]
+    createMany?: DocumentCreateManyPropertyInputEnvelope
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+  }
+
   export type LeaseUncheckedCreateNestedManyWithoutPropertyInput = {
     create?: XOR<LeaseCreateWithoutPropertyInput, LeaseUncheckedCreateWithoutPropertyInput> | LeaseCreateWithoutPropertyInput[] | LeaseUncheckedCreateWithoutPropertyInput[]
     connectOrCreate?: LeaseCreateOrConnectWithoutPropertyInput | LeaseCreateOrConnectWithoutPropertyInput[]
@@ -12097,6 +16345,13 @@ export namespace Prisma {
     create?: XOR<TenantCreateWithoutPropertiesInput, TenantUncheckedCreateWithoutPropertiesInput> | TenantCreateWithoutPropertiesInput[] | TenantUncheckedCreateWithoutPropertiesInput[]
     connectOrCreate?: TenantCreateOrConnectWithoutPropertiesInput | TenantCreateOrConnectWithoutPropertiesInput[]
     connect?: TenantWhereUniqueInput | TenantWhereUniqueInput[]
+  }
+
+  export type DocumentUncheckedCreateNestedManyWithoutPropertyInput = {
+    create?: XOR<DocumentCreateWithoutPropertyInput, DocumentUncheckedCreateWithoutPropertyInput> | DocumentCreateWithoutPropertyInput[] | DocumentUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutPropertyInput | DocumentCreateOrConnectWithoutPropertyInput[]
+    createMany?: DocumentCreateManyPropertyInputEnvelope
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -12229,6 +16484,20 @@ export namespace Prisma {
     deleteMany?: TenantScalarWhereInput | TenantScalarWhereInput[]
   }
 
+  export type DocumentUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<DocumentCreateWithoutPropertyInput, DocumentUncheckedCreateWithoutPropertyInput> | DocumentCreateWithoutPropertyInput[] | DocumentUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutPropertyInput | DocumentCreateOrConnectWithoutPropertyInput[]
+    upsert?: DocumentUpsertWithWhereUniqueWithoutPropertyInput | DocumentUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: DocumentCreateManyPropertyInputEnvelope
+    set?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    disconnect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    delete?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    update?: DocumentUpdateWithWhereUniqueWithoutPropertyInput | DocumentUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: DocumentUpdateManyWithWhereWithoutPropertyInput | DocumentUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
+  }
+
   export type LeaseUncheckedUpdateManyWithoutPropertyNestedInput = {
     create?: XOR<LeaseCreateWithoutPropertyInput, LeaseUncheckedCreateWithoutPropertyInput> | LeaseCreateWithoutPropertyInput[] | LeaseUncheckedCreateWithoutPropertyInput[]
     connectOrCreate?: LeaseCreateOrConnectWithoutPropertyInput | LeaseCreateOrConnectWithoutPropertyInput[]
@@ -12281,6 +16550,20 @@ export namespace Prisma {
     update?: TenantUpdateWithWhereUniqueWithoutPropertiesInput | TenantUpdateWithWhereUniqueWithoutPropertiesInput[]
     updateMany?: TenantUpdateManyWithWhereWithoutPropertiesInput | TenantUpdateManyWithWhereWithoutPropertiesInput[]
     deleteMany?: TenantScalarWhereInput | TenantScalarWhereInput[]
+  }
+
+  export type DocumentUncheckedUpdateManyWithoutPropertyNestedInput = {
+    create?: XOR<DocumentCreateWithoutPropertyInput, DocumentUncheckedCreateWithoutPropertyInput> | DocumentCreateWithoutPropertyInput[] | DocumentUncheckedCreateWithoutPropertyInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutPropertyInput | DocumentCreateOrConnectWithoutPropertyInput[]
+    upsert?: DocumentUpsertWithWhereUniqueWithoutPropertyInput | DocumentUpsertWithWhereUniqueWithoutPropertyInput[]
+    createMany?: DocumentCreateManyPropertyInputEnvelope
+    set?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    disconnect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    delete?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    update?: DocumentUpdateWithWhereUniqueWithoutPropertyInput | DocumentUpdateWithWhereUniqueWithoutPropertyInput[]
+    updateMany?: DocumentUpdateManyWithWhereWithoutPropertyInput | DocumentUpdateManyWithWhereWithoutPropertyInput[]
+    deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
   }
 
   export type PropertyCreateNestedManyWithoutManagerInput = {
@@ -12590,6 +16873,13 @@ export namespace Prisma {
     connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
   }
 
+  export type DocumentCreateNestedManyWithoutLeaseInput = {
+    create?: XOR<DocumentCreateWithoutLeaseInput, DocumentUncheckedCreateWithoutLeaseInput> | DocumentCreateWithoutLeaseInput[] | DocumentUncheckedCreateWithoutLeaseInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutLeaseInput | DocumentCreateOrConnectWithoutLeaseInput[]
+    createMany?: DocumentCreateManyLeaseInputEnvelope
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+  }
+
   export type ApplicationUncheckedCreateNestedOneWithoutLeaseInput = {
     create?: XOR<ApplicationCreateWithoutLeaseInput, ApplicationUncheckedCreateWithoutLeaseInput>
     connectOrCreate?: ApplicationCreateOrConnectWithoutLeaseInput
@@ -12601,6 +16891,13 @@ export namespace Prisma {
     connectOrCreate?: PaymentCreateOrConnectWithoutLeaseInput | PaymentCreateOrConnectWithoutLeaseInput[]
     createMany?: PaymentCreateManyLeaseInputEnvelope
     connect?: PaymentWhereUniqueInput | PaymentWhereUniqueInput[]
+  }
+
+  export type DocumentUncheckedCreateNestedManyWithoutLeaseInput = {
+    create?: XOR<DocumentCreateWithoutLeaseInput, DocumentUncheckedCreateWithoutLeaseInput> | DocumentCreateWithoutLeaseInput[] | DocumentUncheckedCreateWithoutLeaseInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutLeaseInput | DocumentCreateOrConnectWithoutLeaseInput[]
+    createMany?: DocumentCreateManyLeaseInputEnvelope
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
   }
 
   export type PropertyUpdateOneRequiredWithoutLeasesNestedInput = {
@@ -12643,6 +16940,20 @@ export namespace Prisma {
     deleteMany?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
   }
 
+  export type DocumentUpdateManyWithoutLeaseNestedInput = {
+    create?: XOR<DocumentCreateWithoutLeaseInput, DocumentUncheckedCreateWithoutLeaseInput> | DocumentCreateWithoutLeaseInput[] | DocumentUncheckedCreateWithoutLeaseInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutLeaseInput | DocumentCreateOrConnectWithoutLeaseInput[]
+    upsert?: DocumentUpsertWithWhereUniqueWithoutLeaseInput | DocumentUpsertWithWhereUniqueWithoutLeaseInput[]
+    createMany?: DocumentCreateManyLeaseInputEnvelope
+    set?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    disconnect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    delete?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    update?: DocumentUpdateWithWhereUniqueWithoutLeaseInput | DocumentUpdateWithWhereUniqueWithoutLeaseInput[]
+    updateMany?: DocumentUpdateManyWithWhereWithoutLeaseInput | DocumentUpdateManyWithWhereWithoutLeaseInput[]
+    deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
+  }
+
   export type ApplicationUncheckedUpdateOneWithoutLeaseNestedInput = {
     create?: XOR<ApplicationCreateWithoutLeaseInput, ApplicationUncheckedCreateWithoutLeaseInput>
     connectOrCreate?: ApplicationCreateOrConnectWithoutLeaseInput
@@ -12667,6 +16978,20 @@ export namespace Prisma {
     deleteMany?: PaymentScalarWhereInput | PaymentScalarWhereInput[]
   }
 
+  export type DocumentUncheckedUpdateManyWithoutLeaseNestedInput = {
+    create?: XOR<DocumentCreateWithoutLeaseInput, DocumentUncheckedCreateWithoutLeaseInput> | DocumentCreateWithoutLeaseInput[] | DocumentUncheckedCreateWithoutLeaseInput[]
+    connectOrCreate?: DocumentCreateOrConnectWithoutLeaseInput | DocumentCreateOrConnectWithoutLeaseInput[]
+    upsert?: DocumentUpsertWithWhereUniqueWithoutLeaseInput | DocumentUpsertWithWhereUniqueWithoutLeaseInput[]
+    createMany?: DocumentCreateManyLeaseInputEnvelope
+    set?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    disconnect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    delete?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+    update?: DocumentUpdateWithWhereUniqueWithoutLeaseInput | DocumentUpdateWithWhereUniqueWithoutLeaseInput[]
+    updateMany?: DocumentUpdateManyWithWhereWithoutLeaseInput | DocumentUpdateManyWithWhereWithoutLeaseInput[]
+    deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
+  }
+
   export type LeaseCreateNestedOneWithoutPaymentsInput = {
     create?: XOR<LeaseCreateWithoutPaymentsInput, LeaseUncheckedCreateWithoutPaymentsInput>
     connectOrCreate?: LeaseCreateOrConnectWithoutPaymentsInput
@@ -12683,6 +17008,38 @@ export namespace Prisma {
     upsert?: LeaseUpsertWithoutPaymentsInput
     connect?: LeaseWhereUniqueInput
     update?: XOR<XOR<LeaseUpdateToOneWithWhereWithoutPaymentsInput, LeaseUpdateWithoutPaymentsInput>, LeaseUncheckedUpdateWithoutPaymentsInput>
+  }
+
+  export type PropertyCreateNestedOneWithoutDocumentsInput = {
+    create?: XOR<PropertyCreateWithoutDocumentsInput, PropertyUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: PropertyCreateOrConnectWithoutDocumentsInput
+    connect?: PropertyWhereUniqueInput
+  }
+
+  export type LeaseCreateNestedOneWithoutDocumentsInput = {
+    create?: XOR<LeaseCreateWithoutDocumentsInput, LeaseUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: LeaseCreateOrConnectWithoutDocumentsInput
+    connect?: LeaseWhereUniqueInput
+  }
+
+  export type PropertyUpdateOneWithoutDocumentsNestedInput = {
+    create?: XOR<PropertyCreateWithoutDocumentsInput, PropertyUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: PropertyCreateOrConnectWithoutDocumentsInput
+    upsert?: PropertyUpsertWithoutDocumentsInput
+    disconnect?: PropertyWhereInput | boolean
+    delete?: PropertyWhereInput | boolean
+    connect?: PropertyWhereUniqueInput
+    update?: XOR<XOR<PropertyUpdateToOneWithWhereWithoutDocumentsInput, PropertyUpdateWithoutDocumentsInput>, PropertyUncheckedUpdateWithoutDocumentsInput>
+  }
+
+  export type LeaseUpdateOneWithoutDocumentsNestedInput = {
+    create?: XOR<LeaseCreateWithoutDocumentsInput, LeaseUncheckedCreateWithoutDocumentsInput>
+    connectOrCreate?: LeaseCreateOrConnectWithoutDocumentsInput
+    upsert?: LeaseUpsertWithoutDocumentsInput
+    disconnect?: LeaseWhereInput | boolean
+    delete?: LeaseWhereInput | boolean
+    connect?: LeaseWhereUniqueInput
+    update?: XOR<XOR<LeaseUpdateToOneWithWhereWithoutDocumentsInput, LeaseUpdateWithoutDocumentsInput>, LeaseUncheckedUpdateWithoutDocumentsInput>
   }
 
   export type NestedIntFilter<$PrismaModel = never> = {
@@ -12972,6 +17329,7 @@ export namespace Prisma {
     tenant: TenantCreateNestedOneWithoutLeasesInput
     application?: ApplicationCreateNestedOneWithoutLeaseInput
     payments?: PaymentCreateNestedManyWithoutLeaseInput
+    documents?: DocumentCreateNestedManyWithoutLeaseInput
   }
 
   export type LeaseUncheckedCreateWithoutPropertyInput = {
@@ -12983,6 +17341,7 @@ export namespace Prisma {
     tenantCognitoId: string
     application?: ApplicationUncheckedCreateNestedOneWithoutLeaseInput
     payments?: PaymentUncheckedCreateNestedManyWithoutLeaseInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutLeaseInput
   }
 
   export type LeaseCreateOrConnectWithoutPropertyInput = {
@@ -13078,6 +17437,37 @@ export namespace Prisma {
   export type TenantCreateOrConnectWithoutPropertiesInput = {
     where: TenantWhereUniqueInput
     create: XOR<TenantCreateWithoutPropertiesInput, TenantUncheckedCreateWithoutPropertiesInput>
+  }
+
+  export type DocumentCreateWithoutPropertyInput = {
+    key: string
+    url: string
+    originalName: string
+    mimeType: string
+    size: number
+    createdAt?: Date | string
+    lease?: LeaseCreateNestedOneWithoutDocumentsInput
+  }
+
+  export type DocumentUncheckedCreateWithoutPropertyInput = {
+    id?: number
+    key: string
+    url: string
+    originalName: string
+    mimeType: string
+    size: number
+    leaseId?: number | null
+    createdAt?: Date | string
+  }
+
+  export type DocumentCreateOrConnectWithoutPropertyInput = {
+    where: DocumentWhereUniqueInput
+    create: XOR<DocumentCreateWithoutPropertyInput, DocumentUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type DocumentCreateManyPropertyInputEnvelope = {
+    data: DocumentCreateManyPropertyInput | DocumentCreateManyPropertyInput[]
+    skipDuplicates?: boolean
   }
 
   export type LocationUpdateToOneWithWhereWithoutPropertiesInput = {
@@ -13232,6 +17622,37 @@ export namespace Prisma {
     data: XOR<TenantUpdateManyMutationInput, TenantUncheckedUpdateManyWithoutPropertiesInput>
   }
 
+  export type DocumentUpsertWithWhereUniqueWithoutPropertyInput = {
+    where: DocumentWhereUniqueInput
+    update: XOR<DocumentUpdateWithoutPropertyInput, DocumentUncheckedUpdateWithoutPropertyInput>
+    create: XOR<DocumentCreateWithoutPropertyInput, DocumentUncheckedCreateWithoutPropertyInput>
+  }
+
+  export type DocumentUpdateWithWhereUniqueWithoutPropertyInput = {
+    where: DocumentWhereUniqueInput
+    data: XOR<DocumentUpdateWithoutPropertyInput, DocumentUncheckedUpdateWithoutPropertyInput>
+  }
+
+  export type DocumentUpdateManyWithWhereWithoutPropertyInput = {
+    where: DocumentScalarWhereInput
+    data: XOR<DocumentUpdateManyMutationInput, DocumentUncheckedUpdateManyWithoutPropertyInput>
+  }
+
+  export type DocumentScalarWhereInput = {
+    AND?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
+    OR?: DocumentScalarWhereInput[]
+    NOT?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
+    id?: IntFilter<"Document"> | number
+    key?: StringFilter<"Document"> | string
+    url?: StringFilter<"Document"> | string
+    originalName?: StringFilter<"Document"> | string
+    mimeType?: StringFilter<"Document"> | string
+    size?: IntFilter<"Document"> | number
+    propertyId?: IntNullableFilter<"Document"> | number | null
+    leaseId?: IntNullableFilter<"Document"> | number | null
+    createdAt?: DateTimeFilter<"Document"> | Date | string
+  }
+
   export type PropertyCreateWithoutManagerInput = {
     name: string
     description: string
@@ -13255,6 +17676,7 @@ export namespace Prisma {
     applications?: ApplicationCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantCreateNestedManyWithoutFavoritesInput
     tenants?: TenantCreateNestedManyWithoutPropertiesInput
+    documents?: DocumentCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyUncheckedCreateWithoutManagerInput = {
@@ -13281,6 +17703,7 @@ export namespace Prisma {
     applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantUncheckedCreateNestedManyWithoutFavoritesInput
     tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyCreateOrConnectWithoutManagerInput = {
@@ -13358,6 +17781,7 @@ export namespace Prisma {
     leases?: LeaseCreateNestedManyWithoutPropertyInput
     applications?: ApplicationCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantCreateNestedManyWithoutFavoritesInput
+    documents?: DocumentCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyUncheckedCreateWithoutTenantsInput = {
@@ -13384,6 +17808,7 @@ export namespace Prisma {
     leases?: LeaseUncheckedCreateNestedManyWithoutPropertyInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantUncheckedCreateNestedManyWithoutFavoritesInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyCreateOrConnectWithoutTenantsInput = {
@@ -13414,6 +17839,7 @@ export namespace Prisma {
     leases?: LeaseCreateNestedManyWithoutPropertyInput
     applications?: ApplicationCreateNestedManyWithoutPropertyInput
     tenants?: TenantCreateNestedManyWithoutPropertiesInput
+    documents?: DocumentCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyUncheckedCreateWithoutFavoritedByInput = {
@@ -13440,6 +17866,7 @@ export namespace Prisma {
     leases?: LeaseUncheckedCreateNestedManyWithoutPropertyInput
     applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
     tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyCreateOrConnectWithoutFavoritedByInput = {
@@ -13488,6 +17915,7 @@ export namespace Prisma {
     property: PropertyCreateNestedOneWithoutLeasesInput
     application?: ApplicationCreateNestedOneWithoutLeaseInput
     payments?: PaymentCreateNestedManyWithoutLeaseInput
+    documents?: DocumentCreateNestedManyWithoutLeaseInput
   }
 
   export type LeaseUncheckedCreateWithoutTenantInput = {
@@ -13499,6 +17927,7 @@ export namespace Prisma {
     propertyId: number
     application?: ApplicationUncheckedCreateNestedOneWithoutLeaseInput
     payments?: PaymentUncheckedCreateNestedManyWithoutLeaseInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutLeaseInput
   }
 
   export type LeaseCreateOrConnectWithoutTenantInput = {
@@ -13598,6 +18027,7 @@ export namespace Prisma {
     applications?: ApplicationCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantCreateNestedManyWithoutFavoritesInput
     tenants?: TenantCreateNestedManyWithoutPropertiesInput
+    documents?: DocumentCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyUncheckedCreateWithoutLocationInput = {
@@ -13624,6 +18054,7 @@ export namespace Prisma {
     applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantUncheckedCreateNestedManyWithoutFavoritesInput
     tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyCreateOrConnectWithoutLocationInput = {
@@ -13675,6 +18106,7 @@ export namespace Prisma {
     leases?: LeaseCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantCreateNestedManyWithoutFavoritesInput
     tenants?: TenantCreateNestedManyWithoutPropertiesInput
+    documents?: DocumentCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyUncheckedCreateWithoutApplicationsInput = {
@@ -13701,6 +18133,7 @@ export namespace Prisma {
     leases?: LeaseUncheckedCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantUncheckedCreateNestedManyWithoutFavoritesInput
     tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyCreateOrConnectWithoutApplicationsInput = {
@@ -13742,6 +18175,7 @@ export namespace Prisma {
     property: PropertyCreateNestedOneWithoutLeasesInput
     tenant: TenantCreateNestedOneWithoutLeasesInput
     payments?: PaymentCreateNestedManyWithoutLeaseInput
+    documents?: DocumentCreateNestedManyWithoutLeaseInput
   }
 
   export type LeaseUncheckedCreateWithoutApplicationInput = {
@@ -13753,6 +18187,7 @@ export namespace Prisma {
     propertyId: number
     tenantCognitoId: string
     payments?: PaymentUncheckedCreateNestedManyWithoutLeaseInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutLeaseInput
   }
 
   export type LeaseCreateOrConnectWithoutApplicationInput = {
@@ -13794,6 +18229,7 @@ export namespace Prisma {
     leases?: LeaseUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUpdateManyWithoutFavoritesNestedInput
     tenants?: TenantUpdateManyWithoutPropertiesNestedInput
+    documents?: DocumentUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateWithoutApplicationsInput = {
@@ -13820,6 +18256,7 @@ export namespace Prisma {
     leases?: LeaseUncheckedUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUncheckedUpdateManyWithoutFavoritesNestedInput
     tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutPropertyNestedInput
   }
 
   export type TenantUpsertWithoutApplicationsInput = {
@@ -13873,6 +18310,7 @@ export namespace Prisma {
     property?: PropertyUpdateOneRequiredWithoutLeasesNestedInput
     tenant?: TenantUpdateOneRequiredWithoutLeasesNestedInput
     payments?: PaymentUpdateManyWithoutLeaseNestedInput
+    documents?: DocumentUpdateManyWithoutLeaseNestedInput
   }
 
   export type LeaseUncheckedUpdateWithoutApplicationInput = {
@@ -13884,6 +18322,7 @@ export namespace Prisma {
     propertyId?: IntFieldUpdateOperationsInput | number
     tenantCognitoId?: StringFieldUpdateOperationsInput | string
     payments?: PaymentUncheckedUpdateManyWithoutLeaseNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutLeaseNestedInput
   }
 
   export type PropertyCreateWithoutLeasesInput = {
@@ -13909,6 +18348,7 @@ export namespace Prisma {
     applications?: ApplicationCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantCreateNestedManyWithoutFavoritesInput
     tenants?: TenantCreateNestedManyWithoutPropertiesInput
+    documents?: DocumentCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyUncheckedCreateWithoutLeasesInput = {
@@ -13935,6 +18375,7 @@ export namespace Prisma {
     applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
     favoritedBy?: TenantUncheckedCreateNestedManyWithoutFavoritesInput
     tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutPropertyInput
   }
 
   export type PropertyCreateOrConnectWithoutLeasesInput = {
@@ -14023,6 +18464,37 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type DocumentCreateWithoutLeaseInput = {
+    key: string
+    url: string
+    originalName: string
+    mimeType: string
+    size: number
+    createdAt?: Date | string
+    property?: PropertyCreateNestedOneWithoutDocumentsInput
+  }
+
+  export type DocumentUncheckedCreateWithoutLeaseInput = {
+    id?: number
+    key: string
+    url: string
+    originalName: string
+    mimeType: string
+    size: number
+    propertyId?: number | null
+    createdAt?: Date | string
+  }
+
+  export type DocumentCreateOrConnectWithoutLeaseInput = {
+    where: DocumentWhereUniqueInput
+    create: XOR<DocumentCreateWithoutLeaseInput, DocumentUncheckedCreateWithoutLeaseInput>
+  }
+
+  export type DocumentCreateManyLeaseInputEnvelope = {
+    data: DocumentCreateManyLeaseInput | DocumentCreateManyLeaseInput[]
+    skipDuplicates?: boolean
+  }
+
   export type PropertyUpsertWithoutLeasesInput = {
     update: XOR<PropertyUpdateWithoutLeasesInput, PropertyUncheckedUpdateWithoutLeasesInput>
     create: XOR<PropertyCreateWithoutLeasesInput, PropertyUncheckedCreateWithoutLeasesInput>
@@ -14057,6 +18529,7 @@ export namespace Prisma {
     applications?: ApplicationUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUpdateManyWithoutFavoritesNestedInput
     tenants?: TenantUpdateManyWithoutPropertiesNestedInput
+    documents?: DocumentUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateWithoutLeasesInput = {
@@ -14083,6 +18556,7 @@ export namespace Prisma {
     applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUncheckedUpdateManyWithoutFavoritesNestedInput
     tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutPropertyNestedInput
   }
 
   export type TenantUpsertWithoutLeasesInput = {
@@ -14180,6 +18654,22 @@ export namespace Prisma {
     leaseId?: IntFilter<"Payment"> | number
   }
 
+  export type DocumentUpsertWithWhereUniqueWithoutLeaseInput = {
+    where: DocumentWhereUniqueInput
+    update: XOR<DocumentUpdateWithoutLeaseInput, DocumentUncheckedUpdateWithoutLeaseInput>
+    create: XOR<DocumentCreateWithoutLeaseInput, DocumentUncheckedCreateWithoutLeaseInput>
+  }
+
+  export type DocumentUpdateWithWhereUniqueWithoutLeaseInput = {
+    where: DocumentWhereUniqueInput
+    data: XOR<DocumentUpdateWithoutLeaseInput, DocumentUncheckedUpdateWithoutLeaseInput>
+  }
+
+  export type DocumentUpdateManyWithWhereWithoutLeaseInput = {
+    where: DocumentScalarWhereInput
+    data: XOR<DocumentUpdateManyMutationInput, DocumentUncheckedUpdateManyWithoutLeaseInput>
+  }
+
   export type LeaseCreateWithoutPaymentsInput = {
     startDate: Date | string
     endDate: Date | string
@@ -14188,6 +18678,7 @@ export namespace Prisma {
     property: PropertyCreateNestedOneWithoutLeasesInput
     tenant: TenantCreateNestedOneWithoutLeasesInput
     application?: ApplicationCreateNestedOneWithoutLeaseInput
+    documents?: DocumentCreateNestedManyWithoutLeaseInput
   }
 
   export type LeaseUncheckedCreateWithoutPaymentsInput = {
@@ -14199,6 +18690,7 @@ export namespace Prisma {
     propertyId: number
     tenantCognitoId: string
     application?: ApplicationUncheckedCreateNestedOneWithoutLeaseInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutLeaseInput
   }
 
   export type LeaseCreateOrConnectWithoutPaymentsInput = {
@@ -14225,6 +18717,7 @@ export namespace Prisma {
     property?: PropertyUpdateOneRequiredWithoutLeasesNestedInput
     tenant?: TenantUpdateOneRequiredWithoutLeasesNestedInput
     application?: ApplicationUpdateOneWithoutLeaseNestedInput
+    documents?: DocumentUpdateManyWithoutLeaseNestedInput
   }
 
   export type LeaseUncheckedUpdateWithoutPaymentsInput = {
@@ -14236,6 +18729,191 @@ export namespace Prisma {
     propertyId?: IntFieldUpdateOperationsInput | number
     tenantCognitoId?: StringFieldUpdateOperationsInput | string
     application?: ApplicationUncheckedUpdateOneWithoutLeaseNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutLeaseNestedInput
+  }
+
+  export type PropertyCreateWithoutDocumentsInput = {
+    name: string
+    description: string
+    pricePerMonth: number
+    securityDeposit: number
+    applicationFee: number
+    photoUrls?: PropertyCreatephotoUrlsInput | string[]
+    amenities?: PropertyCreateamenitiesInput | $Enums.Amenity[]
+    highlights?: PropertyCreatehighlightsInput | $Enums.Highlight[]
+    isPetsAllowed?: boolean
+    isParkingIncluded?: boolean
+    beds: number
+    baths: number
+    squareFeet: number
+    propertyType: $Enums.PropertyType
+    postedDate?: Date | string
+    averageRating?: number | null
+    numberOfReviews?: number | null
+    location: LocationCreateNestedOneWithoutPropertiesInput
+    manager: ManagerCreateNestedOneWithoutManagedPropertiesInput
+    leases?: LeaseCreateNestedManyWithoutPropertyInput
+    applications?: ApplicationCreateNestedManyWithoutPropertyInput
+    favoritedBy?: TenantCreateNestedManyWithoutFavoritesInput
+    tenants?: TenantCreateNestedManyWithoutPropertiesInput
+  }
+
+  export type PropertyUncheckedCreateWithoutDocumentsInput = {
+    id?: number
+    name: string
+    description: string
+    pricePerMonth: number
+    securityDeposit: number
+    applicationFee: number
+    photoUrls?: PropertyCreatephotoUrlsInput | string[]
+    amenities?: PropertyCreateamenitiesInput | $Enums.Amenity[]
+    highlights?: PropertyCreatehighlightsInput | $Enums.Highlight[]
+    isPetsAllowed?: boolean
+    isParkingIncluded?: boolean
+    beds: number
+    baths: number
+    squareFeet: number
+    propertyType: $Enums.PropertyType
+    postedDate?: Date | string
+    averageRating?: number | null
+    numberOfReviews?: number | null
+    locationId: number
+    managerCognitoId: string
+    leases?: LeaseUncheckedCreateNestedManyWithoutPropertyInput
+    applications?: ApplicationUncheckedCreateNestedManyWithoutPropertyInput
+    favoritedBy?: TenantUncheckedCreateNestedManyWithoutFavoritesInput
+    tenants?: TenantUncheckedCreateNestedManyWithoutPropertiesInput
+  }
+
+  export type PropertyCreateOrConnectWithoutDocumentsInput = {
+    where: PropertyWhereUniqueInput
+    create: XOR<PropertyCreateWithoutDocumentsInput, PropertyUncheckedCreateWithoutDocumentsInput>
+  }
+
+  export type LeaseCreateWithoutDocumentsInput = {
+    startDate: Date | string
+    endDate: Date | string
+    rent: number
+    deposit: number
+    property: PropertyCreateNestedOneWithoutLeasesInput
+    tenant: TenantCreateNestedOneWithoutLeasesInput
+    application?: ApplicationCreateNestedOneWithoutLeaseInput
+    payments?: PaymentCreateNestedManyWithoutLeaseInput
+  }
+
+  export type LeaseUncheckedCreateWithoutDocumentsInput = {
+    id?: number
+    startDate: Date | string
+    endDate: Date | string
+    rent: number
+    deposit: number
+    propertyId: number
+    tenantCognitoId: string
+    application?: ApplicationUncheckedCreateNestedOneWithoutLeaseInput
+    payments?: PaymentUncheckedCreateNestedManyWithoutLeaseInput
+  }
+
+  export type LeaseCreateOrConnectWithoutDocumentsInput = {
+    where: LeaseWhereUniqueInput
+    create: XOR<LeaseCreateWithoutDocumentsInput, LeaseUncheckedCreateWithoutDocumentsInput>
+  }
+
+  export type PropertyUpsertWithoutDocumentsInput = {
+    update: XOR<PropertyUpdateWithoutDocumentsInput, PropertyUncheckedUpdateWithoutDocumentsInput>
+    create: XOR<PropertyCreateWithoutDocumentsInput, PropertyUncheckedCreateWithoutDocumentsInput>
+    where?: PropertyWhereInput
+  }
+
+  export type PropertyUpdateToOneWithWhereWithoutDocumentsInput = {
+    where?: PropertyWhereInput
+    data: XOR<PropertyUpdateWithoutDocumentsInput, PropertyUncheckedUpdateWithoutDocumentsInput>
+  }
+
+  export type PropertyUpdateWithoutDocumentsInput = {
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    pricePerMonth?: FloatFieldUpdateOperationsInput | number
+    securityDeposit?: FloatFieldUpdateOperationsInput | number
+    applicationFee?: FloatFieldUpdateOperationsInput | number
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
+    isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
+    beds?: IntFieldUpdateOperationsInput | number
+    baths?: FloatFieldUpdateOperationsInput | number
+    squareFeet?: IntFieldUpdateOperationsInput | number
+    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
+    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
+    numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    location?: LocationUpdateOneRequiredWithoutPropertiesNestedInput
+    manager?: ManagerUpdateOneRequiredWithoutManagedPropertiesNestedInput
+    leases?: LeaseUpdateManyWithoutPropertyNestedInput
+    applications?: ApplicationUpdateManyWithoutPropertyNestedInput
+    favoritedBy?: TenantUpdateManyWithoutFavoritesNestedInput
+    tenants?: TenantUpdateManyWithoutPropertiesNestedInput
+  }
+
+  export type PropertyUncheckedUpdateWithoutDocumentsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    name?: StringFieldUpdateOperationsInput | string
+    description?: StringFieldUpdateOperationsInput | string
+    pricePerMonth?: FloatFieldUpdateOperationsInput | number
+    securityDeposit?: FloatFieldUpdateOperationsInput | number
+    applicationFee?: FloatFieldUpdateOperationsInput | number
+    photoUrls?: PropertyUpdatephotoUrlsInput | string[]
+    amenities?: PropertyUpdateamenitiesInput | $Enums.Amenity[]
+    highlights?: PropertyUpdatehighlightsInput | $Enums.Highlight[]
+    isPetsAllowed?: BoolFieldUpdateOperationsInput | boolean
+    isParkingIncluded?: BoolFieldUpdateOperationsInput | boolean
+    beds?: IntFieldUpdateOperationsInput | number
+    baths?: FloatFieldUpdateOperationsInput | number
+    squareFeet?: IntFieldUpdateOperationsInput | number
+    propertyType?: EnumPropertyTypeFieldUpdateOperationsInput | $Enums.PropertyType
+    postedDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    averageRating?: NullableFloatFieldUpdateOperationsInput | number | null
+    numberOfReviews?: NullableIntFieldUpdateOperationsInput | number | null
+    locationId?: IntFieldUpdateOperationsInput | number
+    managerCognitoId?: StringFieldUpdateOperationsInput | string
+    leases?: LeaseUncheckedUpdateManyWithoutPropertyNestedInput
+    applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
+    favoritedBy?: TenantUncheckedUpdateManyWithoutFavoritesNestedInput
+    tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
+  }
+
+  export type LeaseUpsertWithoutDocumentsInput = {
+    update: XOR<LeaseUpdateWithoutDocumentsInput, LeaseUncheckedUpdateWithoutDocumentsInput>
+    create: XOR<LeaseCreateWithoutDocumentsInput, LeaseUncheckedCreateWithoutDocumentsInput>
+    where?: LeaseWhereInput
+  }
+
+  export type LeaseUpdateToOneWithWhereWithoutDocumentsInput = {
+    where?: LeaseWhereInput
+    data: XOR<LeaseUpdateWithoutDocumentsInput, LeaseUncheckedUpdateWithoutDocumentsInput>
+  }
+
+  export type LeaseUpdateWithoutDocumentsInput = {
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    rent?: FloatFieldUpdateOperationsInput | number
+    deposit?: FloatFieldUpdateOperationsInput | number
+    property?: PropertyUpdateOneRequiredWithoutLeasesNestedInput
+    tenant?: TenantUpdateOneRequiredWithoutLeasesNestedInput
+    application?: ApplicationUpdateOneWithoutLeaseNestedInput
+    payments?: PaymentUpdateManyWithoutLeaseNestedInput
+  }
+
+  export type LeaseUncheckedUpdateWithoutDocumentsInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    startDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    endDate?: DateTimeFieldUpdateOperationsInput | Date | string
+    rent?: FloatFieldUpdateOperationsInput | number
+    deposit?: FloatFieldUpdateOperationsInput | number
+    propertyId?: IntFieldUpdateOperationsInput | number
+    tenantCognitoId?: StringFieldUpdateOperationsInput | string
+    application?: ApplicationUncheckedUpdateOneWithoutLeaseNestedInput
+    payments?: PaymentUncheckedUpdateManyWithoutLeaseNestedInput
   }
 
   export type LeaseCreateManyPropertyInput = {
@@ -14259,6 +18937,17 @@ export namespace Prisma {
     leaseId?: number | null
   }
 
+  export type DocumentCreateManyPropertyInput = {
+    id?: number
+    key: string
+    url: string
+    originalName: string
+    mimeType: string
+    size: number
+    leaseId?: number | null
+    createdAt?: Date | string
+  }
+
   export type LeaseUpdateWithoutPropertyInput = {
     startDate?: DateTimeFieldUpdateOperationsInput | Date | string
     endDate?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -14267,6 +18956,7 @@ export namespace Prisma {
     tenant?: TenantUpdateOneRequiredWithoutLeasesNestedInput
     application?: ApplicationUpdateOneWithoutLeaseNestedInput
     payments?: PaymentUpdateManyWithoutLeaseNestedInput
+    documents?: DocumentUpdateManyWithoutLeaseNestedInput
   }
 
   export type LeaseUncheckedUpdateWithoutPropertyInput = {
@@ -14278,6 +18968,7 @@ export namespace Prisma {
     tenantCognitoId?: StringFieldUpdateOperationsInput | string
     application?: ApplicationUncheckedUpdateOneWithoutLeaseNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutLeaseNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutLeaseNestedInput
   }
 
   export type LeaseUncheckedUpdateManyWithoutPropertyInput = {
@@ -14382,6 +19073,38 @@ export namespace Prisma {
     phoneNumber?: StringFieldUpdateOperationsInput | string
   }
 
+  export type DocumentUpdateWithoutPropertyInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    originalName?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    lease?: LeaseUpdateOneWithoutDocumentsNestedInput
+  }
+
+  export type DocumentUncheckedUpdateWithoutPropertyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    key?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    originalName?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    leaseId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentUncheckedUpdateManyWithoutPropertyInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    key?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    originalName?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    leaseId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type PropertyCreateManyManagerInput = {
     id?: number
     name: string
@@ -14427,6 +19150,7 @@ export namespace Prisma {
     applications?: ApplicationUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUpdateManyWithoutFavoritesNestedInput
     tenants?: TenantUpdateManyWithoutPropertiesNestedInput
+    documents?: DocumentUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateWithoutManagerInput = {
@@ -14453,6 +19177,7 @@ export namespace Prisma {
     applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUncheckedUpdateManyWithoutFavoritesNestedInput
     tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateManyWithoutManagerInput = {
@@ -14521,6 +19246,7 @@ export namespace Prisma {
     leases?: LeaseUpdateManyWithoutPropertyNestedInput
     applications?: ApplicationUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUpdateManyWithoutFavoritesNestedInput
+    documents?: DocumentUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateWithoutTenantsInput = {
@@ -14547,6 +19273,7 @@ export namespace Prisma {
     leases?: LeaseUncheckedUpdateManyWithoutPropertyNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUncheckedUpdateManyWithoutFavoritesNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateManyWithoutTenantsInput = {
@@ -14595,6 +19322,7 @@ export namespace Prisma {
     leases?: LeaseUpdateManyWithoutPropertyNestedInput
     applications?: ApplicationUpdateManyWithoutPropertyNestedInput
     tenants?: TenantUpdateManyWithoutPropertiesNestedInput
+    documents?: DocumentUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateWithoutFavoritedByInput = {
@@ -14621,6 +19349,7 @@ export namespace Prisma {
     leases?: LeaseUncheckedUpdateManyWithoutPropertyNestedInput
     applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
     tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateManyWithoutFavoritedByInput = {
@@ -14689,6 +19418,7 @@ export namespace Prisma {
     property?: PropertyUpdateOneRequiredWithoutLeasesNestedInput
     application?: ApplicationUpdateOneWithoutLeaseNestedInput
     payments?: PaymentUpdateManyWithoutLeaseNestedInput
+    documents?: DocumentUpdateManyWithoutLeaseNestedInput
   }
 
   export type LeaseUncheckedUpdateWithoutTenantInput = {
@@ -14700,6 +19430,7 @@ export namespace Prisma {
     propertyId?: IntFieldUpdateOperationsInput | number
     application?: ApplicationUncheckedUpdateOneWithoutLeaseNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutLeaseNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutLeaseNestedInput
   }
 
   export type LeaseUncheckedUpdateManyWithoutTenantInput = {
@@ -14734,6 +19465,7 @@ export namespace Prisma {
     applications?: ApplicationUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUpdateManyWithoutFavoritesNestedInput
     tenants?: TenantUpdateManyWithoutPropertiesNestedInput
+    documents?: DocumentUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyUncheckedUpdateWithoutLocationInput = {
@@ -14760,6 +19492,7 @@ export namespace Prisma {
     applications?: ApplicationUncheckedUpdateManyWithoutPropertyNestedInput
     favoritedBy?: TenantUncheckedUpdateManyWithoutFavoritesNestedInput
     tenants?: TenantUncheckedUpdateManyWithoutPropertiesNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutPropertyNestedInput
   }
 
   export type PropertyCreateManyLocationInput = {
@@ -14815,6 +19548,17 @@ export namespace Prisma {
     paymentStatus: $Enums.PaymentStatus
   }
 
+  export type DocumentCreateManyLeaseInput = {
+    id?: number
+    key: string
+    url: string
+    originalName: string
+    mimeType: string
+    size: number
+    propertyId?: number | null
+    createdAt?: Date | string
+  }
+
   export type PaymentUpdateWithoutLeaseInput = {
     amountDue?: FloatFieldUpdateOperationsInput | number
     amountPaid?: FloatFieldUpdateOperationsInput | number
@@ -14839,6 +19583,38 @@ export namespace Prisma {
     dueDate?: DateTimeFieldUpdateOperationsInput | Date | string
     paymentDate?: DateTimeFieldUpdateOperationsInput | Date | string
     paymentStatus?: EnumPaymentStatusFieldUpdateOperationsInput | $Enums.PaymentStatus
+  }
+
+  export type DocumentUpdateWithoutLeaseInput = {
+    key?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    originalName?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    property?: PropertyUpdateOneWithoutDocumentsNestedInput
+  }
+
+  export type DocumentUncheckedUpdateWithoutLeaseInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    key?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    originalName?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    propertyId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type DocumentUncheckedUpdateManyWithoutLeaseInput = {
+    id?: IntFieldUpdateOperationsInput | number
+    key?: StringFieldUpdateOperationsInput | string
+    url?: StringFieldUpdateOperationsInput | string
+    originalName?: StringFieldUpdateOperationsInput | string
+    mimeType?: StringFieldUpdateOperationsInput | string
+    size?: IntFieldUpdateOperationsInput | number
+    propertyId?: NullableIntFieldUpdateOperationsInput | number | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
 

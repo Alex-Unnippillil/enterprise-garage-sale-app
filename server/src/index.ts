@@ -3,10 +3,12 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
+import http from 'http';
 import { CLIENT_ORIGIN, PORT } from './env';
 import { authMiddleware } from './middleware/auth-middleware';
 import { notFound } from './middleware/not-found';
 import { errorHandler } from './middleware/error-handler';
+import { initWebSocket } from './ws';
 
 /* ROUTE IMPORT */
 import tenantRoutes from './routes/tenant-routes';
@@ -46,6 +48,8 @@ app.use(errorHandler);
 
 /* SERVER */
 const port = PORT;
-app.listen(port, '0.0.0.0', () => {
+const server = http.createServer(app);
+initWebSocket(server);
+server.listen(port, '0.0.0.0', () => {
   console.log(`Server running on port ${port}`);
 });

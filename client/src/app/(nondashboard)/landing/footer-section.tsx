@@ -8,6 +8,7 @@ import {
   faLinkedin,
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
+import { SOCIAL_LINKS } from "@/config";
 
 const FooterSection = () => {
   return (
@@ -40,30 +41,38 @@ const FooterSection = () => {
           </nav>
           <div className="flex space-x-4 mb-4">
             <a
-              href="#"
+              href={SOCIAL_LINKS.facebook}
               aria-label="Facebook"
               className="hover:text-primary-600"
             >
               <FontAwesomeIcon icon={faFacebook} className="h-6 w-6" />
             </a>
             <a
-              href="#"
+              href={SOCIAL_LINKS.instagram}
               aria-label="Instagram"
               className="hover:text-primary-600"
             >
               <FontAwesomeIcon icon={faInstagram} className="h-6 w-6" />
             </a>
-            <a href="#" aria-label="Twitter" className="hover:text-primary-600">
+            <a
+              href={SOCIAL_LINKS.twitter}
+              aria-label="Twitter"
+              className="hover:text-primary-600"
+            >
               <FontAwesomeIcon icon={faTwitter} className="h-6 w-6" />
             </a>
             <a
-              href="#"
+              href={SOCIAL_LINKS.linkedin}
               aria-label="Linkedin"
               className="hover:text-primary-600"
             >
               <FontAwesomeIcon icon={faLinkedin} className="h-6 w-6" />
             </a>
-            <a href="#" aria-label="Youtube" className="hover:text-primary-600">
+            <a
+              href={SOCIAL_LINKS.youtube}
+              aria-label="Youtube"
+              className="hover:text-primary-600"
+            >
               <FontAwesomeIcon icon={faYoutube} className="h-6 w-6" />
             </a>
           </div>

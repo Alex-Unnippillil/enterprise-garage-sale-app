@@ -204,6 +204,18 @@ export const api = createApi({
       },
     }),
 
+    getManagerAnalytics: build.query<
+      { occupancyRate: number; totalRevenue: number; applicationFunnel: Record<string, number> },
+      string
+    >({
+      query: (cognitoId) => `managers/${cognitoId}/analytics`,
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          error: 'Failed to load analytics.',
+        });
+      },
+    }),
+
     updateManagerSettings: build.mutation<Manager, { cognitoId: string } & Partial<Manager>>({
       query: ({ cognitoId, ...updatedManager }) => ({
         url: `managers/${cognitoId}`,
@@ -405,6 +417,7 @@ export const {
   useGetPropertyQuery,
   useGetCurrentResidencesQuery,
   useGetManagerPropertiesQuery,
+  useGetManagerAnalyticsQuery,
   useCreatePropertyMutation,
   useUpdatePropertyMutation,
   useDeletePropertyMutation,

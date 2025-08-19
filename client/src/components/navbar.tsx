@@ -9,6 +9,7 @@ import { useGetAuthUserQuery } from "@/state/api";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "aws-amplify/auth";
 import { Bell, MessageCircle, Plus, Search } from "lucide-react";
+import ThemeToggle from "./theme-toggle";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -99,6 +100,7 @@ const Navbar = () => {
           </p>
         )}
         <div className="flex items-center gap-5">
+          <ThemeToggle />
           {authUser ? (
             <>
               <div className="relative hidden md:block">

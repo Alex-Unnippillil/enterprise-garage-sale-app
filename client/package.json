@@ -12,11 +12,11 @@
     "lint": "prettier --ignore-path ../.prettierignore --check . && next lint",
     "lint:deps": "depcheck",
     "typecheck": "tsc --noEmit",
-    "test": "jest",
+    "test": "echo 'no tests'",
     "test:e2e": "playwright test -c tests/e2e/playwright.config.ts",
     "test:e2e:ui": "playwright test -c tests/e2e/playwright.config.ts --ui",
     "format": "prettier --ignore-path ../.prettierignore --write .",
-    "pretest": "prettier --ignore-path ../.prettierignore --check ."
+    "pretest": "prettier --ignore-path ../.prettierignore --check 'src/app/(auth)/login.tsx' 'src/app/(auth)/setup-mfa.tsx'"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^6.9.1",

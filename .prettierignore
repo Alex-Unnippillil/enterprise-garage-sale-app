@@ -7,3 +7,6 @@ out
 *.log
 tests/e2e
 client/tests/e2e
+server/src/__tests__/property.test.ts
+src/utils/__tests/env.test.ts
+server/src/utils/__tests/env.test.ts

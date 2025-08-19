@@ -10,6 +10,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "aws-amplify/auth";
 import { Bell, MessageCircle, Plus, Search } from "lucide-react";
 import ThemeToggle from "./theme-toggle";
+import FeatureToggle from "./feature-toggle";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -100,7 +101,9 @@ const Navbar = () => {
           </p>
         )}
         <div className="flex items-center gap-5">
-          <ThemeToggle />
+          <FeatureToggle flag="theme-toggle">
+            <ThemeToggle />
+          </FeatureToggle>
           {authUser ? (
             <>
               <div className="relative hidden md:block">

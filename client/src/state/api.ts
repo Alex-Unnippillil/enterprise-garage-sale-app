@@ -28,6 +28,7 @@ export const api = createApi({
     'Leases',
     'Payments',
     'Applications',
+    'FeatureFlags',
   ],
   endpoints: (build) => ({
     getAuthUser: build.query<User, void>({
@@ -394,6 +395,20 @@ export const api = createApi({
         });
       },
     }),
+
+    getFlags: build.query<Record<string, boolean>, void>({
+      query: () => 'flags',
+      providesTags: ['FeatureFlags'],
+    }),
+
+    updateFlag: build.mutation<void, { name: string; enabled: boolean }>({
+      query: ({ name, enabled }) => ({
+        url: `flags/${name}`,
+        method: 'PUT',
+        body: { enabled },
+      }),
+      invalidatesTags: ['FeatureFlags'],
+    }),
   }),
 });
 
@@ -419,4 +434,6 @@ export const {
   useGetApplicationsQuery,
   useUpdateApplicationStatusMutation,
   useCreateApplicationMutation,
+  useGetFlagsQuery,
+  useUpdateFlagMutation,
 } = api;

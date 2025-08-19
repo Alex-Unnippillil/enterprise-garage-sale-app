@@ -1,12 +1,13 @@
 import express from 'express';
 import helmet from 'helmet';
-import morgan from 'morgan';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
+import promBundle from 'express-prom-bundle';
 import { CLIENT_ORIGIN, PORT } from './env';
 import { authMiddleware } from './middleware/auth-middleware';
 import { notFound } from './middleware/not-found';
 import { errorHandler } from './middleware/error-handler';
+import { logger, loggerMiddleware } from './middleware/logger';
 
 /* ROUTE IMPORT */
 import tenantRoutes from './routes/tenant-routes';
@@ -21,8 +22,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: 'cross-origin' }));
-app.use(morgan('common'));
 app.use(cors({ origin: CLIENT_ORIGIN }));
+app.use(loggerMiddleware);
+const metricsMiddleware = promBundle({ includeMethod: true, includePath: true, includeStatusCode: true });
+app.use(metricsMiddleware);
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
@@ -47,5 +50,5 @@ app.use(errorHandler);
 /* SERVER */
 const port = PORT;
 app.listen(port, '0.0.0.0', () => {
-  console.log(`Server running on port ${port}`);
+  logger.info(`Server running on port ${port}`);
 });

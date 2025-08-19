@@ -7,12 +7,8 @@ import { geocodeAddress } from '../utils/geocode-address';
 import { z } from 'zod';
 import prisma from '../utils/prisma';
 import { S3Client, DeleteObjectCommand } from '@aws-sdk/client-s3';
-import {
-  AWS_REGION,
-  S3_BUCKET_NAME,
-  AWS_ACCESS_KEY_ID,
-  AWS_SECRET_ACCESS_KEY,
-} from '../env';
+import { AWS_REGION, S3_BUCKET_NAME, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } from '../env';
+import redis from '../utils/redis';
 
 const s3Client = new S3Client({
   region: AWS_REGION,
@@ -60,12 +56,28 @@ const updatePropertySchema = z.object({
   photoUrls: z.array(z.string()).optional(),
 });
 
+const PROPERTY_CACHE_PREFIX = 'properties:';
+
+export const clearPropertyCache = async (): Promise<void> => {
+  const keys = await redis.keys(`${PROPERTY_CACHE_PREFIX}*`);
+  if (keys.length > 0) {
+    await redis.del(keys);
+  }
+};
+
 export const getProperties = async (
   req: Request,
   res: Response,
   next: NextFunction,
 ): Promise<void> => {
   try {
+    const cacheKey = PROPERTY_CACHE_PREFIX + JSON.stringify(Object.entries(req.query).sort());
+    const cached = await redis.get(cacheKey);
+    if (cached) {
+      res.json(JSON.parse(cached));
+      return;
+    }
+
     const {
       favoriteIds,
       priceMin,
@@ -148,6 +160,7 @@ export const getProperties = async (
         coordinates: coordsMap.get(p.locationId),
       },
     }));
+    await redis.set(cacheKey, JSON.stringify(propertiesWithCoordinates));
     res.json(propertiesWithCoordinates);
   } catch (err) {
     next(err);
@@ -255,6 +268,7 @@ export const createProperty = async (
       });
     });
 
+    await clearPropertyCache().catch(() => {});
     res.status(201).json(newProperty);
   } catch (err) {
     next(err);
@@ -308,6 +322,7 @@ export const updateProperty = async (
       },
     });
 
+    await clearPropertyCache().catch(() => {});
     res.json(updatedProperty);
   } catch (err) {
     next(err);
@@ -342,15 +357,14 @@ export const deleteProperty = async (
         if (Key.startsWith(`${S3_BUCKET_NAME}/`)) {
           Key = Key.slice(S3_BUCKET_NAME.length + 1);
         }
-        await s3Client.send(
-          new DeleteObjectCommand({ Bucket: S3_BUCKET_NAME, Key }),
-        );
+        await s3Client.send(new DeleteObjectCommand({ Bucket: S3_BUCKET_NAME, Key }));
       } catch {
         // ignore errors from invalid URLs or S3 deletions
       }
     }
 
     await prisma.property.delete({ where: { id: Number(id) } });
+    await clearPropertyCache().catch(() => {});
     res.json({ message: 'Property deleted' });
   } catch (err) {
     next(err);

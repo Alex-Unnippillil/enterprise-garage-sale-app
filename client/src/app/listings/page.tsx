@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import ListingCard from "@/components/listing-card";
-import ListingForm from "@/components/forms/listing-form";
+import ListingForm from "@/components/forms/ListingForm";
 import { fetchListings } from "@/lib/api";
 import { useDebounce } from "@/hooks/use-debounce";
 import { Property } from "@/types/prisma-types";

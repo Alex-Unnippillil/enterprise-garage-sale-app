@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import React, { useState } from "react";
-import { motion } from "framer-motion";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useDispatch } from "react-redux";
-import { useRouter } from "next/navigation";
-import { setFilters } from "@/state";
-import { env } from "@/env";
+import Image from 'next/image';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/navigation';
+import { setFilters } from '@/state';
+import { env } from '@/env';
 
 const HeroSection = () => {
   const dispatch = useDispatch();
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const router = useRouter();
 
   const handleLocationSearch = async () => {
@@ -22,8 +22,8 @@ const HeroSection = () => {
 
       const response = await fetch(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-          trimmedQuery
-        )}.json?access_token=${env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}&fuzzyMatch=true`
+          trimmedQuery,
+        )}.json?access_token=${env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN}&fuzzyMatch=true`,
       );
       const data = await response.json();
       if (data.features && data.features.length > 0) {
@@ -32,7 +32,7 @@ const HeroSection = () => {
           setFilters({
             location: trimmedQuery,
             coordinates: [lat, lng],
-          })
+          }),
         );
         const params = new URLSearchParams({
           location: trimmedQuery,
@@ -42,7 +42,7 @@ const HeroSection = () => {
         router.push(`/search?${params.toString()}`);
       }
     } catch (error) {
-      console.error("error search location:", error);
+      console.error('error search location:', error);
     }
   };
 
@@ -67,12 +67,15 @@ const HeroSection = () => {
             Start your journey to finding the perfect place to call home
           </h1>
           <p className="text-xl text-white mb-8">
-            Explore our wide range of rental properties tailored to fit your
-            lifestyle and needs!
+            Explore our wide range of rental properties tailored to fit your lifestyle and needs!
           </p>
 
           <div className="flex justify-center">
+            <label htmlFor="hero-search" className="sr-only">
+              Search properties by location
+            </label>
             <Input
+              id="hero-search"
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}

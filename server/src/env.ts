@@ -17,6 +17,8 @@ const envSchema = z
     AWS_ACCESS_KEY_ID: z.string().min(1),
     AWS_SECRET_ACCESS_KEY: z.string().min(1),
     CLIENT_ORIGIN: z.string().url(),
+    SNS_TOPIC_ARN: z.string().optional(),
+    SES_FROM_ADDRESS: z.string().email().optional(),
   })
   .refine(
     (env) => env.COGNITO_JWT_PUBLIC_KEY || env.JWT_SECRET,
@@ -40,6 +42,8 @@ export const {
   AWS_ACCESS_KEY_ID,
   AWS_SECRET_ACCESS_KEY,
   CLIENT_ORIGIN,
+  SNS_TOPIC_ARN,
+  SES_FROM_ADDRESS,
 } = env;
 
 export default env;

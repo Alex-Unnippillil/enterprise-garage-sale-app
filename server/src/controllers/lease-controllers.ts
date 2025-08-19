@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
 import prisma from '../utils/prisma';
+import { dispatchNotification } from '../services/notification-service';
 
 export const getLeases = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
@@ -61,6 +62,9 @@ export const createPayment = async (
       },
     });
     res.status(201).json(payment);
+    if ((req as any).user?.id) {
+      await dispatchNotification((req as any).user.id, 'Payment created');
+    }
   } catch (error) {
     next(error);
   }
@@ -83,8 +87,10 @@ export const updatePayment = async (
       where: { id: Number(paymentId) },
       data: parsed.data,
     });
-
     res.json(payment);
+    if ((req as any).user?.id) {
+      await dispatchNotification((req as any).user.id, 'Payment updated');
+    }
   } catch (error) {
     next(error);
   }

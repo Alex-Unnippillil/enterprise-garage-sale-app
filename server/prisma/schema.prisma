@@ -193,3 +193,12 @@ model GeocodeCache {
 
   @@unique([address, city, postalCode])
 }
+
+model NotificationPreference {
+  id            Int    @id @default(autoincrement())
+  userCognitoId String @unique
+  email         String?
+  phoneNumber   String?
+  emailOptIn    Boolean @default(true)
+  smsOptIn      Boolean @default(false)
+}

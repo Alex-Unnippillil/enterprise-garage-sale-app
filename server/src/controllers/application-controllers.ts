@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
 import prisma from '../utils/prisma';
 import { updateApplicationStatus as updateApplicationStatusService } from '../services/application-service';
+import { dispatchNotification } from '../services/notification-service';
 
 const createApplicationSchema = z.object({
   applicationDate: z.string(),
@@ -118,7 +119,6 @@ export const createApplication = async (
 
     const property = await prisma.property.findUnique({
       where: { id: propertyId },
-
     });
 
     if (!property) {
@@ -126,13 +126,13 @@ export const createApplication = async (
       return;
     }
 
-      const newApplication = await prisma.application.create({
-        data: {
-          applicationDate: new Date(applicationDate),
-          status: status as any,
-          name,
-          email,
-          phoneNumber,
+    const newApplication = await prisma.application.create({
+      data: {
+        applicationDate: new Date(applicationDate),
+        status: status as any,
+        name,
+        email,
+        phoneNumber,
         message,
         property: {
           connect: { id: propertyId },
@@ -149,6 +149,7 @@ export const createApplication = async (
     });
 
     res.status(201).json(newApplication);
+    await dispatchNotification(property.managerCognitoId, 'New application submitted');
   } catch (error) {
     next(error);
   }
@@ -171,6 +172,12 @@ export const updateApplicationStatus = async (
     }
 
     res.json(updatedApplication);
+    if (updatedApplication) {
+      await dispatchNotification(
+        updatedApplication.tenantCognitoId,
+        `Application status updated to ${status}`,
+      );
+    }
   } catch (error) {
     next(error);
   }

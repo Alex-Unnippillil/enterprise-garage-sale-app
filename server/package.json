@@ -11,11 +11,10 @@
     "prisma:generate": "prisma generate",
     "postprisma:generate": "shx cp -r node_modules/.prisma/client/index.d.ts ../client/src/types/prismaTypes.d.ts",
     "typecheck": "tsc --noEmit",
-    "test": "jest src/__tests__/auth-mfa.test.ts src/__tests__/rbac-middleware.test.ts",
+    "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "format": "prettier --ignore-path ../.prettierignore --write .",
-    "pretest": "prettier --ignore-path ../.prettierignore --check src/__tests__/auth-mfa.test.ts src/__tests__/rbac-middleware.test.ts src/controllers/auth-controllers.ts src/middleware/rbac.ts"
+    "format": "prettier --ignore-path ../.prettierignore --write ."
   },
   "keywords": [],
   "author": "",

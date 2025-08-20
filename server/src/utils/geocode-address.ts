@@ -26,11 +26,21 @@ export const geocodeAddress = async (
     throw new Error('GEOCODE_USER_AGENT environment variable is required for geocoding requests');
   }
 
-  const geocodingResponse = await axios.get(geocodingUrl, {
-    headers: {
-      'User-Agent': GEOCODE_USER_AGENT,
-    },
-  });
+  let geocodingResponse;
+
+  try {
+    geocodingResponse = await axios.get(geocodingUrl, {
+      headers: {
+        'User-Agent': GEOCODE_USER_AGENT,
+      },
+      timeout: 5000,
+    });
+  } catch (error) {
+    if (axios.isAxiosError(error) && error.code === 'ECONNABORTED') {
+      throw new Error('Geocoding request timed out');
+    }
+    throw error;
+  }
 
   if (!geocodingResponse.data?.[0]) {
     throw new Error('Geocoding failed');

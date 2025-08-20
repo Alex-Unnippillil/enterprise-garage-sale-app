@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { authenticator } from 'otplib';
+import bcrypt from 'bcrypt';
 import prisma from '../utils/prisma';
 
 const issuer = process.env.TOTP_ISSUER || 'enterprise-garage-sale-app';
@@ -39,7 +40,8 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
   try {
     const { userId, password, token } = req.body;
     const user = await prisma.user.findUnique({ where: { id: userId } });
-    if (!user || user.password !== password) {
+    const passwordMatches = user ? await bcrypt.compare(password, user.password) : false;
+    if (!user || !passwordMatches) {
       res.status(401).json({ message: 'Invalid credentials' });
       return;
     }
@@ -50,6 +52,19 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
       }
     }
     res.json({ message: 'Logged in' });
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const register = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+  try {
+    const { email, password, role } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = await prisma.user.create({
+      data: { email, password: hashedPassword, role },
+    });
+    res.status(201).json({ id: user.id });
   } catch (err) {
     next(err);
   }

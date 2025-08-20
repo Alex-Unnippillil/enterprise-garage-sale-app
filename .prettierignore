@@ -1,11 +1,1 @@
-node_modules
-build
-dist
-coverage
-.next
-out
-*.log
-tests/e2e
-client/tests/e2e
-server/src/__tests__/property-search.test.ts
-server/src/utils/__tests__/env.test.ts
+﻿

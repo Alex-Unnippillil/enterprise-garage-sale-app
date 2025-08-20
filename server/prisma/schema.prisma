@@ -91,7 +91,7 @@ model Property {
   manager      Manager       @relation(fields: [managerCognitoId], references: [cognitoId])
   leases       Lease[]
   applications Application[]
-  favoritedBy  Tenant[]      @relation("TenantFavorites")
+  favorites    Favorite[]
   tenants      Tenant[]      @relation("TenantProperties")
 }
 
@@ -112,10 +112,22 @@ model Tenant {
   email       String
   phoneNumber String
 
-  properties   Property[]    @relation("TenantProperties")
-  favorites    Property[]    @relation("TenantFavorites")
+  properties   Property[] @relation("TenantProperties")
+  favorites    Favorite[]
   applications Application[]
   leases       Lease[]
+}
+
+model Favorite {
+  id         Int      @id @default(autoincrement())
+  tenantId   Int
+  propertyId Int
+  createdAt  DateTime @default(now())
+
+  tenant   Tenant   @relation(fields: [tenantId], references: [id])
+  property Property @relation(fields: [propertyId], references: [id])
+
+  @@unique([tenantId, propertyId])
 }
 
 model Location {

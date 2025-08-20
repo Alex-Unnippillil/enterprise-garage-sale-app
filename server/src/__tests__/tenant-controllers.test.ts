@@ -21,7 +21,7 @@ jest.mock("@prisma/client", () => ({
 }));
 
 import prisma from "../utils/prisma";
-import { getTenant, createTenant, addFavoriteProperty } from "../controllers/tenant-controllers";
+import { getTenant, createTenant } from "../controllers/tenant-controllers";
 
 const createMockRes = () => {
   const res: Partial<Response> = {};
@@ -56,30 +56,6 @@ describe("tenantControllers", () => {
 
     expect(res.status).toHaveBeenCalledWith(404);
     expect(res.json).toHaveBeenCalledWith({ message: "Tenant not found" });
-  });
-
-  it("adds property to favorites", async () => {
-    mockPrisma.tenant.findUnique.mockResolvedValue({ favorites: [] });
-    mockPrisma.tenant.update.mockResolvedValue({ favorites: [{ id: 1 }] });
-
-    const req = { params: { cognitoId: "t1", propertyId: "1" } } as unknown as Request;
-    const res = createMockRes();
-
-    await addFavoriteProperty(req, res, next);
-
-    expect(mockPrisma.tenant.update).toHaveBeenCalled();
-    expect(res.json).toHaveBeenCalledWith({ favorites: [{ id: 1 }] });
-  });
-
-  it("returns 409 when property already favorite", async () => {
-    mockPrisma.tenant.findUnique.mockResolvedValue({ favorites: [{ id: 1 }] });
-    const req = { params: { cognitoId: "t1", propertyId: "1" } } as unknown as Request;
-    const res = createMockRes();
-
-    await addFavoriteProperty(req, res, next);
-
-    expect(res.status).toHaveBeenCalledWith(409);
-    expect(res.json).toHaveBeenCalledWith({ message: "Property already added as favorite" });
   });
 
   it("calls next on create error", async () => {

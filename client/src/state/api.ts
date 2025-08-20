@@ -1,6 +1,7 @@
 import { API_URL } from '@/env';
 import { cleanParams, createNewUserInDatabase, withToast } from '@/lib/utils';
 import { Application, Lease, Manager, Payment, Property, Tenant } from '@/types/prisma-types';
+import { Favorite } from '@/types/favorite';
 import type { PropertyFilters } from '../../../shared/types/listing';
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { fetchAuthSession, getCurrentUser } from 'aws-amplify/auth';
@@ -28,6 +29,7 @@ export const api = createApi({
     'Leases',
     'Payments',
     'Applications',
+    'Favorites',
   ],
   endpoints: (build) => ({
     getAuthUser: build.query<User, void>({
@@ -153,30 +155,47 @@ export const api = createApi({
       },
     }),
 
-    addFavoriteProperty: build.mutation<Tenant, { cognitoId: string; propertyId: number }>({
-      query: ({ cognitoId, propertyId }) => ({
-        url: `tenants/${cognitoId}/favorites/${propertyId}`,
+    getFavorites: build.query<Favorite[], void>({
+      query: () => 'favorites',
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(({ id }) => ({ type: 'Favorites' as const, id })),
+              { type: 'Favorites', id: 'LIST' },
+            ]
+          : [{ type: 'Favorites', id: 'LIST' }],
+      async onQueryStarted(_, { queryFulfilled }) {
+        await withToast(queryFulfilled, {
+          error: 'Failed to fetch favorites.',
+        });
+      },
+    }),
+
+    addFavorite: build.mutation<Favorite, { propertyId: number }>({
+      query: ({ propertyId }) => ({
+        url: `favorites`,
         method: 'POST',
+        body: { propertyId },
       }),
-      invalidatesTags: (result) => [
-        { type: 'Tenants', id: result?.id },
+      invalidatesTags: [
+        { type: 'Favorites', id: 'LIST' },
         { type: 'Properties', id: 'LIST' },
       ],
       async onQueryStarted(_, { queryFulfilled }) {
         await withToast(queryFulfilled, {
-          success: 'Added to favorites!!',
+          success: 'Added to favorites!',
           error: 'Failed to add to favorites',
         });
       },
     }),
 
-    removeFavoriteProperty: build.mutation<Tenant, { cognitoId: string; propertyId: number }>({
-      query: ({ cognitoId, propertyId }) => ({
-        url: `tenants/${cognitoId}/favorites/${propertyId}`,
+    removeFavorite: build.mutation<{ message: string }, number>({
+      query: (id) => ({
+        url: `favorites/${id}`,
         method: 'DELETE',
       }),
-      invalidatesTags: (result) => [
-        { type: 'Tenants', id: result?.id },
+      invalidatesTags: [
+        { type: 'Favorites', id: 'LIST' },
         { type: 'Properties', id: 'LIST' },
       ],
       async onQueryStarted(_, { queryFulfilled }) {
@@ -409,8 +428,9 @@ export const {
   useUpdatePropertyMutation,
   useDeletePropertyMutation,
   useGetTenantQuery,
-  useAddFavoritePropertyMutation,
-  useRemoveFavoritePropertyMutation,
+  useGetFavoritesQuery,
+  useAddFavoriteMutation,
+  useRemoveFavoriteMutation,
   useGetLeasesQuery,
   useGetPropertyLeasesQuery,
   useGetPaymentsQuery,

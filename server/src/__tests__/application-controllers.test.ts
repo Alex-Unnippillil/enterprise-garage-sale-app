@@ -124,13 +124,58 @@ describe('applicationControllers', () => {
     expect(mockPrisma.property.findUnique).not.toHaveBeenCalled();
   });
 
-  it('updates application status to Approved', async () => {
+  it('returns 400 for invalid status', async () => {
+    const req = {
+      body: {
+        applicationDate: new Date().toISOString(),
+        status: 'NotAStatus',
+        propertyId: 1,
+        tenantCognitoId: 't1',
+        name: 'n',
+        email: 'e@example.com',
+        phoneNumber: 'p',
+      },
+    } as unknown as Request;
+    const res = createMockRes();
 
+    await createApplication(req, res, next);
+
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(mockPrisma.property.findUnique).not.toHaveBeenCalled();
+  });
+
+  it('returns 400 for invalid application date', async () => {
+    const req = {
+      body: {
+        applicationDate: 'not-a-date',
+        status: 'Pending',
+        propertyId: 1,
+        tenantCognitoId: 't1',
+        name: 'n',
+        email: 'e@example.com',
+        phoneNumber: 'p',
+      },
+    } as unknown as Request;
+    const res = createMockRes();
+
+    await createApplication(req, res, next);
+
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(mockPrisma.property.findUnique).not.toHaveBeenCalled();
+  });
+
+  it('updates application status to Approved', async () => {
+    (updateApplicationStatusService as jest.Mock).mockResolvedValue({ id: 1 });
+    const req = {
+      params: { id: '1' },
+      body: { status: 'Approved' },
+    } as unknown as Request;
     const res = createMockRes();
 
     await updateApplicationStatus(req, res, next);
 
-
+    expect(updateApplicationStatusService).toHaveBeenCalledWith(1, 'Approved');
+    expect(res.json).toHaveBeenCalledWith({ id: 1 });
   });
 
   it('updates application status to non-Approved value', async () => {
@@ -149,7 +194,10 @@ describe('applicationControllers', () => {
 
   it('returns 404 when updating missing application', async () => {
     (updateApplicationStatusService as jest.Mock).mockResolvedValue(null);
-
+    const req = {
+      params: { id: '1' },
+      body: { status: 'Approved' },
+    } as unknown as Request;
     const res = createMockRes();
 
     await updateApplicationStatus(req, res, next);

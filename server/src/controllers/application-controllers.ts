@@ -4,8 +4,8 @@ import prisma from '../utils/prisma';
 import { updateApplicationStatus as updateApplicationStatusService } from '../services/application-service';
 
 const createApplicationSchema = z.object({
-  applicationDate: z.string(),
-  status: z.string(),
+  applicationDate: z.coerce.date(),
+  status: z.enum(['Pending', 'Denied', 'Approved']),
   propertyId: z.coerce.number(),
   tenantCognitoId: z.string(),
   name: z.string(),
@@ -126,13 +126,13 @@ export const createApplication = async (
       return;
     }
 
-      const newApplication = await prisma.application.create({
-        data: {
-          applicationDate: new Date(applicationDate),
-          status: status as any,
-          name,
-          email,
-          phoneNumber,
+    const newApplication = await prisma.application.create({
+      data: {
+        applicationDate,
+        status,
+        name,
+        email,
+        phoneNumber,
         message,
         property: {
           connect: { id: propertyId },

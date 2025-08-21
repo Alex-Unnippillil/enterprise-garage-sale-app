@@ -1,8 +1,11 @@
 'use client';
 import { useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import { API_URL } from '@/config';
 
 export default function Login() {
+  const router = useRouter();
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [token, setToken] = useState('');
@@ -11,8 +14,15 @@ export default function Login() {
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post('/api/login', { userId, password, token });
-      alert('Logged in');
+      const res = await axios.post(`${API_URL}/auth/login`, {
+        userId,
+        password,
+        token,
+      });
+      if (res.data?.token || res.data?.jwt) {
+        localStorage.setItem('jwt', res.data.token ?? res.data.jwt);
+      }
+      router.push('/dashboard');
     } catch (err: any) {
       if (err.response?.status === 401) {
         setMfa(true);

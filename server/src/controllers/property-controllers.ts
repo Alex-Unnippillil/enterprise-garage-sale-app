@@ -44,6 +44,11 @@ const createPropertySchema = z.object({
 });
 
 const updatePropertySchema = z.object({
+  address: z.string().optional(),
+  city: z.string().optional(),
+  state: z.string().optional(),
+  country: z.string().optional(),
+  postalCode: z.string().optional(),
   name: z.string().optional(),
   description: z.string().optional(),
   pricePerMonth: z.coerce.number().optional(),
@@ -271,6 +276,7 @@ export const updateProperty = async (
 
     const property = await prisma.property.findUnique({
       where: { id: Number(id) },
+      include: { location: true },
     });
 
     if (!property) {
@@ -283,29 +289,86 @@ export const updateProperty = async (
       return;
     }
 
+    const files = req.files as Express.Multer.File[] | undefined;
+
     const parsed = updatePropertySchema.safeParse(req.body);
     if (!parsed.success) {
       res.status(400).json({ errors: parsed.error.flatten() });
       return;
     }
 
-    const data = parsed.data;
-    const updatedProperty = await prisma.property.update({
-      where: { id: Number(id) },
-      data: {
-        ...data,
-        propertyType: (data as any).propertyType,
-        amenities:
-          typeof data.amenities === 'string'
-            ? (data.amenities.split(',') as any)
-            : (data.amenities as any),
-        highlights:
-          typeof data.highlights === 'string'
-            ? (data.highlights.split(',') as any)
-            : (data.highlights as any),
-        isPetsAllowed: data.isPetsAllowed,
-        isParkingIncluded: data.isParkingIncluded,
-      },
+    const {
+      address,
+      city,
+      state,
+      country,
+      postalCode,
+      photoUrls,
+      ...propertyData
+    } = parsed.data;
+
+    let mergedPhotoUrls = photoUrls ?? property.photoUrls;
+    if (files && files.length > 0) {
+      const newPhotoUrls = await uploadFilesToS3(files);
+      mergedPhotoUrls = mergedPhotoUrls.concat(newPhotoUrls);
+    }
+
+    const newAddress = address ?? property.location.address;
+    const newCity = city ?? property.location.city;
+    const newState = state ?? property.location.state;
+    const newCountry = country ?? property.location.country;
+    const newPostalCode = postalCode ?? property.location.postalCode;
+
+    const addressChanged =
+      newAddress !== property.location.address ||
+      newCity !== property.location.city ||
+      newState !== property.location.state ||
+      newCountry !== property.location.country ||
+      newPostalCode !== property.location.postalCode;
+
+    let coords: [number, number] | undefined;
+    if (addressChanged) {
+      coords = await geocodeAddress(
+        newAddress,
+        newCity,
+        newCountry,
+        newPostalCode,
+      );
+    }
+
+    const updatedProperty = await prisma.$transaction(async (tx) => {
+      if (
+        address !== undefined ||
+        city !== undefined ||
+        state !== undefined ||
+        country !== undefined ||
+        postalCode !== undefined
+      ) {
+        if (addressChanged && coords) {
+          await tx.$queryRaw`UPDATE "Location" SET address=${newAddress}, city=${newCity}, state=${newState}, country=${newCountry}, "postalCode"=${newPostalCode}, coordinates=ST_SetSRID(ST_MakePoint(${coords[0]}, ${coords[1]}), 4326) WHERE id=${property.locationId}`;
+        } else {
+          await tx.$queryRaw`UPDATE "Location" SET address=${newAddress}, city=${newCity}, state=${newState}, country=${newCountry}, "postalCode"=${newPostalCode} WHERE id=${property.locationId}`;
+        }
+      }
+
+      return tx.property.update({
+        where: { id: Number(id) },
+        data: {
+          ...propertyData,
+          photoUrls: mergedPhotoUrls,
+          propertyType: (propertyData as any).propertyType,
+          amenities:
+            typeof propertyData.amenities === 'string'
+              ? ((propertyData.amenities as string).split(',') as any)
+              : (propertyData.amenities as any),
+          highlights:
+            typeof propertyData.highlights === 'string'
+              ? ((propertyData.highlights as string).split(',') as any)
+              : (propertyData.highlights as any),
+          isPetsAllowed: propertyData.isPetsAllowed,
+          isParkingIncluded: propertyData.isParkingIncluded,
+        },
+      });
     });
 
     res.json(updatedProperty);

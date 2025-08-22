@@ -1,22 +1,29 @@
 'use client';
 import { useState } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import { API_URL } from '@/config';
 
 export default function SetupMfa() {
+  const router = useRouter();
   const [userId, setUserId] = useState('');
   const [secret, setSecret] = useState('');
   const [token, setToken] = useState('');
   const [verified, setVerified] = useState(false);
 
   const handleSetup = async () => {
-    const res = await axios.post('/api/mfa/setup', { userId });
+    const res = await axios.post(`${API_URL}/auth/mfa/setup`, { userId });
     setSecret(res.data.secret);
   };
 
   const handleVerify = async () => {
     try {
-      await axios.post('/api/mfa/verify', { userId, token });
+      const res = await axios.post(`${API_URL}/auth/mfa/verify`, { userId, token });
       setVerified(true);
+      if (res.data?.token || res.data?.jwt) {
+        localStorage.setItem('jwt', res.data.token ?? res.data.jwt);
+      }
+      router.push('/dashboard');
     } catch {
       setVerified(false);
     }

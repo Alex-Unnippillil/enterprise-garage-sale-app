@@ -28,7 +28,12 @@ const router = express.Router();
 router.get('/', getProperties);
 router.get('/:id', getProperty);
 router.post('/', authMiddleware(['manager']), upload.array('photos'), createProperty);
-router.put('/:id', authMiddleware(['manager']), updateProperty);
+router.put(
+  '/:id',
+  authMiddleware(['manager']),
+  upload.array('photos'),
+  updateProperty,
+);
 router.delete('/:id', authMiddleware(['manager']), deleteProperty);
 
 export default router;

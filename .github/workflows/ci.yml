@@ -50,6 +50,8 @@ jobs:
           cd client
           npm test
 
+  client-deps-lint:
+    permissions: { contents: read }
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.1
@@ -105,7 +107,8 @@ jobs:
           cd server
           npm test
 
-
+  server-deps-lint:
+    permissions: { contents: read }
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.1
@@ -149,9 +152,15 @@ jobs:
           cd client
           npx playwright install --with-deps
       - name: Run E2E tests
+        env:
+          BROWSER: ${{ matrix.browser }}
         run: |
           cd client
           npm start &
+          SERVER_PID=$!
+          npx wait-on http://localhost:3000
+          npm run test:e2e -- --project=${{ matrix.browser }}
+          kill $SERVER_PID
 
 
   deploy:

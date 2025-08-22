@@ -19,7 +19,7 @@
     "pretest": "prettier --ignore-path ../.prettierignore --check 'src/app/(auth)/login.tsx' 'src/app/(auth)/setup-mfa.tsx'"
   },
   "dependencies": {
-    "@aws-amplify/ui-react": "^6.9.1",
+    "@aws-amplify/ui-react": "^6.12.0",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
     "@fortawesome/react-fontawesome": "^0.2.2",

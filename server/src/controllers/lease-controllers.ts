@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import { z } from 'zod';
+import { PaymentStatus } from '@prisma/client';
 import prisma from '../utils/prisma';
 
 export const getLeases = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
@@ -35,6 +36,7 @@ export const getLeasePayments = async (
 const paymentSchema = z.object({
   amountDue: z.coerce.number(),
   amountPaid: z.coerce.number(),
+  paymentStatus: z.nativeEnum(PaymentStatus).optional(),
 });
 
 const updatePaymentSchema = paymentSchema.partial();
@@ -57,7 +59,7 @@ export const createPayment = async (
         leaseId: Number(id),
         dueDate: new Date(),
         paymentDate: new Date(),
-        paymentStatus: 'PENDING' as any,
+        paymentStatus: parsed.data.paymentStatus ?? PaymentStatus.Pending,
       },
     });
     res.status(201).json(payment);

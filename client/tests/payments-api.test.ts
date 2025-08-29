@@ -76,7 +76,7 @@ describe('payment mutations', () => {
     };
 
     const result = await store
-      .dispatch(api.endpoints.createPayment.initiate({ id: 1, ...body }))
+      .dispatch(api.endpoints.createPayment.initiate({ leaseId: 1, ...body }))
       .unwrap();
 
     const req = fetchMock.mock.calls[0][0] as any;
@@ -89,7 +89,7 @@ describe('payment mutations', () => {
       expect.objectContaining({
         success: 'Payment created successfully!',
         error: 'Failed to create payment.',
-      })
+      }),
     );
   });
 
@@ -135,7 +135,7 @@ describe('payment mutations', () => {
       expect.objectContaining({
         success: 'Payment updated successfully!',
         error: 'Failed to update payment.',
-      })
+      }),
     );
   });
 });

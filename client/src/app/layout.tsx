@@ -44,6 +44,7 @@ export const metadata: Metadata = {
     images: ["/og-image.png"],
     creator: "@GarageGuru",
   },
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({

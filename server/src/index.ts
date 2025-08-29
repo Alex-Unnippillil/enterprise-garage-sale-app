@@ -3,11 +3,11 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
-import http from 'http';
-import { CLIENT_ORIGIN, PORT } from './env';
+import { PORT, CLIENT_ORIGIN } from './env';
 import { authMiddleware } from './middleware/auth-middleware';
-import { notFound } from './middleware/not-found';
-import { errorHandler } from './middleware/error-handler';
+import notFound from './middleware/not-found';
+import errorHandler from './middleware/error-handler';
+import http from 'http';
 import { initWebSocket } from './ws';
 
 /* ROUTE IMPORT */

@@ -66,6 +66,38 @@ describe('applicationControllers', () => {
     );
   });
 
+  it('creates an application with ISO string date', async () => {
+    const iso = new Date().toISOString();
+    mockPrisma.property.findUnique.mockResolvedValue({ id: 1 });
+    mockPrisma.application.create.mockResolvedValue({ id: 1 } as any);
+
+    const req = {
+      body: {
+        applicationDate: iso,
+        status: 'Pending',
+        propertyId: 1,
+        tenantCognitoId: 't1',
+        name: 'n',
+        email: 'e@example.com',
+        phoneNumber: 'p',
+        message: 'm',
+      },
+    } as unknown as Request;
+    const res = createMockRes();
+
+    await createApplication(req, res, next);
+
+    expect(mockPrisma.application.create).toHaveBeenCalledWith(
+      expect.objectContaining({
+        data: expect.objectContaining({
+          applicationDate: new Date(iso),
+        }),
+      }),
+    );
+    expect(res.status).toHaveBeenCalledWith(201);
+    expect(res.json).toHaveBeenCalledWith({ id: 1 });
+  });
+
   it('returns 404 when property missing', async () => {
     mockPrisma.property.findUnique.mockResolvedValue(null);
     const req = {
@@ -207,9 +239,7 @@ describe('applicationControllers', () => {
   });
 
   it('calls next on service error', async () => {
-    (updateApplicationStatusService as jest.Mock).mockRejectedValue(
-      new Error('db'),
-    );
+    (updateApplicationStatusService as jest.Mock).mockRejectedValue(new Error('db'));
     const req = {
       params: { id: '1' },
       body: { status: 'Approved' },

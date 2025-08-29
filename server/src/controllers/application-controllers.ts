@@ -105,20 +105,10 @@ export const createApplication = async (
       return;
     }
 
-    const {
-      applicationDate,
-      status,
-      propertyId,
-      tenantCognitoId,
-      name,
-      email,
-      phoneNumber,
-      message,
-    } = parsed.data;
+    const { status, propertyId, tenantCognitoId, name, email, phoneNumber, message } = parsed.data;
 
     const property = await prisma.property.findUnique({
       where: { id: propertyId },
-
     });
 
     if (!property) {
@@ -128,7 +118,7 @@ export const createApplication = async (
 
     const newApplication = await prisma.application.create({
       data: {
-        applicationDate,
+        applicationDate: parsed.data.applicationDate,
         status,
         name,
         email,

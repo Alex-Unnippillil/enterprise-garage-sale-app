@@ -90,6 +90,30 @@ body,
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
+
+  :root[data-high-contrast='true'] {
+    --background: 0 0% 0%;
+    --foreground: 0 0% 100%;
+    --primary: 60 100% 50%;
+    --primary-foreground: 0 0% 0%;
+  }
+
+  :root[data-large-targets='true'] {
+    --target-size: 44px;
+  }
+
+  :root[data-large-targets='true'] button,
+  :root[data-large-targets='true'] input,
+  :root[data-large-targets='true'] select {
+    min-height: var(--target-size);
+    min-width: var(--target-size);
+  }
+
+  :root[data-reduce-motion='true'] * {
+    transition-duration: 0ms !important;
+    animation-duration: 0ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 .dashboard-container {
@@ -177,14 +201,12 @@ body,
 /* Amplify UI Overrides */
 [data-amplify-authenticator] {
   --amplify-components-button-primary-background-color: var(--primary);
-  --amplify-components-button-primary-hover-background-color: hsl(
-    var(--primary) / 0.9
-  );
+  --amplify-components-button-primary-hover-background-color: hsl(var(--primary) / 0.9);
   --amplify-components-button-border-radius: var(--radius);
   --amplify-components-fieldcontrol-border-radius: var(--radius);
 }
 
-[data-amplify-authenticator][data-variation="default"] {
+[data-amplify-authenticator][data-variation='default'] {
   height: 100%;
   padding: 2rem !important;
 }
@@ -254,6 +276,6 @@ body,
 }
 
 /* Sonner Toast Styles */
-[data-close-button="true"] {
+[data-close-button='true'] {
   @apply bg-background border-border text-foreground hover:bg-muted;
 }

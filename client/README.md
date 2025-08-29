@@ -34,3 +34,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## PCAP Analyzer
+
+A simple tool is available at `/pcap` that lets you drop a WLAN `.pcap` or `.pcapng` file. It parses the capture with the `pcapjs` library and visualizes Probe, Authentication and EAPOL frames in a timeline alongside a beacon/probe flow diagram.

@@ -1,0 +1,22 @@
+[
+  {
+    "name": "HTTP Traffic",
+    "expression": "http",
+    "description": "Show all HTTP protocol packets"
+  },
+  {
+    "name": "TCP Only",
+    "expression": "tcp",
+    "description": "Display only TCP packets"
+  },
+  {
+    "name": "UDP Only",
+    "expression": "udp",
+    "description": "Display only UDP packets"
+  },
+  {
+    "name": "IP Address 192.168.1.1",
+    "expression": "ip.addr == 192.168.1.1",
+    "description": "Packets to or from 192.168.1.1"
+  }
+]

@@ -20,6 +20,10 @@ You can start editing the page by modifying `src/app/page.tsx`. The page auto-up
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Web Worker Demo
+
+Navigate to `/web-worker-demo` to try the sample project that formats code with Prettier, lints with ESLint and executes JavaScript inside a sandboxed web worker. Console output appears in the output panel.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

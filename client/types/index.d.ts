@@ -135,6 +135,18 @@ declare global {
     userInfo: Tenant | Manager;
     userRole: JsonObject | JsonPrimitive | JsonArray;
   }
+
+  interface DocumentPictureInPicture {
+    requestWindow: (
+      options?: { width?: number; height?: number }
+    ) => Promise<Window>;
+  }
+
+  interface Window {
+    documentPictureInPicture?: DocumentPictureInPicture;
+    YT: any;
+    onYouTubeIframeAPIReady?: () => void;
+  }
 }
 
 export {};

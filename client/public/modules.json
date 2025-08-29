@@ -1,0 +1,128 @@
+[
+  {
+    "id": "sql-injection",
+    "name": "SQL Injection",
+    "description": "Learn how malicious input can manipulate SQL queries and how to prevent it.",
+    "docUrl": "https://owasp.org/www-community/attacks/SQL_Injection"
+  },
+  {
+    "id": "xss",
+    "name": "Cross-Site Scripting (XSS)",
+    "description": "Understand XSS and techniques to sanitize user input to keep applications safe.",
+    "docUrl": "https://owasp.org/www-community/attacks/xss/"
+  },
+  {
+    "id": "csrf",
+    "name": "Cross-Site Request Forgery (CSRF)",
+    "description": "Explore how CSRF attacks trick users into unwanted actions and how to mitigate them.",
+    "docUrl": "https://owasp.org/www-community/attacks/csrf"
+  },
+  {
+    "id": "idor",
+    "name": "Insecure Direct Object Reference (IDOR)",
+    "description": "Discover how predictable identifiers expose data and how to enforce proper access controls.",
+    "docUrl": "https://owasp.org/www-community/attacks/IDOR"
+  },
+  {
+    "id": "rce",
+    "name": "Remote Code Execution (RCE)",
+    "description": "Identify how unsanitized inputs can lead to arbitrary code execution and prevention strategies.",
+    "docUrl": "https://owasp.org/www-community/attacks/Command_Injection"
+  },
+  {
+    "id": "directory-traversal",
+    "name": "Directory Traversal",
+    "description": "Learn about path traversal attacks that access unauthorized files and how to block them.",
+    "docUrl": "https://owasp.org/www-community/attacks/Path_Traversal"
+  },
+  {
+    "id": "ssrf",
+    "name": "Server-Side Request Forgery (SSRF)",
+    "description": "Understand how attackers abuse server functionality to access internal resources.",
+    "docUrl": "https://owasp.org/www-community/attacks/Server_Side_Request_Forgery"
+  },
+  {
+    "id": "xxe",
+    "name": "XML External Entity (XXE)",
+    "description": "Find out how XML parsers can be exploited and how to disable dangerous features.",
+    "docUrl": "https://owasp.org/www-community/vulnerabilities/XML_External_Entity_(XXE)_Processing"
+  },
+  {
+    "id": "broken-authentication",
+    "name": "Broken Authentication",
+    "description": "Review common authentication weaknesses and how to implement robust controls.",
+    "docUrl": "https://owasp.org/www-project-top-ten/2017/A2_2017-Broken_Authentication"
+  },
+  {
+    "id": "sensitive-data-exposure",
+    "name": "Sensitive Data Exposure",
+    "description": "Understand how sensitive data leaks and the importance of encryption and proper storage.",
+    "docUrl": "https://owasp.org/www-project-top-ten/2017/A3_2017-Sensitive_Data_Exposure"
+  },
+  {
+    "id": "security-misconfiguration",
+    "name": "Security Misconfiguration",
+    "description": "Learn how insecure default configurations lead to vulnerabilities and how to secure settings.",
+    "docUrl": "https://owasp.org/www-project-top-ten/2017/A6_2017-Security_Misconfiguration"
+  },
+  {
+    "id": "insecure-deserialization",
+    "name": "Insecure Deserialization",
+    "description": "Examine the risks of deserializing untrusted data and how to validate inputs.",
+    "docUrl": "https://owasp.org/www-project-top-ten/2017/A8_2017-Insecure_Deserialization"
+  },
+  {
+    "id": "command-injection",
+    "name": "Command Injection",
+    "description": "Understand how unvalidated inputs can inject system commands and ways to avoid it.",
+    "docUrl": "https://owasp.org/www-community/attacks/Command_Injection"
+  },
+  {
+    "id": "path-traversal",
+    "name": "Path Traversal",
+    "description": "Explore how attackers navigate directories to access files outside intended scope.",
+    "docUrl": "https://owasp.org/www-community/attacks/Path_Traversal"
+  },
+  {
+    "id": "buffer-overflow",
+    "name": "Buffer Overflow",
+    "description": "Learn about memory overflow issues and strategies to write safe code.",
+    "docUrl": "https://owasp.org/www-community/vulnerabilities/Buffer_Overflow"
+  },
+  {
+    "id": "open-redirect",
+    "name": "Open Redirect",
+    "description": "See how open redirects can be abused and how to validate redirect targets.",
+    "docUrl": "https://owasp.org/www-community/attacks/Unsafe_Redirects_and_Forwards"
+  },
+  {
+    "id": "clickjacking",
+    "name": "Clickjacking",
+    "description": "Understand how UI redressing tricks users and how to defend with frame-busting headers.",
+    "docUrl": "https://owasp.org/www-community/attacks/Clickjacking"
+  },
+  {
+    "id": "session-fixation",
+    "name": "Session Fixation",
+    "description": "Learn how attackers hijack sessions and the importance of regenerating session IDs.",
+    "docUrl": "https://owasp.org/www-community/attacks/Session_fixation"
+  },
+  {
+    "id": "http-parameter-pollution",
+    "name": "HTTP Parameter Pollution",
+    "description": "Explore how duplicated HTTP parameters can bypass security checks and how to handle them.",
+    "docUrl": "https://owasp.org/www-community/attacks/HTTP_Parameter_Pollution"
+  },
+  {
+    "id": "unvalidated-redirects",
+    "name": "Unvalidated Redirects",
+    "description": "Discover the risks of redirecting users to untrusted locations and how to restrict redirects.",
+    "docUrl": "https://owasp.org/www-community/attacks/Unsafe_Redirects_and_Forwards"
+  },
+  {
+    "id": "sandbox-bypass",
+    "name": "Sandbox Bypass",
+    "description": "Understand the concept of sandboxes and how bypasses occur so you can harden environments.",
+    "docUrl": "https://owasp.org/www-community/attacks/FullPathDisclosure"
+  }
+]

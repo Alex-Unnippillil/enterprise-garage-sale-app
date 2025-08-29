@@ -1,0 +1,5502 @@
+[
+  {
+    "id": 1,
+    "name": "Module 1",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-01-01",
+    "notes": "Educational note about Module 1"
+  },
+  {
+    "id": 2,
+    "name": "Module 2",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-01-02",
+    "notes": "Educational note about Module 2"
+  },
+  {
+    "id": 3,
+    "name": "Module 3",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-01-03",
+    "notes": "Educational note about Module 3"
+  },
+  {
+    "id": 4,
+    "name": "Module 4",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-01-04",
+    "notes": "Educational note about Module 4"
+  },
+  {
+    "id": 5,
+    "name": "Module 5",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-01-05",
+    "notes": "Educational note about Module 5"
+  },
+  {
+    "id": 6,
+    "name": "Module 6",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-01-06",
+    "notes": "Educational note about Module 6"
+  },
+  {
+    "id": 7,
+    "name": "Module 7",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-01-07",
+    "notes": "Educational note about Module 7"
+  },
+  {
+    "id": 8,
+    "name": "Module 8",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-01-08",
+    "notes": "Educational note about Module 8"
+  },
+  {
+    "id": 9,
+    "name": "Module 9",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-01-09",
+    "notes": "Educational note about Module 9"
+  },
+  {
+    "id": 10,
+    "name": "Module 10",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-01-10",
+    "notes": "Educational note about Module 10"
+  },
+  {
+    "id": 11,
+    "name": "Module 11",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-01-11",
+    "notes": "Educational note about Module 11"
+  },
+  {
+    "id": 12,
+    "name": "Module 12",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-01-12",
+    "notes": "Educational note about Module 12"
+  },
+  {
+    "id": 13,
+    "name": "Module 13",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-01-13",
+    "notes": "Educational note about Module 13"
+  },
+  {
+    "id": 14,
+    "name": "Module 14",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-01-14",
+    "notes": "Educational note about Module 14"
+  },
+  {
+    "id": 15,
+    "name": "Module 15",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-01-15",
+    "notes": "Educational note about Module 15"
+  },
+  {
+    "id": 16,
+    "name": "Module 16",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-01-16",
+    "notes": "Educational note about Module 16"
+  },
+  {
+    "id": 17,
+    "name": "Module 17",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-01-17",
+    "notes": "Educational note about Module 17"
+  },
+  {
+    "id": 18,
+    "name": "Module 18",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-01-18",
+    "notes": "Educational note about Module 18"
+  },
+  {
+    "id": 19,
+    "name": "Module 19",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-01-19",
+    "notes": "Educational note about Module 19"
+  },
+  {
+    "id": 20,
+    "name": "Module 20",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-01-20",
+    "notes": "Educational note about Module 20"
+  },
+  {
+    "id": 21,
+    "name": "Module 21",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-01-21",
+    "notes": "Educational note about Module 21"
+  },
+  {
+    "id": 22,
+    "name": "Module 22",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-01-22",
+    "notes": "Educational note about Module 22"
+  },
+  {
+    "id": 23,
+    "name": "Module 23",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-01-23",
+    "notes": "Educational note about Module 23"
+  },
+  {
+    "id": 24,
+    "name": "Module 24",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-01-24",
+    "notes": "Educational note about Module 24"
+  },
+  {
+    "id": 25,
+    "name": "Module 25",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-01-25",
+    "notes": "Educational note about Module 25"
+  },
+  {
+    "id": 26,
+    "name": "Module 26",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-01-26",
+    "notes": "Educational note about Module 26"
+  },
+  {
+    "id": 27,
+    "name": "Module 27",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-01-27",
+    "notes": "Educational note about Module 27"
+  },
+  {
+    "id": 28,
+    "name": "Module 28",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-01-28",
+    "notes": "Educational note about Module 28"
+  },
+  {
+    "id": 29,
+    "name": "Module 29",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-01-29",
+    "notes": "Educational note about Module 29"
+  },
+  {
+    "id": 30,
+    "name": "Module 30",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-01-30",
+    "notes": "Educational note about Module 30"
+  },
+  {
+    "id": 31,
+    "name": "Module 31",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-01-31",
+    "notes": "Educational note about Module 31"
+  },
+  {
+    "id": 32,
+    "name": "Module 32",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-02-01",
+    "notes": "Educational note about Module 32"
+  },
+  {
+    "id": 33,
+    "name": "Module 33",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-02-02",
+    "notes": "Educational note about Module 33"
+  },
+  {
+    "id": 34,
+    "name": "Module 34",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-02-03",
+    "notes": "Educational note about Module 34"
+  },
+  {
+    "id": 35,
+    "name": "Module 35",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-02-04",
+    "notes": "Educational note about Module 35"
+  },
+  {
+    "id": 36,
+    "name": "Module 36",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-02-05",
+    "notes": "Educational note about Module 36"
+  },
+  {
+    "id": 37,
+    "name": "Module 37",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-02-06",
+    "notes": "Educational note about Module 37"
+  },
+  {
+    "id": 38,
+    "name": "Module 38",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-02-07",
+    "notes": "Educational note about Module 38"
+  },
+  {
+    "id": 39,
+    "name": "Module 39",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-02-08",
+    "notes": "Educational note about Module 39"
+  },
+  {
+    "id": 40,
+    "name": "Module 40",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-02-09",
+    "notes": "Educational note about Module 40"
+  },
+  {
+    "id": 41,
+    "name": "Module 41",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-02-10",
+    "notes": "Educational note about Module 41"
+  },
+  {
+    "id": 42,
+    "name": "Module 42",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-02-11",
+    "notes": "Educational note about Module 42"
+  },
+  {
+    "id": 43,
+    "name": "Module 43",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-02-12",
+    "notes": "Educational note about Module 43"
+  },
+  {
+    "id": 44,
+    "name": "Module 44",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-02-13",
+    "notes": "Educational note about Module 44"
+  },
+  {
+    "id": 45,
+    "name": "Module 45",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-02-14",
+    "notes": "Educational note about Module 45"
+  },
+  {
+    "id": 46,
+    "name": "Module 46",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-02-15",
+    "notes": "Educational note about Module 46"
+  },
+  {
+    "id": 47,
+    "name": "Module 47",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-02-16",
+    "notes": "Educational note about Module 47"
+  },
+  {
+    "id": 48,
+    "name": "Module 48",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-02-17",
+    "notes": "Educational note about Module 48"
+  },
+  {
+    "id": 49,
+    "name": "Module 49",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-02-18",
+    "notes": "Educational note about Module 49"
+  },
+  {
+    "id": 50,
+    "name": "Module 50",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-02-19",
+    "notes": "Educational note about Module 50"
+  },
+  {
+    "id": 51,
+    "name": "Module 51",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-02-20",
+    "notes": "Educational note about Module 51"
+  },
+  {
+    "id": 52,
+    "name": "Module 52",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-02-21",
+    "notes": "Educational note about Module 52"
+  },
+  {
+    "id": 53,
+    "name": "Module 53",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-02-22",
+    "notes": "Educational note about Module 53"
+  },
+  {
+    "id": 54,
+    "name": "Module 54",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-02-23",
+    "notes": "Educational note about Module 54"
+  },
+  {
+    "id": 55,
+    "name": "Module 55",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-02-24",
+    "notes": "Educational note about Module 55"
+  },
+  {
+    "id": 56,
+    "name": "Module 56",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-02-25",
+    "notes": "Educational note about Module 56"
+  },
+  {
+    "id": 57,
+    "name": "Module 57",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-02-26",
+    "notes": "Educational note about Module 57"
+  },
+  {
+    "id": 58,
+    "name": "Module 58",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-02-27",
+    "notes": "Educational note about Module 58"
+  },
+  {
+    "id": 59,
+    "name": "Module 59",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-02-28",
+    "notes": "Educational note about Module 59"
+  },
+  {
+    "id": 60,
+    "name": "Module 60",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-02-29",
+    "notes": "Educational note about Module 60"
+  },
+  {
+    "id": 61,
+    "name": "Module 61",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-03-01",
+    "notes": "Educational note about Module 61"
+  },
+  {
+    "id": 62,
+    "name": "Module 62",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-03-02",
+    "notes": "Educational note about Module 62"
+  },
+  {
+    "id": 63,
+    "name": "Module 63",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-03-03",
+    "notes": "Educational note about Module 63"
+  },
+  {
+    "id": 64,
+    "name": "Module 64",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-03-04",
+    "notes": "Educational note about Module 64"
+  },
+  {
+    "id": 65,
+    "name": "Module 65",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-03-05",
+    "notes": "Educational note about Module 65"
+  },
+  {
+    "id": 66,
+    "name": "Module 66",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-03-06",
+    "notes": "Educational note about Module 66"
+  },
+  {
+    "id": 67,
+    "name": "Module 67",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-03-07",
+    "notes": "Educational note about Module 67"
+  },
+  {
+    "id": 68,
+    "name": "Module 68",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-03-08",
+    "notes": "Educational note about Module 68"
+  },
+  {
+    "id": 69,
+    "name": "Module 69",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-03-09",
+    "notes": "Educational note about Module 69"
+  },
+  {
+    "id": 70,
+    "name": "Module 70",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-03-10",
+    "notes": "Educational note about Module 70"
+  },
+  {
+    "id": 71,
+    "name": "Module 71",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-03-11",
+    "notes": "Educational note about Module 71"
+  },
+  {
+    "id": 72,
+    "name": "Module 72",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-03-12",
+    "notes": "Educational note about Module 72"
+  },
+  {
+    "id": 73,
+    "name": "Module 73",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-03-13",
+    "notes": "Educational note about Module 73"
+  },
+  {
+    "id": 74,
+    "name": "Module 74",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-03-14",
+    "notes": "Educational note about Module 74"
+  },
+  {
+    "id": 75,
+    "name": "Module 75",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-03-15",
+    "notes": "Educational note about Module 75"
+  },
+  {
+    "id": 76,
+    "name": "Module 76",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-03-16",
+    "notes": "Educational note about Module 76"
+  },
+  {
+    "id": 77,
+    "name": "Module 77",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-03-17",
+    "notes": "Educational note about Module 77"
+  },
+  {
+    "id": 78,
+    "name": "Module 78",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-03-18",
+    "notes": "Educational note about Module 78"
+  },
+  {
+    "id": 79,
+    "name": "Module 79",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-03-19",
+    "notes": "Educational note about Module 79"
+  },
+  {
+    "id": 80,
+    "name": "Module 80",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-03-20",
+    "notes": "Educational note about Module 80"
+  },
+  {
+    "id": 81,
+    "name": "Module 81",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-03-21",
+    "notes": "Educational note about Module 81"
+  },
+  {
+    "id": 82,
+    "name": "Module 82",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-03-22",
+    "notes": "Educational note about Module 82"
+  },
+  {
+    "id": 83,
+    "name": "Module 83",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-03-23",
+    "notes": "Educational note about Module 83"
+  },
+  {
+    "id": 84,
+    "name": "Module 84",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-03-24",
+    "notes": "Educational note about Module 84"
+  },
+  {
+    "id": 85,
+    "name": "Module 85",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-03-25",
+    "notes": "Educational note about Module 85"
+  },
+  {
+    "id": 86,
+    "name": "Module 86",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-03-26",
+    "notes": "Educational note about Module 86"
+  },
+  {
+    "id": 87,
+    "name": "Module 87",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-03-27",
+    "notes": "Educational note about Module 87"
+  },
+  {
+    "id": 88,
+    "name": "Module 88",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-03-28",
+    "notes": "Educational note about Module 88"
+  },
+  {
+    "id": 89,
+    "name": "Module 89",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-03-29",
+    "notes": "Educational note about Module 89"
+  },
+  {
+    "id": 90,
+    "name": "Module 90",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-03-30",
+    "notes": "Educational note about Module 90"
+  },
+  {
+    "id": 91,
+    "name": "Module 91",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-03-31",
+    "notes": "Educational note about Module 91"
+  },
+  {
+    "id": 92,
+    "name": "Module 92",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-04-01",
+    "notes": "Educational note about Module 92"
+  },
+  {
+    "id": 93,
+    "name": "Module 93",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-04-02",
+    "notes": "Educational note about Module 93"
+  },
+  {
+    "id": 94,
+    "name": "Module 94",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-04-03",
+    "notes": "Educational note about Module 94"
+  },
+  {
+    "id": 95,
+    "name": "Module 95",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-04-04",
+    "notes": "Educational note about Module 95"
+  },
+  {
+    "id": 96,
+    "name": "Module 96",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-04-05",
+    "notes": "Educational note about Module 96"
+  },
+  {
+    "id": 97,
+    "name": "Module 97",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-04-06",
+    "notes": "Educational note about Module 97"
+  },
+  {
+    "id": 98,
+    "name": "Module 98",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-04-07",
+    "notes": "Educational note about Module 98"
+  },
+  {
+    "id": 99,
+    "name": "Module 99",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-04-08",
+    "notes": "Educational note about Module 99"
+  },
+  {
+    "id": 100,
+    "name": "Module 100",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-04-09",
+    "notes": "Educational note about Module 100"
+  },
+  {
+    "id": 101,
+    "name": "Module 101",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-04-10",
+    "notes": "Educational note about Module 101"
+  },
+  {
+    "id": 102,
+    "name": "Module 102",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-04-11",
+    "notes": "Educational note about Module 102"
+  },
+  {
+    "id": 103,
+    "name": "Module 103",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-04-12",
+    "notes": "Educational note about Module 103"
+  },
+  {
+    "id": 104,
+    "name": "Module 104",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-04-13",
+    "notes": "Educational note about Module 104"
+  },
+  {
+    "id": 105,
+    "name": "Module 105",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-04-14",
+    "notes": "Educational note about Module 105"
+  },
+  {
+    "id": 106,
+    "name": "Module 106",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-04-15",
+    "notes": "Educational note about Module 106"
+  },
+  {
+    "id": 107,
+    "name": "Module 107",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-04-16",
+    "notes": "Educational note about Module 107"
+  },
+  {
+    "id": 108,
+    "name": "Module 108",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-04-17",
+    "notes": "Educational note about Module 108"
+  },
+  {
+    "id": 109,
+    "name": "Module 109",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-04-18",
+    "notes": "Educational note about Module 109"
+  },
+  {
+    "id": 110,
+    "name": "Module 110",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-04-19",
+    "notes": "Educational note about Module 110"
+  },
+  {
+    "id": 111,
+    "name": "Module 111",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-04-20",
+    "notes": "Educational note about Module 111"
+  },
+  {
+    "id": 112,
+    "name": "Module 112",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-04-21",
+    "notes": "Educational note about Module 112"
+  },
+  {
+    "id": 113,
+    "name": "Module 113",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-04-22",
+    "notes": "Educational note about Module 113"
+  },
+  {
+    "id": 114,
+    "name": "Module 114",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-04-23",
+    "notes": "Educational note about Module 114"
+  },
+  {
+    "id": 115,
+    "name": "Module 115",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-04-24",
+    "notes": "Educational note about Module 115"
+  },
+  {
+    "id": 116,
+    "name": "Module 116",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-04-25",
+    "notes": "Educational note about Module 116"
+  },
+  {
+    "id": 117,
+    "name": "Module 117",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-04-26",
+    "notes": "Educational note about Module 117"
+  },
+  {
+    "id": 118,
+    "name": "Module 118",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-04-27",
+    "notes": "Educational note about Module 118"
+  },
+  {
+    "id": 119,
+    "name": "Module 119",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-04-28",
+    "notes": "Educational note about Module 119"
+  },
+  {
+    "id": 120,
+    "name": "Module 120",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-04-29",
+    "notes": "Educational note about Module 120"
+  },
+  {
+    "id": 121,
+    "name": "Module 121",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-04-30",
+    "notes": "Educational note about Module 121"
+  },
+  {
+    "id": 122,
+    "name": "Module 122",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-05-01",
+    "notes": "Educational note about Module 122"
+  },
+  {
+    "id": 123,
+    "name": "Module 123",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-05-02",
+    "notes": "Educational note about Module 123"
+  },
+  {
+    "id": 124,
+    "name": "Module 124",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-05-03",
+    "notes": "Educational note about Module 124"
+  },
+  {
+    "id": 125,
+    "name": "Module 125",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-05-04",
+    "notes": "Educational note about Module 125"
+  },
+  {
+    "id": 126,
+    "name": "Module 126",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-05-05",
+    "notes": "Educational note about Module 126"
+  },
+  {
+    "id": 127,
+    "name": "Module 127",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-05-06",
+    "notes": "Educational note about Module 127"
+  },
+  {
+    "id": 128,
+    "name": "Module 128",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-05-07",
+    "notes": "Educational note about Module 128"
+  },
+  {
+    "id": 129,
+    "name": "Module 129",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-05-08",
+    "notes": "Educational note about Module 129"
+  },
+  {
+    "id": 130,
+    "name": "Module 130",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-05-09",
+    "notes": "Educational note about Module 130"
+  },
+  {
+    "id": 131,
+    "name": "Module 131",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-05-10",
+    "notes": "Educational note about Module 131"
+  },
+  {
+    "id": 132,
+    "name": "Module 132",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-05-11",
+    "notes": "Educational note about Module 132"
+  },
+  {
+    "id": 133,
+    "name": "Module 133",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-05-12",
+    "notes": "Educational note about Module 133"
+  },
+  {
+    "id": 134,
+    "name": "Module 134",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-05-13",
+    "notes": "Educational note about Module 134"
+  },
+  {
+    "id": 135,
+    "name": "Module 135",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-05-14",
+    "notes": "Educational note about Module 135"
+  },
+  {
+    "id": 136,
+    "name": "Module 136",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-05-15",
+    "notes": "Educational note about Module 136"
+  },
+  {
+    "id": 137,
+    "name": "Module 137",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-05-16",
+    "notes": "Educational note about Module 137"
+  },
+  {
+    "id": 138,
+    "name": "Module 138",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-05-17",
+    "notes": "Educational note about Module 138"
+  },
+  {
+    "id": 139,
+    "name": "Module 139",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-05-18",
+    "notes": "Educational note about Module 139"
+  },
+  {
+    "id": 140,
+    "name": "Module 140",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-05-19",
+    "notes": "Educational note about Module 140"
+  },
+  {
+    "id": 141,
+    "name": "Module 141",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-05-20",
+    "notes": "Educational note about Module 141"
+  },
+  {
+    "id": 142,
+    "name": "Module 142",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-05-21",
+    "notes": "Educational note about Module 142"
+  },
+  {
+    "id": 143,
+    "name": "Module 143",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-05-22",
+    "notes": "Educational note about Module 143"
+  },
+  {
+    "id": 144,
+    "name": "Module 144",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-05-23",
+    "notes": "Educational note about Module 144"
+  },
+  {
+    "id": 145,
+    "name": "Module 145",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-05-24",
+    "notes": "Educational note about Module 145"
+  },
+  {
+    "id": 146,
+    "name": "Module 146",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-05-25",
+    "notes": "Educational note about Module 146"
+  },
+  {
+    "id": 147,
+    "name": "Module 147",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-05-26",
+    "notes": "Educational note about Module 147"
+  },
+  {
+    "id": 148,
+    "name": "Module 148",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-05-27",
+    "notes": "Educational note about Module 148"
+  },
+  {
+    "id": 149,
+    "name": "Module 149",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-05-28",
+    "notes": "Educational note about Module 149"
+  },
+  {
+    "id": 150,
+    "name": "Module 150",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-05-29",
+    "notes": "Educational note about Module 150"
+  },
+  {
+    "id": 151,
+    "name": "Module 151",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-05-30",
+    "notes": "Educational note about Module 151"
+  },
+  {
+    "id": 152,
+    "name": "Module 152",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-05-31",
+    "notes": "Educational note about Module 152"
+  },
+  {
+    "id": 153,
+    "name": "Module 153",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-06-01",
+    "notes": "Educational note about Module 153"
+  },
+  {
+    "id": 154,
+    "name": "Module 154",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-06-02",
+    "notes": "Educational note about Module 154"
+  },
+  {
+    "id": 155,
+    "name": "Module 155",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-06-03",
+    "notes": "Educational note about Module 155"
+  },
+  {
+    "id": 156,
+    "name": "Module 156",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-06-04",
+    "notes": "Educational note about Module 156"
+  },
+  {
+    "id": 157,
+    "name": "Module 157",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-06-05",
+    "notes": "Educational note about Module 157"
+  },
+  {
+    "id": 158,
+    "name": "Module 158",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-06-06",
+    "notes": "Educational note about Module 158"
+  },
+  {
+    "id": 159,
+    "name": "Module 159",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-06-07",
+    "notes": "Educational note about Module 159"
+  },
+  {
+    "id": 160,
+    "name": "Module 160",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-06-08",
+    "notes": "Educational note about Module 160"
+  },
+  {
+    "id": 161,
+    "name": "Module 161",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-06-09",
+    "notes": "Educational note about Module 161"
+  },
+  {
+    "id": 162,
+    "name": "Module 162",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-06-10",
+    "notes": "Educational note about Module 162"
+  },
+  {
+    "id": 163,
+    "name": "Module 163",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-06-11",
+    "notes": "Educational note about Module 163"
+  },
+  {
+    "id": 164,
+    "name": "Module 164",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-06-12",
+    "notes": "Educational note about Module 164"
+  },
+  {
+    "id": 165,
+    "name": "Module 165",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-06-13",
+    "notes": "Educational note about Module 165"
+  },
+  {
+    "id": 166,
+    "name": "Module 166",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-06-14",
+    "notes": "Educational note about Module 166"
+  },
+  {
+    "id": 167,
+    "name": "Module 167",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-06-15",
+    "notes": "Educational note about Module 167"
+  },
+  {
+    "id": 168,
+    "name": "Module 168",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-06-16",
+    "notes": "Educational note about Module 168"
+  },
+  {
+    "id": 169,
+    "name": "Module 169",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-06-17",
+    "notes": "Educational note about Module 169"
+  },
+  {
+    "id": 170,
+    "name": "Module 170",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-06-18",
+    "notes": "Educational note about Module 170"
+  },
+  {
+    "id": 171,
+    "name": "Module 171",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-06-19",
+    "notes": "Educational note about Module 171"
+  },
+  {
+    "id": 172,
+    "name": "Module 172",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-06-20",
+    "notes": "Educational note about Module 172"
+  },
+  {
+    "id": 173,
+    "name": "Module 173",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-06-21",
+    "notes": "Educational note about Module 173"
+  },
+  {
+    "id": 174,
+    "name": "Module 174",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-06-22",
+    "notes": "Educational note about Module 174"
+  },
+  {
+    "id": 175,
+    "name": "Module 175",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-06-23",
+    "notes": "Educational note about Module 175"
+  },
+  {
+    "id": 176,
+    "name": "Module 176",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-06-24",
+    "notes": "Educational note about Module 176"
+  },
+  {
+    "id": 177,
+    "name": "Module 177",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-06-25",
+    "notes": "Educational note about Module 177"
+  },
+  {
+    "id": 178,
+    "name": "Module 178",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-06-26",
+    "notes": "Educational note about Module 178"
+  },
+  {
+    "id": 179,
+    "name": "Module 179",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-06-27",
+    "notes": "Educational note about Module 179"
+  },
+  {
+    "id": 180,
+    "name": "Module 180",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-06-28",
+    "notes": "Educational note about Module 180"
+  },
+  {
+    "id": 181,
+    "name": "Module 181",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-06-29",
+    "notes": "Educational note about Module 181"
+  },
+  {
+    "id": 182,
+    "name": "Module 182",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-06-30",
+    "notes": "Educational note about Module 182"
+  },
+  {
+    "id": 183,
+    "name": "Module 183",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-07-01",
+    "notes": "Educational note about Module 183"
+  },
+  {
+    "id": 184,
+    "name": "Module 184",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-07-02",
+    "notes": "Educational note about Module 184"
+  },
+  {
+    "id": 185,
+    "name": "Module 185",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-07-03",
+    "notes": "Educational note about Module 185"
+  },
+  {
+    "id": 186,
+    "name": "Module 186",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-07-04",
+    "notes": "Educational note about Module 186"
+  },
+  {
+    "id": 187,
+    "name": "Module 187",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-07-05",
+    "notes": "Educational note about Module 187"
+  },
+  {
+    "id": 188,
+    "name": "Module 188",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-07-06",
+    "notes": "Educational note about Module 188"
+  },
+  {
+    "id": 189,
+    "name": "Module 189",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-07-07",
+    "notes": "Educational note about Module 189"
+  },
+  {
+    "id": 190,
+    "name": "Module 190",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-07-08",
+    "notes": "Educational note about Module 190"
+  },
+  {
+    "id": 191,
+    "name": "Module 191",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-07-09",
+    "notes": "Educational note about Module 191"
+  },
+  {
+    "id": 192,
+    "name": "Module 192",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-07-10",
+    "notes": "Educational note about Module 192"
+  },
+  {
+    "id": 193,
+    "name": "Module 193",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-07-11",
+    "notes": "Educational note about Module 193"
+  },
+  {
+    "id": 194,
+    "name": "Module 194",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-07-12",
+    "notes": "Educational note about Module 194"
+  },
+  {
+    "id": 195,
+    "name": "Module 195",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-07-13",
+    "notes": "Educational note about Module 195"
+  },
+  {
+    "id": 196,
+    "name": "Module 196",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-07-14",
+    "notes": "Educational note about Module 196"
+  },
+  {
+    "id": 197,
+    "name": "Module 197",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-07-15",
+    "notes": "Educational note about Module 197"
+  },
+  {
+    "id": 198,
+    "name": "Module 198",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-07-16",
+    "notes": "Educational note about Module 198"
+  },
+  {
+    "id": 199,
+    "name": "Module 199",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-07-17",
+    "notes": "Educational note about Module 199"
+  },
+  {
+    "id": 200,
+    "name": "Module 200",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-07-18",
+    "notes": "Educational note about Module 200"
+  },
+  {
+    "id": 201,
+    "name": "Module 201",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-07-19",
+    "notes": "Educational note about Module 201"
+  },
+  {
+    "id": 202,
+    "name": "Module 202",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-07-20",
+    "notes": "Educational note about Module 202"
+  },
+  {
+    "id": 203,
+    "name": "Module 203",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-07-21",
+    "notes": "Educational note about Module 203"
+  },
+  {
+    "id": 204,
+    "name": "Module 204",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-07-22",
+    "notes": "Educational note about Module 204"
+  },
+  {
+    "id": 205,
+    "name": "Module 205",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-07-23",
+    "notes": "Educational note about Module 205"
+  },
+  {
+    "id": 206,
+    "name": "Module 206",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-07-24",
+    "notes": "Educational note about Module 206"
+  },
+  {
+    "id": 207,
+    "name": "Module 207",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-07-25",
+    "notes": "Educational note about Module 207"
+  },
+  {
+    "id": 208,
+    "name": "Module 208",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-07-26",
+    "notes": "Educational note about Module 208"
+  },
+  {
+    "id": 209,
+    "name": "Module 209",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-07-27",
+    "notes": "Educational note about Module 209"
+  },
+  {
+    "id": 210,
+    "name": "Module 210",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-07-28",
+    "notes": "Educational note about Module 210"
+  },
+  {
+    "id": 211,
+    "name": "Module 211",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-07-29",
+    "notes": "Educational note about Module 211"
+  },
+  {
+    "id": 212,
+    "name": "Module 212",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-07-30",
+    "notes": "Educational note about Module 212"
+  },
+  {
+    "id": 213,
+    "name": "Module 213",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-07-31",
+    "notes": "Educational note about Module 213"
+  },
+  {
+    "id": 214,
+    "name": "Module 214",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-08-01",
+    "notes": "Educational note about Module 214"
+  },
+  {
+    "id": 215,
+    "name": "Module 215",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-08-02",
+    "notes": "Educational note about Module 215"
+  },
+  {
+    "id": 216,
+    "name": "Module 216",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-08-03",
+    "notes": "Educational note about Module 216"
+  },
+  {
+    "id": 217,
+    "name": "Module 217",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-08-04",
+    "notes": "Educational note about Module 217"
+  },
+  {
+    "id": 218,
+    "name": "Module 218",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-08-05",
+    "notes": "Educational note about Module 218"
+  },
+  {
+    "id": 219,
+    "name": "Module 219",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-08-06",
+    "notes": "Educational note about Module 219"
+  },
+  {
+    "id": 220,
+    "name": "Module 220",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-08-07",
+    "notes": "Educational note about Module 220"
+  },
+  {
+    "id": 221,
+    "name": "Module 221",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-08-08",
+    "notes": "Educational note about Module 221"
+  },
+  {
+    "id": 222,
+    "name": "Module 222",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-08-09",
+    "notes": "Educational note about Module 222"
+  },
+  {
+    "id": 223,
+    "name": "Module 223",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-08-10",
+    "notes": "Educational note about Module 223"
+  },
+  {
+    "id": 224,
+    "name": "Module 224",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-08-11",
+    "notes": "Educational note about Module 224"
+  },
+  {
+    "id": 225,
+    "name": "Module 225",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-08-12",
+    "notes": "Educational note about Module 225"
+  },
+  {
+    "id": 226,
+    "name": "Module 226",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-08-13",
+    "notes": "Educational note about Module 226"
+  },
+  {
+    "id": 227,
+    "name": "Module 227",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-08-14",
+    "notes": "Educational note about Module 227"
+  },
+  {
+    "id": 228,
+    "name": "Module 228",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-08-15",
+    "notes": "Educational note about Module 228"
+  },
+  {
+    "id": 229,
+    "name": "Module 229",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-08-16",
+    "notes": "Educational note about Module 229"
+  },
+  {
+    "id": 230,
+    "name": "Module 230",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-08-17",
+    "notes": "Educational note about Module 230"
+  },
+  {
+    "id": 231,
+    "name": "Module 231",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-08-18",
+    "notes": "Educational note about Module 231"
+  },
+  {
+    "id": 232,
+    "name": "Module 232",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-08-19",
+    "notes": "Educational note about Module 232"
+  },
+  {
+    "id": 233,
+    "name": "Module 233",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-08-20",
+    "notes": "Educational note about Module 233"
+  },
+  {
+    "id": 234,
+    "name": "Module 234",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-08-21",
+    "notes": "Educational note about Module 234"
+  },
+  {
+    "id": 235,
+    "name": "Module 235",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-08-22",
+    "notes": "Educational note about Module 235"
+  },
+  {
+    "id": 236,
+    "name": "Module 236",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-08-23",
+    "notes": "Educational note about Module 236"
+  },
+  {
+    "id": 237,
+    "name": "Module 237",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-08-24",
+    "notes": "Educational note about Module 237"
+  },
+  {
+    "id": 238,
+    "name": "Module 238",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-08-25",
+    "notes": "Educational note about Module 238"
+  },
+  {
+    "id": 239,
+    "name": "Module 239",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-08-26",
+    "notes": "Educational note about Module 239"
+  },
+  {
+    "id": 240,
+    "name": "Module 240",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-08-27",
+    "notes": "Educational note about Module 240"
+  },
+  {
+    "id": 241,
+    "name": "Module 241",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-08-28",
+    "notes": "Educational note about Module 241"
+  },
+  {
+    "id": 242,
+    "name": "Module 242",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-08-29",
+    "notes": "Educational note about Module 242"
+  },
+  {
+    "id": 243,
+    "name": "Module 243",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-08-30",
+    "notes": "Educational note about Module 243"
+  },
+  {
+    "id": 244,
+    "name": "Module 244",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-08-31",
+    "notes": "Educational note about Module 244"
+  },
+  {
+    "id": 245,
+    "name": "Module 245",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-09-01",
+    "notes": "Educational note about Module 245"
+  },
+  {
+    "id": 246,
+    "name": "Module 246",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-09-02",
+    "notes": "Educational note about Module 246"
+  },
+  {
+    "id": 247,
+    "name": "Module 247",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-09-03",
+    "notes": "Educational note about Module 247"
+  },
+  {
+    "id": 248,
+    "name": "Module 248",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-09-04",
+    "notes": "Educational note about Module 248"
+  },
+  {
+    "id": 249,
+    "name": "Module 249",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-09-05",
+    "notes": "Educational note about Module 249"
+  },
+  {
+    "id": 250,
+    "name": "Module 250",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-09-06",
+    "notes": "Educational note about Module 250"
+  },
+  {
+    "id": 251,
+    "name": "Module 251",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-09-07",
+    "notes": "Educational note about Module 251"
+  },
+  {
+    "id": 252,
+    "name": "Module 252",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-09-08",
+    "notes": "Educational note about Module 252"
+  },
+  {
+    "id": 253,
+    "name": "Module 253",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-09-09",
+    "notes": "Educational note about Module 253"
+  },
+  {
+    "id": 254,
+    "name": "Module 254",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-09-10",
+    "notes": "Educational note about Module 254"
+  },
+  {
+    "id": 255,
+    "name": "Module 255",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-09-11",
+    "notes": "Educational note about Module 255"
+  },
+  {
+    "id": 256,
+    "name": "Module 256",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-09-12",
+    "notes": "Educational note about Module 256"
+  },
+  {
+    "id": 257,
+    "name": "Module 257",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-09-13",
+    "notes": "Educational note about Module 257"
+  },
+  {
+    "id": 258,
+    "name": "Module 258",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-09-14",
+    "notes": "Educational note about Module 258"
+  },
+  {
+    "id": 259,
+    "name": "Module 259",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-09-15",
+    "notes": "Educational note about Module 259"
+  },
+  {
+    "id": 260,
+    "name": "Module 260",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-09-16",
+    "notes": "Educational note about Module 260"
+  },
+  {
+    "id": 261,
+    "name": "Module 261",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-09-17",
+    "notes": "Educational note about Module 261"
+  },
+  {
+    "id": 262,
+    "name": "Module 262",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-09-18",
+    "notes": "Educational note about Module 262"
+  },
+  {
+    "id": 263,
+    "name": "Module 263",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-09-19",
+    "notes": "Educational note about Module 263"
+  },
+  {
+    "id": 264,
+    "name": "Module 264",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-09-20",
+    "notes": "Educational note about Module 264"
+  },
+  {
+    "id": 265,
+    "name": "Module 265",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-09-21",
+    "notes": "Educational note about Module 265"
+  },
+  {
+    "id": 266,
+    "name": "Module 266",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-09-22",
+    "notes": "Educational note about Module 266"
+  },
+  {
+    "id": 267,
+    "name": "Module 267",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-09-23",
+    "notes": "Educational note about Module 267"
+  },
+  {
+    "id": 268,
+    "name": "Module 268",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-09-24",
+    "notes": "Educational note about Module 268"
+  },
+  {
+    "id": 269,
+    "name": "Module 269",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-09-25",
+    "notes": "Educational note about Module 269"
+  },
+  {
+    "id": 270,
+    "name": "Module 270",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-09-26",
+    "notes": "Educational note about Module 270"
+  },
+  {
+    "id": 271,
+    "name": "Module 271",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-09-27",
+    "notes": "Educational note about Module 271"
+  },
+  {
+    "id": 272,
+    "name": "Module 272",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-09-28",
+    "notes": "Educational note about Module 272"
+  },
+  {
+    "id": 273,
+    "name": "Module 273",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-09-29",
+    "notes": "Educational note about Module 273"
+  },
+  {
+    "id": 274,
+    "name": "Module 274",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-09-30",
+    "notes": "Educational note about Module 274"
+  },
+  {
+    "id": 275,
+    "name": "Module 275",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-10-01",
+    "notes": "Educational note about Module 275"
+  },
+  {
+    "id": 276,
+    "name": "Module 276",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-10-02",
+    "notes": "Educational note about Module 276"
+  },
+  {
+    "id": 277,
+    "name": "Module 277",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-10-03",
+    "notes": "Educational note about Module 277"
+  },
+  {
+    "id": 278,
+    "name": "Module 278",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-10-04",
+    "notes": "Educational note about Module 278"
+  },
+  {
+    "id": 279,
+    "name": "Module 279",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-10-05",
+    "notes": "Educational note about Module 279"
+  },
+  {
+    "id": 280,
+    "name": "Module 280",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-10-06",
+    "notes": "Educational note about Module 280"
+  },
+  {
+    "id": 281,
+    "name": "Module 281",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-10-07",
+    "notes": "Educational note about Module 281"
+  },
+  {
+    "id": 282,
+    "name": "Module 282",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-10-08",
+    "notes": "Educational note about Module 282"
+  },
+  {
+    "id": 283,
+    "name": "Module 283",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-10-09",
+    "notes": "Educational note about Module 283"
+  },
+  {
+    "id": 284,
+    "name": "Module 284",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-10-10",
+    "notes": "Educational note about Module 284"
+  },
+  {
+    "id": 285,
+    "name": "Module 285",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-10-11",
+    "notes": "Educational note about Module 285"
+  },
+  {
+    "id": 286,
+    "name": "Module 286",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-10-12",
+    "notes": "Educational note about Module 286"
+  },
+  {
+    "id": 287,
+    "name": "Module 287",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-10-13",
+    "notes": "Educational note about Module 287"
+  },
+  {
+    "id": 288,
+    "name": "Module 288",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-10-14",
+    "notes": "Educational note about Module 288"
+  },
+  {
+    "id": 289,
+    "name": "Module 289",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-10-15",
+    "notes": "Educational note about Module 289"
+  },
+  {
+    "id": 290,
+    "name": "Module 290",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-10-16",
+    "notes": "Educational note about Module 290"
+  },
+  {
+    "id": 291,
+    "name": "Module 291",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-10-17",
+    "notes": "Educational note about Module 291"
+  },
+  {
+    "id": 292,
+    "name": "Module 292",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-10-18",
+    "notes": "Educational note about Module 292"
+  },
+  {
+    "id": 293,
+    "name": "Module 293",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-10-19",
+    "notes": "Educational note about Module 293"
+  },
+  {
+    "id": 294,
+    "name": "Module 294",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-10-20",
+    "notes": "Educational note about Module 294"
+  },
+  {
+    "id": 295,
+    "name": "Module 295",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-10-21",
+    "notes": "Educational note about Module 295"
+  },
+  {
+    "id": 296,
+    "name": "Module 296",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-10-22",
+    "notes": "Educational note about Module 296"
+  },
+  {
+    "id": 297,
+    "name": "Module 297",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-10-23",
+    "notes": "Educational note about Module 297"
+  },
+  {
+    "id": 298,
+    "name": "Module 298",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-10-24",
+    "notes": "Educational note about Module 298"
+  },
+  {
+    "id": 299,
+    "name": "Module 299",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-10-25",
+    "notes": "Educational note about Module 299"
+  },
+  {
+    "id": 300,
+    "name": "Module 300",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-10-26",
+    "notes": "Educational note about Module 300"
+  },
+  {
+    "id": 301,
+    "name": "Module 301",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-10-27",
+    "notes": "Educational note about Module 301"
+  },
+  {
+    "id": 302,
+    "name": "Module 302",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-10-28",
+    "notes": "Educational note about Module 302"
+  },
+  {
+    "id": 303,
+    "name": "Module 303",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-10-29",
+    "notes": "Educational note about Module 303"
+  },
+  {
+    "id": 304,
+    "name": "Module 304",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-10-30",
+    "notes": "Educational note about Module 304"
+  },
+  {
+    "id": 305,
+    "name": "Module 305",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-10-31",
+    "notes": "Educational note about Module 305"
+  },
+  {
+    "id": 306,
+    "name": "Module 306",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-11-01",
+    "notes": "Educational note about Module 306"
+  },
+  {
+    "id": 307,
+    "name": "Module 307",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-11-02",
+    "notes": "Educational note about Module 307"
+  },
+  {
+    "id": 308,
+    "name": "Module 308",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-11-03",
+    "notes": "Educational note about Module 308"
+  },
+  {
+    "id": 309,
+    "name": "Module 309",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-11-04",
+    "notes": "Educational note about Module 309"
+  },
+  {
+    "id": 310,
+    "name": "Module 310",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-11-05",
+    "notes": "Educational note about Module 310"
+  },
+  {
+    "id": 311,
+    "name": "Module 311",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-11-06",
+    "notes": "Educational note about Module 311"
+  },
+  {
+    "id": 312,
+    "name": "Module 312",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-11-07",
+    "notes": "Educational note about Module 312"
+  },
+  {
+    "id": 313,
+    "name": "Module 313",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-11-08",
+    "notes": "Educational note about Module 313"
+  },
+  {
+    "id": 314,
+    "name": "Module 314",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-11-09",
+    "notes": "Educational note about Module 314"
+  },
+  {
+    "id": 315,
+    "name": "Module 315",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-11-10",
+    "notes": "Educational note about Module 315"
+  },
+  {
+    "id": 316,
+    "name": "Module 316",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-11-11",
+    "notes": "Educational note about Module 316"
+  },
+  {
+    "id": 317,
+    "name": "Module 317",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-11-12",
+    "notes": "Educational note about Module 317"
+  },
+  {
+    "id": 318,
+    "name": "Module 318",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-11-13",
+    "notes": "Educational note about Module 318"
+  },
+  {
+    "id": 319,
+    "name": "Module 319",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-11-14",
+    "notes": "Educational note about Module 319"
+  },
+  {
+    "id": 320,
+    "name": "Module 320",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-11-15",
+    "notes": "Educational note about Module 320"
+  },
+  {
+    "id": 321,
+    "name": "Module 321",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-11-16",
+    "notes": "Educational note about Module 321"
+  },
+  {
+    "id": 322,
+    "name": "Module 322",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-11-17",
+    "notes": "Educational note about Module 322"
+  },
+  {
+    "id": 323,
+    "name": "Module 323",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-11-18",
+    "notes": "Educational note about Module 323"
+  },
+  {
+    "id": 324,
+    "name": "Module 324",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-11-19",
+    "notes": "Educational note about Module 324"
+  },
+  {
+    "id": 325,
+    "name": "Module 325",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-11-20",
+    "notes": "Educational note about Module 325"
+  },
+  {
+    "id": 326,
+    "name": "Module 326",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-11-21",
+    "notes": "Educational note about Module 326"
+  },
+  {
+    "id": 327,
+    "name": "Module 327",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-11-22",
+    "notes": "Educational note about Module 327"
+  },
+  {
+    "id": 328,
+    "name": "Module 328",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-11-23",
+    "notes": "Educational note about Module 328"
+  },
+  {
+    "id": 329,
+    "name": "Module 329",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-11-24",
+    "notes": "Educational note about Module 329"
+  },
+  {
+    "id": 330,
+    "name": "Module 330",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-11-25",
+    "notes": "Educational note about Module 330"
+  },
+  {
+    "id": 331,
+    "name": "Module 331",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-11-26",
+    "notes": "Educational note about Module 331"
+  },
+  {
+    "id": 332,
+    "name": "Module 332",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-11-27",
+    "notes": "Educational note about Module 332"
+  },
+  {
+    "id": 333,
+    "name": "Module 333",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-11-28",
+    "notes": "Educational note about Module 333"
+  },
+  {
+    "id": 334,
+    "name": "Module 334",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-11-29",
+    "notes": "Educational note about Module 334"
+  },
+  {
+    "id": 335,
+    "name": "Module 335",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-11-30",
+    "notes": "Educational note about Module 335"
+  },
+  {
+    "id": 336,
+    "name": "Module 336",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-12-01",
+    "notes": "Educational note about Module 336"
+  },
+  {
+    "id": 337,
+    "name": "Module 337",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-12-02",
+    "notes": "Educational note about Module 337"
+  },
+  {
+    "id": 338,
+    "name": "Module 338",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-12-03",
+    "notes": "Educational note about Module 338"
+  },
+  {
+    "id": 339,
+    "name": "Module 339",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-12-04",
+    "notes": "Educational note about Module 339"
+  },
+  {
+    "id": 340,
+    "name": "Module 340",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-12-05",
+    "notes": "Educational note about Module 340"
+  },
+  {
+    "id": 341,
+    "name": "Module 341",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-12-06",
+    "notes": "Educational note about Module 341"
+  },
+  {
+    "id": 342,
+    "name": "Module 342",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-12-07",
+    "notes": "Educational note about Module 342"
+  },
+  {
+    "id": 343,
+    "name": "Module 343",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-12-08",
+    "notes": "Educational note about Module 343"
+  },
+  {
+    "id": 344,
+    "name": "Module 344",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-12-09",
+    "notes": "Educational note about Module 344"
+  },
+  {
+    "id": 345,
+    "name": "Module 345",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-12-10",
+    "notes": "Educational note about Module 345"
+  },
+  {
+    "id": 346,
+    "name": "Module 346",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-12-11",
+    "notes": "Educational note about Module 346"
+  },
+  {
+    "id": 347,
+    "name": "Module 347",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-12-12",
+    "notes": "Educational note about Module 347"
+  },
+  {
+    "id": 348,
+    "name": "Module 348",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-12-13",
+    "notes": "Educational note about Module 348"
+  },
+  {
+    "id": 349,
+    "name": "Module 349",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-12-14",
+    "notes": "Educational note about Module 349"
+  },
+  {
+    "id": 350,
+    "name": "Module 350",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-12-15",
+    "notes": "Educational note about Module 350"
+  },
+  {
+    "id": 351,
+    "name": "Module 351",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-12-16",
+    "notes": "Educational note about Module 351"
+  },
+  {
+    "id": 352,
+    "name": "Module 352",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-12-17",
+    "notes": "Educational note about Module 352"
+  },
+  {
+    "id": 353,
+    "name": "Module 353",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-12-18",
+    "notes": "Educational note about Module 353"
+  },
+  {
+    "id": 354,
+    "name": "Module 354",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-12-19",
+    "notes": "Educational note about Module 354"
+  },
+  {
+    "id": 355,
+    "name": "Module 355",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-12-20",
+    "notes": "Educational note about Module 355"
+  },
+  {
+    "id": 356,
+    "name": "Module 356",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-12-21",
+    "notes": "Educational note about Module 356"
+  },
+  {
+    "id": 357,
+    "name": "Module 357",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-12-22",
+    "notes": "Educational note about Module 357"
+  },
+  {
+    "id": 358,
+    "name": "Module 358",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-12-23",
+    "notes": "Educational note about Module 358"
+  },
+  {
+    "id": 359,
+    "name": "Module 359",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-12-24",
+    "notes": "Educational note about Module 359"
+  },
+  {
+    "id": 360,
+    "name": "Module 360",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-12-25",
+    "notes": "Educational note about Module 360"
+  },
+  {
+    "id": 361,
+    "name": "Module 361",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-12-26",
+    "notes": "Educational note about Module 361"
+  },
+  {
+    "id": 362,
+    "name": "Module 362",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2024-12-27",
+    "notes": "Educational note about Module 362"
+  },
+  {
+    "id": 363,
+    "name": "Module 363",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2024-12-28",
+    "notes": "Educational note about Module 363"
+  },
+  {
+    "id": 364,
+    "name": "Module 364",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2024-12-29",
+    "notes": "Educational note about Module 364"
+  },
+  {
+    "id": 365,
+    "name": "Module 365",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2024-12-30",
+    "notes": "Educational note about Module 365"
+  },
+  {
+    "id": 366,
+    "name": "Module 366",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2024-12-31",
+    "notes": "Educational note about Module 366"
+  },
+  {
+    "id": 367,
+    "name": "Module 367",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-01-01",
+    "notes": "Educational note about Module 367"
+  },
+  {
+    "id": 368,
+    "name": "Module 368",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-01-02",
+    "notes": "Educational note about Module 368"
+  },
+  {
+    "id": 369,
+    "name": "Module 369",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-01-03",
+    "notes": "Educational note about Module 369"
+  },
+  {
+    "id": 370,
+    "name": "Module 370",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-01-04",
+    "notes": "Educational note about Module 370"
+  },
+  {
+    "id": 371,
+    "name": "Module 371",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-01-05",
+    "notes": "Educational note about Module 371"
+  },
+  {
+    "id": 372,
+    "name": "Module 372",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-01-06",
+    "notes": "Educational note about Module 372"
+  },
+  {
+    "id": 373,
+    "name": "Module 373",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-01-07",
+    "notes": "Educational note about Module 373"
+  },
+  {
+    "id": 374,
+    "name": "Module 374",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-01-08",
+    "notes": "Educational note about Module 374"
+  },
+  {
+    "id": 375,
+    "name": "Module 375",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-01-09",
+    "notes": "Educational note about Module 375"
+  },
+  {
+    "id": 376,
+    "name": "Module 376",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-01-10",
+    "notes": "Educational note about Module 376"
+  },
+  {
+    "id": 377,
+    "name": "Module 377",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-01-11",
+    "notes": "Educational note about Module 377"
+  },
+  {
+    "id": 378,
+    "name": "Module 378",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-01-12",
+    "notes": "Educational note about Module 378"
+  },
+  {
+    "id": 379,
+    "name": "Module 379",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-01-13",
+    "notes": "Educational note about Module 379"
+  },
+  {
+    "id": 380,
+    "name": "Module 380",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-01-14",
+    "notes": "Educational note about Module 380"
+  },
+  {
+    "id": 381,
+    "name": "Module 381",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-01-15",
+    "notes": "Educational note about Module 381"
+  },
+  {
+    "id": 382,
+    "name": "Module 382",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-01-16",
+    "notes": "Educational note about Module 382"
+  },
+  {
+    "id": 383,
+    "name": "Module 383",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-01-17",
+    "notes": "Educational note about Module 383"
+  },
+  {
+    "id": 384,
+    "name": "Module 384",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-01-18",
+    "notes": "Educational note about Module 384"
+  },
+  {
+    "id": 385,
+    "name": "Module 385",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-01-19",
+    "notes": "Educational note about Module 385"
+  },
+  {
+    "id": 386,
+    "name": "Module 386",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-01-20",
+    "notes": "Educational note about Module 386"
+  },
+  {
+    "id": 387,
+    "name": "Module 387",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-01-21",
+    "notes": "Educational note about Module 387"
+  },
+  {
+    "id": 388,
+    "name": "Module 388",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-01-22",
+    "notes": "Educational note about Module 388"
+  },
+  {
+    "id": 389,
+    "name": "Module 389",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-01-23",
+    "notes": "Educational note about Module 389"
+  },
+  {
+    "id": 390,
+    "name": "Module 390",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-01-24",
+    "notes": "Educational note about Module 390"
+  },
+  {
+    "id": 391,
+    "name": "Module 391",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-01-25",
+    "notes": "Educational note about Module 391"
+  },
+  {
+    "id": 392,
+    "name": "Module 392",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-01-26",
+    "notes": "Educational note about Module 392"
+  },
+  {
+    "id": 393,
+    "name": "Module 393",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-01-27",
+    "notes": "Educational note about Module 393"
+  },
+  {
+    "id": 394,
+    "name": "Module 394",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-01-28",
+    "notes": "Educational note about Module 394"
+  },
+  {
+    "id": 395,
+    "name": "Module 395",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-01-29",
+    "notes": "Educational note about Module 395"
+  },
+  {
+    "id": 396,
+    "name": "Module 396",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-01-30",
+    "notes": "Educational note about Module 396"
+  },
+  {
+    "id": 397,
+    "name": "Module 397",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-01-31",
+    "notes": "Educational note about Module 397"
+  },
+  {
+    "id": 398,
+    "name": "Module 398",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-02-01",
+    "notes": "Educational note about Module 398"
+  },
+  {
+    "id": 399,
+    "name": "Module 399",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-02-02",
+    "notes": "Educational note about Module 399"
+  },
+  {
+    "id": 400,
+    "name": "Module 400",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-02-03",
+    "notes": "Educational note about Module 400"
+  },
+  {
+    "id": 401,
+    "name": "Module 401",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-02-04",
+    "notes": "Educational note about Module 401"
+  },
+  {
+    "id": 402,
+    "name": "Module 402",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-02-05",
+    "notes": "Educational note about Module 402"
+  },
+  {
+    "id": 403,
+    "name": "Module 403",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-02-06",
+    "notes": "Educational note about Module 403"
+  },
+  {
+    "id": 404,
+    "name": "Module 404",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-02-07",
+    "notes": "Educational note about Module 404"
+  },
+  {
+    "id": 405,
+    "name": "Module 405",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-02-08",
+    "notes": "Educational note about Module 405"
+  },
+  {
+    "id": 406,
+    "name": "Module 406",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-02-09",
+    "notes": "Educational note about Module 406"
+  },
+  {
+    "id": 407,
+    "name": "Module 407",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-02-10",
+    "notes": "Educational note about Module 407"
+  },
+  {
+    "id": 408,
+    "name": "Module 408",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-02-11",
+    "notes": "Educational note about Module 408"
+  },
+  {
+    "id": 409,
+    "name": "Module 409",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-02-12",
+    "notes": "Educational note about Module 409"
+  },
+  {
+    "id": 410,
+    "name": "Module 410",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-02-13",
+    "notes": "Educational note about Module 410"
+  },
+  {
+    "id": 411,
+    "name": "Module 411",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-02-14",
+    "notes": "Educational note about Module 411"
+  },
+  {
+    "id": 412,
+    "name": "Module 412",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-02-15",
+    "notes": "Educational note about Module 412"
+  },
+  {
+    "id": 413,
+    "name": "Module 413",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-02-16",
+    "notes": "Educational note about Module 413"
+  },
+  {
+    "id": 414,
+    "name": "Module 414",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-02-17",
+    "notes": "Educational note about Module 414"
+  },
+  {
+    "id": 415,
+    "name": "Module 415",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-02-18",
+    "notes": "Educational note about Module 415"
+  },
+  {
+    "id": 416,
+    "name": "Module 416",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-02-19",
+    "notes": "Educational note about Module 416"
+  },
+  {
+    "id": 417,
+    "name": "Module 417",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-02-20",
+    "notes": "Educational note about Module 417"
+  },
+  {
+    "id": 418,
+    "name": "Module 418",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-02-21",
+    "notes": "Educational note about Module 418"
+  },
+  {
+    "id": 419,
+    "name": "Module 419",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-02-22",
+    "notes": "Educational note about Module 419"
+  },
+  {
+    "id": 420,
+    "name": "Module 420",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-02-23",
+    "notes": "Educational note about Module 420"
+  },
+  {
+    "id": 421,
+    "name": "Module 421",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-02-24",
+    "notes": "Educational note about Module 421"
+  },
+  {
+    "id": 422,
+    "name": "Module 422",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-02-25",
+    "notes": "Educational note about Module 422"
+  },
+  {
+    "id": 423,
+    "name": "Module 423",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-02-26",
+    "notes": "Educational note about Module 423"
+  },
+  {
+    "id": 424,
+    "name": "Module 424",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-02-27",
+    "notes": "Educational note about Module 424"
+  },
+  {
+    "id": 425,
+    "name": "Module 425",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-02-28",
+    "notes": "Educational note about Module 425"
+  },
+  {
+    "id": 426,
+    "name": "Module 426",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-03-01",
+    "notes": "Educational note about Module 426"
+  },
+  {
+    "id": 427,
+    "name": "Module 427",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-03-02",
+    "notes": "Educational note about Module 427"
+  },
+  {
+    "id": 428,
+    "name": "Module 428",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-03-03",
+    "notes": "Educational note about Module 428"
+  },
+  {
+    "id": 429,
+    "name": "Module 429",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-03-04",
+    "notes": "Educational note about Module 429"
+  },
+  {
+    "id": 430,
+    "name": "Module 430",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-03-05",
+    "notes": "Educational note about Module 430"
+  },
+  {
+    "id": 431,
+    "name": "Module 431",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-03-06",
+    "notes": "Educational note about Module 431"
+  },
+  {
+    "id": 432,
+    "name": "Module 432",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-03-07",
+    "notes": "Educational note about Module 432"
+  },
+  {
+    "id": 433,
+    "name": "Module 433",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-03-08",
+    "notes": "Educational note about Module 433"
+  },
+  {
+    "id": 434,
+    "name": "Module 434",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-03-09",
+    "notes": "Educational note about Module 434"
+  },
+  {
+    "id": 435,
+    "name": "Module 435",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-03-10",
+    "notes": "Educational note about Module 435"
+  },
+  {
+    "id": 436,
+    "name": "Module 436",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-03-11",
+    "notes": "Educational note about Module 436"
+  },
+  {
+    "id": 437,
+    "name": "Module 437",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-03-12",
+    "notes": "Educational note about Module 437"
+  },
+  {
+    "id": 438,
+    "name": "Module 438",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-03-13",
+    "notes": "Educational note about Module 438"
+  },
+  {
+    "id": 439,
+    "name": "Module 439",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-03-14",
+    "notes": "Educational note about Module 439"
+  },
+  {
+    "id": 440,
+    "name": "Module 440",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-03-15",
+    "notes": "Educational note about Module 440"
+  },
+  {
+    "id": 441,
+    "name": "Module 441",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-03-16",
+    "notes": "Educational note about Module 441"
+  },
+  {
+    "id": 442,
+    "name": "Module 442",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-03-17",
+    "notes": "Educational note about Module 442"
+  },
+  {
+    "id": 443,
+    "name": "Module 443",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-03-18",
+    "notes": "Educational note about Module 443"
+  },
+  {
+    "id": 444,
+    "name": "Module 444",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-03-19",
+    "notes": "Educational note about Module 444"
+  },
+  {
+    "id": 445,
+    "name": "Module 445",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-03-20",
+    "notes": "Educational note about Module 445"
+  },
+  {
+    "id": 446,
+    "name": "Module 446",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-03-21",
+    "notes": "Educational note about Module 446"
+  },
+  {
+    "id": 447,
+    "name": "Module 447",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-03-22",
+    "notes": "Educational note about Module 447"
+  },
+  {
+    "id": 448,
+    "name": "Module 448",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-03-23",
+    "notes": "Educational note about Module 448"
+  },
+  {
+    "id": 449,
+    "name": "Module 449",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-03-24",
+    "notes": "Educational note about Module 449"
+  },
+  {
+    "id": 450,
+    "name": "Module 450",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-03-25",
+    "notes": "Educational note about Module 450"
+  },
+  {
+    "id": 451,
+    "name": "Module 451",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-03-26",
+    "notes": "Educational note about Module 451"
+  },
+  {
+    "id": 452,
+    "name": "Module 452",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-03-27",
+    "notes": "Educational note about Module 452"
+  },
+  {
+    "id": 453,
+    "name": "Module 453",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-03-28",
+    "notes": "Educational note about Module 453"
+  },
+  {
+    "id": 454,
+    "name": "Module 454",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-03-29",
+    "notes": "Educational note about Module 454"
+  },
+  {
+    "id": 455,
+    "name": "Module 455",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-03-30",
+    "notes": "Educational note about Module 455"
+  },
+  {
+    "id": 456,
+    "name": "Module 456",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-03-31",
+    "notes": "Educational note about Module 456"
+  },
+  {
+    "id": 457,
+    "name": "Module 457",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-04-01",
+    "notes": "Educational note about Module 457"
+  },
+  {
+    "id": 458,
+    "name": "Module 458",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-04-02",
+    "notes": "Educational note about Module 458"
+  },
+  {
+    "id": 459,
+    "name": "Module 459",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-04-03",
+    "notes": "Educational note about Module 459"
+  },
+  {
+    "id": 460,
+    "name": "Module 460",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-04-04",
+    "notes": "Educational note about Module 460"
+  },
+  {
+    "id": 461,
+    "name": "Module 461",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-04-05",
+    "notes": "Educational note about Module 461"
+  },
+  {
+    "id": 462,
+    "name": "Module 462",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-04-06",
+    "notes": "Educational note about Module 462"
+  },
+  {
+    "id": 463,
+    "name": "Module 463",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-04-07",
+    "notes": "Educational note about Module 463"
+  },
+  {
+    "id": 464,
+    "name": "Module 464",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-04-08",
+    "notes": "Educational note about Module 464"
+  },
+  {
+    "id": 465,
+    "name": "Module 465",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-04-09",
+    "notes": "Educational note about Module 465"
+  },
+  {
+    "id": 466,
+    "name": "Module 466",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-04-10",
+    "notes": "Educational note about Module 466"
+  },
+  {
+    "id": 467,
+    "name": "Module 467",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-04-11",
+    "notes": "Educational note about Module 467"
+  },
+  {
+    "id": 468,
+    "name": "Module 468",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-04-12",
+    "notes": "Educational note about Module 468"
+  },
+  {
+    "id": 469,
+    "name": "Module 469",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-04-13",
+    "notes": "Educational note about Module 469"
+  },
+  {
+    "id": 470,
+    "name": "Module 470",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-04-14",
+    "notes": "Educational note about Module 470"
+  },
+  {
+    "id": 471,
+    "name": "Module 471",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-04-15",
+    "notes": "Educational note about Module 471"
+  },
+  {
+    "id": 472,
+    "name": "Module 472",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-04-16",
+    "notes": "Educational note about Module 472"
+  },
+  {
+    "id": 473,
+    "name": "Module 473",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-04-17",
+    "notes": "Educational note about Module 473"
+  },
+  {
+    "id": 474,
+    "name": "Module 474",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-04-18",
+    "notes": "Educational note about Module 474"
+  },
+  {
+    "id": 475,
+    "name": "Module 475",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-04-19",
+    "notes": "Educational note about Module 475"
+  },
+  {
+    "id": 476,
+    "name": "Module 476",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-04-20",
+    "notes": "Educational note about Module 476"
+  },
+  {
+    "id": 477,
+    "name": "Module 477",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-04-21",
+    "notes": "Educational note about Module 477"
+  },
+  {
+    "id": 478,
+    "name": "Module 478",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-04-22",
+    "notes": "Educational note about Module 478"
+  },
+  {
+    "id": 479,
+    "name": "Module 479",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-04-23",
+    "notes": "Educational note about Module 479"
+  },
+  {
+    "id": 480,
+    "name": "Module 480",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-04-24",
+    "notes": "Educational note about Module 480"
+  },
+  {
+    "id": 481,
+    "name": "Module 481",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-04-25",
+    "notes": "Educational note about Module 481"
+  },
+  {
+    "id": 482,
+    "name": "Module 482",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-04-26",
+    "notes": "Educational note about Module 482"
+  },
+  {
+    "id": 483,
+    "name": "Module 483",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-04-27",
+    "notes": "Educational note about Module 483"
+  },
+  {
+    "id": 484,
+    "name": "Module 484",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-04-28",
+    "notes": "Educational note about Module 484"
+  },
+  {
+    "id": 485,
+    "name": "Module 485",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-04-29",
+    "notes": "Educational note about Module 485"
+  },
+  {
+    "id": 486,
+    "name": "Module 486",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-04-30",
+    "notes": "Educational note about Module 486"
+  },
+  {
+    "id": 487,
+    "name": "Module 487",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-05-01",
+    "notes": "Educational note about Module 487"
+  },
+  {
+    "id": 488,
+    "name": "Module 488",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-05-02",
+    "notes": "Educational note about Module 488"
+  },
+  {
+    "id": 489,
+    "name": "Module 489",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-05-03",
+    "notes": "Educational note about Module 489"
+  },
+  {
+    "id": 490,
+    "name": "Module 490",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-05-04",
+    "notes": "Educational note about Module 490"
+  },
+  {
+    "id": 491,
+    "name": "Module 491",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-05-05",
+    "notes": "Educational note about Module 491"
+  },
+  {
+    "id": 492,
+    "name": "Module 492",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-05-06",
+    "notes": "Educational note about Module 492"
+  },
+  {
+    "id": 493,
+    "name": "Module 493",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-05-07",
+    "notes": "Educational note about Module 493"
+  },
+  {
+    "id": 494,
+    "name": "Module 494",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-05-08",
+    "notes": "Educational note about Module 494"
+  },
+  {
+    "id": 495,
+    "name": "Module 495",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-05-09",
+    "notes": "Educational note about Module 495"
+  },
+  {
+    "id": 496,
+    "name": "Module 496",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-05-10",
+    "notes": "Educational note about Module 496"
+  },
+  {
+    "id": 497,
+    "name": "Module 497",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-05-11",
+    "notes": "Educational note about Module 497"
+  },
+  {
+    "id": 498,
+    "name": "Module 498",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-05-12",
+    "notes": "Educational note about Module 498"
+  },
+  {
+    "id": 499,
+    "name": "Module 499",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-05-13",
+    "notes": "Educational note about Module 499"
+  },
+  {
+    "id": 500,
+    "name": "Module 500",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-05-14",
+    "notes": "Educational note about Module 500"
+  },
+  {
+    "id": 501,
+    "name": "Module 501",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-05-15",
+    "notes": "Educational note about Module 501"
+  },
+  {
+    "id": 502,
+    "name": "Module 502",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-05-16",
+    "notes": "Educational note about Module 502"
+  },
+  {
+    "id": 503,
+    "name": "Module 503",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-05-17",
+    "notes": "Educational note about Module 503"
+  },
+  {
+    "id": 504,
+    "name": "Module 504",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-05-18",
+    "notes": "Educational note about Module 504"
+  },
+  {
+    "id": 505,
+    "name": "Module 505",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-05-19",
+    "notes": "Educational note about Module 505"
+  },
+  {
+    "id": 506,
+    "name": "Module 506",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-05-20",
+    "notes": "Educational note about Module 506"
+  },
+  {
+    "id": 507,
+    "name": "Module 507",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-05-21",
+    "notes": "Educational note about Module 507"
+  },
+  {
+    "id": 508,
+    "name": "Module 508",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-05-22",
+    "notes": "Educational note about Module 508"
+  },
+  {
+    "id": 509,
+    "name": "Module 509",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-05-23",
+    "notes": "Educational note about Module 509"
+  },
+  {
+    "id": 510,
+    "name": "Module 510",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-05-24",
+    "notes": "Educational note about Module 510"
+  },
+  {
+    "id": 511,
+    "name": "Module 511",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-05-25",
+    "notes": "Educational note about Module 511"
+  },
+  {
+    "id": 512,
+    "name": "Module 512",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-05-26",
+    "notes": "Educational note about Module 512"
+  },
+  {
+    "id": 513,
+    "name": "Module 513",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-05-27",
+    "notes": "Educational note about Module 513"
+  },
+  {
+    "id": 514,
+    "name": "Module 514",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-05-28",
+    "notes": "Educational note about Module 514"
+  },
+  {
+    "id": 515,
+    "name": "Module 515",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-05-29",
+    "notes": "Educational note about Module 515"
+  },
+  {
+    "id": 516,
+    "name": "Module 516",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-05-30",
+    "notes": "Educational note about Module 516"
+  },
+  {
+    "id": 517,
+    "name": "Module 517",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-05-31",
+    "notes": "Educational note about Module 517"
+  },
+  {
+    "id": 518,
+    "name": "Module 518",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-06-01",
+    "notes": "Educational note about Module 518"
+  },
+  {
+    "id": 519,
+    "name": "Module 519",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-06-02",
+    "notes": "Educational note about Module 519"
+  },
+  {
+    "id": 520,
+    "name": "Module 520",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-06-03",
+    "notes": "Educational note about Module 520"
+  },
+  {
+    "id": 521,
+    "name": "Module 521",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-06-04",
+    "notes": "Educational note about Module 521"
+  },
+  {
+    "id": 522,
+    "name": "Module 522",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-06-05",
+    "notes": "Educational note about Module 522"
+  },
+  {
+    "id": 523,
+    "name": "Module 523",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-06-06",
+    "notes": "Educational note about Module 523"
+  },
+  {
+    "id": 524,
+    "name": "Module 524",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-06-07",
+    "notes": "Educational note about Module 524"
+  },
+  {
+    "id": 525,
+    "name": "Module 525",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-06-08",
+    "notes": "Educational note about Module 525"
+  },
+  {
+    "id": 526,
+    "name": "Module 526",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-06-09",
+    "notes": "Educational note about Module 526"
+  },
+  {
+    "id": 527,
+    "name": "Module 527",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-06-10",
+    "notes": "Educational note about Module 527"
+  },
+  {
+    "id": 528,
+    "name": "Module 528",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-06-11",
+    "notes": "Educational note about Module 528"
+  },
+  {
+    "id": 529,
+    "name": "Module 529",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-06-12",
+    "notes": "Educational note about Module 529"
+  },
+  {
+    "id": 530,
+    "name": "Module 530",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-06-13",
+    "notes": "Educational note about Module 530"
+  },
+  {
+    "id": 531,
+    "name": "Module 531",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-06-14",
+    "notes": "Educational note about Module 531"
+  },
+  {
+    "id": 532,
+    "name": "Module 532",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-06-15",
+    "notes": "Educational note about Module 532"
+  },
+  {
+    "id": 533,
+    "name": "Module 533",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-06-16",
+    "notes": "Educational note about Module 533"
+  },
+  {
+    "id": 534,
+    "name": "Module 534",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-06-17",
+    "notes": "Educational note about Module 534"
+  },
+  {
+    "id": 535,
+    "name": "Module 535",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-06-18",
+    "notes": "Educational note about Module 535"
+  },
+  {
+    "id": 536,
+    "name": "Module 536",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-06-19",
+    "notes": "Educational note about Module 536"
+  },
+  {
+    "id": 537,
+    "name": "Module 537",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-06-20",
+    "notes": "Educational note about Module 537"
+  },
+  {
+    "id": 538,
+    "name": "Module 538",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-06-21",
+    "notes": "Educational note about Module 538"
+  },
+  {
+    "id": 539,
+    "name": "Module 539",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-06-22",
+    "notes": "Educational note about Module 539"
+  },
+  {
+    "id": 540,
+    "name": "Module 540",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-06-23",
+    "notes": "Educational note about Module 540"
+  },
+  {
+    "id": 541,
+    "name": "Module 541",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-06-24",
+    "notes": "Educational note about Module 541"
+  },
+  {
+    "id": 542,
+    "name": "Module 542",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-06-25",
+    "notes": "Educational note about Module 542"
+  },
+  {
+    "id": 543,
+    "name": "Module 543",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-06-26",
+    "notes": "Educational note about Module 543"
+  },
+  {
+    "id": 544,
+    "name": "Module 544",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-06-27",
+    "notes": "Educational note about Module 544"
+  },
+  {
+    "id": 545,
+    "name": "Module 545",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-06-28",
+    "notes": "Educational note about Module 545"
+  },
+  {
+    "id": 546,
+    "name": "Module 546",
+    "tags": [
+      "exploit",
+      "auxiliary"
+    ],
+    "date": "2025-06-29",
+    "notes": "Educational note about Module 546"
+  },
+  {
+    "id": 547,
+    "name": "Module 547",
+    "tags": [
+      "auxiliary",
+      "post"
+    ],
+    "date": "2025-06-30",
+    "notes": "Educational note about Module 547"
+  },
+  {
+    "id": 548,
+    "name": "Module 548",
+    "tags": [
+      "post",
+      "scanner"
+    ],
+    "date": "2025-07-01",
+    "notes": "Educational note about Module 548"
+  },
+  {
+    "id": 549,
+    "name": "Module 549",
+    "tags": [
+      "scanner",
+      "dos"
+    ],
+    "date": "2025-07-02",
+    "notes": "Educational note about Module 549"
+  },
+  {
+    "id": 550,
+    "name": "Module 550",
+    "tags": [
+      "dos",
+      "exploit"
+    ],
+    "date": "2025-07-03",
+    "notes": "Educational note about Module 550"
+  }
+]

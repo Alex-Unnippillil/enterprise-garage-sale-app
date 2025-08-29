@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 
 // Mock external services
-jest.mock("../utils/s3Upload", () => ({ uploadFilesToS3: jest.fn() }));
-jest.mock("../utils/geocodeAddress", () => ({ geocodeAddress: jest.fn() }));
+jest.mock("../utils/s3-upload", () => ({ uploadFilesToS3: jest.fn() }));
+jest.mock("../utils/geocode-address", () => ({ geocodeAddress: jest.fn() }));
 
 const mockPrisma = {
   tenant: {
@@ -21,7 +21,7 @@ jest.mock("@prisma/client", () => ({
 }));
 
 import prisma from "../utils/prisma";
-import { getTenant, createTenant } from "../controllers/tenant-controllers";
+import { getTenant, createTenant, updateTenant } from "../controllers/tenant-controllers";
 
 const createMockRes = () => {
   const res: Partial<Response> = {};
@@ -58,10 +58,49 @@ describe("tenantControllers", () => {
     expect(res.json).toHaveBeenCalledWith({ message: "Tenant not found" });
   });
 
+  it("updates tenant with provided fields", async () => {
+    mockPrisma.tenant.update.mockResolvedValue({
+      cognitoId: "abc",
+      name: "New Name",
+    });
+    const req = {
+      params: { cognitoId: "abc" },
+      body: { name: "New Name" },
+    } as unknown as Request;
+    const res = createMockRes();
+
+    await updateTenant(req, res, next);
+
+    expect(mockPrisma.tenant.update).toHaveBeenCalledWith({
+      where: { cognitoId: "abc" },
+      data: { name: "New Name" },
+    });
+    expect(res.json).toHaveBeenCalledWith({ cognitoId: "abc", name: "New Name" });
+  });
+
+  it("returns 400 when no update fields provided", async () => {
+    const req = {
+      params: { cognitoId: "abc" },
+      body: {},
+    } as unknown as Request;
+    const res = createMockRes();
+
+    await updateTenant(req, res, next);
+
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({ message: "No fields provided" });
+    expect(mockPrisma.tenant.update).not.toHaveBeenCalled();
+  });
+
   it("calls next on create error", async () => {
     mockPrisma.tenant.create.mockRejectedValue(new Error("fail"));
     const req = {
-      body: { cognitoId: "1", name: "a", email: "e", phoneNumber: "p" },
+      body: {
+        cognitoId: "1",
+        name: "a",
+        email: "e@example.com",
+        phoneNumber: "1234567890",
+      },
     } as unknown as Request;
     const res = createMockRes();
     const localNext = jest.fn();

@@ -65,15 +65,14 @@ export const updateManager = async (
       res.status(400).json({ errors: parsed.error.errors });
       return;
     }
-    const { name, email, phoneNumber } = parsed.data;
+    if (Object.keys(parsed.data).length === 0) {
+      res.status(400).json({ message: "No fields provided" });
+      return;
+    }
 
     const updatedManager = await prisma.manager.update({
       where: { cognitoId },
-      data: {
-        name,
-        email,
-        phoneNumber,
-      },
+      data: parsed.data,
     });
 
     res.json(updatedManager);

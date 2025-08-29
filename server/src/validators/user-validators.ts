@@ -7,9 +7,5 @@ export const createUserSchema = z.object({
   phoneNumber: z.string().min(10),
 });
 
-export const updateUserSchema = z.object({
-  name: z.string(),
-  email: z.string().email(),
-  phoneNumber: z.string().min(10),
-});
+export const updateUserSchema = createUserSchema.partial();
 

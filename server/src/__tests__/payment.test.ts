@@ -10,11 +10,20 @@ const mockPrisma = {
   $disconnect: jest.fn(),
 };
 
+const mockPaymentStatus = {
+  Pending: 'Pending',
+  Paid: 'Paid',
+  PartiallyPaid: 'PartiallyPaid',
+  Overdue: 'Overdue',
+};
+
 jest.mock('@prisma/client', () => ({
   PrismaClient: jest.fn(() => mockPrisma),
   Prisma: { join: jest.fn() },
+  PaymentStatus: mockPaymentStatus,
 }));
 
+const { PaymentStatus } = require('@prisma/client');
 const prisma = require('../utils/prisma').default;
 const { createPayment, updatePayment } = require('../controllers/lease-controllers');
 
@@ -47,6 +56,7 @@ describe('Payment API', () => {
       amountDue: 100,
       amountPaid: 50,
       leaseId: 1,
+      paymentStatus: PaymentStatus.Pending,
     });
 
     const res = await request(app)
@@ -59,6 +69,7 @@ describe('Payment API', () => {
         leaseId: 1,
         amountDue: 100,
         amountPaid: 50,
+        paymentStatus: PaymentStatus.Pending,
       }),
     });
   });
@@ -76,9 +87,12 @@ describe('Payment API', () => {
       amountDue: 100,
       amountPaid: 75,
       leaseId: 1,
+      paymentStatus: PaymentStatus.Paid,
     });
 
-    const res = await request(app).put('/leases/payments/1').send({ amountPaid: 75 });
+    const res = await request(app)
+      .put('/leases/payments/1')
+      .send({ amountPaid: 75, paymentStatus: PaymentStatus.Paid });
 
     expect(res.status).toBe(200);
     expect(res.body).toEqual({
@@ -86,10 +100,11 @@ describe('Payment API', () => {
       amountDue: 100,
       amountPaid: 75,
       leaseId: 1,
+      paymentStatus: PaymentStatus.Paid,
     });
     expect(mockPrisma.payment.update).toHaveBeenCalledWith({
       where: { id: 1 },
-      data: { amountPaid: 75 },
+      data: { amountPaid: 75, paymentStatus: PaymentStatus.Paid },
     });
   });
 

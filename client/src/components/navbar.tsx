@@ -101,6 +101,12 @@ const Navbar = () => {
         )}
         <div className="flex items-center gap-5">
           <ThemeToggle />
+          <Link
+            href="/devices"
+            className="text-primary-200 hover:text-primary-400 hidden md:block"
+          >
+            Devices
+          </Link>
           {authUser ? (
             <>
               <div className="relative hidden md:block">

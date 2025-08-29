@@ -186,7 +186,11 @@ const AdvancedSearch: React.FC<AdvancedSearchProps> = ({ onSearch, className }) 
               {/* Property Type */}
               <FilterSection title="Property Type">
                 <Select
-                  value={localFilters.propertyType}
+                  value={
+                    localFilters.propertyType.includes(",")
+                      ? "any"
+                      : localFilters.propertyType
+                  }
                   onValueChange={(value) => handleFilterChange("propertyType", value)}
                 >
                   <SelectTrigger>

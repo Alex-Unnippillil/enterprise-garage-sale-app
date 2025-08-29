@@ -8,7 +8,12 @@ import { cleanParams, cn, formatEnumString } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Search } from "lucide-react";
-import { AmenityIcons, PropertyTypeIcons } from "@/lib/constants";
+import {
+  AmenityIcons,
+  PropertyTypeIcons,
+  PropertyTypeEnum,
+  AmenityEnum,
+} from "@/lib/constants";
 import { Slider } from "@/components/ui/slider";
 import {
   Select,
@@ -64,6 +69,25 @@ const FiltersFull = () => {
     }));
   };
 
+  const selectedPropertyTypes =
+    localFilters.propertyType === "any"
+      ? []
+      : localFilters.propertyType.split(",");
+
+  const handlePropertyTypeToggle = (type: PropertyTypeEnum) => {
+    setLocalFilters((prev) => {
+      const current =
+        prev.propertyType === "any" ? [] : prev.propertyType.split(",");
+      const updated = current.includes(type)
+        ? current.filter((t) => t !== type)
+        : [...current, type];
+      return {
+        ...prev,
+        propertyType: updated.length ? updated.join(",") : "any",
+      };
+    });
+  };
+
   const handleLocationSearch = async () => {
     try {
       const response = await fetch(
@@ -117,26 +141,24 @@ const FiltersFull = () => {
         <div>
           <h4 className="font-bold mb-2">Property Type</h4>
           <div className="grid grid-cols-2 gap-4">
-            {Object.entries(PropertyTypeIcons).map(([type, Icon]) => (
-              <div
-                key={type}
-                className={cn(
-                  "flex flex-col items-center justify-center p-4 border rounded-xl cursor-pointer",
-                  localFilters.propertyType === type
-                    ? "border-black"
-                    : "border-gray-200"
-                )}
-                onClick={() =>
-                  setLocalFilters((prev) => ({
-                    ...prev,
-                    propertyType: type as PropertyTypeEnum,
-                  }))
-                }
-              >
-                <Icon className="w-6 h-6 mb-2" />
-                <span>{type}</span>
-              </div>
-            ))}
+            {Object.entries(PropertyTypeIcons).map(([type, Icon]) => {
+              const isSelected = selectedPropertyTypes.includes(type);
+              return (
+                <div
+                  key={type}
+                  className={cn(
+                    "flex flex-col items-center justify-center p-4 border rounded-xl cursor-pointer",
+                    isSelected ? "border-black" : "border-gray-200"
+                  )}
+                  onClick={() =>
+                    handlePropertyTypeToggle(type as PropertyTypeEnum)
+                  }
+                >
+                  <Icon className="w-6 h-6 mb-2" />
+                  <span>{type}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
 

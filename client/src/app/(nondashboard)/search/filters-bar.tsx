@@ -214,7 +214,11 @@ const FiltersBar = () => {
 
         {/* Property Type */}
         <Select
-          value={filters.propertyType || "any"}
+          value={
+            filters.propertyType.includes(",")
+              ? "any"
+              : filters.propertyType || "any"
+          }
           onValueChange={(value) =>
             handleFilterChange("propertyType", value, null)
           }

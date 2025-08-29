@@ -28,6 +28,15 @@ describe("buildPropertyFilters", () => {
     expect(filters.propertyType).toBe(PropertyType.Apartment);
   });
 
+  it("handles multiple property types", () => {
+    const filters = buildPropertyFilters({
+      propertyType: `${PropertyType.Apartment},${PropertyType.Villa}`,
+    });
+    expect(filters.propertyType).toEqual({
+      in: [PropertyType.Apartment, PropertyType.Villa],
+    });
+  });
+
   it("handles amenities", () => {
     const filters = buildPropertyFilters({ amenities: `${Amenity.WasherDryer},${Amenity.Gym}` });
     expect(filters.amenities).toEqual({ hasEvery: [Amenity.WasherDryer, Amenity.Gym] });

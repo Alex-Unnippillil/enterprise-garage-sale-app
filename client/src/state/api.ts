@@ -326,10 +326,10 @@ export const api = createApi({
 
     createPayment: build.mutation<
       Payment,
-      { leaseId: number } & Partial<Payment>
+      { leaseId?: number; id?: number } & Partial<Payment>
     >({
-      query: ({ leaseId, ...body }) => ({
-        url: `leases/${leaseId}/payments`,
+      query: ({ leaseId, id, ...body }) => ({
+        url: `leases/${leaseId ?? id}/payments`,
         method: 'POST',
         body,
       }),

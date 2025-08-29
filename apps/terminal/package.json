@@ -1,0 +1,13 @@
+{
+  "name": "terminal-app",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "ts-node -O '{\"module\":\"commonjs\"}' process.test.ts"
+  },
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.0"
+  }
+}

@@ -99,8 +99,15 @@ export const createApplication = async (
       message,
     } = req.body;
 
+    const propertyIdNumber = Number(propertyId);
+
+    if (isNaN(propertyIdNumber)) {
+      res.status(400).json({ message: "Invalid property ID" });
+      return;
+    }
+
     const property = await prisma.property.findUnique({
-      where: { id: propertyId },
+      where: { id: propertyIdNumber },
       select: { pricePerMonth: true, securityDeposit: true },
     });
 
@@ -120,7 +127,7 @@ export const createApplication = async (
           rent: property.pricePerMonth,
           deposit: property.securityDeposit,
           property: {
-            connect: { id: propertyId },
+            connect: { id: propertyIdNumber },
           },
           tenant: {
             connect: { cognitoId: tenantCognitoId },
@@ -138,7 +145,7 @@ export const createApplication = async (
           phoneNumber,
           message,
           property: {
-            connect: { id: propertyId },
+            connect: { id: propertyIdNumber },
           },
           tenant: {
             connect: { cognitoId: tenantCognitoId },

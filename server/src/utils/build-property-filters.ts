@@ -63,7 +63,9 @@ export const buildPropertyFilters = (
   }
 
   if (propertyType && propertyType !== "any") {
-    filters.propertyType = propertyType as any;
+    const types = propertyType.split(",");
+    filters.propertyType =
+      types.length > 1 ? ({ in: types } as any) : (types[0] as any);
   }
 
   if (amenities && amenities !== "any") {

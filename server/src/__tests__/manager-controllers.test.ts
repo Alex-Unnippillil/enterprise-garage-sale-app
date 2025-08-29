@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 
 // Mock external services
-jest.mock("../utils/s3Upload", () => ({ uploadFilesToS3: jest.fn() }));
-jest.mock("../utils/geocodeAddress", () => ({ geocodeAddress: jest.fn() }));
+jest.mock("../utils/s3-upload", () => ({ uploadFilesToS3: jest.fn() }));
+jest.mock("../utils/geocode-address", () => ({ geocodeAddress: jest.fn() }));
 
 jest.mock("@terraformer/wkt", () => ({
   wktToGeoJSON: jest.fn().mockReturnValue({ coordinates: [1, 2] }),
@@ -25,7 +25,11 @@ jest.mock("@prisma/client", () => ({
 }));
 
 import prisma from "../utils/prisma";
-import { getManager, getManagerProperties } from "../controllers/manager-controllers";
+import {
+  getManager,
+  getManagerProperties,
+  updateManager,
+} from "../controllers/manager-controllers";
 
 const createMockRes = () => {
   const res: Partial<Response> = {};
@@ -60,6 +64,40 @@ describe("managerControllers", () => {
 
     expect(res.status).toHaveBeenCalledWith(404);
     expect(res.json).toHaveBeenCalledWith({ message: "Manager not found" });
+  });
+
+  it("updates manager with provided fields", async () => {
+    mockPrisma.manager.update.mockResolvedValue({
+      cognitoId: "m1",
+      name: "New Name",
+    });
+    const req = {
+      params: { cognitoId: "m1" },
+      body: { name: "New Name" },
+    } as unknown as Request;
+    const res = createMockRes();
+
+    await updateManager(req, res, next);
+
+    expect(mockPrisma.manager.update).toHaveBeenCalledWith({
+      where: { cognitoId: "m1" },
+      data: { name: "New Name" },
+    });
+    expect(res.json).toHaveBeenCalledWith({ cognitoId: "m1", name: "New Name" });
+  });
+
+  it("returns 400 when no update fields provided", async () => {
+    const req = {
+      params: { cognitoId: "m1" },
+      body: {},
+    } as unknown as Request;
+    const res = createMockRes();
+
+    await updateManager(req, res, next);
+
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({ message: "No fields provided" });
+    expect(mockPrisma.manager.update).not.toHaveBeenCalled();
   });
 
   it("lists manager properties with coordinates", async () => {

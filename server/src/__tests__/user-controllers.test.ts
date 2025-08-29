@@ -54,21 +54,20 @@ describe("Tenant validation", () => {
     expect(mockPrisma.tenant.create).not.toHaveBeenCalled();
   });
 
-  it("updates tenant with valid payload", async () => {
+  it("updates tenant with partial payload", async () => {
     mockPrisma.tenant.update.mockResolvedValue({ id: 1 });
-    const res = await request(app).put("/tenants/abc").send({
-      name: "Jane Doe",
-      email: "jane@example.com",
-      phoneNumber: "0987654321",
-    });
+    const res = await request(app)
+      .put("/tenants/abc")
+      .send({ name: "Jane Doe" });
     expect(res.status).toBe(200);
-    expect(mockPrisma.tenant.update).toHaveBeenCalled();
+    expect(mockPrisma.tenant.update).toHaveBeenCalledWith({
+      where: { cognitoId: "abc" },
+      data: { name: "Jane Doe" },
+    });
   });
 
-  it("returns 400 for invalid tenant update", async () => {
-    const res = await request(app).put("/tenants/abc").send({
-      name: "Jane Doe",
-    });
+  it("returns 400 when no tenant fields provided", async () => {
+    const res = await request(app).put("/tenants/abc").send({});
     expect(res.status).toBe(400);
     expect(mockPrisma.tenant.update).not.toHaveBeenCalled();
   });
@@ -101,21 +100,20 @@ describe("Manager validation", () => {
     expect(mockPrisma.manager.create).not.toHaveBeenCalled();
   });
 
-  it("updates manager with valid payload", async () => {
+  it("updates manager with partial payload", async () => {
     mockPrisma.manager.update.mockResolvedValue({ id: 1 });
-    const res = await request(app).put("/managers/abc").send({
-      name: "Jane Manager",
-      email: "jane.manager@example.com",
-      phoneNumber: "0987654321",
-    });
+    const res = await request(app)
+      .put("/managers/abc")
+      .send({ name: "Jane Manager" });
     expect(res.status).toBe(200);
-    expect(mockPrisma.manager.update).toHaveBeenCalled();
+    expect(mockPrisma.manager.update).toHaveBeenCalledWith({
+      where: { cognitoId: "abc" },
+      data: { name: "Jane Manager" },
+    });
   });
 
-  it("returns 400 for invalid manager update", async () => {
-    const res = await request(app).put("/managers/abc").send({
-      name: "Jane Manager",
-    });
+  it("returns 400 when no manager fields provided", async () => {
+    const res = await request(app).put("/managers/abc").send({});
     expect(res.status).toBe(400);
     expect(mockPrisma.manager.update).not.toHaveBeenCalled();
   });

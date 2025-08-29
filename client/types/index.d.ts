@@ -89,7 +89,7 @@ declare global {
     propertyId: number;
   }
 
-  interface ApplicationCardProps {
+interface ApplicationCardProps {
     application: Application;
     userType: "manager" | "renter";
     children: React.ReactNode;
@@ -134,6 +134,10 @@ declare global {
     cognitoInfo: AuthUser;
     userInfo: Tenant | Manager;
     userRole: JsonObject | JsonPrimitive | JsonArray;
+  }
+  interface Window {
+    Ghidra?: any;
+    capstone?: any;
   }
 }
 

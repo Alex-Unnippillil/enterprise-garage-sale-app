@@ -1,5 +1,6 @@
-import Navbar from "@/components/navbar";
-import Landing from "./(nondashboard)/landing/page";
+import Navbar from '@/components/navbar';
+import Landing from './(nondashboard)/landing/page';
+import DocPiP from '@/components/doc-pip';
 
 export default function Home() {
   return (
@@ -7,6 +8,7 @@ export default function Home() {
       <Navbar />
       <main className={`h-full flex w-full flex-col`}>
         <Landing />
+        <DocPiP />
       </main>
     </div>
   );

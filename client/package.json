@@ -42,6 +42,8 @@
     "@radix-ui/react-tooltip": "^1.1.7",
     "@reduxjs/toolkit": "^2.5.1",
     "@terraformer/wkt": "^2.2.1",
+    "@zxing/browser": "^0.1.5",
+    "@zxing/library": "^0.21.3",
     "aws-amplify": "^6.12.2",
     "axios": "^1.11.0",
     "class-variance-authority": "^0.7.1",

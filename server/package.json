@@ -25,7 +25,7 @@
   },
   "description": "",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.876.0",
+    "@aws-sdk/client-s3": "^3.892.0",
     "@aws-sdk/lib-storage": "^3.856.0",
     "@prisma/client": "^6.15.0",
     "@terraformer/wkt": "^2.2.1",

@@ -50,7 +50,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.0.0",
     "date-fns": "^4.1.0",
-    "dotenv": "^16.6.1",
+    "dotenv": "^17.2.3",
     "filepond": "^4.32.8",
     "filepond-plugin-image-exif-orientation": "^1.0.11",
     "filepond-plugin-image-preview": "^4.6.12",

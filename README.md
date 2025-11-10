@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository contains an enterprise-grade real estate marketplace that lets users list and browse properties. It is split into a **Next.js** client for the user interface and an **Express** API backed by **PostgreSQL** via **Prisma**.
+This repository contains an enterprise-grade Garage marketplace that lets users list and browse properties. It is split into a **Next.js** client for the user interface and an **Express** API backed by **PostgreSQL** via **Prisma**.
 
 ## Tech Stack
 
